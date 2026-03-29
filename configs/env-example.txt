@@ -1,0 +1,24 @@
+# PaperRAG secrets belong in environment variables, not in configs/settings.yaml.
+
+# Required for outline generation, retrieval, and review writing.
+# PowerShell:
+#   $env:DEEPSEEK_API_KEY="your_api_key"
+#   $env:DASHSCOPE_API_KEY="your_api_key"
+#
+# Bash:
+#   export DEEPSEEK_API_KEY="your_api_key"
+#   export DASHSCOPE_API_KEY="your_api_key"
+
+# Optional override for the DeepSeek-compatible endpoint.
+#   $env:DEEPSEEK_BASE_URL="https://api.deepseek.com/v1"
+
+# Required only when parsing PDFs with MinerU.
+#   $env:MINERU_API_KEY="your_api_key"
+
+# Optional pipeline overrides.
+#   $env:PARALLEL_BODY_WRITING="1"
+#   $env:BODY_CHAPTER_MAX_WORKERS="5"
+#   $env:EMBEDDING_DIMENSION="1024"
+#   $env:TEMPERATURE_CHAPTER="0.2"
+#   $env:TEMPERATURE_FINAL_PASS="0.2"
+#   $env:MIN_PAPERS_FOR_REVIEW="15"

@@ -1,0 +1,38 @@
+# Non-secret runtime settings for PaperRAG.
+# API keys must stay in environment variables:
+# DEEPSEEK_API_KEY, DASHSCOPE_API_KEY, MINERU_API_KEY
+
+project:
+  name: PaperRAG
+
+paths:
+  papers_dir: ./data/papers
+  processed_dir: ./data/processed_papers
+  database_dir: ./data/database
+  outlines_dir: ./data/outlines
+  outputs_dir: ./data/review_outputs
+
+models:
+  llm_model: deepseek-chat
+  deepseek_base_url: https://api.deepseek.com/v1
+  embedding_model: qwen3-vl-embedding
+  embedding_dimension: 1024
+  rerank_model: qwen3-vl-rerank
+
+pipeline:
+  parallel_body_writing: true
+  max_workers: 5
+  top_k_recall: 20
+  outline_query_count: 5
+  min_papers_for_review: 15
+  temperature_chapter: 0.2
+  temperature_final_pass: 0.2
+  max_cites_per_sentence: 3
+  previous_recap_chars: 1200
+
+mineru:
+  upload_url: https://mineru.net/api/v4/file-urls/batch
+  result_url_template: https://mineru.net/api/v4/extract-results/batch/{}
+  poll_interval: 5
+  max_wait_time: 300
+  model_version: vlm
