@@ -1,0 +1,292 @@
+{
+  "chapter_id": "CH04",
+  "chapter_title": "面临的挑战与关键问题",
+  "section_id": "CH04-SEC02",
+  "section_title": "模型效率与部署成本",
+  "section_description": "分析大语言模型参数量大、推理速度慢、计算资源消耗高的问题，及其在实时性要求高的电力预测场景中的适用性。",
+  "section_query": "大语言模型计算成本、推理速度、实时预测、模型轻量化",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH04-014",
+    "SRC-CH04-015",
+    "SRC-CH04-016",
+    "SRC-CH04-017",
+    "SRC-CH04-018",
+    "SRC-CH04-019",
+    "SRC-CH04-020",
+    "SRC-CH04-021",
+    "SRC-CH04-022",
+    "SRC-CH04-023",
+    "SRC-CH04-024",
+    "SRC-CH04-025",
+    "SRC-CH04-013",
+    "SRC-CH04-026"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH04-014",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0024",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "B Broader Societal Impact ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: B Broader Societal Impact ]\nOne of the major impacts our study will have is on the influx of models that use LLMs for modeling time-series. Our results will help researchers to not simply follow the trend of using LLMs in all applications, but to check their usability in detail. Specifically, these findings will help them determine if the LLM component is necessary and if the computational costs are reasonable for the specific setting. In addition to the research community, our findings on the better performance of smaller and simpler models will help develop scalable models that are easy to understand, interpret, and can be deployed cheaply in real-world applications. While we agree that a majority of our results are experimental and limited to selected datasets, we feel that these results will also help researchers narrow down their search space for better models in time-series forecasting, and not simply neglect the simpler models.",
+      "paper_score": 0.5267443862997737,
+      "chunk_score": 0.5515799766807964
+    },
+    {
+      "source_id": "SRC-CH04-015",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0015",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "4.2 Are LLM-based methods worth the computational cost? (RQ2) ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 4.2 Are LLM-based methods worth the computational cost? (RQ2) ]\nIn the previous section, we showed that LLMs do not meaningfully improve performance on time series forecasting tasks. Here, we evaluate the computational intensity of these methods with their nominal performance in mind. The language models in our reference methods use hundreds of millions and sometimes billions of parameters to perform time series forecasting. Even when the parameters of the language models are frozen they still contribute to substantial overhead during training and inference. For instance, Time-LLM has 6642 M parameters and takes 3003 minutes to train on the Weather dataset whereas ablation methods have only 0.245 M parameters and take 2.17 minutes on average. Information about training other methods on ETTh1 and Weather datasets are shown in Table 4. In the case of inference time, we divide by the maximum batch size to give an estimate of inference time per example. Time-LLM, OneFitsAll, and CALF take, on average, 28.2, 2.3, and 1.2 times longer than the modified models. Examples can be seen in Figure 3, where the green marks (ablation methods) are typically below the red one (LLM) and are positioned towards the left of the axis, indicating a lower computational costs and better forecasting performance. Other datasets and MSE metric refer to Figure 7 and Figure 8 in Appendix. In conclusion, the computational intensity of LLMs in time series forecasting tasks does not result in a corresponding performance improvement.",
+      "paper_score": 0.5267443862997737,
+      "chunk_score": 0.6428979020120875
+    },
+    {
+      "source_id": "SRC-CH04-016",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0009",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "3 METHODOLOGY ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 3 METHODOLOGY ]\nWe note that only the parameters of the lightweight input transformation and output projection are updated, while the backbone language model is frozen. In contrast to vision-language and other multimodal language models, which usually fine-tune with paired cross-modality data, TIME-LLM is directly optimized and becomes readily available with only a small set of time series and a few training epochs, maintaining high efficiency and imposing fewer resource constraints compared to building large domain-specific models from scratch or fine-tuning them. To further reduce memory footprints, various off-the-shelf techniques (e.g., quantization) can be seamlessly integrated for slimming TIME-LLM.",
+      "paper_score": 0.4173195623417681,
+      "chunk_score": 0.5011823998437134
+    },
+    {
+      "source_id": "SRC-CH04-017",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0036",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "G EFFICIENCY COMPARISON WITH MODEL FINE-TUNING ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: G EFFICIENCY COMPARISON WITH MODEL FINE-TUNING ]\nSetups. We compare the efficiency of model fine-tuning (with QLoRA Dettmers et al. (2023)) and our proposed model reprogramming in this section with two different backbones, that is, Llama in 1/4 capacity (first 8 Transformer layers) and full capacity. Here, we adhere to the long-term forecasting protocol on ETTh1 to forecast two different steps (that is, 96 and 336 in this case) ahead. For the evaluation metrics, we report the total number of trainable parameters (in million), GPU memory (in mebibyte), and running time (seconds per iteration). Results. Our results are given in Tab. 18. We see that model reprogramming remarkably results in better efficiency compared to parameter-efficient fine-tuning (PEFT) with QLoRA on long-range forecasting tasks in terms of the total number of trainable parameters, GPU memory overhead, and training speed. Quantitatively, there is an trainable parameter reduction on average over four scenarios, leading to smaller memory consumption and faster training speed.",
+      "paper_score": 0.4173195623417681,
+      "chunk_score": 0.4150865935537511
+    },
+    {
+      "source_id": "SRC-CH04-018",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0033",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "4.2. Performance under different prompt engineering ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 4.2. Performance under different prompt engineering ]\nThe models that improve upon traditional approaches, Informer, iTransformer, Autoformer and TimesNet, show similar performance. For some specific variables and metrics, these models can match the best results achieved by the proposed model. Furthermore, we also compared each model’s per-iteration training time and memory footprint, as shown in Fig. 11. DLinear exhibits the smallest memory footprint GB) and the fastest speed (≈2ms/iter), though with only moderate forecasting accuracy. The transformer-based baselines (Informer, Autoformer, iTransformer, TimesNet) cluster around similar MAE values and training times, each outperforming the vanilla LSTM while maintaining comparable efficiency. Under nearly identical parameter counts (TimeLLM: 61.7M; MultiAttLLM: 62.4M), our MultiAttLLM reduces memory usage by about (from 2.03 GB down to 1.03 GB) and cuts per-iteration training time by roughly (from 249 ms to 160 ms). Meanwhile, the proposed model outperforms TimeLLM, with average improvements of , , and in MAE, RMSE, and R2, respectively.",
+      "paper_score": 0.3566929649834894,
+      "chunk_score": 0.36268177217689923
+    },
+    {
+      "source_id": "SRC-CH04-019",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0015",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "VIII ",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: VIII ]\n• 4.3.2 P-Informer模型结构 58 • 4.3.3 P-Informer 模型的训练过程 59",
+      "paper_score": 0.3143686103640578,
+      "chunk_score": 0.33285436084550607
+    },
+    {
+      "source_id": "SRC-CH04-020",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0016",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.4 实验结果 59",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.4 实验结果 59]\n• 4.4.1 P-Informer 模型的预测结果 59 • 4.4.2 P-Informer 模型的鲁棒性分析 62 • 4.4.3 消融实验 65 • 4.4.4 运行时间 66",
+      "paper_score": 0.3143686103640578,
+      "chunk_score": 0.3541621860224415
+    },
+    {
+      "source_id": "SRC-CH04-021",
+      "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "chunk_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning__chunk_0049",
+      "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+      "authors": [
+        "Qi Dong",
+        "Rubing Huang",
+        "Chenhui Cui",
+        "Dave Towey",
+        "Ling Zhou",
+        "Jinyu Tian",
+        "Jianzhou Wang"
+      ],
+      "year": "2018",
+      "venue": "",
+      "section": "11.2 Research Trends ",
+      "content": "[Title: Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey]\n[Section: 11.2 Research Trends ]\nHowever, the use of LLMs for STELF has not yet been developed. Nevertheless, it is anticipated that application of LLMs to STELF shall become an important research direction. This may provide us with new ways to address the challenge of insufficient generalizability of forecasting models, while also opening up the possibility to achieve zero-shot learning in ELF [59]. This type of model may not only demonstrate stronger adaptability and predictive power on diverse datasets, but also make reasonable predictions on unseen data. • Optimization is a critical stage in the development of deep-learning models, and has been receiving attention in STELF [200]. Future research will continue to explore more efficient optimization algorithms, such as improved SSA [129], Adam [75], and other optimization methods tailored to specific problems. Network architecture optimization is evolving towards more lightweight networks, with the relevant error-optimization process becoming more refined (including in-depth research and customization of loss functions). Model compression techniques and acceleration algorithms will continue to evolve, leading the optimization process to place greater emphasis on computational efficiency.",
+      "paper_score": 0.31404703434628956,
+      "chunk_score": 0.39243541898212436
+    },
+    {
+      "source_id": "SRC-CH04-022",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0120",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "（1）开发环境及工具",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: （1）开发环境及工具]\n开发环境：Windows 11 开发工具：Dameng Manager、PyCharm Professional Edition、IDEA Professional Edition、WebStorm Professional Edition",
+      "paper_score": 0.29723340521916497,
+      "chunk_score": 0.3475681406314687
+    },
+    {
+      "source_id": "SRC-CH04-023",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0003",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "2.4 CNN-LSTM深度学习预测模型 19",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 2.4 CNN-LSTM深度学习预测模型 19]\n• 2.4.1卷积神经网络 19 • 2.4.2 长短期记忆神经网络 22 • 2.4.3 CNN-LSTM深度特征挖掘的时序模型 24",
+      "paper_score": 0.29723340521916497,
+      "chunk_score": 0.35186482643605177
+    },
+    {
+      "source_id": "SRC-CH04-024",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0029",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "3.1.1 LLM在电力负荷预测的应用展望",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 3.1.1 LLM在电力负荷预测的应用展望]\n在预测中常出现历史数据不易获取或历史数据量少不足以支撑预测的情况，且在分析用户用电行为时用户心理等数据难以获取，故需要提出新的模型来提高预测精度。LLM 来源于深度学习与自然语言处理的交叉融合，其原理如图13 所示，是一种利用大规模语料模型进行预训练和微调的模型，具有传统人工智能模型不具备的强泛化能力与逻辑推理能力，随着技术的发展可能会用于解决负荷预测中的用户行为画像与小样本问题[109]。 对于预测中遇到的小样本问题，由于 LLM 模型首先采用通用数据进行预训练，再采用领域相关数据进行微调，故其对历史数据的依赖程度较低，能从历史数据不足角度解决小样本问题[110]。此外，LLM模型具有强大的知识理解能力和强泛化能力，有助于解决用电行为理解过程中特征缺失、多源数据融合困难等问题，从而解决用户行为画像问题。因此大语言模型在负荷预测领域具有广泛的应用前景[111]。",
+      "paper_score": 0.27571996602323834,
+      "chunk_score": 0.282599790178374
+    },
+    {
+      "source_id": "SRC-CH04-025",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0026",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "2.4 Transformer 模型",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 2.4 Transformer 模型]\n由于电能替代的不断深化与新能源、电动汽车等不断融入负荷侧，许多现有的概率统计和机器学习方法无法提供准确的预测。因此，有学者将人工智能模型引入到负荷预测领域，并将多个模型相结合，以及与物理、数理统计相结合，最终实现对电力负荷的预测，例如 CNN 和 LSTM 在预测中已经得到了广泛应用，而 2017 年由 Google 新提出的Transformer模型更因为并行计算能力强、训练速度快以及在处理长序列和大规模数据集时的优异表现，逐渐在负荷预测领域崭露头角。 Transformer 提出了注意力机制以实现快速并行，改进了循环神经网络训练慢的缺点，由于其独特的架构和能力而被用于时间序列分析，在时间序列分析中的应用核心在于其自注意力机制，能够有效捕捉时间序列数据中的长期依赖关系。 该模型主要由编码器(Encoder)和解码器(Decoder)构成，如图 12 所示，它们之间通过多头注意力机制和前馈神经网络连接在一起，通过并行处理能力和位置编码实现高效的信息交互、传递。与传统的 CNN、LSTM 等模型不同，该模型可以并行处理序列数据，从而提高处理效率。",
+      "paper_score": 0.27571996602323834,
+      "chunk_score": 0.2917572703947974
+    },
+    {
+      "source_id": "SRC-CH04-013",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0018",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "4   结论与展望 ",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 4   结论与展望 ]\n随着信息时代的高速发展, 负荷预测已经成为电力系统领域不可或缺的重要部分[1] 本文简单介绍了有关负荷预测的传统预测方法与基于深度学习的智能预测算法, 可发现传统负荷预测算法速度快、模型简单,对于非线性数据处理存在一定局限[16,19,20]. 基于深度学习的智能化预测算法因其泛化能力强、自学习能力高等优点被各大专家青睐, 但也存在模型复杂、过拟合、局部最优解等问题[35]. 模型组合策略、权重参数设置问题则成为集成学习模型发展的阻碍. 在实际应用中, 短期电力负荷预测在以下方面仍有待发展: • (1) 随着智能化设备的发展, 可获取的负荷数据影响因素越来越多, 但由于服务提供商出于安全考虑, 对实时和历史数据保密, 高质量的标记数据仍然缺乏, 利用传感器获取的数据存在重复、错误标记以及数据流的暂时丢失等问题, 因此高效可靠的数据预处理在负荷预测中变得尤为重要[14]. • (2) 传统模型与智能化模型各有优点, 如何利用各个模型的优点, 扬长避短, 提高模型的准确率仍是目前的研究热点[55,59,60]. • (3) 目前电力负荷预测涉及训练数据的准确性和 完整性、深度学习模型及其性能限制等多个不确定度的量化问题. 不确定性的量化问题对于提高深度学习模型的可靠性与准确性具有重要意义. (4) 无人机、电动汽车、可再生能源的发展都使电力系统变得庞大而复杂, 挖掘更深层次的影响因素、考虑更接近实际情况的用电负荷是未来努力方向.",
+      "paper_score": 0.523697883039442,
+      "chunk_score": 0.5742036467252395
+    },
+    {
+      "source_id": "SRC-CH04-026",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0005",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "2   典型负荷预测算法",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 2   典型负荷预测算法]\n目前负荷预测可分为传统预测和基于深度学习的智能化预测模型, 本文简要介绍了回归分析、ANN、SVM、CNN 以及 RNN 等预测方法, 总结概括各预测方法的优缺点与适用范围, 以期为未来负荷预测提供参考.",
+      "paper_score": 0.24160372573266398,
+      "chunk_score": 0.2872332172455351
+    }
+  ]
+}

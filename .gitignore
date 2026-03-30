@@ -29,9 +29,6 @@ Thumbs.db
 .env
 .env.*
 
-# PaperRAG local data
-data/*
-!data/.gitkeep
 outline.json
 
 # Local research workspace

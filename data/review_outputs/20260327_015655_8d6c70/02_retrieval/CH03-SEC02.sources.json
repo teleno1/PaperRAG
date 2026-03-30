@@ -1,0 +1,290 @@
+{
+  "chapter_id": "CH03",
+  "chapter_title": "基于大语言模型的电力负荷预测关键技术",
+  "section_id": "CH03-SEC02",
+  "section_title": "LLM模型架构适配与训练策略",
+  "section_description": "探讨适用于负荷预测的LLM模型选择、微调方法（如LoRA）、以及结合时序预测特性的训练技巧（如监督微调、强化学习来自动化提示优化）。",
+  "section_query": "大语言模型 微调 参数高效微调 LoRA 时序预测 训练策略",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH03-015",
+    "SRC-CH03-016",
+    "SRC-CH03-017",
+    "SRC-CH03-018",
+    "SRC-CH03-019",
+    "SRC-CH03-020",
+    "SRC-CH03-021",
+    "SRC-CH03-022",
+    "SRC-CH03-023",
+    "SRC-CH03-024",
+    "SRC-CH03-025",
+    "SRC-CH03-026",
+    "SRC-CH03-027",
+    "SRC-CH03-028"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH03-015",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0036",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "G EFFICIENCY COMPARISON WITH MODEL FINE-TUNING ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: G EFFICIENCY COMPARISON WITH MODEL FINE-TUNING ]\nSetups. We compare the efficiency of model fine-tuning (with QLoRA Dettmers et al. (2023)) and our proposed model reprogramming in this section with two different backbones, that is, Llama in 1/4 capacity (first 8 Transformer layers) and full capacity. Here, we adhere to the long-term forecasting protocol on ETTh1 to forecast two different steps (that is, 96 and 336 in this case) ahead. For the evaluation metrics, we report the total number of trainable parameters (in million), GPU memory (in mebibyte), and running time (seconds per iteration). Results. Our results are given in Tab. 18. We see that model reprogramming remarkably results in better efficiency compared to parameter-efficient fine-tuning (PEFT) with QLoRA on long-range forecasting tasks in terms of the total number of trainable parameters, GPU memory overhead, and training speed. Quantitatively, there is an trainable parameter reduction on average over four scenarios, leading to smaller memory consumption and faster training speed.",
+      "paper_score": 0.6240658936988606,
+      "chunk_score": 0.7336356403396579
+    },
+    {
+      "source_id": "SRC-CH03-016",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0020",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "4.5 MODEL ANALYSIS ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 4.5 MODEL ANALYSIS ]\nWe find only a small set of prototypes (columns) participated in reprogramming the input patches (rows) in subplot (e). Also, patches undergo different representations through varying combinations of prototypes. This indicates: (1) text prototypes learn to summarize language cues, and a select few are highly relevant for representing information in local time series patches, which we visualize by randomly selecting 10 in subplot (f). Our results suggest a high relevance to the words that describe time series properties (i.e., word sets 1 and 2); (2) patches usually have different underlying semantics, necessitating different prototypes to represent. Reprogramming Efficiency. Tab. 7 provides an overall efficiency analysis of TIME-LLM with and without the backbone LLM. Our proposed reprogramming network itself (D.3) is lightweight in activating the LLM’s ability for time series forecasting (i.e., fewer than 6.6 million trainable parameters; only around of the total parameters in Llama-7B), and the overall efficiency of TIME-LLM is actually capped by the leveraged backbones (e.g., D.1 and D.2). This is favorable even compared to the parameter-efficient fine-tuning methods (e.g., QLoRA (Dettmers et al., 2023)) in balancing task performance and efficiency.",
+      "paper_score": 0.6240658936988606,
+      "chunk_score": 0.700784777404737
+    },
+    {
+      "source_id": "SRC-CH03-017",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0005",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "2 Related Work ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 2 Related Work ]\nHere, we summarize the key works relevant to LLM-based time series models. They can be broadly classified into three sections: (i) time series forecasting using LLMs; (ii) encoders in LLM time series models; and (iii) smaller and efficient neural models for time-series. Time Series Forecasting Using LLMs. Recently, with the development of Large Language Models (LLMs) [10, 29, 34] and their demonstrated multi-modal capabilities, more researchers have successfully applied LLMs to time series forecasting tasks [14, 16, 5, 4]. Chang et al., [5] used finetuning the transformer module and positional encoding in GPT-2 to align pre-trained LLMs with time series data for forecasting tasks. Zhou et al. [50] proposed a similar finetuning method, named “OneFitsAll”, for time series forecasting with GPT-2. Additionally, Jin et al. [15] introduced a reprogramming method to align LLM’s Word Embedding with time series embeddings, showing good representation of time series data on LLaMA [34]. Similarly, CALF [22] and TEST [32] adapted word embeddings to enable LLMs to forecast time series data effectively. In addition to time-series forecasting models, Liu et al. [23] show that these models can be extended to classifying health-time series, such as heart-rate and daily-footsteps. These models have also been shown to outperform supervised neural models in few-shot settings. Encoders in LLM Time Series Models. In order for an LLM to learn from text it must first be discretized and encoded as word tokens which are vectors [10, 29, 34]. Similarly, LLM-based methods for time series learn discrete time series tokens. One method is to segment the time series into overlapping patches, which effectively shortens the time series while retaining its features [15, 50, 5, 4, 28, 27, 11]. Other methods decompose time series into trend, seasonal components, and residual components [4, 28]. Lastly, Liu et al.",
+      "paper_score": 0.5469581074766553,
+      "chunk_score": 0.5791513669309543
+    },
+    {
+      "source_id": "SRC-CH03-018",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0016",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "4.3 Does language model pretraining help performance on forecasting tasks? (RQ3) ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 4.3 Does language model pretraining help performance on forecasting tasks? (RQ3) ]\nOur evaluation in this section indicates that pretraining with language datasets is unnecessary for time series forecasting. To test whether the knowledge learned during pretraining meaningfully improves forecasting performance we experimented with different combinations of pretraining and finetuning CALF’s [22] language model on time series. • • Pretrain • Finetune • ). This is the original method, wherein a pretrained language model is finetuned on time series data. In the case of CALF, the base language model is frozen and low rank adapters (LoRA) are learned. • • Random Initialization • Finetune • ). Does the textual knowledge from pretraining aid time series forecasting? In this method we randomly initialize the weights of the language model (thereby erasing any effect of pretraining) and train the LLM from scratch. • • Pretrain • Finetuning (Pre+woFT). How much does finetuning on time series improve prediction performance? For this baseline we again leave the language model frozen and forgo learning LoRAs. Results from this model are therefore indicative of the base language model’s performance without additional guidance on processing time series. • Random Initialization Finetuning (woPre+woFT). This baseline is effectively a random projection from the input time series to a forecasting prediction and serves as a baseline comparison with the other methods. Overall, as shown in Table 5, across 8 datasets using MAE and MSE metrics, the \"Pretraining Finetune\" method performed the best 3 times, while \"Random Initialization Finetune\" achieved this 8 times. This indicates that language knowledge offers very limited help for forecasting. However, \"Pretrain Finetuning\" and the baseline \"Random Initialization Finetuning\" performed the best 5 times and 0 times, respectively, suggesting that Language knowledge does not contribute meaningfully during the finetuning process. Detailed results refer to Table 20 in Appendix.",
+      "paper_score": 0.5469581074766553,
+      "chunk_score": 0.7385186648107371
+    },
+    {
+      "source_id": "SRC-CH03-019",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0069",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "（3）构建AadpterTuning的模型微调迁移学习模型",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: （3）构建AadpterTuning的模型微调迁移学习模型]\n本文利用大量源域样本和有限目标域样本对改进Transformer的域对抗网络进行训练，尽可能寻找源域和目标域之间的相似性，实现域对抗网络模型最优化。然后，将域对抗网络的改进Transformer模型作为预训练模型，以带标签的节假日负荷数据作为输入样本，固定特征提取器共享参数，对分类预测器部分参数采用Adapter迁移学习方法对参数进行微调，挖掘节假日负荷的特有规律，提升模型对节假日负荷预测的针对性和有效性。",
+      "paper_score": 0.5004336061191429,
+      "chunk_score": 0.5505521759988151
+    },
+    {
+      "source_id": "SRC-CH03-020",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0079",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "3.3.5 基于改进Transformer-Aadpter的迁移学习模型",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 3.3.5 基于改进Transformer-Aadpter的迁移学习模型]\n本文将域对抗网络的改进Transformer模型作为预训练模型，以带标签的节假日负荷数据作为输入样本，固定特征提取器共享参数，对分类预测器部分参数采用Adapter技术对参数进行微调，挖掘节假日负荷的特有规律，提升模型对节假日负荷预测的针对性和有效性。 Neil Houlsby等人在2019年提出将Adapter微调技术引入迁移学习之中[113],Adapter冻结预训练模型的主体部分，在特定任务层添加Adapter模块，对新增加模块和部分任务层进行微调。Adapter技术应用于Transformer模型的Encoder部分，如图3-14所示。Adapter模块接收来自上一层的输入，即Transformer模型Encoder部分输出和隐藏表示。输入特征通过降尺度层被映射至投影到较低纬度的表示空间，从而减少参数数量；然后将低维特征通过非线性层进行特征变换，提升Adapter非线性特征挖掘能力；进一步通过升尺度层，将低维特征重新映射回原始的高维特征空间，高维特征与一个可学习的参数矩阵相乘以此根据特征重要性调整特征权重；最后经过残差全连接层，将调整后的高维特征与原始输入进行相加，确保即使参数接近零，Adapter模块仍能近似于恒等映射，加强信息在模块内的传递。",
+      "paper_score": 0.5004336061191429,
+      "chunk_score": 0.4776433496598317
+    },
+    {
+      "source_id": "SRC-CH03-021",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0021",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "2.3.7. TimeLLM ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 2.3.7. TimeLLM ]\nTimeLLM is a novel framework designed to adapt LLM for time series forecasting by reprogramming the input time series data [36]. Instead of fine-tuning the pre-trained LLM or altering their internal architectures, TimeLLM leverages a reprogramming technique that transforms the time series data into a format compatible with LLM. This is achieved by converting time series into text-like prototypes that the LLM can understand. To further enhance the model’s reasoning capabilities, TimeLLM incorporates a ‘‘Prompt-as-Prefix’’ (PaP) approach, which enriches the input data with additional context, such as taskspecific instructions and domain knowledge, allowing the LLM to better interpret and predict time series trends.",
+      "paper_score": 0.48687334212568717,
+      "chunk_score": 0.5056535169028201
+    },
+    {
+      "source_id": "SRC-CH03-022",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0006",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "1.3. Large language models for time-series forecasting ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 1.3. Large language models for time-series forecasting ]\nThe first relies on prompt-based reprogramming of pretrained LLMs, whereby carefully crafted instructions are prepended to raw time series to steer the model’s predictions [39,40]. Inspired by their remarkable conversational capabilities, these methods leverage the LLM’s inherent pattern-recognition power to interpret temporal dynamics without any weight updates [41]. The second paradigm involves fine-tuning the LLM itself on time series data [42,43]. Chang et al. [44] subsequently proposed a two-stage fine-tuning pipeline—first aligning the backbone network to time series representations, then training a lightweight prediction head. Sun et al. [45] introduced contrastive learning objectives to sharpen the model’s temporal embeddings. A summary and review of relevant research on LLM for time-series forecasting is shown in Table 2.",
+      "paper_score": 0.48687334212568717,
+      "chunk_score": 0.6756948592670697
+    },
+    {
+      "source_id": "SRC-CH03-023",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0026",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "2.4 Transformer 模型",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 2.4 Transformer 模型]\n由于电能替代的不断深化与新能源、电动汽车等不断融入负荷侧，许多现有的概率统计和机器学习方法无法提供准确的预测。因此，有学者将人工智能模型引入到负荷预测领域，并将多个模型相结合，以及与物理、数理统计相结合，最终实现对电力负荷的预测，例如 CNN 和 LSTM 在预测中已经得到了广泛应用，而 2017 年由 Google 新提出的Transformer模型更因为并行计算能力强、训练速度快以及在处理长序列和大规模数据集时的优异表现，逐渐在负荷预测领域崭露头角。 Transformer 提出了注意力机制以实现快速并行，改进了循环神经网络训练慢的缺点，由于其独特的架构和能力而被用于时间序列分析，在时间序列分析中的应用核心在于其自注意力机制，能够有效捕捉时间序列数据中的长期依赖关系。 该模型主要由编码器(Encoder)和解码器(Decoder)构成，如图 12 所示，它们之间通过多头注意力机制和前馈神经网络连接在一起，通过并行处理能力和位置编码实现高效的信息交互、传递。与传统的 CNN、LSTM 等模型不同，该模型可以并行处理序列数据，从而提高处理效率。",
+      "paper_score": 0.43568296775219656,
+      "chunk_score": 0.3269377422593369
+    },
+    {
+      "source_id": "SRC-CH03-024",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0013",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2.4 小样本问题",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2.4 小样本问题]\n当原始数据样本不足时，会使得预测模型因没有足够数据支撑，无法达到预期效果，小样本问题已成为制约新型电力系统数字化转型的重要因素之一，目前针对小样本问题的研究包括迁移学习、大语言模型等。 迁移学习通过从数据丰富的源域迁移知识来提升目标域任务的性能，在历史数据不足的情况下，大语言模型先通过大量通用数据对模型进行预训练，再使用少量预测领域强相关数据对预训练模型进行微调，巧妙解决了原始数据样本不足的问题。在进行预测之前，首先需要对输入数据进行预处理，构建固定步长的时间序列输入模型；随后，大语言模型(large language model, LLM)通过嵌入层将输入数据中的特征转为向量形式，以便更好地捕捉时序依赖关系并处理多模态数据，使其向量表示统一化[38]。此外，还有部分学者利用生成对抗网络等生成式无监督深度学习方法进行数据增强处理。文献[39]结合迁移学习与 TCN-BiGRU 模型，将相关性高的信息迁移到实验模型中，在解决了小样本问题的同时提高了预测精度。文献[40]结合大语言模型中的 GPT-3模型与深度学习模型，利用通用数据进行预训练，利用领域数据进行调整，解决了输入数据不足的问题。",
+      "paper_score": 0.43568296775219656,
+      "chunk_score": 0.5048155899198792
+    },
+    {
+      "source_id": "SRC-CH03-025",
+      "paper_id": "Informer",
+      "chunk_id": "Informer__chunk_0014",
+      "title": "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting",
+      "authors": [
+        "Haoyi Zhou",
+        "Shanghai Zhang",
+        "Jieqi Peng",
+        "Shuai Zhang",
+        "Jianxin Li",
+        "Hui Xiong",
+        "Wancai Zhang"
+      ],
+      "year": "2021",
+      "venue": "The Thirty-Fifth AAAI Conference on Artificial Intelligence (AAAI-21)",
+      "section": "Experimental Details ",
+      "content": "[Title: Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting]\n[Section: Experimental Details ]\nWe briefly summarize basics, and more information on network components and setups are given in Appendix E. Baselines: We have selected five time-series forecasting methods as comparison, including ARIMA (Ariyo, Adewumi, and Ayo 2014), Prophet (Taylor and Letham 2018), LSTMa (Bahdanau, Cho, and Bengio 2015), LSTM (Lai et al. 2018) and DeepAR (Flunkert, Salinas, and Gasthaus 2017). To better explore the ProbSparse self-attention's performance in our proposed Informer, we incorporate the canonical self-attention variant (Informer†), the efficient variant Reformer (Kitaev, Kaiser, and Levskaya 2019) and the most related work LogSparse self-attention (Li et al. 2019) in the experiments. The details of network components are given in Appendix E.1. Hyper-parameter tuning: We conduct grid search over the hyper-parameters, and detailed ranges are given in Appendix E.3. Informer contains a 3-layer stack and a 1-layer stack (1/4 input) in the encoder, and a 2-layer decoder. Our proposed methods are optimized with Adam optimizer, and its learning rate starts from , decaying 0.5 times smaller every epoch. The total number of epochs is 8 with proper early stopping. We set the comparison methods as recommended, and the batch size is 32. Setup: The input of each dataset is zero-mean normalized. Under the LSTF settings, we prolong the prediction windows size progressively, i.e., in , in ETTm. Metrics: We use two evaluation metrics, including and on each prediction window (averaging for multivariate prediction), and roll the whole set with stride . Platform: All the models were trained/tested on a single Nvidia V100 32GB GPU. The source code is available at https://github.com/zhouhaoyi/Informer2020.",
+      "paper_score": 0.3935069927160797,
+      "chunk_score": 0.37566409817157376
+    },
+    {
+      "source_id": "SRC-CH03-026",
+      "paper_id": "PatchTST",
+      "chunk_id": "PatchTST__chunk_0021",
+      "title": "A TIME SERIES IS WORTH 64 WORDS: LONG-TERM FORECASTING WITH TRANSFORMERS",
+      "authors": [
+        "Yuqi Nie",
+        "Nam H. Nguyen",
+        "Phanwadee Sinthong",
+        "Jayant Kalagnanam"
+      ],
+      "year": "2023",
+      "venue": "ICLR",
+      "section": "A.1.4 MODEL PARAMETERS ",
+      "content": "[Title: A TIME SERIES IS WORTH 64 WORDS: LONG-TERM FORECASTING WITH TRANSFORMERS]\n[Section: A.1.4 MODEL PARAMETERS ]\nBy default, PatchTST contains 3 encoder layers with head number and dimension of latent space . The feed forward network in Transformer encoder block consists of 2 linear layers with GELU (Hendrycks & Gimpel, 2016) activation function: one projecting the hidden representation to a new dimension , and another layer that project it back to . For very small datasets (ILI, ETTh1, ETTh2), a reduced size of parameters is used and ) to mitigate the possible overfitting. Dropout with probability 0.2 is applied in the encoders for all experiments. The code will be publicly available.",
+      "paper_score": 0.3893489551655649,
+      "chunk_score": 0.45434793212860836
+    },
+    {
+      "source_id": "SRC-CH03-027",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0102",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.3.3 P-Informer模型的训练过程",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.3.3 P-Informer模型的训练过程]\nP-Informer 模型的训练流程如图 4.4 所示。在模型训练之前，需要设定训练步数 Epochs 和提前终止计数 。在每一步训练之后，利用验证集评估当前训练结果，如果验证误差大于最小验证误差，则提前终止计数加 1；反之，则保存当前训练结果，并更新最小验证误差。当连续 次迭代的验证误差都大于最小验证误差时，则提前终止，并以最小验证误差对应的结果作为最终的模型训练结果。",
+      "paper_score": 0.3267950281095574,
+      "chunk_score": 0.3756971137138698
+    },
+    {
+      "source_id": "SRC-CH03-028",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0014",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "第4章 基于周期增强 Informer 的短期电力负荷预测模型 53",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 第4章 基于周期增强 Informer 的短期电力负荷预测模型 53]\n• 4.1 引言 53 • 4.2 传统 Informer 模型 ..... 53 • 4.2.1 输入表示 53 • 4.2.2 编码器 55 • 4.2.3 解码器 57 4.3 基于周期增强 Informer 的电力负荷预测模型 57 4.3.1 构建输入矩阵 57",
+      "paper_score": 0.3267950281095574,
+      "chunk_score": 0.3239178198962056
+    }
+  ]
+}

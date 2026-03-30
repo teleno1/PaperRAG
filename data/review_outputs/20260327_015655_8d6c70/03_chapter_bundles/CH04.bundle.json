@@ -1,0 +1,783 @@
+{
+  "chapter_id": "CH04",
+  "chapter_title": "目前存在的问题与挑战",
+  "chapter_description": "系统分析当前基于大语言模型的电力负荷预测研究在数据、模型、计算、可解释性及实际部署等方面面临的主要问题与挑战。",
+  "chapter_query": "大语言模型 负荷预测 挑战 数据稀缺 计算成本 可解释性 幻觉 不确定性",
+  "chapter_citation_policy": "required",
+  "leaf_sections": [
+    {
+      "section_id": "CH04-SEC01",
+      "section_title": "数据依赖与质量挑战",
+      "section_description": "讨论高质量标注负荷-文本配对数据稀缺、数据噪声、以及长序列建模对LLM上下文窗口的限制等问题。",
+      "section_query": "负荷预测 数据质量 标注数据 稀缺 长序列 上下文窗口",
+      "citation_policy": "required",
+      "source_ids": [
+        "SRC-CH04-001",
+        "SRC-CH04-002",
+        "SRC-CH04-003",
+        "SRC-CH04-004",
+        "SRC-CH04-005",
+        "SRC-CH04-006",
+        "SRC-CH04-007",
+        "SRC-CH04-008",
+        "SRC-CH04-009",
+        "SRC-CH04-010",
+        "SRC-CH04-011",
+        "SRC-CH04-012"
+      ]
+    },
+    {
+      "section_id": "CH04-SEC02",
+      "section_title": "模型效率与可靠性问题",
+      "section_description": "分析LLM庞大的参数量带来的高计算成本、推理延迟，以及模型可能产生的“幻觉”输出、预测不确定性量化困难等可靠性问题。",
+      "section_query": "大语言模型 计算效率 推理延迟 幻觉 不确定性量化 可靠性",
+      "citation_policy": "required",
+      "source_ids": [
+        "SRC-CH04-013",
+        "SRC-CH04-014",
+        "SRC-CH04-015",
+        "SRC-CH04-016",
+        "SRC-CH04-017",
+        "SRC-CH04-018",
+        "SRC-CH04-019",
+        "SRC-CH04-020",
+        "SRC-CH04-021",
+        "SRC-CH04-022",
+        "SRC-CH04-023",
+        "SRC-CH04-024",
+        "SRC-CH04-025",
+        "SRC-CH04-026"
+      ]
+    },
+    {
+      "section_id": "CH04-SEC03",
+      "section_title": "领域适配与可解释性不足",
+      "section_description": "指出通用LLM在电力领域专业知识不足、预测决策过程黑箱化、难以满足电力系统高安全可靠要求等适配性与可解释性挑战。",
+      "section_query": "领域适配 可解释性 黑箱模型 电力系统 安全 大语言模型",
+      "citation_policy": "required",
+      "source_ids": [
+        "SRC-CH04-027",
+        "SRC-CH04-028",
+        "SRC-CH04-029",
+        "SRC-CH04-026",
+        "SRC-CH04-030",
+        "SRC-CH04-031",
+        "SRC-CH04-007",
+        "SRC-CH04-032",
+        "SRC-CH04-033",
+        "SRC-CH04-034",
+        "SRC-CH04-035",
+        "SRC-CH04-036",
+        "SRC-CH04-037"
+      ]
+    }
+  ],
+  "unique_sources": [
+    {
+      "source_id": "SRC-CH04-001",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0041",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "3.1.1 小样本问题",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 3.1.1 小样本问题]\n数据质量是电力系统负荷预测建模的重要基础与预测性能的关键保证。在新型电力系统发展的背景下，向量测量单元(phase measurement unit，PMU) 、 数 据 采 集 与 监 视 控 制 系 统 (supervisorycontrol and data acquisition，SCADA)、智能电表(smart meter，SM)等测量装置，将会更加广泛地部署在智能电网的各个环节并不断完善。然而，由于量测装置数据采集问题以及通信装置的数据传输问题，往往导致电网数据出现噪音过高与样本缺失等异常情况，使得获取的大量电网数据难以用于模型构建，从而不可避免地给数据驱动的负荷预测模型训练带来了小样本问题。另外，在负荷预测建模中，作为重要的输入特征之一，气象信息常常面临着数据缺失与不足的情况，进而也加剧了建模过程中的小样本问题。因此，确保能够通过技术方法获取全面、可靠、及时的电网、气象等高质量多源数据是新型电力系统负荷预测研究领域的一大挑战。",
+      "paper_score": 0.6492043637806415,
+      "chunk_score": 0.7092250517022936
+    },
+    {
+      "source_id": "SRC-CH04-002",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0040",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "3 人工智能方法目前存在的问题与不足",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 3 人工智能方法目前存在的问题与不足]\n当前，虽然基于人工智能技术的新型电力系统负荷预测研究已经取得诸多进展与成果，但在数据与模型 2 个方面仍然存在一定程度的问题与不足。",
+      "paper_score": 0.6492043637806415,
+      "chunk_score": 0.4693562056801903
+    },
+    {
+      "source_id": "SRC-CH04-003",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0007",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2.1 来源多样化",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2.1 来源多样化]\n目前，负荷预测的输入数据受电力系统测量、气象因素、社会因素等因素影响，故无法保证原始数据的类型、颗粒度和质量，需要对原始数据进行预处理，降低历史数据质量差、数据量纲差异等初始因素的影响，预处理手段主要包括异常值处理、数据插值及归一化、反归一化等。",
+      "paper_score": 0.5649258062789453,
+      "chunk_score": 0.6794623313178879
+    },
+    {
+      "source_id": "SRC-CH04-004",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0029",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "3.1.1 LLM在电力负荷预测的应用展望",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 3.1.1 LLM在电力负荷预测的应用展望]\n在预测中常出现历史数据不易获取或历史数据量少不足以支撑预测的情况，且在分析用户用电行为时用户心理等数据难以获取，故需要提出新的模型来提高预测精度。LLM 来源于深度学习与自然语言处理的交叉融合，其原理如图13 所示，是一种利用大规模语料模型进行预训练和微调的模型，具有传统人工智能模型不具备的强泛化能力与逻辑推理能力，随着技术的发展可能会用于解决负荷预测中的用户行为画像与小样本问题[109]。 对于预测中遇到的小样本问题，由于 LLM 模型首先采用通用数据进行预训练，再采用领域相关数据进行微调，故其对历史数据的依赖程度较低，能从历史数据不足角度解决小样本问题[110]。此外，LLM模型具有强大的知识理解能力和强泛化能力，有助于解决用电行为理解过程中特征缺失、多源数据融合困难等问题，从而解决用户行为画像问题。因此大语言模型在负荷预测领域具有广泛的应用前景[111]。",
+      "paper_score": 0.5649258062789453,
+      "chunk_score": 0.5101417303227024
+    },
+    {
+      "source_id": "SRC-CH04-005",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0031",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "1.3 目前研究存在的主要问题",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 1.3 目前研究存在的主要问题]\n（1）电力负荷的周期性和随机性规律深度耦合，增加了负荷预测的难度。受人类社会活动规律、地球气候自然变化的影响，电力负荷数据表现出较为明显的日周期与周周期，有一定规律可循。但是，由于这种日周期与周周期规律交织展现于负荷的时序变化中，导致提取和利用负荷变化的周期性规律来进行预测十分困难。与此同时，负荷变化还与外部气象环境存在明显的相依关系，外部气象环境的随机变化也带来了负荷变化的随机性，进一步加剧负荷预测难度。现有文献大多通过构建复杂精细化深度学习模型，将涵盖多重周期性和随机性特征的样本一起纳入训练，缺少对数据样本的处理，这种解题思路不仅增加了模型的学习负担而且增加了模型过拟合风险，致使模型泛化能力不足，降低模型的预测性能。 （2）节假日电力负荷历史数据样本较少，基于有限数据样本难以挖掘负荷波动规律。由于节假日的独特性，其负荷模式与常规日期存在明显的差异，而有限的历史样本无法提供足够的代表性，限制了模型对节假日负荷波动规律的挖掘和预测。现有文献大多依赖于构建复杂的神经网络进行挖掘复杂非线性关系，以此提升节假日负荷预测精度，然而复杂的神经网络必然会存在大量的网络参数，其需要更多的样本进行估计，这就与节假日有限样本特性产生矛盾，从而导致预测效果不佳。尽管部分学者通过随机抽样方式增加样本数量来解决样本稀缺问题，然而这种方法并不能改变原有样本的特性或增加样本的多样性，由随机抽样增加的样本加入深度学习模型中，容易导致模型产生过拟合问题，并不能提高模型的预测性能。 （3）固定参数预测模型难以适应复杂多变的环境，导致模型的预测稳定性较差，预测结果的不确定性增加。电力负荷数据表现出显著的非平稳性，复杂环境变化导致样本数据分布随时间发生变化，容易产生数据漂移现象。尽管当前构建的深度学习预测模型足够复杂，但是参数一经训练便固定不变，固定参数的模型无法灵活地适应新的数据分布，从而导致模型在预测过程中误差随时间逐渐增加，无法准确反映复杂环境的变化，预测结果的稳定性较差。同时，确定性预测必然存在预测误差，复杂环境变化导致误差分布规律难以挖掘，预测不确定性度量困难。首先，预测模型通常依赖于历史数据和数值气象预报数",
+      "paper_score": 0.5291027095760443,
+      "chunk_score": 0.47477991369388156
+    },
+    {
+      "source_id": "SRC-CH04-006",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0005",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "3.2基于时间序列生成对抗网络的节假日负荷数据增强方法.....39",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 3.2基于时间序列生成对抗网络的节假日负荷数据增强方法.....39]\n• 3.2.1生成对抗网络 40 • 3.2.2 时间序列生成对抗网络 41 • 3.2.3 基于主成分分析的生成数据质量评价方法 44",
+      "paper_score": 0.5291027095760443,
+      "chunk_score": 0.5665295215423378
+    },
+    {
+      "source_id": "SRC-CH04-007",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0018",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "4   结论与展望 ",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 4   结论与展望 ]\n随着信息时代的高速发展, 负荷预测已经成为电力系统领域不可或缺的重要部分[1] 本文简单介绍了有关负荷预测的传统预测方法与基于深度学习的智能预测算法, 可发现传统负荷预测算法速度快、模型简单,对于非线性数据处理存在一定局限[16,19,20]. 基于深度学习的智能化预测算法因其泛化能力强、自学习能力高等优点被各大专家青睐, 但也存在模型复杂、过拟合、局部最优解等问题[35]. 模型组合策略、权重参数设置问题则成为集成学习模型发展的阻碍. 在实际应用中, 短期电力负荷预测在以下方面仍有待发展: • (1) 随着智能化设备的发展, 可获取的负荷数据影响因素越来越多, 但由于服务提供商出于安全考虑, 对实时和历史数据保密, 高质量的标记数据仍然缺乏, 利用传感器获取的数据存在重复、错误标记以及数据流的暂时丢失等问题, 因此高效可靠的数据预处理在负荷预测中变得尤为重要[14]. • (2) 传统模型与智能化模型各有优点, 如何利用各个模型的优点, 扬长避短, 提高模型的准确率仍是目前的研究热点[55,59,60]. • (3) 目前电力负荷预测涉及训练数据的准确性和 完整性、深度学习模型及其性能限制等多个不确定度的量化问题. 不确定性的量化问题对于提高深度学习模型的可靠性与准确性具有重要意义. (4) 无人机、电动汽车、可再生能源的发展都使电力系统变得庞大而复杂, 挖掘更深层次的影响因素、考虑更接近实际情况的用电负荷是未来努力方向.",
+      "paper_score": 0.5153287258204051,
+      "chunk_score": 0.590764677307064
+    },
+    {
+      "source_id": "SRC-CH04-008",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0007",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "2.2 时间序列法",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 2.2 时间序列法]\n时间序列算法最初由美国学者 Box 等人[17] 提出,该方法根据时间序列历史数据, 建立数学模型描述时间与负荷值之间的关系. Boroojeni 等人[18] 通过模拟不同季节周期 (每天、每周、每季度和每年) 的离线数据, 借助自回归 (auto regressive model, AR) 和移动平均 (moving average model, MA) 模型, 分别对季节性和非季节性负荷周期进行建模, 有效降低了预测误差. 时间序列分析算法只考虑时间变量, 需求数据量少, 预测速度快. 但该模型理论复杂, 对原始数据平稳性要求较高, 并且未考虑其他不确定性影响因素, 最终的预测精确度存在较大误差. 除回归分析与时间序列法外, 统计负荷预测模型还包括灰色模型法 (grey model, GM)[19]、相似日法[20]、负荷求导法等. 灰色模型对不确定性因素处理较好, 仅 适用于长期负荷预测; 相似日法在一定程度上解决负荷预测中的“积温效应”问题, 但过于依赖历史数据; 负荷求导对超短期负荷预测表现出较好的性能, 但计算复杂度较高.",
+      "paper_score": 0.5153287258204051,
+      "chunk_score": 0.3840352308093634
+    },
+    {
+      "source_id": "SRC-CH04-009",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0050",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "1.3 目前存在的主要问题",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 1.3 目前存在的主要问题]\n• （1）现有负荷模式识别方法在利用c均值和模糊c均值聚类算法时，未考虑电力负荷数据的不平衡特性。 • 已有研究表明，电力负荷模式与日期类型相关，工作日、周末和节假日的负荷曲线的形状不同。而一年中绝大部分的日期是工作日，周末次之，节假日最少。因此，电力负荷数据是一种不平衡数据集。c均值和模糊c均值聚类算法作为现有负荷模式识别方法中最常用的聚类算法，其目标函数均为平方和形式，在最小化这种目标函数时会存在聚类尺寸的“均匀效应”问题。当数据集中类间样本数量不平衡时，c均值和模糊c均值聚类算法会将一部分大类样本划分到与该类相邻的小类中，造成样本错分，影响聚类效果。当利用这两种聚类算法处理电力负荷数据时，无法准确将节假日的负荷曲线从其他类日期的负荷曲线中分离出来，导致无法识别出节假日的负荷模式，进而影响对节假日的负荷预测精度。 • （2）现有基于LSTM的负荷预测模型因输入序列过长而存在的长期遗忘问题。 LSTM是目前电力负荷预测领域最常用的深度学习方法，与传统的循环神经网络相比，能够学习序列中的长期依赖信息。已有研究表明，当输入序列过长时，LSTM模型依然会存在长期遗忘问题。电力负荷数据作为一种时间序列数据，如能从长序列中学习出足够的长期依赖信息，将有助于提高负荷预测精度。此外，电力负荷曲线具有周期性变化规律，如果遗忘了周期性特征，将会进一步影响负荷预测的效果。 （3）利用高效注意力机制进行长负荷序列特征学习时，存在的周期性特征丢失问题。 目前，基于注意力机制的深度学习模型是解决LSTM长期遗忘的一种有效方法，但代价是 的计算复杂度。由于注意力机制的分布符合长尾分布，因此将注意力值稀疏化是进行高效注意力计算的重要方法。2021年提出的Informer模型就是采用这种方法的代表模型之一。但稀疏化的方式可能会丢失周期性负荷序列中的周期性特征，影响负荷预测精度。",
+      "paper_score": 0.48971206254174726,
+      "chunk_score": 0.4611755550899753
+    },
+    {
+      "source_id": "SRC-CH04-010",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0093",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.1 引言",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.1 引言]\n电力负荷数据是一种长时间序列数据，当前时刻负荷可能与过去很长时期内的负荷存在长期依赖关系，将这种暗藏在长序列中的长期依赖挖掘出来，对提高负荷预测精度具有一定的潜在价值。长短期记忆网络仅在一定程度上缓解了传统RNN网络长期依赖的问题，但仍然存在长期记忆丢失的问题，限制了它们从长序列中提取特征的能力。近年来，以Transformer为代表的神经网络模型，抛弃了传统的RNN或CNN结构，完全由注意力机制组成，已在机器翻译等自然语言处理任务中取得了良好的效果。本章以Transformer模型的最新改良模型之一——Informer模型为基础，通过考虑电力负荷数据的周期性特点，提出一种基于周期增强Informer（periodic Informer，P-Informer）的短期电力负荷预测模型，进一步提高了短期电力负荷预测的精度。",
+      "paper_score": 0.48971206254174726,
+      "chunk_score": 0.6251069215274101
+    },
+    {
+      "source_id": "SRC-CH04-011",
+      "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "chunk_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽__chunk_0015",
+      "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "authors": [
+        "杨佳泽",
+        "王灿",
+        "王增平"
+      ],
+      "year": "2025",
+      "venue": "华北电力大学学报",
+      "section": "2. 1. 5 卷积神经网络",
+      "content": "[Title: 新型电力系统背景下的智能负荷预测算法研究综述]\n[Section: 2. 1. 5 卷积神经网络]\n考虑到循环神经网络无法提取序列的空间特征，研究学者提出依靠卷积神经网络模型提取序列的时间特征与空间特征。 卷积神经网络( convo-lution neural networks，CNN) 在 BP 神经网络结构基础上将隐含层替换为卷积层与池化层，高维电力负荷相关数据进行预处理后经输入层输入网络模型，经卷积层的卷积计算提取不同数据间的关联特征，经池化层池化后实现特征值筛选与降维，从而减少系统需要优化的参数数量，降低了人为提取特征带来的预测误差。 CNN 网络拓扑图如图7 所示 。 传统卷积神经网络具有较强的非线性映射能力及图像特征提取能力，用于负荷预测时可将负荷数据及相关影响因素进行图像化排列［38］，充分发挥 CNN 在网络训练中的自学习、自适应优势，通过提取图像数据关键特征来减小 CNN 处理序列数据时出现的过拟合问题。 卷积时间网络在处理长时间序列时常存在视野区间有限、难以提取全部时序特征［39］等问题，针 对此问题，文献［40］在传统 CNN 基础上引入扩张卷积、因果卷积及残差网络，构成具有更强时序特征捕捉能力的时序卷积神经网络( TCN) 负荷预测模型，通过对小型综合能源系统负荷数据进行分析预测，验证了此改进卷积神经网络模型具有更高特征辨识能力及稳定性。",
+      "paper_score": 0.3563703155345516,
+      "chunk_score": 0.37679364363083756
+    },
+    {
+      "source_id": "SRC-CH04-012",
+      "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "chunk_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽__chunk_0012",
+      "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "authors": [
+        "杨佳泽",
+        "王灿",
+        "王增平"
+      ],
+      "year": "2025",
+      "venue": "华北电力大学学报",
+      "section": "2. 1. 2 传统循环神经网络",
+      "content": "[Title: 新型电力系统背景下的智能负荷预测算法研究综述]\n[Section: 2. 1. 2 传统循环神经网络]\nBP 神经网络的三层网络结构为全连接，且层间节点相互无连接，因此难以体现先后输出数据的关联关系 。 循环神经网络( recurrent neural net-work，RNN) 在 BP 神经网络的基础上，为隐含层各节点提供前序连接与后序连接，用以记录前序信息并将其应用于后序输出计算中。 RNN 网络拓扑结构图如图4 所示。 考虑到 RNN 隐含层的基本循环体单元较多，文献［28］对多个循环体单元的权值进行 Xaier 初始化，以保证初始权值的可靠性，进而利用随机梯度下降算法优化的多尺度循环神经网络 RNN 进行短期负荷预测。 文献［29］采用半参数模型确定 合适的样条基函数，通过具有自适应能力的指数加权平均调整方案进行数据插值，以减少量测数据准确性对 RNN 模型负荷预测结果的影响。 由于 RNN 具有短时记忆特性，难以保证时间跨度较大的负荷序列信息传递的准确性。 同时随着多层循环训练，内部梯度不断减小，RNN 容易出现梯度消失和梯度爆炸等问题，因此 RNN 并不适用于长时间序列训练。",
+      "paper_score": 0.3563703155345516,
+      "chunk_score": 0.3463985426011795
+    },
+    {
+      "source_id": "SRC-CH04-013",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0021",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "5 Conclusion ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 5 Conclusion ]\nIn this paper we showed that despite the recent popularity of LLMs in time series forecasting they do not appear to meaningfully improve performance. We experimented with simple ablations, showing that they maintain or improve the performance of the LLM-based counterparts while requiring considerably less compute. Once more, our goal is not to suggest that LLMs have no place in time series analysis. To do so would likely prove to be a shortsighted claim. Rather, we suggest that the community should dedicate more focus to the exciting tasks could be unlocked by LLMs at the interface of time series and language such as time series reasoning [25, 7, 45, 37], or social understanding [6].",
+      "paper_score": 0.3523029228378668,
+      "chunk_score": 0.39810334886561427
+    },
+    {
+      "source_id": "SRC-CH04-014",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0031",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "E.2 Complete Results ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: E.2 Complete Results ]\nHere we provide the results for all methods and datasets that we were unable to add to the main paper. Inference Times. All results regarding “inference time” and forecast performance are shown in Figure 7 and Figure 8 respectively. Randomized Parameters and Random-Shuffling of Inputs. The results of the randomized parameters are shown in Table 20. The remaining results for shuffled input are shown in Table 21,22,23 and 24.",
+      "paper_score": 0.3523029228378668,
+      "chunk_score": 0.4134754847934688
+    },
+    {
+      "source_id": "SRC-CH04-015",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0095",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "（1）可靠性",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: （1）可靠性]\n可靠性反映了模型获得有效预测结果的程度。假设数据集包含 个样本数 据，通过预测得到在 的置信水平下的置信区间为 ，则该预测模型可靠性可以通过预测区间覆盖率（Prediction Interval Coverage Probability, PICP）进行评估，区间覆盖率PICP的计算方法如式（4-19） 其中，如果样本 的观测值 落在预测区间 内，则示性函数 取值为 1，否则取 0；RACE 为可靠性偏差，可靠性偏差越小，可靠性越高。",
+      "paper_score": 0.3157738530454369,
+      "chunk_score": 0.3477282566584739
+    },
+    {
+      "source_id": "SRC-CH04-016",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0096",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "（2）敏锐性",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: （2）敏锐性]\n敏锐性反映了模型获得准确预测信息的能力，该指标量化了概率预测区间的非精确程度，由预测区间带宽（Prediction Interval Normalized Average Width, PINAW）指标来评估，PINAW可以表示为 其中， 为样本个数， 与 分别表示预测置信区间的下界以及上界。 如果预测结果的区间宽度较大，则提供的有效预测信息较少。相反，较窄的预测区间可以提供更多预测信息。因此，PINAW的值越小越好，表示模型的敏感性越高。",
+      "paper_score": 0.3157738530454369,
+      "chunk_score": 0.24371464357732814
+    },
+    {
+      "source_id": "SRC-CH04-017",
+      "paper_id": "Informer",
+      "chunk_id": "Informer__chunk_0003",
+      "title": "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting",
+      "authors": [
+        "Haoyi Zhou",
+        "Shanghai Zhang",
+        "Jieqi Peng",
+        "Shuai Zhang",
+        "Jianxin Li",
+        "Hui Xiong",
+        "Wancai Zhang"
+      ],
+      "year": "2021",
+      "venue": "The Thirty-Fifth AAAI Conference on Artificial Intelligence (AAAI-21)",
+      "section": "Introduction ",
+      "content": "[Title: Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting]\n[Section: Introduction ]\nRecently, Transformer models have shown superior performance in capturing long-range dependency than RNN models. The self-attention mechanism can reduce the maximum length of network signals traveling paths into the theoretical shortest and avoid the recurrent structure, whereby Transformer shows great potential for the LSTF problem. Nevertheless, the self-attention mechanism violates requirement (b) due to its -quadratic computation and memory consumption on -length inputs/outputs. Some large-scale Transformer models pour resources and yield impressive results on NLP tasks (Brown et al. 2020), but the training on dozens of GPUs and expensive deploying cost make theses models unaffordable on real-world LSTF problem. The efficiency of the self-attention mechanism and Transformer architecture becomes the bottleneck of applying them to LSTF problems. Thus, in this paper, we seek to answer the question: can we improve Transformer models to be computation, memory, and architecture efficient, as well as maintaining higher prediction capacity? Vanilla Transformer (Vaswani et al. 2017) has three significant limitations when solving the LSTF problem: • 1. The quadratic computation of self-attention. The atom operation of self-attention mechanism, namely canonical dot-product, causes the time complexity and memory usage per layer to be • . • 2. The memory bottleneck in stacking layers for long inputs. The stack of • encoder/decoder layers makes total memory usage to be • , which limits the model scalability in receiving long sequence inputs. • 3. The speed plunge in predicting long outputs. Dynamic decoding of vanilla Transformer makes the step-by-step inference as slow as RNN-based model (Fig.(1b)). There are some prior works on improving the efficiency of self-attention. The Sparse Transformer (Child et al. 2019), LogSparse Transformer (Li et al.",
+      "paper_score": 0.3098705559965403,
+      "chunk_score": 0.27867198555856776
+    },
+    {
+      "source_id": "SRC-CH04-018",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0035",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "F ABLATION STUDY ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: F ABLATION STUDY ]\nThe full ablation results are in Tab. 17. We additionally compare the model performance under reprogramming and fine-tuning (with QLoRA Dettmers et al. (2023)) protocols. Our results indicate a clear performance gain of our approach compared to the QLoRA variant (A.5) by in average.",
+      "paper_score": 0.30310802505070006,
+      "chunk_score": 0.3636288978230833
+    },
+    {
+      "source_id": "SRC-CH04-019",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0000",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS ]\nMing ∗, Shiyu Wang2∗, Lintao , Zhixuan , James Y. Zhang2, Xiaoming , Pin-Yu Chen3, Yuxuan Liang6, Yuan-Fang , Shirui Pan4†, Qingsong Wen5† 1Monash University 2Ant Group 3IBM Research 4Griffith University 5Alibaba Group 6The Hong Kong University of Science and Technology (Guangzhou) {ming.jin, yuanfang.li}@monash.edu, pin-yu.chen@ibm.com yuxliang@outlook.com, s.pan@griffith.edu.au, qingsongedu@gmail.com {weiming.wsy,lintao.mlt,chuzhixuan.czx,james.z,peter.sxm}@antgroup.com",
+      "paper_score": 0.30310802505070006,
+      "chunk_score": 0.41401876130012416
+    },
+    {
+      "source_id": "SRC-CH04-020",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0033",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "4.2. Performance under different prompt engineering ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 4.2. Performance under different prompt engineering ]\nThe models that improve upon traditional approaches, Informer, iTransformer, Autoformer and TimesNet, show similar performance. For some specific variables and metrics, these models can match the best results achieved by the proposed model. Furthermore, we also compared each model’s per-iteration training time and memory footprint, as shown in Fig. 11. DLinear exhibits the smallest memory footprint GB) and the fastest speed (≈2ms/iter), though with only moderate forecasting accuracy. The transformer-based baselines (Informer, Autoformer, iTransformer, TimesNet) cluster around similar MAE values and training times, each outperforming the vanilla LSTM while maintaining comparable efficiency. Under nearly identical parameter counts (TimeLLM: 61.7M; MultiAttLLM: 62.4M), our MultiAttLLM reduces memory usage by about (from 2.03 GB down to 1.03 GB) and cuts per-iteration training time by roughly (from 249 ms to 160 ms). Meanwhile, the proposed model outperforms TimeLLM, with average improvements of , , and in MAE, RMSE, and R2, respectively.",
+      "paper_score": 0.29813896080731034,
+      "chunk_score": 0.29530813964289326
+    },
+    {
+      "source_id": "SRC-CH04-021",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0030",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "3.5. Experimental setup ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 3.5. Experimental setup ]\nTheir memory footprints and per-iteration training times are plotted in Fig. 10, and the average MAE across three forecasting targets was 213, 202, 201, and 198, respectively. While LLAMA-3.2-3b achieves the lowest error, it incurs a very large memory footprint and training latency. GPT2, by contrast, delivers near-state-of-the-art accuracy with the shortest training time, making it the most practical choice on our single-GPU setup. Accordingly, we adopt GPT2 as the LLM component in all subsequent experiments.",
+      "paper_score": 0.29813896080731034,
+      "chunk_score": 0.3101702209523509
+    },
+    {
+      "source_id": "SRC-CH04-022",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0114",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "5.2.1 模型不确定性",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 5.2.1 模型不确定性]\n模型不确定性是负荷不确定性的主要来源，对预测结果的影响较大。由于模型不确定性与模型直接相关，一般是由于训练不完全导致的，因此本章使用同一模型在同一训练集下的多次预测结果的方差来计算模型不确定性。在多次预测的过程中，每次设置的模型参数均不相同，因此这种方式能够捕获模型参数的不确定性。 首先，以不同的随机初值运行10次本文第4章的P-Informer电力负荷预测模型，再分别将训练集和测试集输入到10个训练好的模型中，得到10组独立的预测结果。其次，计算10个模型在训练集中每一个负荷点的方差： 其中， 是训练集中的天数， 是第 个预测模型在第 个时刻的预测值， 是10个预测模型在第 个时刻的预测值的平均值。 再以训练集中每天相同时刻方差的均值作为一天24个小时的模型不确定性估计结果：",
+      "paper_score": 0.2950836410610912,
+      "chunk_score": 0.32336502695266645
+    },
+    {
+      "source_id": "SRC-CH04-023",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0112",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "5.1 引言",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 5.1 引言]\n与确定性电力负荷预测不同，概率负荷预测是通过估计电力负荷的不确定性，预测负荷的区间，对提高现代电力系统可靠性具有十分重要的意义。利用预测模型进行负荷预测时主要存在两种不确定性：模型不确定性和数据不确定性。模型不确定性来自于每次训练过程中模型的结构和初始化参数的不同，数据不确定性通常来自数据本身存在的噪声，例如复杂用电情况引起的噪声。在本文第4章所提出基于周期增强Informer的负荷预测模型的基础上，进一步研究基于自注意力LSTM的电力负荷概率预测模型（P-Informer+LSTM模型），通过估计负荷不确定性，并结合确定性负荷预测结果，计算出未来的负荷区间。",
+      "paper_score": 0.2950836410610912,
+      "chunk_score": 0.3631673846668669
+    },
+    {
+      "source_id": "SRC-CH04-024",
+      "paper_id": "TimesNet",
+      "chunk_id": "TimesNet__chunk_0029",
+      "title": "TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS",
+      "authors": [
+        "Haixu Wu",
+        "Tengge Hu",
+        "Yong Liu",
+        "Hang Zhou",
+        "Jianmin Wang",
+        "Mingsheng Long"
+      ],
+      "year": "2023",
+      "venue": "ICLR",
+      "section": "G MODEL EFFICIENCY ANALYSIS ",
+      "content": "[Title: TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS]\n[Section: G MODEL EFFICIENCY ANALYSIS ]\nTo summarize the model performance and efficiency, we calculate the relative performance rankings for comparing baselines. The rankings are compared from the common models used in all five tasks: LSTM (1997) and LSSL (2022); TCN (2019); LightTS (2022) and DLinear (2023); Reformer (2020), Informer (2021), Pyraformer (2021a), Autoformer (2021), FEDformer (2022), Non-stationary Transformer (2022a), ETSformer (2022) and our proposed TimesNet, namely 13 models in total. As shown in Table 11, our proposed TimesNet achieves the best performance in all five tasks. Among the top three models, TimesNet also achieves the greatest efficiency. Compared to MLP-based models, our proposed TimesNet shows a significant advantage in performance. And benefiting from the utilization of 2D kernels and parameter-efficient design, the parameter size is invariant when the input series changes. Compared to Transformer-based models, TimesNet is with great efficiency in GPU memory, which is essential in long sequence modeling.",
+      "paper_score": 0.2877828124426612,
+      "chunk_score": 0.25111912161199584
+    },
+    {
+      "source_id": "SRC-CH04-025",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0026",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "2.4 Transformer 模型",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 2.4 Transformer 模型]\n由于电能替代的不断深化与新能源、电动汽车等不断融入负荷侧，许多现有的概率统计和机器学习方法无法提供准确的预测。因此，有学者将人工智能模型引入到负荷预测领域，并将多个模型相结合，以及与物理、数理统计相结合，最终实现对电力负荷的预测，例如 CNN 和 LSTM 在预测中已经得到了广泛应用，而 2017 年由 Google 新提出的Transformer模型更因为并行计算能力强、训练速度快以及在处理长序列和大规模数据集时的优异表现，逐渐在负荷预测领域崭露头角。 Transformer 提出了注意力机制以实现快速并行，改进了循环神经网络训练慢的缺点，由于其独特的架构和能力而被用于时间序列分析，在时间序列分析中的应用核心在于其自注意力机制，能够有效捕捉时间序列数据中的长期依赖关系。 该模型主要由编码器(Encoder)和解码器(Decoder)构成，如图 12 所示，它们之间通过多头注意力机制和前馈神经网络连接在一起，通过并行处理能力和位置编码实现高效的信息交互、传递。与传统的 CNN、LSTM 等模型不同，该模型可以并行处理序列数据，从而提高处理效率。",
+      "paper_score": 0.2629814059591447,
+      "chunk_score": 0.26436560667223047
+    },
+    {
+      "source_id": "SRC-CH04-026",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0013",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2.4 小样本问题",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2.4 小样本问题]\n当原始数据样本不足时，会使得预测模型因没有足够数据支撑，无法达到预期效果，小样本问题已成为制约新型电力系统数字化转型的重要因素之一，目前针对小样本问题的研究包括迁移学习、大语言模型等。 迁移学习通过从数据丰富的源域迁移知识来提升目标域任务的性能，在历史数据不足的情况下，大语言模型先通过大量通用数据对模型进行预训练，再使用少量预测领域强相关数据对预训练模型进行微调，巧妙解决了原始数据样本不足的问题。在进行预测之前，首先需要对输入数据进行预处理，构建固定步长的时间序列输入模型；随后，大语言模型(large language model, LLM)通过嵌入层将输入数据中的特征转为向量形式，以便更好地捕捉时序依赖关系并处理多模态数据，使其向量表示统一化[38]。此外，还有部分学者利用生成对抗网络等生成式无监督深度学习方法进行数据增强处理。文献[39]结合迁移学习与 TCN-BiGRU 模型，将相关性高的信息迁移到实验模型中，在解决了小样本问题的同时提高了预测精度。文献[40]结合大语言模型中的 GPT-3模型与深度学习模型，利用通用数据进行预训练，利用领域数据进行调整，解决了输入数据不足的问题。",
+      "paper_score": 0.2629814059591447,
+      "chunk_score": 0.2706037457156856
+    },
+    {
+      "source_id": "SRC-CH04-027",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0054",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "4.1.5 基于自动机器学习的负荷预测技术",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 4.1.5 基于自动机器学习的负荷预测技术]\n术的准确性与实用性。近年来，已有专家学者利用粒子群优化、遗传算法、模拟退火算法、蚁群优化等经验启发式算法对负荷预测模型进行超参数优化并取得了良好的预测效果[13]。然而，经验启发式算法的反复迭代优化使得模型训练次数骤增，因而造成了巨大的计算负担。贝叶斯优化作为 1 种新兴的超参数优化方法正逐渐被广泛应用，其能够基于先验信息高效推理后验信息，大幅提升超参数寻优的收敛速度。值得注意的是，考虑到超参数自动调优需要反复多次的模型训练而涉及巨大的运算量，利用 Hadoop、Spark 等分布式计算技术以及多线程并行计算技术，可以达到降低训练时间成本的目的。4.1.6 考虑模型可解释性的负荷预测技术 可解释性一般是指以可理解的术语向人类解释或呈现的能力，其本质是人类可以理解决策原因的程度。针对可解释对象的不同，机器学习可解释性技术大致可以按照模型的解释、预测结果的解释以及模仿者模型的解释 3 个方面进行分类[114]。目前，机器学习可解释性技术在计算机视觉、医疗等少数研究领域已经取得一定程度的进展，尤其深度学习的可解释性技术研究[115]。然而，在电力研究领域，机器学习可解释性技术的研究与应用仍然处于初步探索阶段。对于负荷预测场景，可以考虑通过敏感度分析计算相关性分数，量化评估输入特征对于预测输出结果的影响程度，准确挖掘高度影响预测输出结果的相关输入特征，以提升负荷预测模型结果的可解释性。同时，可以利用注意力机制，反映输入特征与预测输出结果之间的对齐关系或依赖关系，解释说明预测模型学习获得的关键重要信息，从而增强负荷预测模型内部的可解释性。图10为考虑模型可解释性的负荷预测方法示意图。 因此，深入开展考虑模型可解释性的负荷预测技术研究，能够大幅提升负荷预测模型在实际应用中的可信性、可靠性以及安全性。",
+      "paper_score": 0.5707115044619278,
+      "chunk_score": 0.6498486083477858
+    },
+    {
+      "source_id": "SRC-CH04-028",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0053",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "4.1.5 基于自动机器学习的负荷预测技术",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 4.1.5 基于自动机器学习的负荷预测技术]\n自动机器学习技术能够使机器学习建模过程自动化，减少、甚至完全规避专家在整个过程中的参与度，并实现机器学习模型构建和应用。图 9 为自动机器学习框架图。自动机器学习一般主要包含数据准备、特征工程、模型生成、模型评估等 4 个环节。在实际应用中，通过自动机器学习技术，科学合理地筛选负荷预测模型的相关输入特征并设置模型超参数，实现模型调优自动化，提高预测技 术的准确性与实用性。近年来，已有专家学者利用粒子群优化、遗传算法、模拟退火算法、蚁群优化等经验启发式算法对负荷预测模型进行超参数优化并取得了良好的预测效果[13]。然而，经验启发式算法的反复迭代优化使得模型训练次数骤增，因而造成了巨大的计算负担。贝叶斯优化作为 1 种新兴的超参数优化方法正逐渐被广泛应用，其能够基于先验信息高效推理后验信息，大幅提升超参数寻优的收敛速度。值得注意的是，考虑到超参数自动调优需要反复多次的模型训练而涉及巨大的运算量，利用 Hadoop、Spark 等分布式计算技术以及多线程并行计算技术，可以达到降低训练时间成本的目的。4.1.6 考虑模型可解释性的负荷预测技术 可解释性一般是指以可理解的术语向人类解释或呈现的能力，其本质是人类可以理解决策原因的程度。针对可解释对象的不同，机器学习可解释性技术大致可以按照模型的解释、预测结果的解释以及模仿者模型的解释 3 个方面进行分类[114]。目前，机器学习可解释性技术在计算机视觉、医疗等少数研究领域已经取得一定程度的进展，尤其深度学习的可解释性技术研究[115]。然而，在电力研究领域，机器学习可解释性技术的研究与应用仍然处于初步探索阶段。对于负荷预测场景，可以考虑通过敏感度分析计算相关性分数，量化评估输入特征对于预测输出结果的影响程度，准确挖掘高度影响预测输出结果的相关输入特征，以提升负荷预测模型结果的可解释性。同时，可以利用注意力机制，反映输入特征与预测输出结果之间的对齐关系或依赖关系，解释说明预测模型学习获得的关键重要信息，从而增强负荷预测模型内部的可解释性。图10为考虑模型可解释性的负荷预测方法示意图。",
+      "paper_score": 0.5707115044619278,
+      "chunk_score": 0.6142598136565315
+    },
+    {
+      "source_id": "SRC-CH04-029",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0002",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "0 引言",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 0 引言]\n根据世界资源研究所统计，我国电力行业二氧化碳排放占全国能源消耗产生的二氧化碳排放总量的 左右。电力行业是碳排放的重点领域，也是实现碳达峰、碳中和目标的主要“责任人”[1-2]。因此，大力开发利用新能源，构建以风电、光伏为主 体的新型电力系统，已成为我国能源行业发展的重中之重。相对于传统电力系统而言，由“源随荷动”转变为“源荷互动”是新型电力系统的主要特征之一[3]。在此背景下，为了保障电力系统安全，需要在“荷”侧尽可能地提高预测精度，从而提升负荷侧资源利用率，适应更大规模新能源消纳的需求。 电力负荷预测研究的核心问题是如何利用现有的历史数据，建立预测模型，对未来时刻或时间段内的负荷值进行预测[4]，从而有效地支撑电网调度、检修计划、安稳分析、新能源消纳分析等多项 业务[5-6]。传统负荷预测技术主要是基于物理方法和数理统计方法实现，随着智能量测设备的发展和人工智能技术的迅速发展，数据驱动的人工智能方法逐渐成为电力负荷预测的主要研究方法。特别是基于深度学习的负荷预测方法，由于其在模式识别和非线性建模能力上的优势，可以大幅提升模型的泛化能力，在提升预测精度的同时提高了预测的计算效率。相较于传统方法，基于深度学习的预测方法可以更好地应对大规模数据、多源数据的问题，实现实时预测和自动特征提取，以及预测模型的不断优化。 如图1所示，本文针对负荷预测研究，首先分别对场景对象、数据类型、评价方式、预测方法进行梳理和分析；然后针对上述问题，按照算法迭代顺序，对基于深度学习的电力系统负荷预测方法进行总结；最后，从模型构建及应用场景2方面对目前存在的问题进行归纳，并展望未来研究方向。",
+      "paper_score": 0.5496207434666767,
+      "chunk_score": 0.50051318769244
+    },
+    {
+      "source_id": "SRC-CH04-030",
+      "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "chunk_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷__chunk_0010",
+      "title": "基于人工智能算法的电力系统负荷预测研究综述",
+      "authors": [
+        "杨雷",
+        "罗雪红",
+        "韩鹍",
+        "张启立",
+        "郭鹏",
+        "李晓飞"
+      ],
+      "year": "2024",
+      "venue": "电工技术",
+      "section": "5 结语 ",
+      "content": "[Title: 基于人工智能算法的电力系统负荷预测研究综述]\n[Section: 5 结语 ]\n电力系统负荷预测一直是电力系统中最热门的研究领域之一 ， 且随着新型电力系统的构建 ， 电力系统的负荷预测精度要求也将不断提高 本文对基于人工智能算法的电力系统负荷预测方法进行了详细介绍 ， 首先介绍了电力负荷预测的方法分类以及电力负荷预测的必要性 ， 然后将基于人工智能算法的电力负荷预测方法分为基于传统机器学习、 基于深 度 学 习、 基 于 组 合 模 型 3种 方 法 展 开 详 细 叙述 ， 介绍了各个方法的研究成果和特点 ， 最后对基于人工智能算法的电力系统负荷预测研究进行了展望和总结 ， 如何建立完善的负荷数据库、 合适的负荷预测模型同时降低预测模型的训练代价仍是需要深思的问题",
+      "paper_score": 0.4251386909205524,
+      "chunk_score": 0.4755404009251825
+    },
+    {
+      "source_id": "SRC-CH04-031",
+      "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "chunk_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷__chunk_0002",
+      "title": "基于人工智能算法的电力系统负荷预测研究综述",
+      "authors": [
+        "杨雷",
+        "罗雪红",
+        "韩鹍",
+        "张启立",
+        "郭鹏",
+        "李晓飞"
+      ],
+      "year": "2024",
+      "venue": "电工技术",
+      "section": "0 引言",
+      "content": "[Title: 基于人工智能算法的电力系统负荷预测研究综述]\n[Section: 0 引言]\n随着社会经济的快速发展以及社会对电力需求的快速增长 ， 电力系统的规模不断扩大 ， 电网的运行环境也日渐复杂［1－2］ 。 近10年来我国对电力系统的建设不断投入 ， 国内电力资源正稳定增长 ， 2021年1月7日 ， 国家电网经营区的最高负荷达到了9．60亿 ， 日发电量达到了201．91亿kWh， 均创造了历史最高［3］ 我国当前的电气化进程已经进入飞速发展期 电能是能源领域最重要的清洁能源之一 ， 它与我国社会能源利用的方方面面都有关系 ， 大到国家综合实力体现上 ， 如航空航天技术、 军用核反应堆技术等 ， 小到与人民息息相关的生活上 ， 如电子设备等 电力产业在国民经济建设和国家能源发展中占据着十分关键的地位 ， 是我国各行各业持续发展的基础性产业［4］ 。 电能具有瞬时性和不可存储性的特征 其生产和使用都是同时的 ， 因此需要保证电力系统的稳定 ， 才能提供持续可靠的电能 由于电力系统在运行过程中会受到各种因素的影响 ， 因此要保证电力系统的稳定运行 ， 就必须对电力系统 收稿日期 ：2023－10－14 进行实时监控和调整 准确预测电力系统负荷 ， 制定合适的调度方案和发电计划 ， 便是保证电力系统稳定运行的有效 途 径 ［5］ 。 随着社会的发展更新 ， 电力系统趋于复杂化、 大规模化 ， 因此在进行电力负荷预测时所需考虑的因素也趋于复杂化和多样化 ， 气候条件、 社会条件、 政治条件和经济条件都成为电力负荷预测所需综合考虑的 基于人工智能算法的电力系统负荷预测方法 ， 不仅能够克服传统人工预测的各种弊端 ， 而且还具有一定的自动化和智能化特点 ， 能够减少电力负荷预测系统技术人员的负担 本文将简要分析基于人工智能算法的电力系统负荷预测方法的应用现状 并对其进行展望 旨在为人工智能算法在电力负荷预测领域应用提供一定参考",
+      "paper_score": 0.4251386909205524,
+      "chunk_score": 0.5109663901414194
+    },
+    {
+      "source_id": "SRC-CH04-032",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0069",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "（3）构建AadpterTuning的模型微调迁移学习模型",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: （3）构建AadpterTuning的模型微调迁移学习模型]\n本文利用大量源域样本和有限目标域样本对改进Transformer的域对抗网络进行训练，尽可能寻找源域和目标域之间的相似性，实现域对抗网络模型最优化。然后，将域对抗网络的改进Transformer模型作为预训练模型，以带标签的节假日负荷数据作为输入样本，固定特征提取器共享参数，对分类预测器部分参数采用Adapter迁移学习方法对参数进行微调，挖掘节假日负荷的特有规律，提升模型对节假日负荷预测的针对性和有效性。",
+      "paper_score": 0.41215750027610365,
+      "chunk_score": 0.4487967793041688
+    },
+    {
+      "source_id": "SRC-CH04-033",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0004",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "2.5 算例分析 26",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 2.5 算例分析 26]\n• 2.5.1 数据选择及模型测试环境 26 • 2.5.2 评价指标 ..... 26 • 2.5.3 有效性验证 ..... 27",
+      "paper_score": 0.41215750027610365,
+      "chunk_score": 0.4769763167908817
+    },
+    {
+      "source_id": "SRC-CH04-034",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0016",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.4 实验结果 59",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.4 实验结果 59]\n• 4.4.1 P-Informer 模型的预测结果 59 • 4.4.2 P-Informer 模型的鲁棒性分析 62 • 4.4.3 消融实验 65 • 4.4.4 运行时间 66",
+      "paper_score": 0.3573347453987453,
+      "chunk_score": 0.4076120922610931
+    },
+    {
+      "source_id": "SRC-CH04-035",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0015",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "VIII ",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: VIII ]\n• 4.3.2 P-Informer模型结构 58 • 4.3.3 P-Informer 模型的训练过程 59",
+      "paper_score": 0.3573347453987453,
+      "chunk_score": 0.42654239383216086
+    },
+    {
+      "source_id": "SRC-CH04-036",
+      "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "chunk_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽__chunk_0002",
+      "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "authors": [
+        "杨佳泽",
+        "王灿",
+        "王增平"
+      ],
+      "year": "2025",
+      "venue": "华北电力大学学报",
+      "section": "0 引 言",
+      "content": "[Title: 新型电力系统背景下的智能负荷预测算法研究综述]\n[Section: 0 引 言]\n随着“双碳”进程的不断深入推进，我国能源电力高质量发展面临新形式和新任务。 电力系统作为能源系统的重要组成部分及 “双碳”目标的主 要参与者、推动者，其源网荷储等关键环节正在面临深刻变革［ 。 传统电力系统的电源特性决定其有足够的转动惯量与发电灵活性，在保持稳定性的基础上能够实现发电侧紧随负荷波动变化的 “源随荷动”发展模式。 在新型电力系统构建过程中，电源呈现出多能化、多层化、多样化，风电、光伏等新能源占比逐步提升，其波动幅度与频次增加，大量的不确定性、随机性造成电网灵活调节能力日趋紧张，加之涉及储能材料及其成本的限制，电能依旧无法大量储存，进而导致弃电与缺电交互出现，因此源荷缺乏良性互动成为 “双碳”背景下能源绿色转型中亟待解决的问题［2］。 构建以新能源为主体的新型电力系统，需从传统模式下 “源随荷动”的稳定电网逐步转变为 “源荷互动”的非完全实时平衡、集中－分布协同控制的波动电网［3］，以适应低惯量、弱灵活性的新型电力系统发电特性。 新能源的接入对电力系统调度计划的制定提出了新的挑战，面对新型电力系统背景下发电侧灵活性受限问题，要保障系统的稳定运行，用户侧必须深度参与系统运行的调节［4］，多时间尺度、高精度的电力负荷建模、预测以及优化对新型电力系统的运行、维护和规划至关重要。",
+      "paper_score": 0.34954637781176023,
+      "chunk_score": 0.3731185281048942
+    },
+    {
+      "source_id": "SRC-CH04-037",
+      "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "chunk_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽__chunk_0000",
+      "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "authors": [
+        "杨佳泽",
+        "王灿",
+        "王增平"
+      ],
+      "year": "2025",
+      "venue": "华北电力大学学报",
+      "section": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "content": "[Title: 新型电力系统背景下的智能负荷预测算法研究综述]\n[Section: 新型电力系统背景下的智能负荷预测算法研究综述]\n杨佳泽1 ，王 灿2 ，王增平1 ( 1． 华北电力大学 电气与电子工程学院，北京 102206; 2． 国网北京市供电公司，北京 100031) 摘要: 在新型电力系统稳步发展与 “双碳” 目标持续构筑背景下， “源荷互动新模式” 成为电力系统能源转型的必然趋势，以多样性、 灵活性为主要特征的电力负荷作为电力系统的重要组成部分，其预测场景分析及预测模型研究对新型电力系统的运行、 维护和规划至关重要。 为深入研究人工智能背景下负荷预测领域取得的进展与突破，以新型电力系统负荷预测为着眼点，总结归纳当今负荷预测必要性与实用性，分类介绍五个典型负荷预测场景，针对基于人工智能技术的智能负荷预测算法模型进行系统化分析，结合机器学习中的神经网络、 深度学习算法、 集成学习算法对比单一预测模型及组合预测模型的特点，详细阐述各类模型在负荷预测领域的应用现状，以期为 “双碳” 目标下新型电力系统源荷互动的新模式构建提供合理化参考。 关键词: 新型电力系统; 人工智能; 神经网络; 负荷预测; 机器学习; 深度学习 中图分类号: TM715 文献标识码: A 文章编号: 1007－2691 ( 2025) 03－0054－14",
+      "paper_score": 0.34954637781176023,
+      "chunk_score": 0.3819337638874125
+    }
+  ],
+  "all_source_ids": [
+    "SRC-CH04-001",
+    "SRC-CH04-002",
+    "SRC-CH04-003",
+    "SRC-CH04-004",
+    "SRC-CH04-005",
+    "SRC-CH04-006",
+    "SRC-CH04-007",
+    "SRC-CH04-008",
+    "SRC-CH04-009",
+    "SRC-CH04-010",
+    "SRC-CH04-011",
+    "SRC-CH04-012",
+    "SRC-CH04-013",
+    "SRC-CH04-014",
+    "SRC-CH04-015",
+    "SRC-CH04-016",
+    "SRC-CH04-017",
+    "SRC-CH04-018",
+    "SRC-CH04-019",
+    "SRC-CH04-020",
+    "SRC-CH04-021",
+    "SRC-CH04-022",
+    "SRC-CH04-023",
+    "SRC-CH04-024",
+    "SRC-CH04-025",
+    "SRC-CH04-026",
+    "SRC-CH04-027",
+    "SRC-CH04-028",
+    "SRC-CH04-029",
+    "SRC-CH04-030",
+    "SRC-CH04-031",
+    "SRC-CH04-032",
+    "SRC-CH04-033",
+    "SRC-CH04-034",
+    "SRC-CH04-035",
+    "SRC-CH04-036",
+    "SRC-CH04-037"
+  ]
+}

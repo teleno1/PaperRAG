@@ -1,0 +1,180 @@
+[
+  {
+    "ref_no": 1,
+    "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+    "title": "基于机器学习的短期负荷预测算法综述",
+    "authors": [
+      "梁宏涛",
+      "刘红菊",
+      "李静",
+      "王莹",
+      "郭超男"
+    ],
+    "year": "2022",
+    "venue": "计算机系统应用"
+  },
+  {
+    "ref_no": 2,
+    "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+    "title": "电力负荷自适应短期预测理论与方法研究",
+    "authors": [
+      "于一潇"
+    ],
+    "year": "2024",
+    "venue": "山东大学博士学位论文"
+  },
+  {
+    "ref_no": 3,
+    "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+    "title": "基于人工智能算法的电力系统负荷预测研究综述",
+    "authors": [
+      "杨雷",
+      "罗雪红",
+      "韩鹍",
+      "张启立",
+      "郭鹏",
+      "李晓飞"
+    ],
+    "year": "2024",
+    "venue": "电工技术"
+  },
+  {
+    "ref_no": 4,
+    "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+    "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+    "authors": [
+      "韩富佳",
+      "王晓辉",
+      "乔骥",
+      "史梦洁",
+      "蒲天骄"
+    ],
+    "year": "2023",
+    "venue": "中国电机工程学报"
+  },
+  {
+    "ref_no": 5,
+    "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+    "title": "基于深度学习的负荷预测研究综述与展望",
+    "authors": [
+      "马恒瑞",
+      "袁傲添",
+      "王波",
+      "杨昌华",
+      "董旭柱",
+      "陈来军"
+    ],
+    "year": "2025",
+    "venue": "高电压技术"
+  },
+  {
+    "ref_no": 6,
+    "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+    "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+    "authors": [
+      "杨佳泽",
+      "王灿",
+      "王增平"
+    ],
+    "year": "2025",
+    "venue": "华北电力大学学报"
+  },
+  {
+    "ref_no": 7,
+    "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+    "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+    "authors": [
+      "董添"
+    ],
+    "year": "2022",
+    "venue": "吉林大学博士学位论文"
+  },
+  {
+    "ref_no": 8,
+    "paper_id": "TIME-LLM",
+    "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+    "authors": [
+      "Ming",
+      "Shiyu Wang",
+      "Lintao",
+      "Zhixuan",
+      "James Y. Zhang",
+      "Xiaoming",
+      "Pin-Yu Chen",
+      "Yuxuan Liang",
+      "Yuan-Fang",
+      "Shirui Pan",
+      "Qingsong Wen"
+    ],
+    "year": "2024",
+    "venue": "ICLR"
+  },
+  {
+    "ref_no": 9,
+    "paper_id": "A-novel-attention-enhanced-LLM-approach",
+    "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+    "authors": [
+      "Zehuan Hu",
+      "Yuan Gao",
+      "Luning Sun",
+      "Masayuki Mae"
+    ],
+    "year": "2025",
+    "venue": "Renewable Energy"
+  },
+  {
+    "ref_no": 10,
+    "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+    "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+    "authors": [
+      "Mingtian Tan",
+      "Mike A. Merrill",
+      "Vinayak Gupta",
+      "Tim Althoff",
+      "Thomas Hartvigsen"
+    ],
+    "year": "",
+    "venue": ""
+  },
+  {
+    "ref_no": 11,
+    "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+    "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+    "authors": [
+      "Qi Dong",
+      "Rubing Huang",
+      "Chenhui Cui",
+      "Dave Towey",
+      "Ling Zhou",
+      "Jinyu Tian",
+      "Jianzhou Wang"
+    ],
+    "year": "2018",
+    "venue": ""
+  },
+  {
+    "ref_no": 12,
+    "paper_id": "双碳目标的挑战与电力结构调整趋势展望_蔡绍宽",
+    "title": "双碳目标的挑战与电力结构调整趋势展望",
+    "authors": [
+      "蔡绍宽"
+    ],
+    "year": "2021",
+    "venue": "南方能源建设"
+  },
+  {
+    "ref_no": 13,
+    "paper_id": "TimesNet",
+    "title": "TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS",
+    "authors": [
+      "Haixu Wu",
+      "Tengge Hu",
+      "Yong Liu",
+      "Hang Zhou",
+      "Jianmin Wang",
+      "Mingsheng Long"
+    ],
+    "year": "2023",
+    "venue": "ICLR"
+  }
+]

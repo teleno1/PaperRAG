@@ -1,0 +1,4434 @@
+[
+    [
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "“双碳”目标下南方区域能源电力消费及负荷特性预测"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                97,
+                162,
+                880,
+                223
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "卓映君，周保荣，姚文峰，王嘉阳，卢斯煜 "
+                    }
+                ]
+            },
+            "bbox": [
+                305,
+                245,
+                692,
+                263
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "（直流输电技术全家重点实验室（南方电网科学研究院），广州 510663）"
+                    }
+                ]
+            },
+            "bbox": [
+                270,
+                267,
+                724,
+                282
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "摘要：针对双碳目标，在全国能源消费预测已有研究基础上，提出了兼顾多层级发展目标约束的南方区域能源电力消费需求预测技术，构建了基准情景、能耗双控情景、碳排放双控情景 种南方区域能源电力消费情景；建立了基于产业分解的多时间尺度负荷特性预测模型，推演了未来南方区域的电力负荷特性。研究结果表明，碳排放双控情景下，南方区域终端能源消费量在 年前进入达峰平台期，峰值约 亿吨标准煤；终端部门用电量保持合理增长态势，在 年后进入年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "左右的平台期，在 年后年均增长率进一步下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；受产业结构转型影响，南方区域电力负荷不均衡特性将逐步加大。电力部门承担的减排压力逐步凸显，需要加快南方区域新型电力系统建设，促进能源低碳转型，支撑“双碳”目标实现。"
+                    }
+                ]
+            },
+            "bbox": [
+                105,
+                303,
+                890,
+                416
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "关键词：“双碳”目标；南方区域；能源消费；负荷预测"
+                    }
+                ]
+            },
+            "bbox": [
+                107,
+                418,
+                475,
+                432
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "Prediction of Energy and Electricity Consumption and Load Characteristics in the Southern Region Under the Carbon Peak and Carbon Neutrality Target "
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                110,
+                448,
+                880,
+                516
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "ZHUO Yingjun, ZHOU Baorong, YAO Wenfeng, WANG Jiayang, LU Siyu "
+                    }
+                ]
+            },
+            "bbox": [
+                213,
+                532,
+                781,
+                548
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "（State Key Laboratory of HVDC , Electric Power Research Institute, CSG, Guangzhou 510663, China）"
+                    }
+                ]
+            },
+            "bbox": [
+                181,
+                553,
+                815,
+                567
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "Abstract：Aiming at carbon peaking and carbon neutrality goals, based on the existing research on the national energy consumption forecast, a forecasting technology for energy and electricity consumption demand in the southern region that takes into account the constraints of multi-level development goals is proposed. Three energy and electricity consumption scenarios in the southern region are constructed: the baseline scenario, dual-control of energy consumption scenario, and dual-control of carbon emission scenario. A forecasting method for multi-timescale load characteristics based on industrial decomposition is established, and the future power load characteristics of the southern region are deduced. The result shows that under the dual-control of carbon emission scenario, the terminal energy consumption in the southern region will reach a peak plateau before 2045, with a peak of 1 billion tons of standard coal. Terminal sector electricity consumption maintains a reasonable growth trend, entering a plateau with an average annual growth rate of about "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "after 2025, and further decreasing to "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "after 2050. Affected by the transformation of industrial structure, the fluctuation characteristics of load in the southern region will gradually increase. The pressure on the power sector to reduce emissions has gradually become prominent, and it is necessary to speed up the construction of new power systems in the southern region for promoting the low-carbon energy transformation and supporting the achievement of the carbon peaking and carbon neutrality goals. "
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                588,
+                912,
+                781
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "Key words：carbon peaking and carbon neutrality target；southern region；energy consumption；load forecast "
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                784,
+                761,
+                799
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 17 卷 第 9 期"
+                    }
+                ]
+            },
+            "bbox": [
+                94,
+                74,
+                201,
+                87
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "2023 年 9 月"
+                    }
+                ]
+            },
+            "bbox": [
+                95,
+                89,
+                176,
+                102
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方电网技术"
+                    }
+                ]
+            },
+            "bbox": [
+                440,
+                74,
+                554,
+                87
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "SOUTHERN POWER SYSTEM TECHNOLOGY "
+                    }
+                ]
+            },
+            "bbox": [
+                332,
+                89,
+                662,
+                102
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "Vol. 17， No. 9 "
+                    }
+                ]
+            },
+            "bbox": [
+                801,
+                75,
+                895,
+                87
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "Sep. 2023 "
+                    }
+                ]
+            },
+            "bbox": [
+                826,
+                89,
+                895,
+                102
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "文章编号：1674-0629（2023）09-0132-09"
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                114,
+                339,
+                128
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "DOI：10. 13648/j. cnki. issn1674-0629. 2023. 09. 015"
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                133,
+                423,
+                146
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "中图分类号：TM"
+                    }
+                ]
+            },
+            "bbox": [
+                537,
+                114,
+                670,
+                128
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "文献标志码：A"
+                    }
+                ]
+            },
+            "bbox": [
+                803,
+                114,
+                910,
+                128
+            ]
+        },
+        {
+            "type": "page_footnote",
+            "content": {
+                "page_footnote_content": [
+                    {
+                        "type": "text",
+                        "content": "基金项目：国家自然科学基金企业创新发展联合基金项目（U B ）；广东省重点领域研发计划项目（ B ）；中国南方电网有限责任公司新型电力系统创新项目（ZBKJXM20232001）。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                862,
+                910,
+                890
+            ]
+        },
+        {
+            "type": "page_footnote",
+            "content": {
+                "page_footnote_content": [
+                    {
+                        "type": "text",
+                        "content": "Foundation item：Supported by Integration Project of National Natural Science Foundation of China Enterprise Innovation and Development Joint Fund（U22B6007）； the Key Research and Development Program of Guangdong Province （2021B0101230004）； the Innovation Project of China Southern Power Grid Co.， Ltd.（ZBKJXM ）. "
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                892,
+                910,
+                931
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                836,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "0　引言"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                123,
+                163,
+                142
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "为了应对世界气候变化，许多国家和地区陆续提出碳中和目标［1］ ，我国也积极宣誓“双碳”目标，并出台了一系列“双碳”政策文件，加快我国能源绿色低碳转型建设［2-3］ 。实现“双碳”目标，能源是主战场，电力是主力军，能源电力低碳转型是实现碳达峰、碳中和的关键环节［5-7］ 。中长期能源电力消费预测是指导能源政策、电网规划的重要基础，准确把握能源电力消费发展趋势， 对于保障国民经济高质量发展、保障能源供应安全以及保障“双碳”目标实现具有重要意义。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                154,
+                482,
+                345
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "国内外已有不少组织机构和学者对我国能源电力转型路径开展深入研究，对我国碳达峰阶段和碳中和阶段的能源需求和电量需求有初步的研究成果［8-13］ 。南方区域作为我国新型电力系统建设的先行者，更应提前做好布局和谋划。然而，目前关于南方区域能源低碳转型的研究较少，亟需对“双碳”目标下南方区域未来能源电力消费情景进行预测。准确把握未来能源电力消费发展趋势，不仅可以指导终端部门加速能源技术升级、加快能源消费结构转型；还可以为电力部门提供负荷画像，指导电网建设和电源投资，保障电力供应安全。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                349,
+                482,
+                561
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在“双碳”背景下，能源电力消费情景不仅需要满足经济、能源、碳排放等宏观约束性指标，同时还需考虑产业转型目标、区域发展规划以及终端部门电能替代技术潜力等多层级发展约束，因此需要采用自上而下与自下而上相结合的综合评估的方法［14-16］ 。此外，负荷画像颗粒度越精细，对支撑电源规划、电网发展、市场建设等电力供需保障工作的作用越大。如何准确刻画未来负荷特性的变化是进一步深化能源电力消费预测研究的重要工作。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                563,
+                482,
+                736
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "目前已有的能源电力消费预测研究聚焦于能源和电力消费总量的预测，时间尺度通常以年为单位；已有的负荷特性预测方法聚焦于单一时间尺度的负荷特性预测，预测时间跨度通常为数年以内［17-19］ 。新型电力系统背景下负荷画像的精度要求逐步提高，需要在能源电力系统视角下兼顾宏观-中观-微观多层级发展目标，对中长期的负荷需求及多时间尺度特性进行预测，因此，亟需研究一套完备的负荷需求及特性预测方法。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                739,
+                482,
+                912
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "本文提出了可满足新型电力系统建设需求的能"
+                    }
+                ]
+            },
+            "bbox": [
+                119,
+                916,
+                482,
+                931
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "源电力消费及负荷特性的预测方法，并基于该方法对南方区域的未来负荷情景进行描绘。首先，在全国和南方区域的能源供需现状分析基础上，结合目前已有的关于我国未来能源发展的研究成果，从经济发展、人口发展、能源发展三个维度对南方区域能源电力消费发展趋势进行展望，把握南方区域能源电力消费的客观发展规律；采用兼顾多层级发展目标约束的南方区域能源电力消费需求预测技术和情景分析方法，构建了“双碳”目标约束下南方区域的能源电力消费情景；在此基础上，采用基于产业分解的多时间尺度负荷特性预测方法，刻画了“双碳”目标约束下南方区域负荷画像。以期为碳达峰、碳中和目标下南方区域能源电力消费预测和能源电力低碳转型提供基础参考。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                114,
+                912,
+                385
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1　能源电力消费现状分析与未来发展趋势展望"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                396,
+                912,
+                434
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "能源电力消费预测是指在历史和现状的数据基础上，提炼客观发展规律，对未来进行预测。本文通过统计分析全国与南方区域的能源供需现状、调研已有的全国能源发展趋势预测结果，展望南方区域未来能源消费发展趋势。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                447,
+                910,
+                541
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1.1　能源电力消费现状分析"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                545,
+                741,
+                560
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": ". . 　全国能源消费现状"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                565,
+                722,
+                579
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "2020 年 ， 全 国 国 内 生 产 总 值（gross domesticproduct， GDP）总量为 . 万亿元，相比 年年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 , 8 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。其中，第一产业占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 . 7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比2010年处于下降状态，年均下降率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 0 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；第二产业占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 7 . 8 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 年处于下降状态，年均下降率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 , 0 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；第三产业占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 4 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比2010 年 处 于 逐 年 上 升 状 态 ， 年 均 增 长 率 为. %［19］ 。 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 1 \\%"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                584,
+                910,
+                734
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年，全国总人口为 . 亿人，相比年年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "0 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。其中，城镇占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 3 . 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 年处于逐年上升状态，年均增长率为"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；乡村占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 6 . 1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 年处于逐年下降状态，年均下降率为3. 2%［20］ 。 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 2 \\% ^ { [ 2 0 ] }"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                739,
+                910,
+                833
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "全国能源消费需求逐年增长，终端部门能源消费结构不断改善，电力消费持续增长（如图 所示），电能替代技术存在较大发展空间。能源消费结构不断优化， 年能源消费总量为 . 亿吨标准煤， 年上升至 . 亿吨标准煤，化石能"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                838,
+                912,
+                931
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 9 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                86,
+                157,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "卓映君，等：“双碳”目标下南方区域能源电力消费及负荷特性预测"
+                    }
+                ]
+            },
+            "bbox": [
+                280,
+                86,
+                715,
+                101
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "133 "
+                    }
+                ]
+            },
+            "bbox": [
+                873,
+                89,
+                897,
+                100
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "源消费占比从 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "9 0 . 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 4 . 1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2020年全国电力消费量为 . PWh，相比 年年均增长率为"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 \\% ^ { [ 2 1 ] }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2020 年全国电能消费占终端能源消费比重达到约 26. 5%［22］ 。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                114,
+                482,
+                190
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/86c79fd50d94f6bf7756948970ef1245c7ac2611b9a84a194707f2cfc6b3713d.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图1　全国电力消费情况"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 1 National electricity consumption "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                92,
+                201,
+                480,
+                335
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": ". . 　南方区域能源消费现状"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                382,
+                329,
+                399
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年，南方区域GDP总量为 . 万亿元，相比2010年年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 . 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。其中，第一产业占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 , 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 年下降 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "0 . 7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；第二产业占比"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 6 . 7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 年下降 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 0 . 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；第三产业占比"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 4 . 8 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 年上升 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 1 . 3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "［19］ 。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                403,
+                482,
+                498
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年，南方区域人口总量为 . 亿人口，相比2010年年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "0 . 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2020年，南方区域人口和GDP占全国比重均为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "18 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "左右，人均GDP为 . 万元/年，略低于全国平均水平（ . 万元/年）。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                501,
+                482,
+                596
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年南方五省终端能源消费量为 . 亿吨标准煤，约占全国能源消费总量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "14 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，相比 2010 年. 亿吨标准煤年均增长 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。 年南方区域非化石能源消费占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "30 . 2 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，单位 GDP 能耗约. t标准煤/万元（当年价），均远低于全国水平"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "( 1 5 . 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "， . t标准煤/万元）"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                600,
+                482,
+                714
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年南方区域电力消费量为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 3 \\ \\mathrm { P W h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，近a的年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 , 4 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，南方区域约占全国电力消费的 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "17 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，如图 所示。 年南方区域人均用电量约 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 ~ 0 0 0 ~ \\mathrm { k W h / a }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，略低于全国平均水平（kWh/a）。 年南方区域最大电力负荷为GW，近 a的年均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，负荷小时数达到约 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 ~ 0 6 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。全年最大电力负荷发生在 — 月，月负荷系数峰谷差值约为 . ；日负荷特性曲线呈现双峰特性，夏季日最大电力负荷出现在正午时左右，冬季最大电力负荷出现在晚上 时左右，日负荷系数峰谷差值分别约为 . 和 . 。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                719,
+                482,
+                931
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/33ebdf5cbf03066d28aeb4a7fcefc1db83cf9c55c54fdb81a7a521d46043dc66.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图2　南方电力消费量"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 2 Electricity consumption in the southern region "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                517,
+                112,
+                909,
+                249
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1.2　未来发展趋势研判"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                297,
+                705,
+                312
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1. 2. 1　中国能源消费发展趋势预测结果"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                315,
+                826,
+                332
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "我国是全球应对气候变化事业的积极参与者与重要贡献者，其能源需求和能源转型是全球关注的焦点［23］ 。国内外机构纷纷开展相关研究，设置了不同的假设情景，对碳中和背景下中国能源需求、碳排放和能源电力转型路径进行预测［24-27］ 。本文调研了国内外11家机构的预测结果。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                335,
+                910,
+                452
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1）人口变化"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                549,
+                456,
+                648,
+                470
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "目前我国人口老龄化速度加快，根据调研成果显示，我国将提前进入人口自然增长率为负值的阶段。预计人口总规模将在 年前后达到峰值14. 4~14. 6 亿 ， 2050 年 下 降 至 13. 6~14. 0 亿 ， 到年人口数量将下降至 . 亿以下。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                475,
+                910,
+                572
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）生产总值GDP"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                547,
+                576,
+                685,
+                591
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "大多数发达国家经验显示，碳达峰进程往往伴随GDP进入较低增速阶段，碳达峰前 年GDP增长率比后 年GDP增长率高 个百分点左右或以上，碳达峰后GDP增长率下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以下。考虑中国仍然属于发展中国家，存在较大的客观发展需求，预计我国 GDP 增长率在 年将下降至"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 . 5 \\% { \\sim } 5 . 0 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，在 年下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 0 \\% { \\sim } 3 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，在年进一步下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以下。 年我国人均GDP超过发达国家碳达峰时人均GDP平均水平（万美元/年）， 年人均GDP可以超过美国、日本等发达国家碳达峰时人均 GDP 水平（ ~ 万美元/年）。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                596,
+                910,
+                831
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）能源消费总量"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                547,
+                836,
+                682,
+                851
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "结合国际经验来看，多数国家的能源消费达峰时间是在碳达峰同年或一段时期后出现，部分发达国家如德国、法国等国家的能源消费峰值时间晚于碳达峰 ~ a以上。调研结果显示，碳中和情景下"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                855,
+                910,
+                931
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "134 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                89,
+                122,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方电网技术"
+                    }
+                ]
+            },
+            "bbox": [
+                450,
+                87,
+                544,
+                100
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 17 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                836,
+                87,
+                892,
+                100
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "的能源消费无论是绝对值还是趋势都较为接近，预计我国能源消费总量达峰时间晚于碳达峰时间，将在2030—2045年间达峰，峰值在60亿吨标准煤左右。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                114,
+                480,
+                169
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1. 2. 2　南方区域发展趋势研判"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                173,
+                329,
+                188
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1）人口发展趋势"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                121,
+                193,
+                253,
+                208
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "参考全国人口总量达峰时间及未来变化趋势的预测结果，结合南方区域历史人口数据表现，考虑区域发展红利，南方区域人口总量达峰时间将略迟于全国人口达峰时间，预计将在2035年左右达峰，届时南方区域人口占全国人口比重将超过 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "20 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，最终稳定在 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "21 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "左右。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                211,
+                482,
+                325
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2）GDP发展趋势"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                119,
+                330,
+                257,
+                344
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "借鉴国际经验和我国经济发展未来趋势，南方区域GDP增速随人口增速下降而放缓，预计南方区域GDP增长率略高于全国平均水平，GDP增长率在 年将下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 . 0 \\% { \\sim } 5 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，在 年下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 2 \\% { \\sim } 3 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，人均 GDP 可以超过发达国家碳达峰时人均GDP平均水平，约 . 万美元/年（以年为基准价，按 美元 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 6 . 5"
+                    },
+                    {
+                        "type": "text",
+                        "content": "元换算，下同），在年进一步下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以下，人均GDP可以超过美国、日本等发达国家碳达峰时人均GDP，约万美元/年。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                348,
+                482,
+                541
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）能源消费发展趋势"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                119,
+                545,
+                290,
+                560
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "参考全国能源消费总量预测结果，考虑南方区域发展驱动因素，预计南方区域能源消费总量将在年前达到峰值，南方区域能源消费总量峰值约为全国能源消费总量峰值的 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "15 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "左右。在“双碳”目标下，南方区域将通过加快能源结构清洁化转型进程，保障区域经济发展带来的能源消费合理增长需求。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                563,
+                482,
+                677
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2　能源电力消费及负荷特性预测方法"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                84,
+                690,
+                423,
+                708
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "负荷画像预测是指导能源政策、电源投资、电网规划的重要基础。对此，本文采用了兼顾多层级发展目标约束的南方区域能源消费情景预测方法和基于产业分解的多时间尺度负荷特性预测方法，在能源电力系统视角下构建南方区域电力消费情景，精细刻画南方区域负荷画像，为能源电力低碳转型研究工作提供参考。图 为能源电力消费及负荷特性预测方法的技术框架。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                719,
+                482,
+                873
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.1　兼顾多层级发展目标约束的能源电力需求预测方法"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                84,
+                876,
+                480,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "本文提出了兼顾自上而下和自下而上［24-25］ 相结"
+                    }
+                ]
+            },
+            "bbox": [
+                119,
+                914,
+                480,
+                931
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/a11f869ef3a5ef67e70dc14dd7b71d039328f19a01abdbc03207b6ecc6d2731c.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图3　电力消费及负荷特性预测方法"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 3 Prediction method of electricity consumption and demand characsteristics in the southern region "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                526,
+                115,
+                899,
+                262
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "合的方法，兼顾多层级发展目标约束的南方区域能源电力消费情景预测技术。分析在“双碳”目标约束下和产业结构转型驱动下，各终端部门能源结构调整和电气化技术实施带来的南方区域能源消费和电量消费需求变化。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                325,
+                910,
+                423
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "兼顾多层级发展目标约束的南方区域能源电力消费情景预测技术研究思路如图4所示。具体实现步骤如下。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                426,
+                910,
+                482
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/76b2416a2cf322dd77fac011861006721f7a43ae8dc6bdec82c954576a92c630.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图4　南方区域能源电力消费情景预测技术"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 4 Prediction technology of energy and electricity consumption scenarios in the southern region "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                519,
+                495,
+                905,
+                671
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "text_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "）预测宏观发展趋势：根据人口发展趋势和人均GDP增长研判预测南方区域GDP增长量，根据碳排放强度指标和GDP预测结果计算南方区域碳排放上限。并考虑未来将进一步加大对产业结构调整的力度，预测南方区域GDP产业结构的变化情况。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "）预测分产业和终端部门能源消费：结合全国能源消费总量变化趋势和能源强度下降指标，预测南方区域分产业部门能源消费强度下降情况，结合南方区域分产业GDP预测结果可求得分产业能"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                734,
+                910,
+                931
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 9 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                86,
+                157,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "卓映君，等：“双碳”目标下南方区域能源电力消费及负荷特性预测"
+                    }
+                ]
+            },
+            "bbox": [
+                280,
+                86,
+                715,
+                100
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "135 "
+                    }
+                ]
+            },
+            "bbox": [
+                873,
+                89,
+                895,
+                99
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                977
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "源消费需求预测结构；依据产业与终端部门的对应关系，可进一步得到终端部门的能源消费总量。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                114,
+                480,
+                149
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "3）预测能源消费结构：在能源消费结构现状基础上，结合终端部门各种能源技术发展潜力和电能替代潜能，在碳排放约束下测算终端各部门的能源消费结构，通过反复迭代最终形成一套可满足多层级发展目标约束的南方区域终端能源消费结构。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                154,
+                482,
+                249
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "多层级发展目标约束公式表达如下。"
+                    }
+                ]
+            },
+            "bbox": [
+                121,
+                252,
+                398,
+                268
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）宏观发展目标约束"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                121,
+                272,
+                290,
+                287
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据人口发展趋势和人均GDP增长研判预测南方区域GDP增长量。由碳排放强度下降目标约束预计南方区域未来碳排放强度变化，结合GDP预测结果确定南方区域未来碳排放总量约束。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                291,
+                482,
+                366
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "P \\times G _ {\\mathrm {p}} = G \\tag {1}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/81b58d3de9c6fcb9492002795e3a8cc7dd311e5b5d885f48b8527d99fbdb22fd.jpg"
+                }
+            },
+            "bbox": [
+                236,
+                371,
+                480,
+                386
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "G \\times E _ {\\mathrm {C O} _ {2}} = B \\tag {2}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/26ca72f4142bbf4b701c570ad645978c368ecd4e3fafddfd513c152fe487cb0c.jpg"
+                }
+            },
+            "bbox": [
+                233,
+                391,
+                480,
+                407
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中： "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "G"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为社会生产总值； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "G _ { \\mathrm { { p } } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为人均GDP预测值；"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "P"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为预测的人口数量； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "B"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为碳排放总量的最大约束值，由碳排放强度目标 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "E _ { \\mathrm { { C O } _ { 2 } } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "和 GDP 预测值共同决定。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                412,
+                482,
+                488
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）中观发展目标约束"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                119,
+                493,
+                290,
+                508
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "考虑未来将进一步加大对产业结构调整的力度，分产业部门的能源强度和分产业的GDP将发生变化，进一步可得到分产业的能源消费量需求预测情况："
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                511,
+                482,
+                586
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "G = \\sum_ {j = 1} ^ {3} G _ {j} \\tag {3}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/5c0f12e15bcc4c3e514480f86f48fa830f9a35839fac4613666596f1982f383b.jpg"
+                }
+            },
+            "bbox": [
+                245,
+                589,
+                480,
+                624
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "G _ {j} = \\alpha_ {j} \\times G \\tag {4}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/230608bdb1832e7d52bdab0fc8a08fb80ea56135ef68c2a504118171612cee43.jpg"
+                }
+            },
+            "bbox": [
+                238,
+                629,
+                480,
+                645
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\sum_ {i = 1} ^ {5} A _ {i, j} = G _ {j} \\times E _ {j} \\tag {5}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/1ddd43a943fbc1039a2f5f542f713fdff29d5d903774d17ee22ff9d02b6bad2d.jpg"
+                }
+            },
+            "bbox": [
+                221,
+                648,
+                480,
+                680
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中： "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "G _ { j }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第j个产业对应的生产总值； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\alpha _ { j }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "j"
+                    },
+                    {
+                        "type": "text",
+                        "content": "个产业的GDP在总GDP中的占比， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "j = 1 \\sim 3"
+                    },
+                    {
+                        "type": "text",
+                        "content": "分别对应第一产业、第二产业和第三产业； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "E _ { j }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "j"
+                    },
+                    {
+                        "type": "text",
+                        "content": "个产业对应的能源强度，需要满足能源强度下降目标要求； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "A _ { i , }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "j"
+                    },
+                    {
+                        "type": "text",
+                        "content": "个产业的第i种能源消费品种的未来消费量。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                684,
+                482,
+                799
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据三级产业与终端部门的对应关系，进一步可得到终端部门的能源消费总量，终端部门能源消费平衡约束为："
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                802,
+                482,
+                858
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\sum_ {j = 1} ^ {3} \\sum_ {i = 1} ^ {5} A _ {i, j} = \\sum_ {k = 1} ^ {4} \\sum_ {i = 1} ^ {5} x _ {i, k} \\tag {6}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/42978680e08fd895bdf24cbeeb8f0b893587b325dba84dfa3642b5a45b11c279.jpg"
+                }
+            },
+            "bbox": [
+                205,
+                861,
+                480,
+                895
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\sum_ {i = 1} ^ {5} A _ {i, 1} = \\sum_ {i = 1} ^ {5} x _ {i, 1} \\tag {7}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/5fa9b122f59edbced6420790032f65cd1e662d5a65088105b47fd0f899527cc0.jpg"
+                }
+            },
+            "bbox": [
+                226,
+                899,
+                480,
+                931
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\sum_ {i = 1} ^ {5} A _ {i, 2} = \\sum_ {i = 1} ^ {5} x _ {i, 2} \\tag {8}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/70fae2c41dfd939516c87f73f526da5793e9e78622a8ed5e22fda97b36307c39.jpg"
+                }
+            },
+            "bbox": [
+                653,
+                114,
+                907,
+                147
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\sum_ {i = 1} ^ {5} A _ {i, 3} = \\sum_ {k = 3} ^ {4} \\sum_ {i = 1} ^ {5} x _ {i, k} \\tag {9}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/3fea430950967725661912841abfbf127d94ab551c7f5296bc4509e86b414abc.jpg"
+                }
+            },
+            "bbox": [
+                643,
+                149,
+                907,
+                183
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { i , \\ast }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "k"
+                    },
+                    {
+                        "type": "text",
+                        "content": "个部门的第i种能源消费品种的未来消费量， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "i = 1 \\sim 5"
+                    },
+                    {
+                        "type": "text",
+                        "content": "分别对应煤、石油、天然气、热力和电力， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "k = 1 \\sim 4"
+                    },
+                    {
+                        "type": "text",
+                        "content": "分别对应农业部门、工业部门、建筑部门和交通部门。其中电力消费需求考虑了直接电力消费部分和非直接电力消费部分，非直接电力消费考虑了电制氢电量需求和供热电量需求。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                187,
+                910,
+                320
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）微观发展目标约束"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                547,
+                325,
+                717,
+                340
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据现有技术比例和经验数据预测各种能源技术未来渗透率比例关系，进一步可得到终端部门的能源消费结构，需要满足各部门能源品种消费总量平衡约束和碳排放目标约束："
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                345,
+                910,
+                420
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "x _ {i, k} = x _ {i, k} ^ {\\mathrm {i n i}} \\times \\left(\\beta_ {i, k} + 1\\right) \\tag {10}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/10fe87e488b5549ac2fb0def8b1a77dfc9ce5717b5a79aa7b3caba4be9c8b1bc.jpg"
+                }
+            },
+            "bbox": [
+                631,
+                425,
+                907,
+                441
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\sum_ {k = 1} ^ {4} x _ {i, k} = \\sum_ {m = 1} ^ {3} A _ {i, m} \\tag {11}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/ea8e353070d6fccaf2352550ad64c779a51e73cfaebe16f1550a503b2ab46394.jpg"
+                }
+            },
+            "bbox": [
+                650,
+                444,
+                907,
+                477
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "C _ {\\mathrm {O} _ {2}} = \\sum_ {k = 1} ^ {4} \\sum_ {i = 1} ^ {5} x _ {i, k} \\times \\gamma_ {i} <   B \\tag {12}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/38b6b8b0e7681c2f1243603e872c07d34bf029341ea1229e01a33af2954ad3b6.jpg"
+                }
+            },
+            "bbox": [
+                621,
+                480,
+                907,
+                513
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中： "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\boldsymbol { x } _ { i , \\ k } ^ { \\mathrm { i n i } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为参考的第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "k"
+                    },
+                    {
+                        "type": "text",
+                        "content": "个部门的第i种能源消费品种消费量； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\beta _ { i , \\cdot }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "k"
+                    },
+                    {
+                        "type": "text",
+                        "content": "个部门的第i种能源消费品种的未来增长率，需要满足各部门的能源技术发展潜力和电能替代潜力的约束； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\gamma _ { i }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 i 个能源的碳排因子； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "C _ { \\mathrm { o } _ { 2 } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为所有终端部门的碳排放之和。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                517,
+                910,
+                614
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2. 2　基于产业分解的多时间尺度负荷特性预测方法"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                620,
+                910,
+                654
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "负荷特性预测是负荷预测的核心内容之一，是电网规划与运行管理工作的重要基础。本文根据指标选取的科学性、综合性以及数据的可得性，提出了基于产业分解的多时间尺度的负荷特性预测方法，包括年最大负荷特性、月负荷系数和日负荷系数的负荷特性预测。为深化能源电力消费预测研究、刻画未来负荷特性变化提供一种思路，在实际应用中可根据掌握的数据对各模型的输入指标进行调整和优化。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                659,
+                910,
+                833
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "结合目前掌握的数据颗粒度和丰富度，对于年、月负荷特性的预测，主要考虑了“双碳”背景下产业发展和电能替代引起的电量需求变化影响，若掌握分产业/行业的负荷特性历史数据，可将其作为解释变量构造更为精细的年/月负荷特性预测模"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                837,
+                910,
+                931
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "136 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                89,
+                124,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方电网技术"
+                    }
+                ]
+            },
+            "bbox": [
+                450,
+                86,
+                544,
+                100
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 17 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                836,
+                86,
+                892,
+                100
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "型；对于日负荷特性的预测，主要考虑了产业用电结构和典型日负荷特性曲线的影响，若掌握各细分行业的典型日负荷特性曲线，可基于细分行业的日负荷特性预测未来典型日负荷特性。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                114,
+                480,
+                189
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1）年最大负荷特性预测"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                121,
+                194,
+                307,
+                209
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "建立以年最大负荷为被解释变量，以GDP、用电量需求、三产用电量结构三类指标作为解释变量的多元线性回归方程，经历史 a数据检验，回归方程精度可达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "9 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以上。表达式如式（13）所示。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                213,
+                482,
+                289
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "Y _ {\\mathrm {y}} = \\alpha_ {\\mathrm {y}, 1} x _ {\\mathrm {G D P}} + \\alpha_ {\\mathrm {y}, 2} x _ {\\mathrm {e}} + \\alpha_ {\\mathrm {y}, 3} x _ {\\mathrm {e}, 2} + \\alpha_ {\\mathrm {y}, 4} x _ {\\mathrm {e}, 3} + \\beta_ {\\mathrm {y}} (1 3)",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/eba87ca4662e88fd8fe312de0d372343560ef08eebc5aadda96c26a3f3981e51.jpg"
+                }
+            },
+            "bbox": [
+                109,
+                293,
+                480,
+                309
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中： "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "Y _ { \\mathrm { y } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为年最大负荷值； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { \\mathrm { G D P } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为 GDP值； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { \\mathrm { e } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为用电量需求；xe，， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { \\mathrm { e } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "， 分别为二产、三产的电量需求； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\alpha _ { \\mathrm { y , ~ 1 ~ } } \\sim \\alpha _ { \\mathrm { y } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "， 为各项指标系数； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\beta _ { y }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为残差项。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                312,
+                480,
+                368
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）月负荷特性预测 "
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                119,
+                372,
+                272,
+                387
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "建立以月负荷特性系数为被解释量，以三产用电量结构、月份特征、区内各省份月温度特性三类指标作为被解释变量的多元线性回归方程。经历史a 数据检验，回归方程精度可达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "9 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以上。表达式如式（ ）所示。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                392,
+                482,
+                486
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\begin{array}{l} Y _ {\\mathrm {m}} = \\alpha_ {\\mathrm {m}, 1} x _ {\\mathrm {m}} + \\alpha_ {\\mathrm {m}, 2} x _ {\\mathrm {e}, 1} + \\alpha_ {\\mathrm {m}, 3} x _ {\\mathrm {e}, 2} + \\alpha_ {\\mathrm {m}, 4} x _ {\\mathrm {e}, 3} + \\\\ \\sum_ {p r o \\in s} \\alpha_ {\\mathrm {m}, p r o} x _ {p r o} + \\beta_ {\\mathrm {m}} \\end{array} \\tag {14}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/0c8497e372e8da2460bc090c7c9ccc915a39854a5932387b057fc06baeff756a.jpg"
+                }
+            },
+            "bbox": [
+                119,
+                490,
+                480,
+                527
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中： "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "Y _ { \\mathrm { m } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为月负荷特性系数； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { \\mathrm { m } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为月份序号；"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { \\mathrm { e } , \\mathrm { ~ 1 ~ } } \\sim x _ { \\mathrm { e } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "分别为一产~三产的电量需求； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { p r o }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为区域 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "s"
+                    },
+                    {
+                        "type": "text",
+                        "content": "内省份 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "p r o"
+                    },
+                    {
+                        "type": "text",
+                        "content": "的月最高温度，式中考虑了属于区域 s 内的所有省份的温度影响；αm， ∼ αm， ，αm，pro "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "s"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\mathbf { \\Omega } _ { 1 } \\sim \\alpha _ { \\mathrm { m } }"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\alpha _ { \\mathrm { m } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为各项指标系数； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\beta _ { \\mathrm { m } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为残差项。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                530,
+                482,
+                627
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "）日负荷特性预测 "
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                119,
+                631,
+                272,
+                646
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "基于目前掌握的各产业典型日负荷特性曲线，结合未来各产业用电量，将各产业的日负荷曲线进行叠加可得到未来的典型日负荷特性曲线。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                650,
+                482,
+                706
+            ]
+        },
+        {
+            "type": "equation_interline",
+            "content": {
+                "math_content": "\\begin{array}{l} \\bar {Y} _ {\\mathrm {d}, t} = x _ {\\mathrm {e}, 1} x _ {1, t} ^ {1} / \\sum_ {t = 1} ^ {2 4} x _ {1, t} ^ {1} + x _ {\\mathrm {e}, 2} x _ {1, t} ^ {2} / \\sum_ {t = 1} ^ {2 4} x _ {1, t} ^ {2} x _ {\\mathrm {e}, 3} + x _ {\\mathrm {e}, 3} x _ {1, t} ^ {3} / \\\\ \\sum_ {t = 1} ^ {2 4} x _ {1, t} ^ {3} (15) \\\\ Y _ {\\mathrm {d}, t} = \\bar {Y} _ {\\mathrm {d}, t} / \\max  (\\bar {Y} _ {\\mathrm {d}, t}) (16) \\\\ \\end{array}",
+                "math_type": "latex",
+                "image_source": {
+                    "path": "images/8e4dc7e280c1df9dc65655fe5a305cdf838e270a2c61c2fa708f5298986df15b.jpg"
+                }
+            },
+            "bbox": [
+                84,
+                708,
+                482,
+                791
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "式中： "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "Y _ { \\mathrm { d } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "t"
+                    },
+                    {
+                        "type": "text",
+                        "content": "时段的日负荷特性系数； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\overline { { Y } } _ { \\mathrm { ~ d ~ } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为第"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "t"
+                    },
+                    {
+                        "type": "text",
+                        "content": "时段的日负荷数值； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\begin{array} { r } { \\boldsymbol { x } _ { 1 , \\ t } ^ { 1 } \\sim \\boldsymbol { x } _ { 1 , } ^ { 3 } } \\end{array}"
+                    },
+                    {
+                        "type": "text",
+                        "content": "分别为第 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "t"
+                    },
+                    {
+                        "type": "text",
+                        "content": "时段的一产—三产日负荷特性系数； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { e , \\mathrm { ~ 1 ~ } } \\sim x _ { e }"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "x _ { e }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "分别为一产—三产的电量需求。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                796,
+                480,
+                872
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3　南方区域能源电力消费情景预测结果"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                84,
+                885,
+                443,
+                903
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "兼顾宏观经济发展、能源供需安全和碳减排目"
+                    }
+                ]
+            },
+            "bbox": [
+                119,
+                915,
+                480,
+                931
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "标，本文对南方区域能源电力消费需求和负荷画像进行预测情景研究，基于能源消费达峰时间和达峰总量，设置了基准情景、能耗双控情景和碳排放双控情景 3 种情景，构建南方区域能源电力消费情景，刻画南方区域负荷画像。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                114,
+                910,
+                208
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.1　情景设置"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                213,
+                635,
+                226
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "基准情景是在“双碳”目标制定前的政策约束下按照传统发展模式、历史发展趋势预测的情景。该情景未受到能耗双控和碳排放双控政策的约束，是一个基准参照情景，用来对比“双碳”目标政策对能源电力消费需求的影响。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                232,
+                910,
+                325
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "能耗双控情景是指在基准情景基础上，面向“双碳”目标，各行业深度去煤、减油替代，进一步发展天然气，加大终端电气化，在满足能源消费总量和能源消费强度“双控”政策约束下的能源电力需求预测情景。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                329,
+                910,
+                423
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "碳排放双控情景是指在基准情景基础上，工业部门、交通部门、建筑部门、农业部门各部门大力发展电代煤、电代油等技术，并通过加快电力系统低碳转型、降低电力部门碳排放因子，保障在“双碳”目标约束下能源电力消费合理增长的需求。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                427,
+                910,
+                521
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.2　南方区域终端能源消费总量"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                525,
+                774,
+                540
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据工业、建筑、交通、农业部门终端能源消费预测分析， 个情景下南方区域终端能源消费总量在碳达峰阶段保持增长趋势，在 年后能源消费需求增长率减缓，迈入达峰平台期，如图 所示。在基准情景下，南方区域终端能源消费总量将在 年前后达峰，峰值约为 . 亿吨标准煤。碳排放双控和能耗双控情景下，南方区域终端能源消费需求分别约为 . 亿吨标准煤和 . 亿吨标准煤。能耗双控情景下，南方区域终端能源消费总量于2040年前后迈入达峰平台期，碳排放双控情景延迟约 a进入平台期。尽管碳排放双控情景下能源消费总量峰值增大、达峰时间延后，但其非化石能源发展迅速、终端部门深度电气化，通过电力系统深度脱碳，充分发挥终端高度电气化的碳减排效益，保障南方区域在满足“双碳”目标下经济快速增长的能源消费需求，实现双碳目标和能源消费增长的协同。图 为不同情景下南方区域终端电气化率的预测结果。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                545,
+                910,
+                892
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.3　南方区域电量消费需求"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                895,
+                739,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在电量消费方面，受经济运行总体增长、电能"
+                    }
+                ]
+            },
+            "bbox": [
+                547,
+                915,
+                910,
+                931
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 9 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                86,
+                157,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "卓映君，等：“双碳”目标下南方区域能源电力消费及负荷特性预测"
+                    }
+                ]
+            },
+            "bbox": [
+                280,
+                86,
+                715,
+                100
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "137 "
+                    }
+                ]
+            },
+            "bbox": [
+                873,
+                89,
+                895,
+                99
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/eed4a3429e74487432c90caebffac3eeb55eedf7874570eafafb4a5cb2c770f6.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图5　不同情景下南方区域终端能源消费需求"
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                109,
+                112,
+                463,
+                261
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/362437516b78965d3e27b1f19d511be420aaf6096d8f3219dd8ba1b74fa7cc87.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "Fig. 5 Terminal energy consumption demand in the southern region under different scenarios "
+                    },
+                    {
+                        "type": "text",
+                        "content": "图6　不同情景下南方区域终端电气化率"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 6 Terminal electrification rate in the southern region under different scenarios "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                117,
+                324,
+                450,
+                465
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "替代等因素推动，南方区域终端部门电量消费保持持续合理增长趋势。3种情景下南方区域用电量需求在“十四五”期间年平均增长率均超过 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，“十五五”期间年平均增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\% { \\sim } 4 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "， 年— 年期间年均增长率由 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "逐步下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 , 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，在年后年均增长率将进一步下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 , 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以下，如图所示。 年南方区域用电量需求约为 . ~ .PWh，人均用电量为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 { \\sim } 8 \\ \\mathrm { M W h / a }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，达到日本、德国当前人均用电量水平。 年达到约 . ~ .PWh，人均用电量为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 1 { \\sim } 1 5 \\ \\mathrm { M W h / a }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，达到美国、加拿大当前人均用电量水平。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                530,
+                482,
+                749
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.4　南方区域负荷特性预测结果"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                754,
+                349,
+                769
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在负荷特性方面，受区域经济增长、产业结构转型和终端电能替代影响，南方区域年最大负荷持续增长，但年增长率总体呈现下降趋势，如图 所示。 种情景下南方区域年最大负荷在 年前年平均增长率均超过 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "， — 年期间年平均增长率维持在 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 \\% { \\sim } 2 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "且逐步下降， 年后年平均增长率将进一步下降至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 , 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "左右。 年南方区域年最大负荷需求约为 ~ GW， 年"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                774,
+                482,
+                931
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/486d2a2d44258150aa0dca6311edc11594277a0b5f49cd304d79ab0366fbb427.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图7　不同情景下南方区域电量需求"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 7 Electricity consumption in the southern region under different scenarios "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                547,
+                112,
+                884,
+                263
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "达到约 500~660 GW。"
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                329,
+                677,
+                344
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/0405d635114a351c6dc370d095db04c5cfafa94266365f90bd84777bb584aa03.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图8　南方区域年最大负荷"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 8 Maximum load in the southern region "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                542,
+                355,
+                887,
+                501
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "种情景下 — 年月负荷特性曲线和日负荷特性曲线形态几乎一致，负荷不均衡特性有所提升。南方区域月负荷系数曲线呈现为双谷形态，日负荷特性曲线呈现三峰形态，依次如图 和图所示。以碳排放双控情景为例，最大月负荷系数出现在7—8月，最小月负荷系数谷值出现在2—3月，次小月负荷系数谷值出现在11月左右，月负荷系数峰谷差值由 0. 20（2020 年）逐步提高至 0. 25（2060年）。以夏季日负荷特性为例，最小日负荷系数出现在清晨 时左右，日负荷系数的 个峰值分别出"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                551,
+                910,
+                755
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/0510a06d292656a5e63ea4e8f5c2e4614003a47dd479325cc14813b6d83ebed7.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图9　南方区域月负荷特性"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 9 Monthly load characteristics in the southern region "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                534,
+                765,
+                887,
+                897
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "138 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                89,
+                122,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方电网技术"
+                    }
+                ]
+            },
+            "bbox": [
+                450,
+                87,
+                544,
+                100
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 17 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                836,
+                86,
+                892,
+                100
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "现在正午 时、傍晚 时和夜晚 时左右，日负荷系数峰谷差值由 . （ 年）逐步提高至 .（2060年）。"
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                114,
+                485,
+                169
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/6099dfff09aecb2939c7c9acdb64c676c120e723ea1355976bf0b10575f674b5.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "图10　南方区域夏季日负荷特性"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Fig. 10 Daily load characteristics of the southern region in summer "
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                85,
+                179,
+                485,
+                345
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "4　结语 "
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                420,
+                163,
+                436
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在“双碳”目标引领下，“新电气化”将是能源中长期发展的主要方向和推动经济社会全面绿色转型的有效途径。南方区域终端能源消费量在2045年前将达到峰值约 10 亿吨标准煤。为保障南方区域经济发展带来的能源消费合理增长需求，南方区域需要持续提升工业、建筑、交通、农业四大终端部门的电气化水平，减少煤炭、石油等一次能源的消费比重，并通过加快电力部门低碳转型提高能源利用效率、加速能源结构清洁化转型的进程。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                449,
+                482,
+                623
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "电力部门作为能源转型的中心环节、碳减排的关键领域，承担的减排责任逐步凸显，需要加快构建新型电力系统。南方区域终端电气化率在年后将达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "60 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以上，终端部门用电量保持合理增长态势，且受产业结构转型影响，南方区域电力负荷不均衡特性将逐步加大。为支撑“双碳”目标实现，南方区域需加快推进非化石电源发展，加强源网荷储协调配合，提高系统对非化石能源的接纳能力，加快构建新型电力系统，进而推动能源电力低碳转型发展。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                627,
+                482,
+                820
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "参考文献"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                833,
+                171,
+                850
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［1］ 邹才能，熊波，薛华庆，等.新能源在碳中和中的地位与作用［J］.石油勘探与开发， ，（）： .ZOU Caineng， XIONG Bo，XUE Huaqing，et al. The role ofnew energy in carbon neutral［J］. Petroleum Exploration andDevelopment，2021，48（2）：411 - 420."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                862,
+                482,
+                931
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［2］ 刘思捷，白杨，陈中飞，等.碳中和背景下能源电力产业链预警研究框架［J］.广东电力， ，（ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "LIU Sijie，BAI Yang，CHEN Zhongfei，et al. Research framework for early warning of energy and power industry chain under the background of carbon neutrality［J］. Guangdong Electric Power，2021，34（10）：1 - 9. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［3］ 国家发展改革委 ．“十四五”现代能源体系规划［EB/OL］［2022 - 01 - 29］．https：//www.ndrc.gov.cn/xxgk/zcfb/ghwb/202203/t20220322_1320016. html？ state=123&code= &state"
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "= 1 2 3"
+                            },
+                            {
+                                "type": "text",
+                                "content": "."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［4］ 中共中央. 国务院关于完整准确全面贯彻新发展理念做好碳达峰碳中和工作的意见［EB/OL］［. 2021 - 09 - 22］. https：//www.ccps.gov.cn/xtt/202110/t20211024_150970.shtml."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［5］ 中共中央. 习近平主持召开中央财经委员会第九次会议［EB/OL］．［2021 - 03 - 15］． http：//www. gov. cn/xinwen/2021 -03/15/content_5593154.htm"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［6］ 韩肖清，李廷钧，张东霞，等.双碳目标下的新型电力系统规划新问题及关键技术［J］.高电压技术， ， （）：3046."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "HAN Xiaoqing，LI Tingjun，ZHANG Dongxia，et al. New is⁃ sues and key technologies of new power system planning under double carbon goals［J］. High Voltage Engineering， ， （）： . "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［］ 廖扬，蔡帜，邵佳扬，等.多区互联综合能源系统分散协调低碳经济调度［J］. 高电压技术，2023，49（1）：138 - 146."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "LIAO Yang，CAI Zhi，SHAO Jiayang，et al. Decentralized coordinated low-carbon economic dispatch method for multiregional interconnected integrated energy system［J］. High Volt⁃ age Engineering， ， （ ）： . "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［8］ 李政，陈思源，董文娟，等．碳约束条件下电力行业低碳转型路径研究［J］.中国电机工程学报， ，（ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "LI Zheng， CHEN Siyuan， DONG Wenjuan， et al． Low car-bon transition pathway of power sector under carbon emissionconstraints［J］. Proceedings of the CSEE， ， （ ）：–4001"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［9］ 全球能源互联网发展合作组织.中国2030年能源电力发展规划研究及 2060 年展望［R/OL］．［2022 - 05 - 05］．https：//www.geidco.org.cn/2021/0318/3268.shtml"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 黄雨涵，丁涛，李雨婷，等．碳中和背景下能源低碳化技术综述及对新型电力系统发展的启示［J］.中国电机工程学报，，（S ）："
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "HUANG Yuhan，DING Tao，LI Yuting，et al. Decarbonizationtechnologies and inspirations for the development of novelpower systems in the context of carbon neutrality［J］．Proceed⁃ings of the CSEE， ， （S ）："
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 鲁宗相，黄瀚，单葆国，等．高比例新能源电力系统结构形态演化及电力预测展望［J］. 电力系统自动化， ， （）：12-18."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "LU Zongxiang，HUANG Han，SHAN Baoguo，et al. Morphological evolution model and power forecasting prospect of future electric power systems with high proportion of renewable energy［J］． Automation of Electric Power Systems， ， （）： ． "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 舒印彪，陈国平，贺静波，等．构建以新能源为主体的新型电力系统框架研究［J］．中国工程科学， ，（）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "SHU Yinbiao，CHEN Guoping，HE Jingbo，et al． Building anew electric power system based on new energy sources［J］Strategic Study of CAE， ， （ ）："
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 张运洲，张宁，代红才，等.中国电力系统低碳发展分析模型"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                514,
+                114,
+                910,
+                931
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 9 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                86,
+                157,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "卓映君，等：“双碳”目标下南方区域能源电力消费及负荷特性预测"
+                    }
+                ]
+            },
+            "bbox": [
+                280,
+                86,
+                715,
+                100
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "139 "
+                    }
+                ]
+            },
+            "bbox": [
+                873,
+                89,
+                897,
+                99
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "构建与转型路径比较［J］.中国电力，2021，54（3）：1 - 11."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "ZHANG Yunzhou，ZHANG Ning，DAI Hongcai，ea al． Ana-lysis of model construction and transformation path comparisonof low-carbon development of China′s power system［J］Electric Power，2021，54（3）：1 - 11."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［14］ FARINAZ F， MERABTINE A， MARTOUZET D. A spatio-temporal analysis of electric appliance end-use demand in theresidential sector： case study of tours （France）［J］. SustainableCities and Society， ， ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［15］ 庞敏，张军，王俭 .川渝地区能源互联网的发展思路［J］.西南石油大学学报（社会科学版）， ，（）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "PANG Min， ZHANG Jun， WANG Jian. Development ideas ofEnergy Internet in Sichuan-Chongqing region ［J］. Journal ofSouthwest Petroleum University （Social Sciences Edition），， （）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［16］ 中国致公党上海市委会课题组.加快构建我国现代能源体系，统筹实现“双碳”目标［J］.中国发展， ，（）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "Research Group of Shanghai Municipal Committee of China Zhi Gong Party. Accelerate the development of China′s modern energy system and coordinate efforts to achieve the \"dual carbon\"goal［J］. China Development，2022，22（3）：3 - 9. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 邱波，赵勇，夏清.我国中长期电力需求增长趋势研究［J］.中国能源， ，（ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "QIU Bo， ZHAO Yong， XIA Qing． Research on the growthtrend of medium and long-term power demand in China［J］.Energy of China， ， （ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 宇文敏睿. 面向电网规划的负荷特性及负荷预测研究［D］. 北京：北京交通大学，2019."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 黄国权，严玉婷，李晖，等.基于二重分解的行业用户短期日电量预测建模［J］.南方电网技术， ，（ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "HUANG Guoquan， YAN Yuting， LI Hui， et al. Short-termdaily electricity prediction modeling of industrial users basedon doubly decomposition［J］. Southern Power System Technol⁃ogy， ， （ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 中华人民共和国 年国民经济和社会发展统计公报［J］.中国统计， （）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 许珂，贺晓迎.新时代中国人口结构的发展态势研究——基于对“第七次全国人口普查公报”的分析［J］.成都行政学院学报， （）： ， ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "XU Ke， HE Xiaoying. A study on the development trend of China s population structure in the new era： analysis based on the communique of the seventh national population census［J］. Journal of Chengdu Administration Institute， （ ）： "
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                87,
+                115,
+                482,
+                707
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "46，117."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［22］ 电力规划设计院.中国电力发展报告2020．［EB/OL］．［2021- 07 - 15］. http：//www. sasac. gov. cn/n2588025/n2588124/c19710818/content.html."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［23］ 国家发展和改革委员会，国家能源局，财政部等.国家发展改革委等部门关于进一步推进电能替代的指导意见［EB/OL］.［2022 - 04 - 15］. http：//www. luxi. gov. cn/art/2022/4/15/art_3765_1113719.html."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 匡立春，邹才能，黄维和，等.碳达峰碳中和愿景下中国能源需求预测与转型发展趋势［J］.石油科技论坛， ，（）：- 17."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "KUANG Lichun， ZOU Caineng， HUANG Weihe， et al.China′s energy demand projection and energy transition trendsunder carbon peak and carbon neutrality situation［J］. Petro-leum Science and Technology Forum， ， （ ）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［25］ 裴庆冰.典型国家碳达峰碳中和进程中经济发展与能源消费的经验启示［J］.中国能源， ，（）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "PEI Qingbing. Experience and inspiration of economic development and energy consumption in the process of carbon neutralization in typical countries［J］. Energy of China，2021，43 （）： ． "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 孙元章，张鹏成，柯德平，等. 碳达峰条件下能源互联网系统规划设计与优化运行［J］. 南方电网技术， ，（）： ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "SUN Yuanzhang， ZHANG Pengcheng， KE Decheng， et al.Planning， design and optimal operation of energy internetsystem under the condition of peak carbon dioxide emissions［J］.Southern Power System Technology，2022，16（1）：1 - 13."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［ ］ 清华大学气候变化与可持续发展研究院. 中国长期低碳发展战略与转型路径研究［R］. 北京：清华大学气候变化与可持续发展研究院， ."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［28］ 国家发展和改革委员会能源研究所. 我国实现全球 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "1 . 5 \\mathrm { { ‰} }"
+                            },
+                            {
+                                "type": "text",
+                                "content": "目标下 的能源排放情景研究［R］. 北京：国家发展和改革委员会能源研究所， ."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                116,
+                910,
+                568
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "收稿日期： - - ；网络首发日期： - -"
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                596,
+                806,
+                608
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "作者简介："
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                609,
+                576,
+                620
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "卓映君（ ），女，通信作者，硕士，研究方向为新能源电力系统规划，zhuoyj@csg. cn；"
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                622,
+                907,
+                646
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "周保荣（ ），男，高级工程师（教授级），博士，研究方向为电网规划运行管理、电力系统运行方式分析计算；"
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                646,
+                907,
+                670
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "姚文峰（ ），男，高级工程师（教授级），硕士，研究方向为电力系统规划、运行与控制。"
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                671,
+                907,
+                696
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "140 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                89,
+                124,
+                99
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方电网技术"
+                    }
+                ]
+            },
+            "bbox": [
+                450,
+                86,
+                544,
+                100
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 17 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                836,
+                86,
+                892,
+                100
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ]
+]

@@ -1,0 +1,400 @@
+{
+  "chapter_id": "CH02",
+  "chapter_title": "2. 国内外研究现状",
+  "sections": [
+    {
+      "section_id": "CH02-SEC01",
+      "section_title": "2.1 传统负荷预测方法回顾",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC01-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P01-S01",
+              "text": "在人工智能技术兴起之前，电力负荷预测主要依赖于传统方法，这些方法可大致分为物理方法和数理统计方法。",
+              "cite_source_ids": [
+                "SRC-CH02-003"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P01-S02",
+              "text": "物理方法基于相关的物理方程和负荷特性计算式进行分析建模，但对专业知识要求高，模型复杂，应用具有较大局限性。",
+              "cite_source_ids": [
+                "SRC-CH02-003"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P01-S03",
+              "text": "相比之下，数理统计方法基于大量历史数据，采用数学模型和统计学原理进行回归拟合，建模相对简单，是早期负荷预测的主流。",
+              "cite_source_ids": [
+                "SRC-CH02-003"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC01-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P02-S01",
+              "text": "常见的统计方法包括回归分析法、时间序列分析法、灰色模型法等。",
+              "cite_source_ids": [
+                "SRC-CH02-001",
+                "SRC-CH02-003"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P02-S02",
+              "text": "回归分析法通过建立因变量与自变量的回归方程进行预测，模型构建简单、预测速度快，但随着影响因素增多，其模型往往忽略负荷变化的内在规律，导致预测精度下降。",
+              "cite_source_ids": [
+                "SRC-CH02-002"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P02-S03",
+              "text": "时间序列分析法则根据历史负荷数据建立数学模型，描述时间与负荷值之间的关系，例如自回归和移动平均模型，该方法需求数据量少、预测速度快，但对原始数据的平稳性要求较高，且未考虑其他不确定性因素，预测精度存在较大误差。",
+              "cite_source_ids": [
+                "SRC-CH02-001"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC01-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P03-S01",
+              "text": "随着电力系统负荷组成日趋复杂，尤其是新型电力系统中分布式新能源、电动汽车等新元素的引入，负荷侧变得灵活多变。",
+              "cite_source_ids": [
+                "SRC-CH02-008"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P03-S02",
+              "text": "面对多种复杂的负荷影响因素，传统负荷预测方法难以精准构建负荷模式，其适用性降低，难以满足复杂环境下电力负荷预测的需求。",
+              "cite_source_ids": [
+                "SRC-CH02-006",
+                "SRC-CH02-008",
+                "SRC-CH02-026"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH02-SEC02",
+      "section_title": "2.2 基于人工智能的负荷预测方法",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC02-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P01-S01",
+              "text": "随着新一代人工智能技术的兴起，数据驱动的人工智能方法凭借其强大的非线性拟合和复杂特征提取能力，逐渐成为电力负荷预测的主要研究方法，显著提升了预测精度。",
+              "cite_source_ids": [
+                "SRC-CH02-004",
+                "SRC-CH02-006",
+                "SRC-CH02-019"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P01-S02",
+              "text": "基于人工智能的负荷预测方法主要可分为传统机器学习方法和深度学习方法。",
+              "cite_source_ids": [
+                "SRC-CH02-015",
+                "SRC-CH02-020"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC02-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P02-S01",
+              "text": "传统机器学习方法包括人工神经网络、支持向量机、随机森林和集成学习等算法。",
+              "cite_source_ids": [
+                "SRC-CH02-012",
+                "SRC-CH02-020"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P02-S02",
+              "text": "例如，有研究利用主分量分析和独立分量分析法处理负荷数据后，基于BP神经网络建立预测模型；也有研究通过遗传算法优化支持向量机，或采用基于布尔核函数的支持向量机来建立短期负荷预测模型。",
+              "cite_source_ids": [
+                "SRC-CH02-012"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P02-S03",
+              "text": "然而，传统机器学习模型属于浅层学习，存在局部最优、过拟合等缺陷，无法充分学习和利用负荷数据中隐含的深层特征信息，面对越发复杂的电力系统结构，其预测精度已难以满足需求。",
+              "cite_source_ids": [
+                "SRC-CH02-012",
+                "SRC-CH02-016"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC02-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P03-S01",
+              "text": "深度学习方法通过多层非线性映射从大量数据中逐层学习隐藏的抽象特征，有效提升了预测效果，成为当前负荷预测的主流。",
+              "cite_source_ids": [
+                "SRC-CH02-004",
+                "SRC-CH02-015",
+                "SRC-CH02-020"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P03-S02",
+              "text": "典型的深度学习模型包括卷积神经网络、循环神经网络、长短期记忆网络、门控循环单元以及结合注意力机制的Transformer模型等。",
+              "cite_source_ids": [
+                "SRC-CH02-015",
+                "SRC-CH02-016"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P03-S03",
+              "text": "例如，有研究提出基于CNN-LSTM的模型，综合考虑负荷与多维气象因素的特征关系和负荷的时序特性；也有研究将时序Transformer网络与概率密度统计模型相结合，实现高精度预测。",
+              "cite_source_ids": [
+                "SRC-CH02-016"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC02-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P04-S01",
+              "text": "为了克服单一模型的固有缺陷，组合预测模型通过参数耦合、流程组合或算法融合等方式，综合各单一模型的优势，在负荷预测领域逐步兴起。",
+              "cite_source_ids": [
+                "SRC-CH02-040"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P04-S02",
+              "text": "研究表明，组合模型在性能与准确性方面通常优于单一模型。",
+              "cite_source_ids": [
+                "SRC-CH02-017",
+                "SRC-CH02-024"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P04-S03",
+              "text": "例如，将CNN与随机森林结合，或利用CNN提取局部趋势后结合LSTM进行预测，以及将XGBoost与LSTM模型的预测结果进行加权组合，均有效降低了单一模型的预测误差。",
+              "cite_source_ids": [
+                "SRC-CH02-017"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH02-SEC03",
+      "section_title": "2.3 基于大语言模型的负荷预测算法兴起",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC03-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P01-S01",
+              "text": "近年来，随着大语言模型在自然语言处理等领域取得突破，其强大的模式识别和推理能力开始被探索用于时间序列预测，为电力负荷预测提供了新的思路。",
+              "cite_source_ids": [
+                "SRC-CH02-028",
+                "SRC-CH02-032"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P01-S02",
+              "text": "LLM来源于深度学习与自然语言处理的交叉融合，是一种利用大规模语料进行预训练和微调的模型，具有传统人工智能模型不具备的强泛化能力与逻辑推理能力。",
+              "cite_source_ids": [
+                "SRC-CH02-028"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P02-S01",
+              "text": "将LLM应用于时间序列预测主要有两种范式：一是基于提示的重编程方法，二是对LLM本身进行微调。",
+              "cite_source_ids": [
+                "SRC-CH02-031"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P02-S02",
+              "text": "基于提示的重编程方法不更新模型权重，而是通过精心设计的指令将原始时间序列数据重新编程，引导模型进行预测。",
+              "cite_source_ids": [
+                "SRC-CH02-031"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P02-S03",
+              "text": "例如，TIME-LLM框架通过将输入时间序列重新编程为文本原型，使其与冻结的LLM模态对齐，并采用“提示即前缀”方法丰富输入上下文，指导模型推理，最终实现预测。",
+              "cite_source_ids": [
+                "SRC-CH02-030",
+                "SRC-CH02-032",
+                "SRC-CH02-033"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P03-S01",
+              "text": "另一种范式则涉及在时间序列数据上对LLM进行微调。",
+              "cite_source_ids": [
+                "SRC-CH02-031"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P03-S02",
+              "text": "例如，有研究提出两阶段微调流程，首先将骨干网络与时间序列表示对齐，然后训练轻量级预测头；也有研究引入对比学习目标来锐化模型的时间嵌入。",
+              "cite_source_ids": [
+                "SRC-CH02-031"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P03-S03",
+              "text": "此外，基于模型的迁移学习方法，如固定预训练模型的特征提取器参数，仅对分类预测器部分参数进行微调，也被用于挖掘特定场景（如节假日）的负荷规律。",
+              "cite_source_ids": [
+                "SRC-CH02-035",
+                "SRC-CH02-036"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P04-S01",
+              "text": "LLM模型首先采用通用数据进行预训练，再采用领域相关数据进行微调，对历史数据的依赖程度较低，这有助于解决负荷预测中的小样本问题。",
+              "cite_source_ids": [
+                "SRC-CH02-028",
+                "SRC-CH02-029"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P04-S02",
+              "text": "同时，其强大的知识理解能力和泛化能力，也有助于解决用电行为理解过程中特征缺失、多源数据融合困难等挑战，在负荷预测领域展现出广泛的应用前景。",
+              "cite_source_ids": [
+                "SRC-CH02-028"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH02-SEC04",
+      "section_title": "2.4 多源数据融合与负荷画像技术",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC04-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC04-P01-S01",
+              "text": "电力负荷受到天气、经济、社会活动等多种复杂因素的影响，系统全面地考虑这些影响因素是提高预测模型准确性的关键。",
+              "cite_source_ids": [
+                "SRC-CH02-041",
+                "SRC-CH02-042"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC04-P01-S02",
+              "text": "随着智能量测设备的广泛部署，电网积累了海量的多源异构数据，包括历史负荷、气象、地理信息、日历数据等，为多源数据融合技术的应用提供了重要基础。",
+              "cite_source_ids": [
+                "SRC-CH02-041",
+                "SRC-CH02-047"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC04-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC04-P02-S01",
+              "text": "多源数据融合旨在整合来自不同传感器或数据源的信息，使多模态信息相互补充和增强。",
+              "cite_source_ids": [
+                "SRC-CH02-043"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC04-P02-S02",
+              "text": "负荷预测的输入特征可分为数值型和非数值型两类，其影响程度不尽相同。",
+              "cite_source_ids": [
+                "SRC-CH02-042",
+                "SRC-CH02-043"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC04-P02-S03",
+              "text": "因此，有必要采用相关性分析、因果知识挖掘等方法研究并量化不同场景下各种复杂因素对负荷模式的影响程度，同时过滤冗余特征并筛选有效特征。",
+              "cite_source_ids": [
+                "SRC-CH02-042"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC04-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC04-P03-S01",
+              "text": "在新型电力系统背景下，负荷的不确定性、易变性增强，概率负荷预测技术能够更加详尽地描绘预测对象的不确定性，实现对未来负荷不确定性的有效量化。",
+              "cite_source_ids": [
+                "SRC-CH02-042",
+                "SRC-CH02-043"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC04-P03-S02",
+              "text": "基于多源数据融合的概率负荷预测，通过整合历史负荷、气象、时间标签等多模态信息，可以生成更全面、准确的预测区间或概率分布。",
+              "cite_source_ids": [
+                "SRC-CH02-042",
+                "SRC-CH02-043"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC04-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC04-P04-S01",
+              "text": "负荷画像是通过数据挖掘技术精细刻画负荷特性，指导能源政策、电网规划的重要基础。",
+              "cite_source_ids": [
+                "SRC-CH02-046"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC04-P04-S02",
+              "text": "它涉及对地区负荷特性进行综合分析，考虑天气、社会经济发展、节假日等外部因素，并将非量化因素转化为模型可识别的数学量，以挖掘负荷内在变化规律与外部影响因素间的复杂关系。",
+              "cite_source_ids": [
+                "SRC-CH02-005"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC04-P04-S03",
+              "text": "例如，图神经网络作为一种专门处理图数据的模型，能够同时挖掘节点内特征信息与节点间的空间相关性，在负荷预测中可用于捕捉负荷序列的时间连续性与空间关联性，构建更精确的负荷画像。",
+              "cite_source_ids": [
+                "SRC-CH02-051"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

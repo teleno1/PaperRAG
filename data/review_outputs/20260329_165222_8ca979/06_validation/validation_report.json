@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "issues": [
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH03/CH03-SEC05/CH03-SEC05-P01-S03"
+    },
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH04/CH04-SEC02/CH04-SEC02-P01-S01"
+    }
+  ],
+  "stats": {
+    "CH01": {
+      "sentences": 31,
+      "cited_sentences": 28,
+      "unique_papers": 10
+    },
+    "CH02": {
+      "sentences": 39,
+      "cited_sentences": 39,
+      "unique_papers": 10
+    },
+    "CH03": {
+      "sentences": 33,
+      "cited_sentences": 25,
+      "unique_papers": 10
+    },
+    "CH04": {
+      "sentences": 37,
+      "cited_sentences": 20,
+      "unique_papers": 12
+    },
+    "FP02": {
+      "sentences": 12,
+      "cited_sentences": 0,
+      "unique_papers": 0
+    },
+    "FP01": {
+      "sentences": 15,
+      "cited_sentences": 0,
+      "unique_papers": 0
+    }
+  }
+}

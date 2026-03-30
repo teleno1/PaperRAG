@@ -1,0 +1,269 @@
+{
+  "chapter_id": "CH03",
+  "chapter_title": "大语言模型在电力负荷预测中的应用现状",
+  "section_id": "CH03-SEC02",
+  "section_title": "考虑多源信息融合的预测",
+  "section_description": "综述大语言模型如何整合气象、日历、经济等多源异构信息，提升负荷预测精度的研究。",
+  "section_query": "多源信息融合、气象数据、日历特征、大语言模型多模态输入",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH03-014",
+    "SRC-CH03-015",
+    "SRC-CH03-012",
+    "SRC-CH03-016",
+    "SRC-CH03-017",
+    "SRC-CH03-018",
+    "SRC-CH03-019",
+    "SRC-CH03-020",
+    "SRC-CH03-021",
+    "SRC-CH03-022",
+    "SRC-CH03-023",
+    "SRC-CH03-024",
+    "SRC-CH03-025"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH03-014",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0065",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "2.4.3 待测日负荷曲线确定",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 2.4.3 待测日负荷曲线确定]\n利用待测日的气象和日历特征预测该日的负荷曲线。首先，将待测日气象和日历特征输入到随机森林模型中，确定该日的负荷模式标签，记为 。其次，将待测日气象和日历特征输入到第 个神经网络模型中，预测出该日的负荷峰值 和谷值 。最后，待测日的负荷曲线为： 其中 为第 种负荷模式矢量， 和 为第 个神经网络模型的输出结果。",
+      "paper_score": 0.6883930659513507,
+      "chunk_score": 0.698334610133376
+    },
+    {
+      "source_id": "SRC-CH03-015",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0063",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "2.4.1 基于随机森林算法的负荷模式确定",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 2.4.1 基于随机森林算法的负荷模式确定]\n随机森林是一种有监督集成算法，将若干个决策树分类器集成为一个强分类器。在进行分类时，将待分类样本特征分别输入到各个决策树分类器，然后对各个决策树分类器结果进行投票，从而确定待分类样本的标签[112-114]。 首先，以训练集中气象和日历特征作为输入、电力负荷模式标签为输出，构建一个随机森林模型。对训练集中样本进行有放回的随机抽取，构建 个子集，用于分别训练 个决策树模型。利用Gini增益作为决策树模型中各个节点分裂的标准，若某节点中所有样本均来自同一个负荷模式，则停止分裂并以此节点作为一个叶节点。 其次，将待测日气象和日历数据输入到随机森林模型中，对模型中所有决策树的结果进行投票，以出现次数最多的标签结果作为该日的负荷模式。",
+      "paper_score": 0.6883930659513507,
+      "chunk_score": 0.6551436155358639
+    },
+    {
+      "source_id": "SRC-CH03-012",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0011",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2.2 类型复杂化",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2.2 类型复杂化]\n数据来源的多样化导致输入数据类型的复杂化，例如历史数据往往包括气象数据、负荷数据及社会因素等，其中不仅有结构化数据，还包含如风向、季节及用户特征等非结构化数据。数据类型的复杂化导致基于数学的传统预处理方法不再适用，因此在训练模型之前不仅需要对输入数据进行相关性分析以构建特征，还需引进能同时处理多种数据类型的模型来进行完善。 目前，随着大语言模型及数据融合技术的发展，其在负荷预测领域的应用趋势也逐渐显现。大语言模型可以通过不同类型输入数据对模型进行微调，而多模态数据融合模型则可以同时处理多种类型输入数据以提取数据特征。除了从模型层面解决数据复杂化问题，还需对不同类型的数据进行特征选择及特征构建以剔除冗余干扰信息。",
+      "paper_score": 0.6308672182740507,
+      "chunk_score": 0.6213563251236511
+    },
+    {
+      "source_id": "SRC-CH03-016",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0006",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2 数据类型多元化",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2 数据类型多元化]\n从预测的影响因素来看，主要有电力负荷构成、气象因素、社会因素、时间因素、经济因素等，不同影响因素对预测结果的影响程度不尽相同，具体情况如表2所示。随着智能量测设备的发展，负荷预测的输入数据从传统的结构化时序数据向多模态数据转化，在提升负荷预测结果准确度的同时， 也为数据处理和分析带来了新的挑战。",
+      "paper_score": 0.6462841402685566,
+      "chunk_score": 0.39877574213784656
+    },
+    {
+      "source_id": "SRC-CH03-017",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0025",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "3.1. Introduction of the dataset ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 3.1. Introduction of the dataset ]\nThe weather data from 2023, as shown in Fig. 7, captures key meteorological variables such as maximum and minimum daily temperatures and solar radiation for each region, providing important context for understanding the seasonal variations in energy patterns. Hokkaido, located in the northernmost part of Japan, experiences long, cold winters with significant snowfall and relatively cool summers. Solar radiation is lower compared to other regions. Tohoku, in northeastern Japan, also has cold winters, though less severe than Hokkaido. The region experiences distinct seasons, with cooler temperatures in winter and moderate summers. Tokyo, located in the central part of Japan, has a temperate climate with hot, humid summers and mild winters. The relatively higher solar radiation in Tokyo, particularly during summer months, contributes significantly to solar power generation. Kyushu, in the southernmost part of Japan, enjoys a warm climate year-round with hot, humid summers and mild winters. The region receives the highest solar radiation among the four regions, making solar power a key contributor to its renewable energy mix. Kyushu also benefits from a higher proportion of nuclear energy generation, complementing its renewable energy sources. The details of all features in our datasets are summarized in Table 4. The selection of these four regions was made to ensure a comprehensive representation of Japan’s diverse climatic zones, ranging from the warmer southern regions to the cooler northern areas. Additionally, these regions feature varying compositions of electricity generation sources, which allows for a thorough evaluation of the proposed model’s generalization capability across different climatic and energy production conditions.",
+      "paper_score": 0.3767915443153117,
+      "chunk_score": 0.35955467057155255
+    },
+    {
+      "source_id": "SRC-CH03-018",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0008",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "1.4. Research contribution ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 1.4. Research contribution ]\nThe key contributions of this research are as follows: (1) To enhance the model’s ability to understand the relationships between different features, we design a specialized framework that allows the LLM to extract meaningful interdependencies between the target variables and other features in a simple yet effective manner. • (2) We introduce a preprocessing method based on cross-attention that eliminates the need for prompt engineering, enabling multiple time series of target features to be transformed and input into the LLM simultaneously. This approach simplifies the application of LLMs to multivariate time series forecasting. • (3) To validate the effectiveness and generalizability of the proposed framework, we conduct extensive experiments using historical electricity demand, generation, and weather data from four different regions in Japan.",
+      "paper_score": 0.3767915443153117,
+      "chunk_score": 0.4212734800705036
+    },
+    {
+      "source_id": "SRC-CH03-019",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0035",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "4. Experimental Result Reproducibility ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 4. Experimental Result Reproducibility ]\nQuestion: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)? Answer: [Yes] Justification: Section 4 and Appendix D shows the details of the baselines used and their hyper-parameter details respectively.",
+      "paper_score": 0.34215826076995937,
+      "chunk_score": 0.3666145847177019
+    },
+    {
+      "source_id": "SRC-CH03-020",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0036",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "5. Open access to data and code ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 5. Open access to data and code ]\nQuestion: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material? Answer: [Yes] Justification: We have shared the code as a .zip file in the supplementary material.",
+      "paper_score": 0.34215826076995937,
+      "chunk_score": 0.3771509427081394
+    },
+    {
+      "source_id": "SRC-CH03-021",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0040",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "2.2 考虑广域气象差异性的特征构建方法",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 2.2 考虑广域气象差异性的特征构建方法]\n制冷制热等气象敏感负荷占比激增，负荷波动受气象影响愈发显著，然而单一位置坐标的数值气象难以有效反映广域空间范围气象差异性对电力负荷整体波动特性的影响，因此本章提出了一种考虑广域气象差异性的特征构建方法，利用网格化数值天气预报数据建立特征表作为输入，如图2-1所示。 图2-1（a）为网格化数值天气预报格点位置示意图，格点表示该坐标位置处的数值天气预报，为有效反应该区域气象的空间相关性，将网格化数值天气预报抽象为特征表如图2-1（b），其中白色点设置为0以此剔除非所关注区域气象的冗余影响，蓝色点为关注区域的气象预报数据，例如温度、辐照度、风速等。多个时间顺序特征图表将组成富含时序关系的时序特征表，如图2-2。",
+      "paper_score": 0.3412069389750906,
+      "chunk_score": 0.3326148378402648
+    },
+    {
+      "source_id": "SRC-CH03-022",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0079",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "3.3.5 基于改进Transformer-Aadpter的迁移学习模型",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 3.3.5 基于改进Transformer-Aadpter的迁移学习模型]\n本文将域对抗网络的改进Transformer模型作为预训练模型，以带标签的节假日负荷数据作为输入样本，固定特征提取器共享参数，对分类预测器部分参数采用Adapter技术对参数进行微调，挖掘节假日负荷的特有规律，提升模型对节假日负荷预测的针对性和有效性。 Neil Houlsby等人在2019年提出将Adapter微调技术引入迁移学习之中[113],Adapter冻结预训练模型的主体部分，在特定任务层添加Adapter模块，对新增加模块和部分任务层进行微调。Adapter技术应用于Transformer模型的Encoder部分，如图3-14所示。Adapter模块接收来自上一层的输入，即Transformer模型Encoder部分输出和隐藏表示。输入特征通过降尺度层被映射至投影到较低纬度的表示空间，从而减少参数数量；然后将低维特征通过非线性层进行特征变换，提升Adapter非线性特征挖掘能力；进一步通过升尺度层，将低维特征重新映射回原始的高维特征空间，高维特征与一个可学习的参数矩阵相乘以此根据特征重要性调整特征权重；最后经过残差全连接层，将调整后的高维特征与原始输入进行相加，确保即使参数接近零，Adapter模块仍能近似于恒等映射，加强信息在模块内的传递。",
+      "paper_score": 0.3412069389750906,
+      "chunk_score": 0.3218891303372069
+    },
+    {
+      "source_id": "SRC-CH03-023",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0003",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "1 INTRODUCTION ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 1 INTRODUCTION ]\nReasoning. LLMs exhibit sophisticated reasoning and pattern recognition capabilities (Mirchandani et al., 2023; Wang et al., 2023; Chu et al., 2023). Harnessing these skills could allow making highly precise forecasts by leveraging learned higher-level concepts. Existing non-LLM methods are largely statistical without much innate reasoning. Multimodal knowledge. As LLM architectures and training techniques improve, they gain more diverse knowledge across modalities like vision, speech, and text (Ma et al., 2023). Tapping into this knowledge could enable synergistic forecasting that fuses different data types. Conventional tools lack ways to jointly leverage multiple knowledge bases. Easy optimization. LLMs are trained once on massive computing and then can be applied to forecasting tasks without learning from scratch. Optimizing existing forecasting models often requires significant architecture search and hyperparameter tuning (Zhou et al., 2023b). In summary, LLMs offer a promising path to make time series forecasting more general, efficient, synergistic, and accessible compared to current specialized modeling paradigms. Thus, adapting these powerful models for time series data can unlock significant untapped potential. The realization of the above benefits hinges on the effective alignment of the modalities of time series data and natural language. However, this is a challenging task as LLMs operate on discrete tokens, while time series data is inherently continuous. Furthermore, the knowledge and reasoning capabilities to interpret time series patterns are not naturally present within LLMs’ pre-training. Therefore, it remains an open challenge to unlock the knowledge within LLMs in activating their ability for general time series forecasting in a way that is accurate, data-efficient, and task-agnostic. In this work, we propose TIME-LLM, a reprogramming framework to adapt large language models for time series forecasting while keeping the backbone model intact.",
+      "paper_score": 0.341139333734993,
+      "chunk_score": 0.36184478534590536
+    },
+    {
+      "source_id": "SRC-CH03-024",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0009",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "3 METHODOLOGY ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 3 METHODOLOGY ]\nWe note that only the parameters of the lightweight input transformation and output projection are updated, while the backbone language model is frozen. In contrast to vision-language and other multimodal language models, which usually fine-tune with paired cross-modality data, TIME-LLM is directly optimized and becomes readily available with only a small set of time series and a few training epochs, maintaining high efficiency and imposing fewer resource constraints compared to building large domain-specific models from scratch or fine-tuning them. To further reduce memory footprints, various off-the-shelf techniques (e.g., quantization) can be seamlessly integrated for slimming TIME-LLM.",
+      "paper_score": 0.341139333734993,
+      "chunk_score": 0.39286679001319336
+    },
+    {
+      "source_id": "SRC-CH03-025",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0049",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "中国电机工程学报",
+      "section": "4.1.2 基于多源数据融合的概率负荷预测技术",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 4.1.2 基于多源数据融合的概率负荷预测技术]\n系统全面考虑各种负荷预测影响因素能够有效提高预测模型的准确性，而应用概率预测手段能够充分捕捉负荷变化的不确定性。 一方面，作为负荷预测模型的输入特征，不同影响因素大致可以归纳为数值型(如历史负荷、气象条件、电价等)和非数值型(如星期类型、时刻信息、天气类型等)2种类别，并且其影响程度不尽相同[40]。因此，有必要采用相关性分析、因果知识挖掘等方法研究并量化不同场景下各种复杂因素对于负荷模式的影响程度，同时过滤掉冗余特征并筛选出有效特征。 另一方面，相比于确定性预测，概率预测能够更加详尽地描绘预测对象的不确定性，其可以分为给定置信度的区间预测和完整的概率分布预测。由于供给侧新能源发电比重不断提高，需求侧灵活性负荷以及用户主动响应逐渐增加，多重不确定性将会成为新型电力系统背景下负荷的常态化特征，因而利用概率负荷预测技术可以实现对未来负荷不确定性的有效量化[106-107]。其中，获取概率预测结果的策略主要包括：1）生成多重输入场景；2）应用概率预测模型；3）增强点预测结果。图 6 为基于多源数据融合的概率负荷预测方法示意图。 所以，应当进一步研究基于多源异构数据融合的概率负荷预测技术，以应对不同场景下(尤其是微电网负荷预测、用户级负荷预测以及净负荷预测)电力负荷不确定性高、易变性强、影响因素考虑不充分的挑战。",
+      "paper_score": 0.32145818933437365,
+      "chunk_score": 0.32000144424984955
+    }
+  ]
+}

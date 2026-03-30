@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "issues": [
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH01/CH01-SEC01/CH01-SEC01-P06-S02"
+    },
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH03/CH03-SEC02/CH03-SEC02-P03-S01"
+    },
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH04/CH04-SEC02/CH04-SEC02-P01-S03"
+    },
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH05/CH05-SEC01/CH05-SEC01-P02-S01"
+    },
+    {
+      "level": "warning",
+      "code": "FACT_WITHOUT_CITATION",
+      "message": "Fact-like sentence without citation.",
+      "location": "CH05/CH05-SEC01/CH05-SEC01-P04-S01"
+    }
+  ],
+  "stats": {
+    "CH01": {
+      "sentences": 17,
+      "cited_sentences": 15,
+      "unique_papers": 7
+    },
+    "CH02": {
+      "sentences": 36,
+      "cited_sentences": 34,
+      "unique_papers": 11
+    },
+    "CH03": {
+      "sentences": 26,
+      "cited_sentences": 23,
+      "unique_papers": 9
+    },
+    "CH04": {
+      "sentences": 33,
+      "cited_sentences": 22,
+      "unique_papers": 10
+    },
+    "CH05": {
+      "sentences": 15,
+      "cited_sentences": 10,
+      "unique_papers": 7
+    },
+    "FP02": {
+      "sentences": 9,
+      "cited_sentences": 0,
+      "unique_papers": 0
+    },
+    "FP01": {
+      "sentences": 5,
+      "cited_sentences": 0,
+      "unique_papers": 0
+    }
+  }
+}

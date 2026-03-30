@@ -1,0 +1,4959 @@
+[
+    [
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "双碳目标的挑战与电力结构调整趋势展望"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                164,
+                151,
+                833,
+                181
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽✉"
+                    }
+                ]
+            },
+            "bbox": [
+                460,
+                210,
+                537,
+                225
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "（中国海洋工程咨询协会海上风电分会，北京 100161）"
+                    }
+                ]
+            },
+            "bbox": [
+                319,
+                231,
+                675,
+                245
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "摘要：［目的］“碳中和·碳达峰”是促进中国能源经济转型，构建人类命运共同体的重要战略决策。中国是能源消费大国，双碳目标下全社会面临着巨大的挑战，实现双碳目标需要正确理论方法的指导和科学的部署。［方法］为此，文章基于中国能源发展形势，剖析了双碳目标的本质，从宏观层面给出了双碳目标的根本出路，并从能源供给侧的角度对双碳目标下零碳能源发电负荷构成和负荷需求指标等电力负荷发展趋势进行了预测，提出了“等效电力能源替代”新概念。［结果］基于核能、水能、风能、太阳能等资源禀赋给出了双碳目标下电力结构调整的方案，分析了电力结构调整带来的系统运行特性问题，提供了解决问题的措施。［结论］双碳目标或将掀起新一代能源革命和全面的工业革命，水、风、光、核四种主要的零碳能源资源能够满足中国的社会经济持续发展需求，新能源将迎来高速发展时代。文章从多方面论述了未来能源的发展趋势，给出了电力结构调整的建设性意见，对双碳目标的实现具有重要的理论指导意义。"
+                    }
+                ]
+            },
+            "bbox": [
+                107,
+                261,
+                889,
+                418
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "关键词：碳中和；碳达峰；发展趋势；电力结构；零碳能源；系统运行"
+                    }
+                ]
+            },
+            "bbox": [
+                107,
+                422,
+                581,
+                435
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "中图分类号：TK01"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                440,
+                238,
+                454
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "文献标志码：A"
+                    }
+                ]
+            },
+            "bbox": [
+                300,
+                440,
+                403,
+                454
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "文章编号：2095-8676（2021）03-0008-10"
+                    }
+                ]
+            },
+            "bbox": [
+                463,
+                440,
+                722,
+                454
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "开放科学（资源服务）二维码："
+                    }
+                ]
+            },
+            "bbox": [
+                465,
+                456,
+                655,
+                468
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/fa0af69162cfe4a9402a2f4ad865810ec108becb579f88aecfda1c4c16fa2ca1.jpg"
+                },
+                "image_caption": [],
+                "image_footnote": []
+            },
+            "bbox": [
+                825,
+                421,
+                892,
+                468
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "Challenges and Prospects for the Trends of Power Structure Adjustment Under the Goal of Carbon Peak and Neutrality "
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                129,
+                483,
+                863,
+                526
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "CAI Shaokuan✉ "
+                    }
+                ]
+            },
+            "bbox": [
+                445,
+                529,
+                549,
+                543
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "（China Offshore Wind Association，China Association of Oceanic Engineering，Beijing 100161，China）"
+                    }
+                ]
+            },
+            "bbox": [
+                174,
+                548,
+                821,
+                562
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "Abstract：［Introduction］\"Carbon peak and neutrality\" is an important strategic decision to promote the transformation of China's energy economy and build a community of shared future for mankind. China is a big energy consuming country and the whole society is facing huge challenges under the \"carbon peak and neutrality\" goal. The realization of the goal requires the guidance of correct theoretical methods and scientific deployment.［Method］For this reason，based on China's energy development situation， the essence of the \"carbon peak and neutrality\" goal was analyzed，the fundamental way to achieve the goal was given from a macro level，the development trends of power load such as zero-carbon energy power generation load composition and load demand indicators under the \"carbon peak and neutrality\" were predicted from the perspective of the energy supply side，and a new concept of \"equivalent electric energy substitution\" was proposed in this article.［Result］Based on the resource endowments of nuclear energy， hydropower，wind energy，solar energy and other resources，the power structure adjustment scheme under the \"carbon peak and neutrality\" goal was given，and the system operation characteristics problems caused by the power structure adjustment were analyzed，and measures to solve the problems were provided.［Conclusion］The \"carbon peak and neutrality\" goal may set off a new generation of energy revolution and a comprehensive industrial revolution. The four main zero-carbon energy resources of water， wind，light，and nuclear can meet the needs of China's sustainable social and economic development，and new energy will usher in an era of rapid development. This article discusses the development trend of future energy from many aspects，and gives constructive opinions on the adjustment of power structure，which has important theoretical guiding significance for the realization of the \"carbon peak and neutrality\" goal. "
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                583,
+                912,
+                866
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "2021 年 第 8 卷 第 3 期"
+                    }
+                ]
+            },
+            "bbox": [
+                94,
+                67,
+                247,
+                80
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "2021 Vol. 8 No. 3 "
+                    }
+                ]
+            },
+            "bbox": [
+                95,
+                81,
+                208,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方能源建设"
+                    }
+                ]
+            },
+            "bbox": [
+                440,
+                67,
+                554,
+                81
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "SOUTHERN ENERGY CONSTRUCTION "
+                    }
+                ]
+            },
+            "bbox": [
+                356,
+                81,
+                640,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "综述与进展"
+                    }
+                ]
+            },
+            "bbox": [
+                816,
+                68,
+                895,
+                81
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "Reviews & Progress "
+                    }
+                ]
+            },
+            "bbox": [
+                769,
+                83,
+                895,
+                94
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "DOI：10. 16516/j. gedi. issn2095-8676. 2021. 03. 002 "
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                109,
+                415,
+                124
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "OA：https://www.energychina.press/ "
+                    }
+                ]
+            },
+            "bbox": [
+                678,
+                109,
+                910,
+                122
+            ]
+        },
+        {
+            "type": "page_footnote",
+            "content": {
+                "page_footnote_content": [
+                    {
+                        "type": "text",
+                        "content": "收稿日期：2021-08-03 修回日期：2021-08-23"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                884,
+                378,
+                896
+            ]
+        },
+        {
+            "type": "page_footnote",
+            "content": {
+                "page_footnote_content": [
+                    {
+                        "type": "text",
+                        "content": "基金项目：广东省促进经济发展专项基金（海洋经济发展用途）“广东省海洋六大产业三年行动计划方案制订”（粤自然资源合〔2019〕013号）"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                896,
+                890,
+                910
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "Key words：carbon neutrality；carbon emission peak；development trend；power structure；zero-carbon energy；system operation 2095-8676 © 2021 Energy China GEDI. Publishing services by Energy Observer Magazine Co.，Ltd. on behalf of Energy China GEDI. This is an open access article under the CC BY-NC license（https://creativecommons.org/licenses/by-nc/4.0/）. "
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                108,
+                910,
+                157
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "继2020年12月12日，中共中央总书记习近平于联合国气候雄心峰会上庄严宣告中国将力争在2030年前实现碳达峰，努力争取2060年前实现碳中和的“双碳目标”之后，2021年4月30日，习近平总书记在中共中央政治局第二十九次集体学习会上强调，实现碳达峰、碳中和是中国向世界作出的庄严承诺，也是一场广泛而深刻的经济社会变革，绝不是轻轻松松就能实现的。各级党委和政府要拿出抓铁有痕、踏石留印的劲头，明确时间表、路线图、施工图，推动经济社会发展建立在资源高效利用和绿色低碳发展的基础之上。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                179,
+                485,
+                389
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "面临伟大而又艰巨的双碳目标，中国将面对怎样的挑战呢？这个目标究竟向中国社会提出了什么要求呢？笔者认为，归纳起来共有两大要求：一是能源需求侧节能，二是能源供给侧零碳化。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                391,
+                484,
+                467
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "双碳目标是一个庞大的覆盖全社会多行业多学科的课题，本文仅仅从能源供给侧的角度，分析研判能源行业在双碳目标使命下的挑战与对策，即逐步全部实现“一次能源零碳化，二次能源电力化”的零碳能源直接使用和电力化二次使用。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                468,
+                482,
+                562
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "以下，笔者力图立足于宏观层面从双碳目标的本质、双碳目标下中国电力负荷发展趋势、从资源禀赋看可能的解决方案、电力系统储能和其他改善供给侧与需求侧运行特性的主要解决方案、结论共五个方面论述揭示双碳目标的挑战与电力结构调整趋势。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                566,
+                482,
+                678
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1 双碳目标的本质：零碳能源代替排碳能源"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                689,
+                475,
+                708
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "首先，我们来罗列一下已经发现的一次零碳能源：水能、风能、光能、核能、地热能、潮汐能、波浪能、洋流能、温差能等［1］ 。其中，当前已经发现的可以直接进行热利用的一次零碳能源只有地热和光热两种。一次能源热直接利用的特点是使用方式和应用场景单一，故其对于完成双碳目标的贡献率较小，本文暂不将其列入研究范围。真正对全社会实现双碳目标贡献率最大的是零碳能源的电力化利用。因此，我们可以得到一个结论：双碳目标的本质，就是零碳能源全部替代排碳能源，零碳能源"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                720,
+                485,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "的主要利用途径是一次零碳能源电力化。"
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                180,
+                825,
+                195
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "因此，可以把讨论的范围收缩到为实现双碳目标下电能结构调整面临的挑战及对策两个方面。只要能够分析研究清楚未来全社会各阶段对电力负荷的需求总量、一次零碳能源资源是否能与各阶段需求实现平衡、电力系统中的电源、储能、供给侧调节能力与需求侧调节能力共同作用能否实现电力系统的实时平衡，就能够全面揭示双碳目标任务进程的本质规律。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                199,
+                910,
+                349
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "要能在非常复杂的能源认知中梳理清楚正确的研究途径，必须在以下三个方面有正确的认知。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                352,
+                910,
+                388
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1.1 一次零碳能源资源满足需求的可能性判断"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                391,
+                880,
+                407
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "前已述及，天然存在可直接零碳使用且能相对规模化应用的一次能源只有两种：地热、光热。现已发现可规模化转换为零碳电能的一次能源只有四种：水能、风能、光能、核能。可以转换为零碳电能但难以规模化开发的一次能源主要有：地热能、潮汐能、波浪能、洋流能、温差能等。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                411,
+                910,
+                523
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "当前电力系统一次排碳能源的使用主要有：燃油、燃煤、燃气（包括LNG）、燃生物质（包括垃圾发电），这些都是需要纳入以下讨论需要退役被替代的火电电力类型。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                527,
+                910,
+                601
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "这里，我们还必须界定规模化开发的“规模”，否则将引发出若干无谓的争议。笔者暂时把可以实现经济性开发的一次能源发电电量总规模可能达到同期电力能源生产总量的 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "视为规模化开发的划分界线。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                604,
+                910,
+                697
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1.2 氢能不是能源"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                700,
+                670,
+                716
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "氢在天然情况下不能独立存在，不属于一次能源，生产过程必然耗能，故其不是“能源”。灰氢，由于碳排放必须逐步归零属于双碳目标下的技术路线而前景黯淡。蓝氢，由于看不到可以市场化经济性前景应暂不考虑。绿氢，必须“绿色电能、绿色制氢 （电解水） ”两头绿才是当之无愧的绿氢，“排碳电能、电解水”生产的氢不能视为绿氢。由于通过“绿色能源—电—绿氢—电”技术路径，制备氢发出的“氢电”属于四次能源，需经三次能源形式的转换，每一次转换都要付出“损耗 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "^ +"
+                    },
+                    {
+                        "type": "text",
+                        "content": "经济代"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                720,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 3 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                79,
+                157,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽：双碳目标的挑战与电力结构调整趋势展望"
+                    }
+                ]
+            },
+            "bbox": [
+                329,
+                79,
+                668,
+                92
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "9 "
+                    }
+                ]
+            },
+            "bbox": [
+                885,
+                81,
+                895,
+                91
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "价（产业成本）”，必然呈现耗能特性和经济性差两大特点，所以氢能不是“能源”，应划入负荷侧，即需求侧；氢能经济性差，不得已才使用。氢能在电力系统中的作用是“储存、调节”，特点是“昂贵、低效”，这里说的“低效”讲的是能源转换效率低。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                107,
+                482,
+                219
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "1.3 双碳目标的根本出路"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                224,
+                295,
+                240
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "综上所述，从当前的能源利用技术水平和可以预测的未来判断：能够规模化转换为零碳电能，可以作为完成双碳目标的主力能源只有水能、风能、光能、核能四种。双碳目标任务的本质，就是要全力开发利用“水能、风能、光能、核能”，以实现对排碳能源的“增量需求”和“存量”的逐步全面替代。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                244,
+                482,
+                377
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2 需求预测：双碳目标下中国电力负荷发展趋势预判"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                84,
+                389,
+                482,
+                427
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "现在，我们应该清楚地认识到了：未来世界，除了少量的直接利用地热和光热之外，所有的一次零碳能源利用都必须转化为电力化利用。这样，就必然产生了三大问题：各个目标阶段的电力负荷是多少？零碳能源资源是否满足需求？在新的电力能源结构发生根本性重大变化后，电力系统电源与负荷间的实时平衡如何实现？本节重点讨论双碳目标"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                440,
+                482,
+                575
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "的电力需求发展趋势。"
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                108,
+                684,
+                123
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.1 双碳目标下的中国2020年度等效发电量构成分析"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                126,
+                909,
+                162
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在双碳目标约束下，电力负荷的增长将呈现和以往完全不同的规律，因为除了以往社会经济发展形成的电力负荷自然增长外，还必须计入由于排碳能源的渐次退出带来的电力替代下的电力负荷替代性增长，即等效电力能源替代。这种替代性增长，包括各个时段存量的渐次替代和增量的全部替代产生的电力替代性需求增长。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                166,
+                910,
+                299
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "按照用途，可以把排碳能源分为三个大类：火电、交通运输燃油燃气、生活及工业燃料。因此，电力负荷在新环境下的增长主要由四个种类构成：传统电力负荷的常规自然增长，燃油运输替代性增长，生活及工业燃料的替代性增长，燃油、燃气、燃生物质等火电退役的替代性增长。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                302,
+                910,
+                416
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在把天然气发电归入清洁能源的条件下，2020年，全国天然气发电、水电、核电、风电、太阳能发电等清洁能源消费量占能源消费总量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 4 . 3 \\% ^ { \\ [ 2 ] _ { \\circ } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。根据中国电力企业联合会2021年7月8日发布的《中国电力行业年度发展报告2021》［3］ ，各发电量构成详见表1；相比之下，如果把天然气归入排碳能源，清洁能源发电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 2 . 1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，超7.8个百分点。可见电能发展、替代空间还很大。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                418,
+                910,
+                573
+            ]
+        },
+        {
+            "type": "table",
+            "content": {
+                "image_source": {
+                    "path": "images/621b27a4ae21f269eb91415344b50f9b8162dd6a13dec7754618b4567938146d.jpg"
+                },
+                "table_caption": [
+                    {
+                        "type": "text",
+                        "content": "表1 中国2020年度发电量构成"
+                    },
+                    {
+                        "type": "text",
+                        "content": "Tab. 1 Composition of China， s electricity generation in 2020 "
+                    }
+                ],
+                "table_footnote": [
+                    {
+                        "type": "text",
+                        "content": "注：数据来自《中国电力行业年度发展报告 》（中国电力企业联合会），《中国太阳能热发电及采暖行业蓝皮书 》（国家太阳能光热产业技术创新战略联盟）。"
+                    }
+                ],
+                "html": "<table><tr><td>序号</td><td>发电类型</td><td>装机/GW</td><td>增长/%</td><td>装机占比/%</td><td>占比变动/%</td><td>发电量/亿kWh</td><td>增长/%</td><td>发电量占比/%</td><td>占比变动/%</td></tr><tr><td rowspan=\"2\">1</td><td>水电</td><td>370.28</td><td>3.42</td><td>16.82</td><td>-1.00</td><td>13553</td><td>4.09</td><td>17.78</td><td>0.00</td></tr><tr><td>其中:抽水蓄能</td><td>31.49</td><td>3.96</td><td>1.43</td><td>-0.08</td><td>335</td><td>4.99</td><td>0.44</td><td>0.00</td></tr><tr><td rowspan=\"3\">2</td><td>火电</td><td>1246.24</td><td>4.76</td><td>56.59</td><td>-2.59</td><td>51770</td><td>2.59</td><td>67.88</td><td>-0.99</td></tr><tr><td>其中:燃煤</td><td>1079.12</td><td>3.70</td><td>49.01</td><td>-2.77</td><td>46296</td><td>1.66</td><td>60.70</td><td>-1.45</td></tr><tr><td>燃气</td><td>99.72</td><td>10.51</td><td>4.53</td><td>0.04</td><td>2525</td><td>8.61</td><td>3.31</td><td>0.14</td></tr><tr><td>3</td><td>核电</td><td>49.89</td><td>2.36</td><td>2.27</td><td>-0.16</td><td>3662</td><td>5.03</td><td>4.80</td><td>0.04</td></tr><tr><td>4</td><td>风电</td><td>281.65</td><td>34.66</td><td>12.79</td><td>2.39</td><td>4665</td><td>15.08</td><td>6.12</td><td>0.59</td></tr><tr><td>5</td><td>太阳能发电</td><td>253.56</td><td>24.12</td><td>11.51</td><td>1.35</td><td>2611</td><td>16.56</td><td>3.42</td><td>0.37</td></tr><tr><td>6</td><td>其他</td><td>0.41</td><td>58.02</td><td>0.02</td><td>0.01</td><td>3</td><td>12.40</td><td>0.00</td><td>0.00</td></tr><tr><td>7</td><td>总计</td><td>2202.04</td><td>—</td><td>100</td><td>—</td><td>76264</td><td>—</td><td>100</td><td>—</td></tr></table>",
+                "table_type": "complex_table",
+                "table_nest_level": 1
+            },
+            "bbox": [
+                87,
+                617,
+                910,
+                811
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "由表1可知：（1）水电370.28 GW，比上年增长 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 4 2 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，其中抽水蓄能装机31.49 GW，比上年增长 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 9 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；（2）并网风电281.65 GW，比上年增长"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                855,
+                482,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "equation_inline",
+                        "content": "3 4 . 6 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "（3） 并网太阳能发电253.56 GW，比上年增长 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 4 . 1 2 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，其中分布式光伏装机78.31 GW，占光伏总装机比重 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 0 . 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2020年并网的光热发电累"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                855,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "10 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                81,
+                117,
+                91
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方能源建设"
+                    }
+                ]
+            },
+            "bbox": [
+                453,
+                79,
+                547,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 8 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                843,
+                79,
+                890,
+                92
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "计装机容量达到538 MW（含兆瓦级以上规模项目，其中首批太阳能热发电示范项目并网容量达到450 MW，共7座）；（4）除燃煤和燃气外，火电中还包括余热/余压/余气发电以及燃油发电等。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                108,
+                482,
+                183
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.2 计算方法探讨与选择"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                186,
+                295,
+                202
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据以上分析，双碳目标下最终的一次零碳能源使用方式只有两类：直接热利用、发电电力利用。因此，除了少量直接热利用之外，所有能源的利用几乎都以电力负荷的形式存在，电力负荷的测算几乎可以等同于双碳目标下全社会能源需求的测算。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                206,
+                482,
+                319
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "本文预设以下约束条件开展2020年、2030年、2060年三个水平年的负荷预测工作。"
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                324,
+                482,
+                358
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "text_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "1）各类能耗都归算到等效电耗进行分类统计。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "2）预测2020年至2030年的GDP增长指标，预判各类能耗折算成电耗以后的电力弹性系数，然后计算2030年和2060年两个水平年的发电负荷电量。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "3）根据零碳能源资源禀赋，预测各类零碳电源发展指标。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "4）预设到2030年，中国电力系统火电退役替代为2020年已有存量的 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "10 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "，对应火电10年间新增电量需求的 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "100 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "全替代；2020年交通运输燃油存量10年间替代 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "7 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "、增量全替代；2020年工业和生活燃料存量10年间替代 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "5 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "、增量全替代。到2060年，实现对排碳能源全替代。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "5）考虑到未来电力系统对稳定发电基荷及为了维持电力系统动态稳定对转动惯量的需要，预设2030年中国电力系统火电退役替代 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "10 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "的部分和对应火电10年新增电量的 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "100 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "全替代的需求部分，全部由新增核电替代。预设到2060年，核电占比为"
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "50 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "6）在电力电量平衡的基础上，预判系统储存调节（储能调峰）可能的措施安排。"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                363,
+                480,
+                753
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.3 2020年度全国能耗统计分析"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                757,
+                354,
+                772
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "国家统计局发布了2020年国民经济和社会发展第十四个五年规划统计公报。公报中显示，2020年中国能源消费总量为49.8亿吨标准煤。其中：煤炭消费40.4亿吨，石油消费6.6亿吨，天然气消费3 288 亿 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\mathrm { m } ^ { 3 }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，非化石能源消费7.9亿吨标煤。国家能源局发布的 2020 年全社会用电量数据为 75 110亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                776,
+                482,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据多年的统计规律，煤炭消费中约有 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "用于发电；石油消费中，约有 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "用于交通运输；天然气消费中， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "用于发电， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "用于化工， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "32 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "用于城市燃气， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "38 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "用于工业燃料；非化石能源"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "100 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "为零碳能源发电；在75 110 亿度用电量中，其中的火力发电51 700亿度已包含 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "的用煤的燃煤发电。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                108,
+                910,
+                241
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "为了便于与电能替代对比分析，我们进一步把能源消费整理为四个大类：（1）非电煤耗；（2）交通运输用油；（3）生活及工业燃料；（4）非化石能源发电及火电。把现存发电类（火、水、风、光、核）归在一起，是为了用传统电力自然增长计算预测对应的未来电力负荷发展水平。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                245,
+                910,
+                358
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "假设2020年全中国已实现零碳电能对排碳能源全替代，中国2020年度需要等效发电负荷主要构成测算如下："
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                363,
+                910,
+                418
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "text_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "1）电力系统实际总发电量为76 264亿度。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "2）交通运输燃油粗略按电力系统 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "60 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "估算等效电能电量，约为45 758亿度。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "3）生活及工业燃料粗略按电力系统 "
+                            },
+                            {
+                                "type": "equation_inline",
+                                "content": "3 5 \\%"
+                            },
+                            {
+                                "type": "text",
+                                "content": "估算等效电能电量，约为26 692亿度。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "4）火电需要退役替代电能电量51 770亿度。"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                423,
+                907,
+                536
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "2020年等效零碳能源电能电量累计为148 714亿度。其中，电力系统发电量占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 1 . 2 8 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；124 220亿度等效电能电量及其发展增量就是需要我们用零碳电能完全替代的，占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 3 . 5 3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。由此可见，双碳目标任务是非常艰巨的。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                540,
+                910,
+                634
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.4 中国2030年发电负荷主要构成预测"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                639,
+                836,
+                654
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "首先，预测现有电能电量的自然增长。参考部分经济学家的预测，预设预测条件：2020年至2030年的10年时段，中国GDP平均递增率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；2030年至2060年的30年时段，中国GDP平均递增率取 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                658,
+                910,
+                752
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据中国的发展阶段、电网覆盖率、用电结构变化趋势，按照经典的电力弹性系数法预测2030年、2060年两个水平年的负荷需求是合适的。根据电力弹性系数与社会经济发展不同时期对应关系的规律［4］ ，即从重型工业化经济结构向轻型产业化经济结构逐步变化规律，前10年：取传统电力的弹性系数为0.7，交通燃油替代部分电力弹性系数取0.6，生产及生活燃料替代部分的电力弹性系数取"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                757,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 3 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                79,
+                157,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽：双碳目标的挑战与电力结构调整趋势展望"
+                    }
+                ]
+            },
+            "bbox": [
+                329,
+                79,
+                668,
+                92
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "11 "
+                    }
+                ]
+            },
+            "bbox": [
+                880,
+                81,
+                895,
+                91
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "0.5；后30年，所有等效和传统的电力负荷的电力弹性系数都取0.5。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                108,
+                480,
+                142
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "按照以上两个粗略预测分析，测算出2030年、2060年两个预测水平年的全等效电能电量需求，再将2030年按照部分替代进行拆分，预测该年度排碳能源存留量和零碳能源替代量。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                147,
+                482,
+                222
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.5 中国2030年零碳能源发电负荷需求指标预测"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                84,
+                225,
+                475,
+                242
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "传统动力系统部分电力增长率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 . 9 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，2020年基数为 76 264 亿度，2030 年为 117 300 亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                246,
+                482,
+                280
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "交通运输燃油等效电能电量部分，递增率为"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 . 2 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，2020年为45 758亿度，2030年没有被替代条件下为66 264亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                285,
+                482,
+                339
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "生活及工业燃料等效电能电量部分，递增率为"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 . 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，2020年基数为26 692亿度，2030年在没有被替代条件下为36 378亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                344,
+                482,
+                399
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "按照以下原则测算2030年的替代量：火电，2020年基数51 770亿度存量替代 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "10 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "（1995年以前投产机组全部退役，含当时的在建项目完建后的容量替代）、增量全替代；交通运输燃油存量2020年基数45 758亿度替代 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "、增量全替代；工业和生活燃料存量2020年基数26 692亿度替代 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "、增量全替代。计算2030年各项指标预测量。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                402,
+                482,
+                537
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2. 5. 1 火电退役 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "10 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "存量替代"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                540,
+                331,
+                556
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "火电退役 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "10 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "存量的替代量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 5 1 ~ 7 7 0"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\times 0 . 1 ="
+                    },
+                    {
+                        "type": "text",
+                        "content": "5 177亿度。火电对应增量替代为：［5 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 ~ 7 7 0 \\times ( 1 +"
+                    },
+                    {
+                        "type": "text",
+                        "content": "0.049）9 -51 770］ 亿 度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= \\left( 7 9 \\ 6 2 6 { - } 5 1 \\ 7 7 0 \\right)"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "） 亿 度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "27856亿度。火电对应应替代负荷总量为：（ "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 7 8 5 6 +"
+                    },
+                    {
+                        "type": "text",
+                        "content": "5 177） 亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 3 3 \\ 0 3 3"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。按照预设条件，这部分从量上全部由核电替代。替代后，2030年火电存量为 46 593 亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                560,
+                482,
+                694
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2. 5. 2 交通运输燃油存量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "部分替代"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                698,
+                393,
+                713
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "交通运输燃油存量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "部分替代量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 4 5 ~ 7 5 8"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\times 0 . 0 7 { = } 3 ~ 2 0 3"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度，交通运输燃油增量替代量为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "［4 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 ~ 7 5 8 \\times ( 1 . 0 4 2 ) ^ { 9 } - 4 5 ~ 7 5 8 ]"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= \\left( 6 6 ~ 2 6 4  – 4 5 ~ 7 5 8 \\right)"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "）亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 2 0 ~ 5 0 6"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。交通运输燃油对应应替代负荷总量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "（ "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 0 ~ 5 0 6 { + } 3 ~ 2 0 3"
+                    },
+                    {
+                        "type": "text",
+                        "content": "）亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 2 3 ~ 7 0 9"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。替代后，2030年交通运输燃油存量等效电量为42 555亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                717,
+                482,
+                832
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2. 5. 3 生产生活燃料存量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "部分替代"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                836,
+                393,
+                851
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "生产生活燃料存量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "部分替代量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 2 6 \\ 6 9 2"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\times 0 . 0 5 { = } 1 ~ 3 3 5"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。生产生活燃料增量替代量为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "[ 2 6 ~ 6 9 2 \\times ( 1 . 0 3 5 ) ^ { 9 } - 2 6 ~ 6 9 2"
+                    },
+                    {
+                        "type": "text",
+                        "content": "］ 亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "（36 378-26 692）"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                855,
+                482,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\scriptstyle \\cdot = 9"
+                    },
+                    {
+                        "type": "text",
+                        "content": "686亿度。生产生活燃料对应应替代负荷总量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "（ "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 3 3 5 { + } 9 6 8 6"
+                    },
+                    {
+                        "type": "text",
+                        "content": "） 亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 1 1 \\ 0 2 1"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。替代后，2030年生产生活燃料存量等效电量为25 357亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                108,
+                907,
+                163
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "综上，三大零碳电能替代排碳能源等效电能电量总量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "="
+                    },
+                    {
+                        "type": "text",
+                        "content": "［33 033 （火电） "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "+ 2 3 ~ 7 0 9"
+                    },
+                    {
+                        "type": "text",
+                        "content": "（交通运输燃油燃气） "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "+ 1 1 \\ 0 2 1"
+                    },
+                    {
+                        "type": "text",
+                        "content": "（生产生活燃料）］ 亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 6 7 ~ 7 6 3"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                167,
+                909,
+                242
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2. 5. 4 2030年全社会需要零碳能源电能电量"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                246,
+                863,
+                261
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "水风光自增到2030年存量为32 037亿度，需要替代交通运输燃油能源等效电量为23 709亿度，需要替代生产生活燃料能源等效电量为11 021亿度，三项合计共66 767亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                264,
+                909,
+                339
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "核电自增到2030年存量为5 632亿度，需要替代火电10年期间增量和期间退役机组替代电量分别为 27 856 亿度、5 177 亿度，三项合计共为38 665 亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                344,
+                909,
+                418
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "2030 年火电存量为 46 593 亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                547,
+                423,
+                791,
+                438
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "三项合计152 025亿度。其中电力能源结构各项占比为：水风光 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 3 . 9 2 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，火电 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 0 . 6 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，核电"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 5 . 4 3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，零碳电能已经接近电能总量的 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "70 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                442,
+                907,
+                496
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "2030年，能源需求总量为以上四个大项累加后的等效电能电量为219 937亿度，主要能源结构中，水风光电占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 0 . 3 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，火电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 1 . 1 8 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，核电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 7 . 5 8 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，燃油燃气占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 9 . 3 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，生产生活燃料占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 1 . 5 3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。零碳能源已经接近能源消耗总量的 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                501,
+                909,
+                615
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "2.6 中国2060年零碳能源发电负荷需求指标预测"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                619,
+                907,
+                634
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "根据前述预测，2030年，全社会等效年电力负荷为219 937亿度。电力部分为152 025亿度。其中：火电存量 46 593亿度，装机存量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 2 4 6 \\ : 2 4 \\ : \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；核电需要38 665亿度，按年利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 \\ 0 0 0 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "考虑，需要装机483.31 GW，减去存量49.89 GW后，10年间须新增装机433.42 GW；水电按2030年装机达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 2 5 \\mathrm { \\ G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年利用小时预设为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 ~ 2 5 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电量为18 063亿度；风光电需要48 704亿度，在不考虑弃风限光的条件下，按平均年利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 ~ 5 5 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "（陆上风电平均 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 ~ 3 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，海上风电 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 \\ 0 0 0 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，光伏平均 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 ~ 6 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "） 考虑，需要装机容量为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 9 0 9 \\ 9 6 \\ \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，减去存量535.21 GW，10年间须新增 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 3 7 4 ~ 7 5 ~ \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。综上所述，2030年装机规模为4.064 51 TW，年发电量152 025亿度，平均利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 7 4 0 \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                638,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "12 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                81,
+                117,
+                91
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方能源建设"
+                    }
+                ]
+            },
+            "bbox": [
+                453,
+                79,
+                547,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 8 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                843,
+                79,
+                890,
+                92
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                833,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "预设 2030－2060 年 30 年时段中国 GDP 年均递增率取 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，电力弹性系数取0.5，即30年间电力平均递增率取 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，计算得到2060年全社会需要零碳电能 （水风光核电） 电量总量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "= 2 1 9 9 3 7"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "\\times"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "( 1 . 0 2 ) ^ { 2 9 } { = } 3 9 0 ~ 5 7 4"
+                    },
+                    {
+                        "type": "text",
+                        "content": "亿度。其中：核电占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电195287亿度，按年利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 \\ : 0 0 0 \\mathrm { { h } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，需要装机 2.441 09 TW；水电按 2060 年装机达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 0 0 ~ \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年利用小时预设为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 ~ 5 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电量为22 500亿度；扣除前述两项所发电量之后尚余172 787亿度，属于风光发电的供电任务，参考光伏组件转换效率提升至平均 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "28 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "、海上风电在风电中的占比提高至"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "30 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，按风光发电设备平均利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 ~ 8 5 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "考虑，需要装机为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 . 0 6 2 7 0 \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2060年，中国全社会电力系统发电侧总需求为：年发电量390 574亿度，对应装机容量为9.003 79 TW，平均年利用小时为"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 ~ 3 3 8 \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                108,
+                485,
+                418
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3 从资源禀赋看可能的解决方案"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                432,
+                384,
+                450
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.1 关于核能资源禀赋"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                462,
+                280,
+                477
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "很明显，要实现双碳目标，核电的地位和作用将非常重要［5］ ，这就是要求我们首先分析核电资源禀赋状况。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                481,
+                482,
+                536
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "核能中铀是最重要的天然核燃料。世界陆地铀矿的探明储量为145.55万吨（1983年），主要分布于美国、南非、澳大利亚、加拿大和尼日利亚等国。此外海水中含有核聚变燃料约45万吨。核裂变能的主要原料是铀，它在地壳中储量达几十亿吨。铀的储量虽然很大，但分布却十分分散，要找到比较集中的矿点比较困难。钚的来源比铀广泛，价格较便宜。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                540,
+                482,
+                694
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "作为核聚变能原料的氢及其同位素氘和氚，在地球上储量十分丰富，海洋中还有氘约23.4万亿吨，足够人类使用几十亿年。对于人类来说，核聚变能将是一种取之不尽、用之不竭的“长寿能源”。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                697,
+                482,
+                772
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "由于笔者不是核能方面的专家，不能预测核能尤其是可控核聚变的科技突破的进程，因此本文仅仅从最小需求的角度来安排核能在未来中国零碳电能能源的比例，假设到2030年可控核聚变技术尚未取得突破性进展，核电比例按预设需求达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 5 . 4 3 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，核电需要38665亿度，按年利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 \\ : 0 0 0 \\mathrm { { h } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "考虑，需要装机 483.31 GW，减去存量 49.89 GW 后，2020"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                776,
+                485,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年至2030年10年间须新增装机433.42 GW。从资源条件方面是可以满足需求的。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                108,
+                909,
+                142
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在2030年至2060年30年间，笔者假定期间可控核聚变会取得突破性进展。这样，对于核电占比"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电195 287亿度，按年利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 \\ 0 0 0 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，需要装机2.441 09 TW的需求，核能资源是远远超出目标需求的。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                146,
+                910,
+                241
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.2 中国水能资源禀赋"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                245,
+                705,
+                260
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "中国水能资源可开发极限容量500 GW，按平均利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 5 0 0 \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，年发电量22 500亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                264,
+                909,
+                300
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.3 中国陆上太阳能资源禀赋"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                305,
+                759,
+                319
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "据相关资料，中国属太阳能资源最丰富的国家之一，据初步分析，全国陆上太阳能技术可开发装机容量达到15.6 TW［6］ 。其中：新疆约为4.2 TW，青海3.4 TW，内蒙古2.615 TW；此外甘肃、西藏、宁夏以及山东等地太阳能技术可开发装机容量也比较可观。随着工作深度加深、光伏技术进步形成转换效率不断提高、应用场景不断扩展，中国的光伏可经济利用资源量正在大幅增加。2030年，预计陆上光伏装机650 GW，平均按利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 ~ 6 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，年发电量10 400亿度；到2060年，即使按照最保守的总装机容量15.6 TW计入，如果暂按开发"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "考虑， "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 . 8 \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，预设在此期间光伏组件转换效率已提升至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "28 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，平均按利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 ~ 6 0 0 \\mathrm { { h } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，年发电量为124 800亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                324,
+                910,
+                595
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.4 中国陆上风能资源禀赋"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                600,
+                741,
+                615
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "由于受工作深度和资源普查分析时风电科技水平认识的局限，中国陆上风电资源一直没有一个较准确全面的权威禀赋数据。比如“迄今为止，比较权威的说法：中国陆上 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 0 ~ \\mathrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "高处的理论蕴藏量为3.226 TW，其中技术可开发量按 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "10 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "推测，并考虑风轮扫掠面积，为253 GW”。但事实上是，根据2020年度国家电力统计资料［7］，2020年底，中国风电总装机已达281.53 GW ，其中海上风电装机为9 GW，陆上风电装机 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 7 2 . 5 3 \\ : \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。当前，陆上风电还正在以前所未有的速度发展，这种高速发展状况还将持续10年以上。单机容量越来越大、机组安装高度越来越高、风能资源利用高空越来越高、工作深度和广度越来越大等等，都使中国风电资源量越来越大到超越专家们的认知。因此，中国的陆上风电、海上风电、陆上光伏、海上光伏等资源禀赋"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                619,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 3 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                79,
+                157,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽：双碳目标的挑战与电力结构调整趋势展望"
+                    }
+                ]
+            },
+            "bbox": [
+                329,
+                79,
+                668,
+                92
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "13 "
+                    }
+                ]
+            },
+            "bbox": [
+                880,
+                81,
+                895,
+                91
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "都呈现出众说不一的状况，而只能以不同时期的模糊预测来作分析判断。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                108,
+                482,
+                142
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "笔者根据海上风电海域面积和资源类比，作出以下的判断假定：陆上风电经济可开发容量5 TW，2030年开发率达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "20 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，装机1 TW，年利用小时平均取 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 ~ 8 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电量为28 000亿度；到2060年，开发率达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "即 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 5 \\ \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，平均利用小时"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\ 0 0 0 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年电量75 000亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                147,
+                482,
+                261
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.5 中国海上风能资源禀赋"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                266,
+                314,
+                280
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "海上风速高，风机单机容量大，部分海域年运行小时数最高可达 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 \\ 0 0 0 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "以上，海上风电效率较陆上风电年发电量多出 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "20 \\% { \\sim } 4 0 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "［8］ 。根据世界银行近期研究成果，中国 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 { \\sim } 5 0 ~ \\mathrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "水深，理论装机容量"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 4 \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 0 { \\sim } 2 0 0 ~ \\mathrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "水深漂浮基础海上风电理论装机容量1.582 TW，合计 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 9 8 2 \\ : \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。因此，中国 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 \\textrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "至"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 0 ~ \\mathrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "水深、 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 4 0 ~ \\mathrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "高度海域低空的海上风电资源规模为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 4 ~ \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，暂按 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "60 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "考虑，可开发装机规模不小于 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 4 0 ~ \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，平均年利用小时约 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 ~ 5 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电量为29 400亿度； "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 0 { \\sim } 2 0 0 ~ \\mathrm { m }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "水深漂浮基础海上风电理论装机容量1.582 TW，暂按 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "考虑，可开发装机规模为791 GW，按平均利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 ~ 8 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，年发电量为30 058亿度.综上，固浮合计为1.631TW，年发电量约59 458亿度。未来海上风电还具有“三高”特性：发电电量高、利用小时数高和高电能质量高。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                285,
+                482,
+                595
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "笔者判断，到2030年，海上风电漂浮式基础还达不到具备市场化商业开发条件，暂不计入该阶段参与平衡。将840 GW可经济开发资源在此期间按开发投运 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "即420 GW计入，平均利用小时3 800小时，年发电量为15 960亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                599,
+                482,
+                694
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "到 2060 年，具备固定基础施工条件的剩余420 GW均投运，平均利用小时取 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 \\ 0 0 0 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电量为16 800亿度。此时，总装机达到840 GW，平均利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 9 0 0 \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，年发电量为32 760亿度。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                698,
+                482,
+                772
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.6 中国海上光伏资源禀赋"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                777,
+                314,
+                792
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "中国海上太阳能资源禀赋的中期认识：相关粗略研究分析表明，如果海上光伏实现平价化开发，其发电量将略大于海上风电。本次讨论，只提示其规模化的存在，不纳入参加平衡。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                797,
+                482,
+                871
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "3.7 双碳目标下电力结构调整结果"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                876,
+                366,
+                891
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "综上所述，得到实现双碳目标下2030年、2060"
+                    }
+                ]
+            },
+            "bbox": [
+                119,
+                894,
+                482,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "年的电力结构调整结果如下："
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                108,
+                737,
+                123
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "2030 年 ： 核 电 发 电 量 38 665 亿 度 ， 装 机483.31 GW；水电年发电量18 063亿度，装机425 GW；陆上风电年发电量为28 000亿度，装机1 TW；陆上光伏年发电量10 400亿度，装机 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "6 5 0 ~ \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；海上风电年发电量为15 960亿度，装机 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 2 0 \\ \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。火电存量46593亿度，装机存量 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 2 4 6 2 4 \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2030年六项累加年发电量为157 681亿度，装机4.224 55 TW，平均年利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 7 3 2 \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，比预测需求152 025亿度略大。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                126,
+                910,
+                299
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "2060年：核电年发电量195287亿度，占比 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；按年利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 \\ : 0 0 0 \\mathrm { { h } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "计算，需要装机2.441 09 TW的需求；水电年发电量22 500亿度，总装机 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 0 0 \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；陆上风电75 000亿度，总装机 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 . 5 \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；陆上光伏年发电量为124 800万亿度；总装机规模 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 . 8 \\ \\mathrm { T W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。预设在此期间光伏组件转换效率已提升至 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "28 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，平均按利用小时 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 ~ 6 0 0 \\mathrm { { h } }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "；海上风电年发电量为32 760亿度；总装机达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "8 4 0 \\mathrm { G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，平均利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 ~ 9 0 0 ~ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。2060 年五项 （火电全部退役） 累加年发电量为450 347 亿度，装机 14.081 09TW，平均年利用小时为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "3 \\ 1 9 8 \\ \\mathrm { h }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。彼时，核电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "4 3 . 3 6 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，水电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "5 . 0 0 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，陆上风电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 6 . 6 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，陆上光伏占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "2 7 . 7 1 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，海上风电占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 . 2 7 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "。由于最低利用小时的光伏装机比例大幅增加，次低利用小时的陆上风电装机比例也大幅增加，利用小时越来越低符合电力装机结构调整变化的规律。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                304,
+                910,
+                616
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "这里，可能读者会质疑，预测需求量为390 574亿度，为什么安排的年发电量为450 347亿度，是预测需求量的 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "11 5 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "？这里就会涉及笔者下一节会论述到的：为解决系统调节容量不足时的“冗余装机”解决方案问题。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                619,
+                910,
+                711
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "以上论述，没有安排的海上光伏、海上漂浮式风电、地热发电、光热发电、潮汐能发电、波浪能发电、洋流能发电、温差能发电等等，可以作为辅助性零碳能源补充。未来能源结构的发展变化，既要有战略定力，又要有事物并不是完全以人们的意志为转移的需要与适当的变化相适应的灵活性。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                716,
+                910,
+                831
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "4 关于电力结构调整带来的系统运行特性问题的解决方案预判"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                510,
+                843,
+                910,
+                881
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "虽然中国的零碳能源电力资源在发电量方面，"
+                    }
+                ]
+            },
+            "bbox": [
+                547,
+                894,
+                907,
+                910
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "14 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                81,
+                117,
+                91
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方能源建设"
+                    }
+                ]
+            },
+            "bbox": [
+                453,
+                79,
+                547,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 8 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                843,
+                79,
+                890,
+                92
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "在计入占比为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "的核电后，再考虑储能技术进步，电力系统在量、质两方面均能支撑中国社会经济永续发展的。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                108,
+                482,
+                162
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "但是在新的电力能源结构发生根本性重大变化后，电力系统电源与负荷间的实时平衡如何实现是摆在我们面前必须解决的最大难题［9］。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                167,
+                482,
+                222
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "关于电力系统运行特性调节的问题，不能仅仅看作是储能问题，这样看就显得过于肤浅。我们谈储能，本质上讨论的是：在电力系统中，实现由于供给侧的系统发电负荷出力特性与需求侧用电负荷的用电特性之间，必须实现实时平衡的问题，即本质上是在任何瞬间，电源与负荷特性匹配平衡问题。因此，问题的解决，应该从三个方面研究解决措施：一是供给侧即发电电源侧，二是需求侧即电力用户侧，三是二者之间的储能调节池。供给侧措施实际上是一直以来就在发生作用的用电源自身的调节能力调节与负荷之间的实时平衡关系，水电、火电等都有这类功能；需求侧措施最传统常用的是我们早些时候熟悉的“拉闸限电”，并且随着科学技术的发展，是通过自动控制技术实现的用户侧“分时用电”［10］ ，即把一部分负荷的使用时间自动分配到用户负荷水平最低时段使用；我们常说的“储能”是属于第三个方面的措施，如抽水蓄能电站［11］、化学电池储能电站等等［12-14］。在传统动力系统中，由于核电利用小时很高，可以提供大量的基荷，常规水电、火电所占比重较大，调节能力（火电最大调节能力可达到其出力装机容量的近 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "50 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "）很强，匹配以少量的抽水蓄能电站，系统维持发电负荷与用电负荷的实时平衡是有保障的。但是在风电、光伏电占比很大而火电逐步退役其占比越来越小的双碳目标进程中，维护发用之间的实时平衡就越来越难，电力系统的调蓄能力不足的问题就越来越凸显。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                225,
+                485,
+                754
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "出路何在？笔者通过长期全方位的分析研究认为，依靠储能调节、电源供电特性、负荷用电特性三个方面，将来电力发用实现实时平衡的措施可能主要有下述三大类。"
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                757,
+                482,
+                832
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "4.1 抽水蓄能"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                836,
+                208,
+                851
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "中国有大量的抽水蓄能建站资源，而且在当今社会技术水平条件下，抽水蓄能可开发规模巨大、转换效率高、技术成熟、经济指标适中，应该排在"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                855,
+                482,
+                910
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "优先开发序列。"
+                    }
+                ]
+            },
+            "bbox": [
+                512,
+                108,
+                631,
+                123
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "4. 2 换电站"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                128,
+                616,
+                142
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "换电站是指：电动汽车的电池使用方式从传统的充电模式转化为换电（池）模式。根据前面已经探讨过的相关问题分析研究结论，未来在双碳目标指引下，交通运输燃油替代所需的电力能源规模巨大，在将来交通工具用电池实现“小体积、大容量、快充电、标准化”时，与所有加油站配套甚至彻底代替加油站是历史的必然。虽然每一个换电站容量较小，但是其总量巨大，必将成为未来电力系统储能的主力之一［15］。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                147,
+                910,
+                319
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "一般情况下，每一个加油站都可以增设一个换电站，由于随着时间的推移，燃油交通工具逐步退出历史舞台，必将在不久的将来加油站逐步被换电站替代，换电站系统将成为最大的储能系统。据统计资料，2019年度中国拥有加油站总数为 10万6 556座。随着社会经济的发展，到2030年，中国的加油站（换电站）在2019年基数上翻一番，到达20万座。而为了实现换电站最经济的运行模式，在科技进步的助力下，实现电力负荷低谷期和光伏发电最高峰期充电，可能需要按照3倍以上的倍比设置电池容量，同时确定相应的数量。如果平均1座换电站有10 MW高峰容量，系统总的调蓄容量就能得到2 TW。试问，还有什么储能措施的规模能与之相比？"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                324,
+                912,
+                595
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "4.3 冗余装机"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                512,
+                600,
+                636,
+                614
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "冗余装机的定义：实际装机规模与需求装机规模之比大于1，甚至比1高很多。比如，某一电力系统在确定时间段需要风电装机为100 GW，把实际装机规模投产量达到 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 3 0 \\mathrm { \\ G W }"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，冗余装机的冗余比就是 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 3 : 1"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，这种冗余装机措施实施的前提，是该种类电源发电成本远低于平价水平。如：在中国某一省市，当地标杆电价为0.40元/kWh，而风电上网成本电价可以达到0.30元/kWh，为了改善风电系统发电出力特性，可将该地区风电冗余规模设定为"
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "1 . 3 3 : 1"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，这样，保证出力增加了三分之一，同时弃掉约三分之一的系统难以调度使用的尖峰电量，既能实现项目投资的经济投入产出平衡，又能使发电侧发电负荷出力特性得到大幅提升。这从当前已经显现出来的风光成本电价大幅降低的现实情况看，是完全具备规模化前景的。"
+                    }
+                ]
+            },
+            "bbox": [
+                510,
+                617,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 3 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                79,
+                157,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽：双碳目标的挑战与电力结构调整趋势展望"
+                    }
+                ]
+            },
+            "bbox": [
+                329,
+                79,
+                668,
+                92
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "15 "
+                    }
+                ]
+            },
+            "bbox": [
+                880,
+                81,
+                895,
+                91
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "因为很难具有经济性条件下的规模化发展前景，其他储能方式都只能是系统调蓄的补充辅助角色。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                107,
+                482,
+                162
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "抽水蓄能和换电站两种储能调节方式，都是要消耗能源的，且其耗能水平还不能忽略不计，因为其转换效率为 "
+                    },
+                    {
+                        "type": "equation_inline",
+                        "content": "7 5 \\% { \\sim } 8 0 \\%"
+                    },
+                    {
+                        "type": "text",
+                        "content": "，加之规模巨大，今后在实际的电力系统规划工作中，应把因储能调节消耗的电能加进预测负荷中。"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                166,
+                482,
+                260
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "5 结 论"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                273,
+                181,
+                289
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "text_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "1）双碳目标的本质是零碳能源逐步代替排碳能源，代替的形式都是将零碳一次能源电力化，因此，必然引发新一代能源革命和相应的全面的工业革命。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "2）自然增长，燃油运输替代性增长，生活及工业燃料替代性增长，燃油、燃气、燃生物质等替代性增长，这四个方面的电力负荷增长必将使得中国电力系统负荷、电源、电网超常规高速度发展，给电力供需平衡、电力系统智能化带来极大的挑战。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "3）从全局看，水、风、光、核四种主要的零碳能源资源能够满足中国的社会经济永续发展需求。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "4）水、风、光、核四种主要的零碳电力能源的高速开发将对包括中国的政策适应性、新能源科技进步、投资开发强度、扩大的电力系统产业链、电力系统对新能源为主的电源结构调度运维适应性的认识与调整等诸多方面都极具挑战性。"
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "5）未来的能源世界一定是新能源唱主角的世界，新能源的高速发展期已经来临！"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                302,
+                482,
+                687
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "衷心期待中国的与清洁能源相关的政府部门、电网公司、研究机构、从业企业共同积极推动技术进步，早日实现能源零碳化，服务中国，贡献全球，为世界的清洁能源事业做出重大贡献！"
+                    }
+                ]
+            },
+            "bbox": [
+                84,
+                691,
+                482,
+                765
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "参考文献："
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                85,
+                782,
+                157,
+                794
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［1］ 钟史明. 能源与环境［M］. 南京：东南大学出版社，2017.ZHONG S M. Energy and environment［M］. Nanjing：South⁃east University Press，2017."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［2］ 国家统计局．中华人民共和国2020年国民经济和社会发展统计公报［R］. 北京：国家统计局，2021.National Bureau of Statistics. Statistical communique of thePeople's Republic of China on the 2021 national economic and"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                85,
+                799,
+                482,
+                910
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "social development ［R］. Beijing：National Bureau of Statis⁃ tics，2021. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［3］ 中国电力企业联合会. 中国电力行业年度发展报告2021［R］. 北京：中国电力企业联合会，2021."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "China Electricity Council. Annual report on development of China power industry 2021 ［R］. Beijing：China Electricity Council，2021. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［4］ 单葆国，李江涛，谭显东，等. 经济转型时期电力弹性系数应用［J］. 中国电力，2017，50（12）：1-4."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "SHAN B G，LI J T，TAN X D，et al. The application of elec⁃ tricity elasticity coefficient during economic transition period ［J］. Electric Power，2017，50（12）：1-4. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［5］ 高树超，曹述栋. 确保安全前提下积极有序发展核电助力实现碳达峰，碳中和目标— —专访中国核工业集团有限公司副总经理曹述栋［J］. 中国核电，2021，14（3）：295-299."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "GAO S C，CAO S D. Actively and orderly developing nuclear power to achieve the goal of carbon peak and carbon neutraliza⁃ tion，under the condition of ensuring safety——an exclusive in⁃ terview with CAO Shudong，vice president of China National Nuclear Corporation［J］. China Nuclear Power，2021，14（3）： 295-299. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［6］ 齐中熙. 2020年我国太阳能发电装机有望达到1. 6亿千瓦［J］. 工程建设标准化，2016（6）：25."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "QI Z X. In 2020，the installed capacity of solar power genera⁃ tion in China is expected to reach 160 million kW［J］. Stan⁃ dardization of Engineering Construction，2016（6）：25. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［7］ 国家能源局. 国家能源局发布2020年全国电力工业统计数据［EB/OL］. （2021-01-20）［2021-08-30］. http：//www. nea.gov. cn/2021-01/20/c_139683739. htm."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "National Energy Administration. The National Energy Admin⁃ istration released the statistical data of the national power indus⁃ try in 2020 ［EB/OL］. （2021-01-20）［2021-08-30］. http：// www. nea. gov. cn/2021-01/20/c_139683739. htm. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［8］ 刘吉臻，马利飞，王庆华，等. 海上风电支撑我国能源转型发展的思考［J］. 中国工程科学，2021，23（1）：149-159."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "LIU J Z，MA L F，WANG Q H，et al. Offshore wind powersupports China's energy transition ［J］. Strategic Study ofCAE，2021，23（1）：149-159."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［9］ 朱建全，段翩，刘明波. 计及风险与源-网-荷双层协调的电力实时平衡调度［J］. 中国电机工程学报，2015，35（13）：3239-3247."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "ZHU J Q，DUAN P，LIU M B. Electric real-time balance dis⁃ patch via Bi-level coordination of source-grid-load of power system with risk ［J］. Proceedings of the CSEE，2015，35 （13）：3239-3247. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［10］ 陈沧杨，胡博，谢开贵，等. 计入电力系统可靠性与购电风险的峰谷分时电价模型［J］. 电网技术，2014，38（8）：2141-2148."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "CHEN C Y，HU B，XIE K G，et al. A peak-valley tou price "
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                108,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "16 "
+                    }
+                ]
+            },
+            "bbox": [
+                100,
+                81,
+                117,
+                91
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "南方能源建设"
+                    }
+                ]
+            },
+            "bbox": [
+                453,
+                79,
+                547,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 8 卷"
+                    }
+                ]
+            },
+            "bbox": [
+                843,
+                79,
+                890,
+                92
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                963,
+                835,
+                978
+            ]
+        }
+    ],
+    [
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "model considering power system reliability and power purchase risk ［J］. Power System Technology，2014，38（8）：2141- 2148. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［11］ 杨青. 抽水蓄能与电池储能技术经济比较及建议［J］. 电工技术，2021（12）：35-36."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "YANG Q. Comparison and suggestion of technical and eco⁃ nomic between pumped storage and battery storage energy stor⁃ age［J］. Electric Engineering，2021（12）：35-36. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［12］ 才秀敏. 储能将成为新型电力系统中的要素［J］. 电器工业，2021（6）：58-59."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "CAI X M. Energy storage will become an essential element in the new power system［J］. China Electrical Equipment Indus⁃ try，2021（6）：58-59. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［13］ 周倜然，蒋福佑. 碳中和目标下的储能“猜想”［J］. 中国电业，2021（5）：14-17."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "ZHOU T R，JIANG F Y. \"Conjecture\" of energy storage undercarbon-neutral target ［J］. China Electric Power，2021（5）：14-17."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［14］ 孙伟卿，裴亮，向威，等. 电力系统中储能的系统价值评估方法［J］. 电力系统自动化，2019，43（8）：47-55."
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "SUN W Q，PEI L，XIANG W，et al. Evaluation method of "
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                87,
+                108,
+                482,
+                444
+            ]
+        },
+        {
+            "type": "list",
+            "content": {
+                "list_type": "reference_list",
+                "list_items": [
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "system value for energy storage in power system. Automation of Electric Power Systems，2019，43（8）：47-55. "
+                            }
+                        ]
+                    },
+                    {
+                        "item_type": "text",
+                        "item_content": [
+                            {
+                                "type": "text",
+                                "content": "［15］ MCGEE R，WAITE N，WELLS N，et al. Vehicle to grid： electric vehicles as an energy storage solution［C］//Internation⁃ al Society for Optics and Photonics. Energy Harvesting and Storage：Materials，Devices，and Applications Ⅳ ，Maryland， United States，29 April-1 May 2013. Maryland：SPIE，2013： 87280T. 1-87280T. 8. "
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bbox": [
+                515,
+                109,
+                910,
+                233
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "作者简介："
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                514,
+                263,
+                576,
+                275
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/df4a42775a012cface4f80d52e3e75645ace300bf08ea23c855a48bc91491302.jpg"
+                },
+                "image_caption": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽"
+                    }
+                ],
+                "image_footnote": []
+            },
+            "bbox": [
+                556,
+                283,
+                653,
+                382
+            ]
+        },
+        {
+            "type": "title",
+            "content": {
+                "title_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽（通信作者）"
+                    }
+                ],
+                "level": 1
+            },
+            "bbox": [
+                657,
+                283,
+                774,
+                296
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "1955-，男，中国海洋工程咨询协会海上风电分会会长，中国长江三峡集团公司原总经理助理兼发展研究院院长，教授级高级经济师，博士生导师，主要从事能源战略 研 究 工 作 （e-mail） caisk2011@163.com。"
+                    }
+                ]
+            },
+            "bbox": [
+                655,
+                300,
+                904,
+                396
+            ]
+        },
+        {
+            "type": "paragraph",
+            "content": {
+                "paragraph_content": [
+                    {
+                        "type": "text",
+                        "content": "（责任编辑 叶筠英）"
+                    }
+                ]
+            },
+            "bbox": [
+                747,
+                422,
+                907,
+                435
+            ]
+        },
+        {
+            "type": "image",
+            "content": {
+                "image_source": {
+                    "path": "images/1903587a373e7f41a55c8a103477c04d90b95ff39646a9839347f3a63faaa3a1.jpg"
+                },
+                "image_caption": [],
+                "image_footnote": []
+            },
+            "bbox": [
+                87,
+                490,
+                910,
+                910
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "第 3 期"
+                    }
+                ]
+            },
+            "bbox": [
+                109,
+                79,
+                157,
+                92
+            ]
+        },
+        {
+            "type": "page_header",
+            "content": {
+                "page_header_content": [
+                    {
+                        "type": "text",
+                        "content": "蔡绍宽：双碳目标的挑战与电力结构调整趋势展望"
+                    }
+                ]
+            },
+            "bbox": [
+                329,
+                79,
+                668,
+                92
+            ]
+        },
+        {
+            "type": "page_number",
+            "content": {
+                "page_number_content": [
+                    {
+                        "type": "text",
+                        "content": "17 "
+                    }
+                ]
+            },
+            "bbox": [
+                880,
+                81,
+                895,
+                91
+            ]
+        },
+        {
+            "type": "page_footer",
+            "content": {
+                "page_footer_content": []
+            },
+            "bbox": [
+                28,
+                962,
+                833,
+                978
+            ]
+        }
+    ]
+]

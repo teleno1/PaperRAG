@@ -1,0 +1,300 @@
+{
+  "chapter_id": "CH01",
+  "chapter_title": "1. 引言：研究背景与意义",
+  "sections": [
+    {
+      "section_id": "CH01-SEC01",
+      "section_title": "1.1 电力负荷预测的定义与分类",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH01-SEC01-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC01-P01-S01",
+              "text": "电力负荷预测旨在通过提升预测精度和量化预测误差分布，来减少电力系统运行面临的不确定性，从而为调度决策提供有效的基础边界条件，保障电力系统的经济与安全运行。",
+              "cite_source_ids": [
+                "SRC-CH01-001"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P01-S02",
+              "text": "根据预测时间尺度的不同，电力负荷预测通常可分为超短期、短期、中期和长期负荷预测。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-003",
+                "SRC-CH01-005"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P01-S03",
+              "text": "超短期负荷预测一般指对未来几分钟到几小时（如15分钟至4小时）的负荷进行滚动预测，主要用于电力系统的实时调度与控制。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-004"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P01-S04",
+              "text": "短期负荷预测通常指对次日到未来几天（如1至3天）的负荷进行预测，主要用于发电计划制定、输送电规划及日前市场交易等。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-004",
+                "SRC-CH01-005"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P01-S05",
+              "text": "中期和长期负荷预测则分别针对未来几天到几周、以及几个月到几年的负荷，主要用于电力系统的规划、检修计划制定和电源电网发展规划。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-003",
+                "SRC-CH01-004"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH01-SEC01-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC01-P02-S01",
+              "text": "从预测结果的表现形式来看，负荷预测可分为确定性预测和概率预测。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-009"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P02-S02",
+              "text": "确定性预测，又称点预测，旨在提供未来负荷的单一数值估计，其核心目标是提升预测精度以把握负荷波动规律。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-009"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P02-S03",
+              "text": "然而，由于数据限制和模型假设，确定性预测必然存在误差，无法完全掌握负荷波动的不确定性。",
+              "cite_source_ids": [
+                "SRC-CH01-002"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P02-S04",
+              "text": "概率预测则通过提供未来负荷的概率分布、置信区间或分位点，来量化预测的不确定性，从而为调度决策提供更丰富的信息以降低系统运行风险。",
+              "cite_source_ids": [
+                "SRC-CH01-002",
+                "SRC-CH01-009",
+                "SRC-CH01-011"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC01-P02-S05",
+              "text": "研究表明，准确的确定性负荷预测是保证准确概率预测的基础。",
+              "cite_source_ids": [
+                "SRC-CH01-011"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH01-SEC02",
+      "section_title": "1.2 新型电力系统与“双碳”目标下的新挑战",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH01-SEC02-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC02-P01-S01",
+              "text": "在“双碳”目标的驱动下，构建以新能源为主体的新型电力系统已成为我国能源电力低碳转型的必然趋势。",
+              "cite_source_ids": [
+                "SRC-CH01-015",
+                "SRC-CH01-017",
+                "SRC-CH01-020"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC02-P01-S02",
+              "text": "新型电力系统的主要特征之一是由传统的“源随荷动”模式转变为“源荷互动”模式，这对负荷预测的精度提出了前所未有的更高要求。",
+              "cite_source_ids": [
+                "SRC-CH01-016",
+                "SRC-CH01-018"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC02-P01-S03",
+              "text": "为实现更大规模新能源的消纳并保障系统安全，必须在负荷侧尽可能地提高预测精度，以提升负荷侧资源的利用率。",
+              "cite_source_ids": [
+                "SRC-CH01-018"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH01-SEC02-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC02-P02-S01",
+              "text": "新型电力系统的构建给负荷预测带来了多方面的严峻挑战。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH01-SEC02-P02-S02",
+              "text": "首先，风电、光伏等新能源的大规模并网增加了系统负荷的波动性和随机性，使得负荷的内在特性更加复杂，预测难度显著增大。",
+              "cite_source_ids": [
+                "SRC-CH01-019",
+                "SRC-CH01-025"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC02-P02-S03",
+              "text": "其次，低电压分布式光伏与用户负荷深度耦合，其发电功率信息难以被电网调度机构确切掌握，成为影响负荷预测效果的新显著性因素。",
+              "cite_source_ids": [
+                "SRC-CH01-025",
+                "SRC-CH01-026"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC02-P02-S04",
+              "text": "此外，制冷、制热等温敏负荷快速增长，使得负荷与气象条件的联系愈发紧密，负荷的时变性与波动性显著增强。",
+              "cite_source_ids": [
+                "SRC-CH01-025",
+                "SRC-CH01-026"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH01-SEC02-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC02-P03-S01",
+              "text": "负荷特性的复杂化还体现在用户侧。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH01-SEC02-P03-S02",
+              "text": "大规模电动汽车的接入使其兼具负荷与储能的双重属性，其充放电行为在时间和空间上具有随机性和不确定性。",
+              "cite_source_ids": [
+                "SRC-CH01-019"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC02-P03-S03",
+              "text": "同时，分布式电源、储能等灵活资源的接入以及电力市场激励政策的影响，使得用户负荷逐渐由刚性转变为柔性，原有的用电模式和负荷特性可能发生改变。",
+              "cite_source_ids": [
+                "SRC-CH01-019"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC02-P03-S04",
+              "text": "这些变化都加剧了负荷预测建模的难度，对预测模型的实时性、鲁棒性和自适应能力提出了更高要求。",
+              "cite_source_ids": [
+                "SRC-CH01-025",
+                "SRC-CH01-026"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH01-SEC03",
+      "section_title": "1.3 大语言模型（LLM）在时序预测领域的潜力",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH01-SEC03-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC03-P01-S01",
+              "text": "近年来，随着大语言模型（LLM）在多模态任务中展现出强大的能力，研究者开始探索将其应用于时间序列预测领域。",
+              "cite_source_ids": [
+                "SRC-CH01-029",
+                "SRC-CH01-036"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC03-P01-S02",
+              "text": "LLM基于Transformer架构，具有强大的序列建模、上下文理解及长程依赖关系捕捉能力，这些特性为解决复杂时序预测问题提供了新的思路。",
+              "cite_source_ids": [
+                "SRC-CH01-036",
+                "SRC-CH01-038"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC03-P01-S03",
+              "text": "与传统的ARIMA、LSTM等时序模型相比，LLM允许对序列数据进行并行处理，并能更好地处理长期依赖关系。",
+              "cite_source_ids": [
+                "SRC-CH01-036"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH01-SEC03-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC03-P02-S01",
+              "text": "将LLM应用于时间序列预测的核心挑战在于如何有效对齐时序数据与自然语言这两种模态。",
+              "cite_source_ids": [
+                "SRC-CH01-033"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC03-P02-S02",
+              "text": "目前主流方法大致可分为两类：一类是通过微调（Fine-tuning）LLM中的部分模块（如Transformer模块、位置编码）或重编程（Reprogramming）词嵌入来使其适应时序数据；另一类是基于提示（Prompt-based）的方法，通过精心设计的指令来引导预训练LLM进行预测，而无需更新模型权重。",
+              "cite_source_ids": [
+                "SRC-CH01-029",
+                "SRC-CH01-036"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC03-P02-S03",
+              "text": "例如，TIME-LLM框架通过将输入时间序列重编程为文本原型表示，并利用“提示即前缀”来丰富上下文，成功地将LLM重新用于通用时间序列预测，且在少样本和零样本场景下表现优异。",
+              "cite_source_ids": [
+                "SRC-CH01-033",
+                "SRC-CH01-034",
+                "SRC-CH01-035"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH01-SEC03-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH01-SEC03-P03-S01",
+              "text": "在电力负荷预测领域，LLM展现出解决特定难题的潜力。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH01-SEC03-P03-S02",
+              "text": "首先，其强大的泛化能力和逻辑推理能力有助于理解复杂的用户用电行为，构建更精准的用户行为画像。",
+              "cite_source_ids": [
+                "SRC-CH01-032"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC03-P03-S03",
+              "text": "其次，LLM通常采用“预训练-微调”范式，即先在海量通用数据上进行预训练，再使用少量领域数据进行微调，这为解决负荷预测中因历史数据不足或难以获取而引发的小样本问题提供了新途径。",
+              "cite_source_ids": [
+                "SRC-CH01-031",
+                "SRC-CH01-032"
+              ]
+            },
+            {
+              "sentence_id": "CH01-SEC03-P03-S04",
+              "text": "此外，LLM在处理多模态数据（如融合文本形式的气象报告、政策信息与数值型负荷数据）方面也具有天然优势，有望提升在复杂影响因素下的预测性能。",
+              "cite_source_ids": [
+                "SRC-CH01-030",
+                "SRC-CH01-032"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

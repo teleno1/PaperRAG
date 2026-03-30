@@ -1,0 +1,297 @@
+{
+  "chapter_id": "CH04",
+  "chapter_title": "目前存在的问题与挑战",
+  "sections": [
+    {
+      "section_id": "CH04-SEC01",
+      "section_title": "数据依赖与质量挑战",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH04-SEC01-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC01-P01-S01",
+              "text": "数据质量是电力系统负荷预测建模的重要基础与预测性能的关键保证，然而在实际应用中，获取高质量、可用于模型构建的数据面临诸多挑战。",
+              "cite_source_ids": [
+                "SRC-CH04-001"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC01-P01-S02",
+              "text": "一方面，由于量测装置数据采集问题以及通信装置的数据传输问题，电网数据常出现噪音过高与样本缺失等异常情况，使得大量数据难以直接用于模型训练，从而给数据驱动的负荷预测模型带来了小样本问题。",
+              "cite_source_ids": [
+                "SRC-CH04-001"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC01-P01-S03",
+              "text": "另一方面，作为重要输入特征的气象信息也常面临数据缺失与不足的情况，进一步加剧了建模过程中的小样本困境。",
+              "cite_source_ids": [
+                "SRC-CH04-001"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC01-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC01-P02-S01",
+              "text": "具体而言，负荷预测的输入数据受电力系统测量、气象、社会等多因素影响，原始数据的类型、颗粒度和质量无法保证，存在历史数据质量差、数据量纲差异等问题，需要进行复杂的预处理。",
+              "cite_source_ids": [
+                "SRC-CH04-003"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC01-P02-S02",
+              "text": "此外，随着智能化设备的发展，可获取的负荷数据影响因素越来越多，但由于服务提供商出于安全考虑对实时和历史数据保密，高质量的标记数据仍然缺乏，利用传感器获取的数据也存在重复、错误标记以及数据流暂时丢失等问题。",
+              "cite_source_ids": [
+                "SRC-CH04-007"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC01-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC01-P03-S01",
+              "text": "节假日负荷预测是数据稀缺问题的典型场景。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC01-P03-S02",
+              "text": "由于节假日的独特性，其负荷模式与常规日期存在明显差异，而有限的历史样本无法提供足够的代表性，限制了模型对节假日负荷波动规律的挖掘和预测。",
+              "cite_source_ids": [
+                "SRC-CH04-005"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC01-P03-S03",
+              "text": "电力负荷数据本身也是一种不平衡数据集，一年中工作日、周末和节假日的数量分布不均，这给基于聚类等方法的负荷模式识别带来了挑战。",
+              "cite_source_ids": [
+                "SRC-CH04-009"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC01-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC01-P04-S01",
+              "text": "在长序列建模方面，电力负荷数据是一种长时间序列数据，当前时刻负荷可能与过去很长时期内的负荷存在长期依赖关系。",
+              "cite_source_ids": [
+                "SRC-CH04-010"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC01-P04-S02",
+              "text": "然而，传统的循环神经网络（RNN）具有短时记忆特性，难以保证时间跨度较大的负荷序列信息传递的准确性，且容易出现梯度消失和梯度爆炸等问题。",
+              "cite_source_ids": [
+                "SRC-CH04-012"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC01-P04-S03",
+              "text": "长短期记忆网络（LSTM）在一定程度上缓解了长期依赖问题，但当输入序列过长时，依然会存在长期遗忘问题，限制了其从长序列中提取特征的能力。",
+              "cite_source_ids": [
+                "SRC-CH04-009",
+                "SRC-CH04-010"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH04-SEC02",
+      "section_title": "模型效率与可靠性问题",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH04-SEC02-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC02-P01-S01",
+              "text": "基于大语言模型（LLM）的负荷预测方法虽然展现出潜力，但其庞大的模型参数量带来了显著的计算效率与成本挑战。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC02-P01-S02",
+              "text": "有研究通过实验表明，基于LLM的时间序列预测模型并未带来预测性能的显著提升，而其简化版本在保持或提升性能的同时，所需的计算量却大幅减少。",
+              "cite_source_ids": [
+                "SRC-CH04-013"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC02-P01-S03",
+              "text": "这凸显了LLM在负荷预测应用中可能存在的计算冗余问题。",
+              "cite_source_ids": []
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC02-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC02-P02-S01",
+              "text": "计算负担具体体现在训练和推理两个阶段。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC02-P02-S02",
+              "text": "以Transformer架构为例，其自注意力机制存在二次方的计算复杂度和内存消耗，堆叠的编码器/解码器层在处理长序列输入时会形成内存瓶颈，而动态解码则可能导致预测长输出时的推理速度骤降。",
+              "cite_source_ids": [
+                "SRC-CH04-017"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC02-P02-S03",
+              "text": "实验对比显示，不同规模的LLM在内存占用和训练延迟上差异巨大，例如GPT-2模型在达到接近最优精度的同时，其训练时间远短于参数量更大的LLAMA-3.2-3b模型，后者带来了非常大的内存占用和训练延迟。",
+              "cite_source_ids": [
+                "SRC-CH04-021"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC02-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC02-P03-S01",
+              "text": "除了效率问题，模型的可靠性也是关键挑战，主要体现在预测不确定性的量化困难以及模型可能产生“幻觉”输出。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC02-P03-S02",
+              "text": "电力负荷预测涉及训练数据的准确性和完整性、深度学习模型及其性能限制等多个不确定度的量化问题，不确定性的量化对于提高模型的可靠性与准确性具有重要意义。",
+              "cite_source_ids": [
+                "SRC-CH04-007"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC02-P03-S03",
+              "text": "预测不确定性主要来源于模型不确定性和数据不确定性，其中模型不确定性对预测结果的影响较大，通常由于训练不完全导致，可以通过同一模型多次预测结果的方差来估计。",
+              "cite_source_ids": [
+                "SRC-CH04-022",
+                "SRC-CH04-023"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC02-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC02-P04-S01",
+              "text": "模型的可靠性可以通过预测区间覆盖率（PICP）和预测区间归一化平均宽度（PINAW）等指标进行评估，前者反映预测值落在置信区间内的概率，后者量化了概率预测区间的非精确程度。",
+              "cite_source_ids": [
+                "SRC-CH04-015",
+                "SRC-CH04-016"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC02-P04-S02",
+              "text": "然而，对于基于LLM的预测方法，由于其生成式特性，模型可能产生看似合理但与真实负荷模式不符的“幻觉”输出，这在实际电力系统调度中会带来严重风险，而目前针对LLM在负荷预测中“幻觉”问题的检测与抑制机制研究尚不充分。",
+              "cite_source_ids": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH04-SEC03",
+      "section_title": "领域适配与可解释性不足",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH04-SEC03-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC03-P01-S01",
+              "text": "通用大语言模型（LLM）在预训练阶段主要学习通用语料中的语言模式和世界知识，缺乏对电力系统专业领域知识的深入理解，这导致其在直接应用于负荷预测时面临领域适配的挑战。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC03-P01-S02",
+              "text": "电力系统运行环境复杂，负荷变化受到气象、社会活动、经济政策等多重因素影响，且新型电力系统要求从“源随荷动”转变为“源荷互动”，对负荷预测的精度和可靠性提出了更高要求。",
+              "cite_source_ids": [
+                "SRC-CH04-029",
+                "SRC-CH04-036"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC03-P01-S03",
+              "text": "如何将通用LLM的知识与电力领域的物理规律、运行约束相结合，使其预测结果既符合数据规律又满足电力系统安全运行要求，是一个亟待解决的问题。",
+              "cite_source_ids": []
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC03-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC03-P02-S01",
+              "text": "模型的可解释性不足是另一个核心挑战。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC03-P02-S02",
+              "text": "可解释性是指以可理解的术语向人类解释或呈现模型决策原因的能力。",
+              "cite_source_ids": [
+                "SRC-CH04-027"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC03-P02-S03",
+              "text": "然而，基于深度学习的负荷预测模型，尤其是结构复杂的LLM，其内部决策过程往往呈现“黑箱”特性。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC03-P02-S04",
+              "text": "在电力研究领域，机器学习可解释性技术的研究与应用仍然处于初步探索阶段。",
+              "cite_source_ids": [
+                "SRC-CH04-027"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC03-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC03-P03-S01",
+              "text": "缺乏可解释性会严重影响预测模型在实际电力系统中的可信性、可靠性和安全性。",
+              "cite_source_ids": [
+                "SRC-CH04-027"
+              ]
+            },
+            {
+              "sentence_id": "CH04-SEC03-P03-S02",
+              "text": "调度人员难以理解模型为何做出特定预测，从而无法在模型输出异常时进行有效的人工干预或风险研判。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH04-SEC03-P03-S03",
+              "text": "尽管可以通过敏感度分析量化输入特征对输出的影响，或利用注意力机制解释模型关注的关键信息来增强可解释性，但这些方法在复杂LLM上的应用效果仍有待验证。",
+              "cite_source_ids": [
+                "SRC-CH04-027"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH04-SEC03-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH04-SEC03-P04-S01",
+              "text": "综上所述，如何建立合适的负荷预测模型同时降低模型的训练代价，并提升其领域适配能力和决策过程的可解释性，仍是基于大语言模型的负荷预测研究需要深入思考的关键问题。",
+              "cite_source_ids": [
+                "SRC-CH04-030"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

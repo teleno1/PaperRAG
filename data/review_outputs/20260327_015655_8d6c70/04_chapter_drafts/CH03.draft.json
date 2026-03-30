@@ -1,0 +1,256 @@
+{
+  "chapter_id": "CH03",
+  "chapter_title": "基于大语言模型的电力负荷预测关键技术",
+  "sections": [
+    {
+      "section_id": "CH03-SEC01",
+      "section_title": "面向LLM的负荷数据表征与提示构建",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH03-SEC01-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC01-P01-S01",
+              "text": "将数值型负荷序列、气象数据、日历信息等异构数据有效转化为大语言模型（LLM）可理解的输入，是应用LLM进行负荷预测的首要技术环节。",
+              "cite_source_ids": [
+                "SRC-CH03-001"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC01-P01-S02",
+              "text": "负荷预测的输入数据不仅包括结构化的历史负荷和气象数据，还包含风向、季节、用户特征等非结构化信息，数据类型的复杂化对传统预处理方法提出了挑战。",
+              "cite_source_ids": [
+                "SRC-CH03-001"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC01-P01-S03",
+              "text": "因此，在构建提示（Prompt）之前，通常需要对原始数据进行特征选择与降维，以剔除冗余干扰信息并提高模型训练效率。",
+              "cite_source_ids": [
+                "SRC-CH03-002"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH03-SEC01-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC01-P02-S01",
+              "text": "具体的数据预处理步骤包括归一化和数据划分。",
+              "cite_source_ids": [
+                "SRC-CH03-004"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC01-P02-S02",
+              "text": "例如，可以按天对历史负荷数据进行归一化处理，并将数据集划分为训练集和测试集。",
+              "cite_source_ids": [
+                "SRC-CH03-004",
+                "SRC-CH03-005"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC01-P02-S03",
+              "text": "考虑到电力负荷数据具有显著的周期性特点，在构建输入表征时，需要特别关注如何将周期特征（如与待测时刻同周期的历史负荷值）有效地编码到提示信息中，以帮助模型捕捉长期依赖关系。",
+              "cite_source_ids": [
+                "SRC-CH03-003",
+                "SRC-CH03-034"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH03-SEC01-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC01-P03-S01",
+              "text": "提示工程的核心在于构建包含领域知识的指令，将处理后的时序数据转化为文本或结构化的提示。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH03-SEC01-P03-S02",
+              "text": "这一过程旨在引导LLM理解负荷预测任务，并利用其强大的模式识别和推理能力进行预测。",
+              "cite_source_ids": [
+                "SRC-CH03-021"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC01-P03-S03",
+              "text": "高效的提示构建是连接原始数据与LLM泛化能力的关键，对于解决负荷预测中的小样本、多源数据融合等问题具有重要意义。",
+              "cite_source_ids": [
+                "SRC-CH03-009",
+                "SRC-CH03-029"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH03-SEC02",
+      "section_title": "LLM模型架构适配与训练策略",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH03-SEC02-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC02-P01-S01",
+              "text": "将预训练的大语言模型适配于负荷预测任务，主要涉及模型选择、微调方法以及针对时序预测特性的训练技巧。",
+              "cite_source_ids": [
+                "SRC-CH03-017"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC02-P01-S02",
+              "text": "目前主要存在两种技术范式：一是基于提示的重编程（Reprogramming）方法，通过精心设计的指令引导冻结的预训练模型进行预测，而无需更新模型权重；二是对LLM本身在时序数据上进行微调（Fine-tuning）。",
+              "cite_source_ids": [
+                "SRC-CH03-021",
+                "SRC-CH03-022"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH03-SEC02-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC02-P02-S01",
+              "text": "在微调策略中，参数高效微调（Parameter-Efficient Fine-Tuning, PEFT）技术，如低秩自适应（LoRA），因其能显著减少可训练参数数量和计算开销而受到青睐。",
+              "cite_source_ids": [
+                "SRC-CH03-015"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC02-P02-S02",
+              "text": "研究表明，与使用QLoRA进行全模型微调相比，基于提示的重编程方法在可训练参数量、GPU内存占用和训练速度方面具有更优的效率。",
+              "cite_source_ids": [
+                "SRC-CH03-015",
+                "SRC-CH03-016"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC02-P02-S03",
+              "text": "此外，也有研究探讨了语言预训练知识对时序预测任务的实际帮助，发现随机初始化模型权重后进行微调，其性能可能与使用预训练模型微调相当，甚至更优，这表明语言知识对负荷预测的贡献可能有限。",
+              "cite_source_ids": [
+                "SRC-CH03-018"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH03-SEC02-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC02-P03-S01",
+              "text": "针对负荷预测的时序特性，训练过程中需要采用特定的技巧。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH03-SEC02-P03-S02",
+              "text": "例如，可以借鉴在负荷预测中已广泛应用的Transformer类模型（如Informer）的训练经验，包括使用早停法（Early Stopping）防止过拟合，以及采用Adam优化器配合学习率衰减策略。",
+              "cite_source_ids": [
+                "SRC-CH03-025",
+                "SRC-CH03-027"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC02-P03-S03",
+              "text": "迁移学习也被用于解决负荷预测中的小样本问题，通过在大规模通用数据上预训练，再使用少量领域数据对模型（或其中的适配器模块Adapter）进行微调，以提升模型在目标领域的性能。",
+              "cite_source_ids": [
+                "SRC-CH03-006",
+                "SRC-CH03-019",
+                "SRC-CH03-024"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH03-SEC03",
+      "section_title": "多源信息融合与上下文学习",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH03-SEC03-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC03-P01-S01",
+              "text": "大语言模型在负荷预测中的一个显著优势在于其强大的多源信息融合与上下文学习（In-Context Learning）能力。",
+              "cite_source_ids": [
+                "SRC-CH03-029"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC03-P01-S02",
+              "text": "负荷预测的准确性依赖于对历史负荷、气象条件、日历信息（星期类型、节假日）、电价、甚至宏观经济新闻等多源异构信息的综合考量。",
+              "cite_source_ids": [
+                "SRC-CH03-001",
+                "SRC-CH03-010",
+                "SRC-CH03-030"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC03-P01-S03",
+              "text": "LLM能够将这些不同类型的数据（数值型与非数值型）统一在同一个文本上下文中进行处理，通过其内置的注意力机制挖掘深层次的关联与依赖。",
+              "cite_source_ids": [
+                "SRC-CH03-023"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH03-SEC03-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC03-P02-S01",
+              "text": "这种融合能力对于处理新型电力系统下的复杂场景尤为重要。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH03-SEC03-P02-S02",
+              "text": "例如，在综合能源系统负荷预测中，需要同时考虑电、热、气、冷等多种能源负荷的耦合关系与随机波动性。",
+              "cite_source_ids": [
+                "SRC-CH03-037"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC03-P02-S03",
+              "text": "LLM可以通过分析包含多能源信息的上下文，更好地理解各类型负荷间的潜在关系，避免混合负荷造成的预测结果混杂。",
+              "cite_source_ids": [
+                "SRC-CH03-037"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH03-SEC03-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH03-SEC03-P03-S01",
+              "text": "此外，LLM的上下文学习能力使其能够根据提供的示例或指令进行少样本甚至零样本推理，这对于数据稀缺或面临数据漂移的预测场景具有价值。",
+              "cite_source_ids": [
+                "SRC-CH03-017",
+                "SRC-CH03-036"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC03-P03-S02",
+              "text": "通过将历史模式、外部影响因素以及预测任务指令共同编码进一个长的提示序列中，LLM可以进行综合推理，生成对未来负荷的预测。",
+              "cite_source_ids": [
+                "SRC-CH03-021"
+              ]
+            },
+            {
+              "sentence_id": "CH03-SEC03-P03-S03",
+              "text": "这为构建更加自适应、鲁棒且能充分利用领域知识的智能负荷预测系统提供了新的技术路径。",
+              "cite_source_ids": [
+                "SRC-CH03-031"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

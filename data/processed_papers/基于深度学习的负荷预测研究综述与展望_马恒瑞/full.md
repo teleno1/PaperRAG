@@ -1,0 +1,602 @@
+# 基于深度学习的负荷预测研究综述与展望
+
+马恒瑞 1 ，袁傲添1 ，王 波 2 ，杨昌华 3 ，董旭柱 2 ，陈来军1
+
+（1. 青海大学能源与电气工程学院，西宁 810000；2. 武汉大学电气与自动化学院，武汉 430072；
+
+3. 三峡大学电气与新能源学院，宜昌 443002）
+
+摘 要：构建新型电力系统是促进现代电力系统转型和发展、实现双碳目标的重要手段，精确的负荷预测结果对于优化电力供需平衡、提升能源利用效率至关重要，以深度学习为代表的人工智能(artificial intelligence，AI)技术可有效优化电力供需平衡，提升能源利用效率。基于此，该文首先从场景对象、数据类型、评价方式、预测方法等角度对负荷预测研究现状进行了分析，并对现有基于深度学习的电力系统负荷预测方法的发展历程、优缺点等进行了系统化评析与总结。最后针对新型电力系统下负荷预测面临的挑战，分别从模型和场景层面对未来技术进行了研究展望。
+
+关键词：新型电力系统；负荷预测；人工智能技术；双碳；神经网络；深度学习
+
+# Review and Prospect of Load Forecasting Based on Deep Learning
+
+MA Hengrui1, YUAN Aotian1, WANG $\mathrm { B o } ^ { 2 }$ , YANG Changhua3, DONG Xuzhu2, CHEN Laijun1
+
+(1. School of Energy and Electrical Engineering, Qinghai University, Xining 810000, China;
+
+2. School of Electrical Engineering and Automation, Wuhan University, Wuhan 430072, China;
+
+3. School of Electrical Engineering and New Energy, China Three Gorges University, Yichang 443002, China)
+
+Abstract：Constructing a new type of power system is an important means to promote the transformation and development of modern power systems and achieve the dual-carbon goal. Accurate load forecasting results are crucial for optimizing the balance of power supply and demand and enhancing energy utilization efficiency, and artificial intelligence (AI) technology represented by deep learning can effectively optimize the balance of power supply and demand and enhance energy utilization efficiency. AI technology represented by deep learning can effectively optimize the balance of power supply and demand and improve energy utilization efficiency. Based on this, the paper firstly analyzes the current status of load forecasting research from the perspectives of scene objects, data types, evaluation methods, forecasting methods, etc., and systematically evaluates and summarizes the development history, advantages and disadvantages of the existing deep learning-based load forecasting methods for power systems. Finally, in view of the challenges of load forecasting under the new type of power system, the research outlook of the future technology is made from the model and scenario levels, respectively.
+
+Key words：new power system; load forecasting; artificial intelligence technology; double carbon; neural network; deep learning
+
+# 0 引言
+
+根据世界资源研究所统计，我国电力行业二氧化碳排放占全国能源消耗产生的二氧化碳排放总量的 $40 \%$ 左右。电力行业是碳排放的重点领域，也是实现碳达峰、碳中和目标的主要“责任人”[1-2]。因此，大力开发利用新能源，构建以风电、光伏为主
+
+体的新型电力系统，已成为我国能源行业发展的重中之重。相对于传统电力系统而言，由“源随荷动”转变为“源荷互动”是新型电力系统的主要特征之一[3]。在此背景下，为了保障电力系统安全，需要在“荷”侧尽可能地提高预测精度，从而提升负荷侧资源利用率，适应更大规模新能源消纳的需求。
+
+电力负荷预测研究的核心问题是如何利用现有的历史数据，建立预测模型，对未来时刻或时间段内的负荷值进行预测[4]，从而有效地支撑电网调度、检修计划、安稳分析、新能源消纳分析等多项
+
+业务[5-6]。传统负荷预测技术主要是基于物理方法和数理统计方法实现，随着智能量测设备的发展和人工智能技术的迅速发展，数据驱动的人工智能方法逐渐成为电力负荷预测的主要研究方法。特别是基于深度学习的负荷预测方法，由于其在模式识别和非线性建模能力上的优势，可以大幅提升模型的泛化能力，在提升预测精度的同时提高了预测的计算效率。相较于传统方法，基于深度学习的预测方法可以更好地应对大规模数据、多源数据的问题，实现实时预测和自动特征提取，以及预测模型的不断优化。
+
+如图1所示，本文针对负荷预测研究，首先分别对场景对象、数据类型、评价方式、预测方法进行梳理和分析；然后针对上述问题，按照算法迭代顺序，对基于深度学习的电力系统负荷预测方法进行总结；最后，从模型构建及应用场景2方面对目前存在的问题进行归纳，并展望未来研究方向。
+
+# 1 负荷预测研究现状分析
+
+负荷预测作为电力系统领域的研究热点之一，旨在对未来的负荷数据进行预先估计，为电网的运行调度工作提供重要参考依据[7]，在确保电力系统稳定运行、保障电力资源的合理调度上意义重大。
+
+图2对近5年负荷预测领域的研究成果关键词的分布情况、发布时间进行了数据整理和图形化展示。可以看出，近年来由于人工智能技术和计算机
+
+技术的不断发展，深度学习为代表的人工智能技术逐渐成为负荷预测的主流算法和新的研究热点。
+
+自20世纪80年代起，国外对电力负荷预测问题开展了研究。丹麦学者 Landberg 于 20 世纪 90 年代初提出了完整的负荷预测技术，随着研究的深入和广泛应用，开发技术和应用产品也日趋成熟。国外研究主要集中于提高预测精度、可靠性和适应性，采用的方法包括统计模型、机器学习模型、深度学习模型等。我国相关研究始于2008 年，经过几年的快速发展，能够开展电力负荷预测研究的商家和科研院校多达百家。国内研究主要关注提高预测精度、可靠性和适应性，采用的方法包括传统模型、机器学习模型、深度学习模型等，长短期记忆神经网络(long-short term memory, LSTM)、卷积神经网络(convolutional neural network, CNN)、Transformer 等新的人工智能模型也逐渐受到关注。
+
+# 1.1 场景对象精细化
+
+从场景对象来看，可以分为不同时间维度下的负荷预测和针对不同负荷特性的预测。
+
+南方电网公司出台的调度负荷预测管理与考核办法中指出，根据时间维度不同，负荷预测可分为年、月、周以及96 点日4 类[8]。从预测时间范围来看，又可进一步划分为超短期预测、短期预测、中期预测和长期预测，如图3所示。超短期预测的时间尺度为未来 $1 5 \mathrm { m i n } { \sim } 4 \mathrm { h }$ ；短期预测为未来1~3 d；中期预测为未来几天或几周；长期预测为未来几个月至几年。
+
+![](images/a49c8387db6088ecaf33eb760c683844ddbd1269b97be9d3ea8202a618666c29.jpg)  
+图 1 负荷预测研究综述框架  
+Fig.1 Research framework of load forecasting
+
+![](images/a5ed05c1aeb3e05c6bec309a33aa1faebb2fc0c38a24be0a3b1830ab42fbeb46.jpg)  
+图 2 2020—2024 年负荷预测相关文献分布
+
+![](images/c36b362519e445653cb4c1b70e33920e04c20275660a17dc593bc040f7bd6bcb.jpg)  
+Fig.2 Distribution of load forecasting-related literature from   
+图3 时间维度划分  
+Fig.3 Chart division from the temporal dimension
+
+从预测的负荷特性来看，可分为最大负荷预测、平均负荷预测、最低负荷预测、负荷峰谷差预测、高峰负荷平均预测、低谷负荷平均预测、平峰负荷平均预测、母线负荷预测、系统负荷预测及负荷率预测等[9]。表 1 展示了按负荷特性划分的负荷预测结果及其作用、意义[10-18]。
+
+其中，文献[10]提出基于敏感气温空间分布的日最大负荷预测模型，通过分析基础负荷与国内生产总值、居民消费价格指数来实现预测。文献[11]基于 Bagging 框架和 XGBoost 算法，提出了串并行集成学习的连续多日高峰负荷预测模型。系统负荷预测作用对象为整个电力系统的用电需求，而母线负荷预测的作用对象为特定母线或变电站，其更侧重于局部区域的电力负荷。文献[16]提出了一种基于贝叶斯优化和LSTM的负荷率预测模型，负荷率是负荷与系统最大负荷的比值，反映了电力系统在特定时间内的负荷水平[17]。选取波动型和平稳型负荷率对不同模型进行测试，净负荷即用电负荷与风电光伏等可再生能源发电的差值，净负荷的波动特性决定了能源系统对调节能力的需求，与用电负荷、新能源出力特性密切相关[18]。电网中传统电源需要
+
+表 1 基于负荷特性划分的负荷预测结果  
+Table 1 Load forecasting results based on load characteristic classification   
+
+<table><tr><td>负荷预测分类</td><td>参考文献</td><td>意义</td><td>作用</td></tr><tr><td>最大(最低)负荷预测</td><td>[10]</td><td>预测未来某一时间段内可能出现的最高(低)负荷水平</td><td>用于电力系统的运行调度和设备容量规划</td></tr><tr><td>高峰(低谷、平峰)负荷预测</td><td>[11]</td><td>分别对高峰、低谷和平峰时段的负荷水平进行平均预测</td><td>用于电力系统在不同负荷水平下的策略调控</td></tr><tr><td>负荷峰谷差预测</td><td>[12]</td><td>预测负荷高峰和低谷之间的差值</td><td>用于优化电力系统规划调度策略</td></tr><tr><td>平均负荷预测</td><td>[13]</td><td>对未来一段时间内整体负荷水平的预测</td><td>帮助电力系统规划合适的 基础负荷,并确定系统的 基础运行能力</td></tr><tr><td>母线负荷预测</td><td>[14]</td><td>对电力系统中特定母线或变电站的电力需求进行预测</td><td>用于电力系统的分布式能源管理和网络调度</td></tr><tr><td>系统负荷预测</td><td>[15]</td><td>对整个电力系统的总电力需求进行预测</td><td>为电力系统的长期规划提供基础数据,确保电力供需平衡</td></tr><tr><td>负荷率预测</td><td>[16-17]</td><td>预测电力系统中各个设备或线路的负荷利用率</td><td>用于评估设备的运行状态和潜在风险</td></tr><tr><td>净负荷预测</td><td>[18]</td><td>预测用电负荷与可再生能源的差值</td><td>用于能源管理和优化调度</td></tr></table>
+
+满足的调节需求为净负荷，即总用电负荷叠加新能源出力后的差值。净负荷预测旨在为调度中心的调度电量提供具有科学依据的数据支撑，并为智能园区的分布式发电系统电网调度带来快捷有效的参考[19-20]。
+
+与之类似，有源配电网负荷预测可解释为对含有分布式能源和常规负荷的配电网在未来一段时间内的电力需求和供应情况进行预测，需要分别对变电站供电范围内的负荷大小和分布式新能源出力进行预测。预测流程如图4所示，图中左侧框图部分为表1中最大负荷预测、平均负荷预测等常规负荷预测，右侧框图部分为分布式新能源出力预测。此外，有源配电网负荷预测时还需考虑到地市-变电站-馈线及分布式电站的层级关系以及配电网不同构成间的拓扑结构对预测结果的影响。
+
+# 1.2 数据类型多元化
+
+从预测的影响因素来看，主要有电力负荷构成、气象因素、社会因素、时间因素、经济因素等，不同影响因素对预测结果的影响程度不尽相同，具体情况如表2所示。随着智能量测设备的发展，负荷预测的输入数据从传统的结构化时序数据向多模态数据转化，在提升负荷预测结果准确度的同时，
+
+![](images/dbefa31a60e457c3ae5188a6c863998a7bb7653b6ab8c44a902fe63a9f7be2c1.jpg)  
+图4 有源配电网负荷预测流程  
+Fig.4 Load forecasting process of active distribution network
+
+表 2 电力负荷结果准确度影响因素  
+Table 2 Factors affecting the accuracy of power load forecasting results   
+
+<table><tr><td>影响因素</td><td>具体描述</td></tr><tr><td>电力负荷构成</td><td>居民生活负荷、工业负荷、农业负荷等</td></tr><tr><td>气象因素</td><td>温度、湿度、降雨及光照等</td></tr><tr><td>社会因素</td><td>实时电价以及节假日等</td></tr><tr><td>时间因素</td><td>不同时间用电情况不同，负荷变化</td></tr></table>
+
+也为数据处理和分析带来了新的挑战。
+
+# 1.2.1 来源多样化
+
+目前，负荷预测的输入数据受电力系统测量、气象因素、社会因素等因素影响，故无法保证原始数据的类型、颗粒度和质量，需要对原始数据进行预处理，降低历史数据质量差、数据量纲差异等初始因素的影响，预处理手段主要包括异常值处理、数据插值及归一化、反归一化等。
+
+# 1）异常值处理
+
+产生异常数据的主要原因有：数据测量、量取环节出现误差或异常[21]；电力系统网络拓扑的变化，例如线路故障、设备投运、系统扩建等；能源政策的变化等[22]。
+
+在进行异常值处理时，常采用的方法包括数据平滑、数据插补及异常数据剔除等。文献[23]提出了一种零均值化预处理法，对异常数据进行预处理，并在文献[24]中得以采用。文献[25]提出一种基于四分位法和聚类分析的异常数据组合筛选模型，采用2 次四分位法剔除常规的分散型异常数据，采用聚类法剔除堆积型异常数。文献[26]提出一种用于识别异常数据的云分段最优熵算法，采用云模型的熵
+
+对数据集进行分离，从而识别异常数据。文献[27]提出了一种基于 Transformer 和 $K \cdot$ -means 的数据清洗方法，对光伏数据进行预处理。数据平滑适用于数据中存在随机噪声或小的波动场景，可以降低数据波动影响，增加趋势清晰性。数据插补适用于数据集中存在缺失值、且这些缺失值不是随机发生的情况，该方法可以保证数据集的完整性。异常数据剔除适用于数据中存在由于测量错误和录入错误而存在异常值或离群点的情况。通过合理应用数据预处理方法，可以有效提升数据质量，为后续分析提供准确可靠的数据基础。
+
+# 2）数据插值
+
+进行数据处理时，在对异常数据进行识别的基础上，需要对异常数据和缺失值进行补全以保证数据的连贯性和历史负荷数据的时序完整性。剔除异常数据所产生的缺失数据与因故障或干扰本就存在于数据集中的缺失数据一同进行处理，缺失数据重构的重点在于构建数据填补模型，即利用缺失点前后2个数据点拟合函数对缺失值进行补充，插值公式如式(1)所示，现有研究主要从空间相关性和时间相关性 2 个维度，利用数据插值的方法对缺失数据进行重构，如埃尔米特插值法、四点插值、三次样条插值等[28]。埃尔米特插值适用于数据点的函数值和导数信息已知的情况，四点插值适用于针对图像处理、地理信息系统的情况，而三次样条插值适用于需要通过一系列数据点构建一个光滑曲线的情况。
+
+$$
+\varphi (x) = \frac {x - x _ {2}}{x _ {1} - x _ {2}} y _ {1} + \frac {x - x _ {1}}{x _ {2} - x _ {1}} y _ {2} \tag {1}
+$$
+
+式中： $\varphi ( x )$ 、 $x$ 分别为缺失点横纵坐标； $( x _ { 1 } , y _ { 1 } )$ 、$( x _ { 2 } , y _ { 2 } )$ 为缺失点前后数据点坐标。
+
+文献[29]提出了基于改进生成式对抗网络的预测模型，并设计了适用于该问题的网络结构，用于对电压、电流等电力系统量测缺失数据进行重构，算例中分析了量测缺失数量与重建误差之间的关系，证明了所提方法的稳定性。对于算例中长期缺失的特定量测，文中方法所重建的数据体现了量测真实的时序特性。
+
+# 3）归一化和反归一化
+
+当使用多输入变量的时间序列进行负荷预测时，由于不同输入变量之间的量纲不同，其数值范围差别也很大。为了防止神经元出现饱和现象，平等考虑多种变量对负荷的影响作用效果，同时考虑到模型中非线性激活函数的输入输出范围，因此在
+
+进行预测之前，需要对输入变量及电力负荷数据进行归一化处理[30]。数据归一化是一种常见的数据预处理技术，目的是将输入数据的大小缩减到相同的范围内，以消除不同特征之间的量纲差异，提高模型的训练效果和收敛速度，进而提升模型性能。
+
+在进行电力负荷预测之前，应该对风速、光照强度、温度等输入变量及历史负荷等数据进行归一化处理，将其数值归算到[−1,1]内，数据归一化计算式为：
+
+$$
+x ^ {\prime} = \frac {x _ {0} - x _ {\min}}{x _ {\max} - x _ {\min}} \tag {2}
+$$
+
+式中： $x ^ { \prime }$ 为归一化后的数据； $x _ { 0 }$ 为归一化前的原始数据； $x _ { \mathrm { m i n } }$ 和 $x _ { \mathrm { m a x } }$ 分别为原始数据的最小值和最大值。在输入神经网络的输入数据中，包含了天气类型和日期等非数字类型数据，在数据处理时需要对这些文字数据进行数字量化处理，例如将工作日设置为0，休息日设置为1，将不同的天气类型设置为[0,1]区间内的具体数值等[31]。
+
+数据的反归一化是归一化的逆向操作，即当负荷预测结束后，得到的预测结果为范围区间在[−1,1]的数据，因此为了真实反映预测模型的结果，需要对预测结果进行反归一化，将其反向放缩为原本数值区间。反归一化的计算式为：
+
+$$
+x = x ^ {\prime} \left(x _ {\max } - x _ {\min }\right) + x _ {\min } \tag {3}
+$$
+
+# 1.2.2 类型复杂化
+
+数据来源的多样化导致输入数据类型的复杂化，例如历史数据往往包括气象数据、负荷数据及社会因素等，其中不仅有结构化数据，还包含如风向、季节及用户特征等非结构化数据。数据类型的复杂化导致基于数学的传统预处理方法不再适用，因此在训练模型之前不仅需要对输入数据进行相关性分析以构建特征，还需引进能同时处理多种数据类型的模型来进行完善。
+
+目前，随着大语言模型及数据融合技术的发展，其在负荷预测领域的应用趋势也逐渐显现。大语言模型可以通过不同类型输入数据对模型进行微调，而多模态数据融合模型则可以同时处理多种类型输入数据以提取数据特征。除了从模型层面解决数据复杂化问题，还需对不同类型的数据进行特征选择及特征构建以剔除冗余干扰信息。
+
+# 1.2.3 特征构建
+
+利用深度学习模型对电力负荷进行预测，其中重要环节就是利用收集到的历史负荷数据和气象数
+
+据等对模型进行训练，而原始数据往往包含多重冗余信息和干扰信息，直接利用所有特征进行训练会导致模型训练困难。因此，在模型训练之前需要进行特征构建，包括特征选择和特征降维，特征选择是指从原始数据中选择最相关的特征[32]，以提高深度学习模型的性能和效率。在该过程中，需要考虑特征与目标变量之间的相关性，以及特征之间的相关性，常用的特征选择方法为过滤式特征选择、包裹式特征选择及过滤式特征选择。
+
+过滤式特征选择通过直接计算特征和输出关系进行筛选，特征筛选过程与具体模型无关，因此最为简单，主要包括 Pearson 相关性分析法、Granger因果检验以及熵相关系数法等。目前最常用的方法是根据期望输出与备选参数之间的皮尔逊相关系数进行选择[33]，一般情况下选择与期望输出之间相关系数较高的备选参数作为机器学习的输入特征，皮尔逊相关性的计算式为：
+
+$$
+r (\Delta t) = \frac {\sum_ {t = \Delta t + 1} ^ {n} \left(x _ {t} - \bar {x} _ {t}\right) \left(x _ {t - \Delta t} - \bar {x} _ {t - \Delta t}\right)}{\sqrt {\sum_ {t = \Delta t + 1} ^ {n} \left(x _ {t} - \bar {x} _ {t}\right) ^ {2}} \sqrt {\sum_ {t = \Delta t + 1} ^ {n} \left(x _ {t - \Delta t} - \bar {x} _ {t - \Delta t}\right) ^ {2}}} \tag {4}
+$$
+
+式中： $\Delta t$ 为延迟时间； $r ( \Delta t )$ 为皮尔逊相关系数； $n$ 为数据长度； $x _ { t }$ 为待预测时刻发电负荷； $x _ { t - \Delta t }$ 为待预测时刻前 $\Delta t$ 时刻发电负荷； $\overline { { x } } _ { t }$ 和 $\overline { { x } } _ { t - \Delta t }$ 为对应的平均值。皮尔逊相关性系数越大，说明该时刻数据与待预测时刻数据相关性越强[34-35]。利用 Python 对原始数据进行Pearson相关性分析，如图5所示，该图为对某时刻风电场输入数据进行相关性分析的结果。
+
+特征降维是指通过减少输入特征的数量来简化输入数据集，并尽可能保留数据集中隐含的重要信息，从而提高模型的训练效率和精度。特征降维
+
+![](images/befb4e552682b6780b6894dbf18b87a071b914975d866619ad2b624035d99230.jpg)  
+图 5 Pearson 相关性分析  
+Fig.5 Pearson correlation analysis
+
+通常可以帮助减少计算成本、降低模型过拟合的风险以及提高模型的解释性[36]。目前的特征降维主要包 括 主 成 分 分 析 法 (principal component analysis,PCA)和线性判别分析(linear discriminant analysis,LDA)等[37]。
+
+# 1.2.4 小样本问题
+
+当原始数据样本不足时，会使得预测模型因没有足够数据支撑，无法达到预期效果，小样本问题已成为制约新型电力系统数字化转型的重要因素之一，目前针对小样本问题的研究包括迁移学习、大语言模型等。
+
+迁移学习通过从数据丰富的源域迁移知识来提升目标域任务的性能，在历史数据不足的情况下，大语言模型先通过大量通用数据对模型进行预训练，再使用少量预测领域强相关数据对预训练模型进行微调，巧妙解决了原始数据样本不足的问题。在进行预测之前，首先需要对输入数据进行预处理，构建固定步长的时间序列输入模型；随后，大语言模型(large language model, LLM)通过嵌入层将输入数据中的特征转为向量形式，以便更好地捕捉时序依赖关系并处理多模态数据，使其向量表示统一化[38]。此外，还有部分学者利用生成对抗网络等生成式无监督深度学习方法进行数据增强处理。文献[39]结合迁移学习与 TCN-BiGRU 模型，将相关性高的信息迁移到实验模型中，在解决了小样本问题的同时提高了预测精度。文献[40]结合大语言模型中的 GPT-3模型与深度学习模型，利用通用数据进行预训练，利用领域数据进行调整，解决了输入数据不足的问题。
+
+# 1.3 评价方式实用化
+
+在预测结束后，为了对模型的预测效果进行评价，需要引入模型评价指标来评价模型预测效果的好坏。国家电网公司关于日前负荷预测管理规定中指出，对负荷预测准确率进行考察时，评价指标主要包括日前负荷预测准确率及合格率等[41]。
+
+基于此，在负荷预测中常选用平均绝对误差(mean absolute error, MAE, $\delta _ { \mathrm { { \scriptscriptstyle M A E } } }$ )、均方根误差(rootmean square error, RMSE, $\delta _ { \mathrm { R M S E } }$ )、平均绝对百分比误差(mean absolute percentage error, MAPE, $\delta _ { \mathrm { { \scriptscriptstyle M A P E } } }$ )以及决定系数( $R \mathrm { \cdot }$ -square, $R ^ { 2 }$ )4 个代表性指标作为模型预测精度评价指标。其中 MAE 可以反映真实值与预测值之间的偏离程度，强调系统的实时偏差；RMSE 可以评估一段时间内的整体误差；MAPE 可
+
+以反映相对误差的累计情况； $R ^ { 2 }$ 可以评价预测模型的质量[42]。
+
+# 1）平均绝对误差
+
+平均绝对误差也叫平均绝对离差，计算时先对真实值与预测值求和，再求取平均值。其主要用来衡量预测值与真实值之间的平均绝对误差大小，即偏离程度。MAE 的取值范围为 $[ 0 , + \infty )$ ，MAE 越小说明模型的预测效果越好；该值越趋近于 0，说明模型的预测效果越好。其计算式为：
+
+$$
+\delta_ {\mathrm {M A E}} = \frac {1}{n _ {0}} \sum_ {i = 1} ^ {n _ {0}} \left| \hat {y} _ {i} - y _ {i} \right| \tag {5}
+$$
+
+式中： $y _ { i }$ 为实际值； $\hat { y } _ { i }$ 为预测值； $n _ { 0 }$ 为统计样本的数量。
+
+# 2）均方根误差
+
+均方根误差是回归模型的典型评价指标之一，用于指示模型在预测中会产生的误差大小[43-44]。RMSE 可以反映预测值与真实值之间的偏差和离散程度，该值越大，说明预测值和真实值的偏差程度越大。其取值范围为 $[ 0 , + \infty )$ ，在数值上等于均方误差的开方；该值越大，说明模型的误差越大。其计算式为：
+
+$$
+\delta_ {\mathrm {R M S E}} = \sqrt {\frac {1}{n _ {0}} \sum_ {i = 1} ^ {n _ {0}} \left(\hat {y} _ {i} - y _ {i}\right) ^ {2}} \tag {6}
+$$
+
+# 3）平均绝对百分比误差
+
+平均绝对百分比误差是误差效果评价指标，可以反映相对误差的累计情况[45]。MAPE 是对 MAE的改进和优化，通过计算真实值与预测的误差百分比，避免了数据范围大小的影响。其取值范围为$[ 0 , + \infty )$ ，当 MAPE 为 0 表示该预测模型预测效果完美，当 $\mathrm { M A P E { > } 1 0 0 \% }$ 表示该模型的预测效果不好。由于 MAPE 的分母中存在 $y _ { i }$ ，因此当数值中有 0存在时，不可采用该评价指标进行预测效果评估。其计算式为：
+
+$$
+\delta_ {\mathrm {MAPE}} = \frac {1}{n _ {0}} \sum_ {i = 1} ^ {n _ {0}} \left| \frac {\hat {y} _ {i} - y _ {i}}{y _ {i}} \right| \times 100 \% \tag{7}
+$$
+
+为了防止MAPE 指标在有0 值出现时计算式失去意义，在其分母处加上 0.01 倍的 $y _ { i }$ ，对其进行修正。
+
+# 4）决定系数
+
+决定系数 $R ^ { 2 }$ 在数值上等于 $\delta _ { \mathrm { s s R } }$ 与 $\delta _ { \mathrm { s s T } }$ 的比值和 1 的差值，其中 $\delta _ { \mathrm { S S R } }$ 为预测数据与真实数据均值之差的平方和，反映模型数据相对真实数据均值的离散程度； $ { \delta _ { \mathrm { s s T } } }$ 为真实数据和其均值之差的平方和，
+
+反映真实数据相对均值的离散程度。当 $R ^ { 2 } { = } 1$ 时，表示模型预测效果较好，预测值与实际值完全相符；当 $R ^ { 2 } { < } 0$ 时，表示模型的预测效果与直接使用均值预测时没有区别；当 $R ^ { 2 } { > } 0$ 时，表示模型拟合效果比直接使用均值预测时还要差。其取值范围为[0,1]之间。 $R ^ { 2 }$ 的计算式为：
+
+$$
+R ^ {2} = 1 - \frac {\delta_ {\mathrm {S S R}}}{\delta_ {\mathrm {S S T}}} = 1 - \frac {\sum_ {i = 1} ^ {n _ {0}} \left(\hat {y} _ {i} - y _ {i}\right) ^ {2}}{\sum_ {i = 1} ^ {n _ {0}} \left(\hat {y} _ {i} - \bar {y}\right) ^ {2}} \tag {8}
+$$
+
+国家发展和改革委员会 2023 年发布的电力负荷管理办法文件中指出，需根据年度电力供需平衡预测和国家有关政策，编制年度有序用电方案[41]。该方案在指出电力负荷预测重要性的同时，对负荷预测精度提出了更高要求。且随着分布式光伏、可控负荷、分布式储能等接入电网，负荷侧不确定性显著增加，故迫切需要精度更高的预测方法。
+
+# 1.4 预测方法智能化
+
+从预测技术来看，主要技术路线有传统方法和人工智能方法2种，传统方法包括物理方法以及数理统计方法。人工智能方法包括传统机器学习方法和深度学习算法，如表 3 所示[46-53]，由于输入场景的多元化与输入数据类型的多样化，传统物理、数理统计方法及传统机器学习方法难以满足预测要求，因此 CNN、门控循环单元(gate recurrent unit,GRU)等深度学习算法逐渐应用于预测领域。
+
+# 1.4.1 传统方法
+
+在人工智能出现之前，主要通过传统方法进行负荷预测，包括物理方法和数理统计方法。物理方法是基于相关的物理方程、负荷的相关特性计算式等进行分析，并根据相关物理计算式来建立预测模型。由于该方法对相关物理专业知识水平要求较高，需要预测者熟练掌握电学、力学等多门物理学科的专业领域知识，且物理方法建立的预测模型具有较高的复杂度，模型的建立和分析过程可能会变得非常复杂，因此运用物理方法进行负荷预测具有很强的局限性[54]。
+
+数理统计方法主要是基于大量历史数据，采用数学模型、结合数学原理对电力负荷情况进行数学建模，结合数学模型与统计学知识来实现负荷预测，基于数学统计方法对电力系统进行负荷预测的建模比较简单，只需要使用历史数据进行统计学回归拟合。常用的统计模型方法有灰色模型、持续法和时间序列分析法等[55]。
+
+# 1.4.2 基于深度学习的预测方法
+
+电力负荷预测的主要步骤如图6所示，首先收集相关气象环境数据和历史负荷数据，并对数据进行预处理；再对数据特征进行提取，并将数据集进行划分；然后用训练集数据对模型进行训练以及预测；最后对预测结果进行评价分析，并对模型进行完善优化[56]。
+
+表3 不同技术方法文献总结表  
+Table 3 Literature summary of different techniques and methods   
+
+<table><tr><td>预测方法</td><td>参考文献</td><td>创新点</td></tr><tr><td rowspan="3">传统方法</td><td>[46]</td><td>将物理模型与多元线性回归(multiple linear regression, MLR)模型相结合</td></tr><tr><td>[47]</td><td>将平均自回归模型(autoregressive integrated moving aver- age, ARIMA)与动态粒子群优化算法相结合,提高模型预 测精度</td></tr><tr><td>[48]</td><td>在数据中引入风切变物理量,实现更准确的预测</td></tr><tr><td rowspan="5">深度学习</td><td>[49]</td><td>利用支持向量机(support vector machine, SVM)对时间序列 的电力负荷数据进行初始预测</td></tr><tr><td>[50]</td><td>采用 CNN 和改进 LSTM 分别提取时空特征进行预测</td></tr><tr><td>[51]</td><td>将遗传粒子群混合优化算法与 LSTM 网络相结合</td></tr><tr><td>[52]</td><td>将时间卷积网络、双向门控循环单元与 Attention 机制相结 合的预测模型</td></tr><tr><td>[53]</td><td>结合多尺度时空图卷积网络与 Transformer 模型进行短期 负荷预测</td></tr></table>
+
+![](images/df10ab11c2994a74026ce418ed9610a1ef869398385963cc45fcaa19dcfc586a.jpg)  
+图6 负荷预测流程图  
+Fig.6 Flow chart of load forecasting
+
+常用的机器学习算法包括支持向量机、人工神经网络、随机森林等。文献[57]提出了一种改进支持向量机短期负荷预测方法，通过灰色关联分析建立负荷特征因子与影响因素之间的关联关系，建立了一种考虑影响因素权值特征的 SVM 负荷预测模型。文献[58]提出了一种基于(variational mode de-composition，VMD)的随机森林(random forest, RF)负荷预测方法。
+
+然而，传统浅层机器学习模型在结构上存在制约，不能完全提取负荷序列中隐藏的时序特征，具有局部最优、过拟合和收敛性差等缺陷。基于深度学习的人工智能方法主要利用深度神经网络模型，如循环神经网络等，对负荷变化进行建模和预测。包括 CNN、循环神经网络(recurrent neural network,RNN)、GRU 以及结合注意力机制的 Transformer 模型等，其发展历程如图7所示。
+
+文献[59]提出一种基于卷积神经网络-长短期记忆神经网络(CNN-LSTM)的负荷预测模型，综合考虑负荷与多维气象因素的特征关系和负荷的时序特性进行预测。文献[60]提出一种时序 Transformer网络模型，将概率密度统计模型与时序 Transformer相结合，并在测试中获取每个预测点的高斯分布函数，从而实现精确度为 0.994 的准确预测。文献[61]将 改 进 鲸 鱼 优 化 (whale optimization algorithm ，WOA)与长短期记忆神经网络相结合，使用完全集成的自适应噪声经验模态分解(complete ensembleempirical mode decomposition with adaptive noise，CEEMDAN)来提高模型训练的效率，并用改进鲸鱼算法使预测准确率达到 $9 9 . 0 5 \%$ 。文献[39]将迁移学
+
+习与 TCN-BiGRU 模型融合，通过迁移学习法迁移相关性高的信息，并用 $K$ 聚类算法进行聚类分析，使得 RMSE 降低 $4 0 . 7 \%$ ，准确率提升 $4 . 9 \%$ 。
+
+# 2 基于深度学习的电力系统负荷预测
+
+目前，基于人工智能的电力负荷预测方法主要有传统机器学习算法、基于人工智能技术的深度学习算法以及将传统的物理、数理统计方法与人工智能方法相结合的组合预测方法。
+
+深度学习预测方法因其在预测领域的诸多优势而逐渐成为负荷预测的主要方法，其发展历程如图7所示。现有的典型深度学习模型主要有卷积神经网络、长短期记忆网络、门控循环单元及Transformer 模型等[62]，其适用场景如表 4 所示[63-74]。
+
+# 2.1 卷积神经网络
+
+CNN 是一种专门用于处理具有网格结构数据的深度学习模型。CNN最初于20世纪90年代提出，主要用于图像识别、数字识别等。其主要由输入层、卷积层、池化层、全连接层和输出层构成，如图 8所示，其中输入层用于输入图像等信息；卷积层用于提取图像的底层特征；池化层用于减小数据维度，以防止过拟合；全连接层用于汇总卷积层和池化层得到的图像的底层特征和信息[75]，并最终输出给输出层。
+
+卷积层借助类似滤波器的卷积核对负荷输入矩阵中的特征进行提取，通过卷积操作从输入特征向量中提取数据块，对所有数据块进行变换以生成输出特征向量，并对输出特征向量进行空间重组。卷积神经网络因其在图像识别、目标检测、图像分
+
+![](images/205f28de3e812535b4831ea10850afb7e9ba0214acc1568e44a0e02799f97e7d.jpg)  
+图7 深度学习方法发展历程  
+Fig.7 Evolution of deep learning methods
+
+表 4 深度学习典型算法  
+Table 4 Typical algorithms of deep learning   
+
+<table><tr><td>算法</td><td>适用场景</td><td>文献</td></tr><tr><td>卷积神经网络</td><td>用于处理具有类似网格结构的数据</td><td>[63-65]</td></tr><tr><td>长短期记忆神经网络</td><td>用于处理序列数据，特别是要记住长期依赖关系</td><td>[66-68]</td></tr><tr><td>门控循环单元</td><td>类似于LSTM，但结构更简单</td><td>[69-71]</td></tr><tr><td>Transformer</td><td>用于处理序列数据，可以并行处理</td><td>[72-74]</td></tr></table>
+
+割等领域的出色表现，被广泛应用于负荷预测，文献[76]提出一种改进 CNN-GRU 预测模型，利用批标准化和 Dropout 进行改进。文献[77]提出了一种将小波数据、天气数据与CNN相结合的预测模型。
+
+在负荷预测领域，CNN擅长捕捉局部特征和空间特征，通过多层结构逐步提取从低级到高级的特征表示，以更好地提取输入数据特征；通过参数共享和稀疏连接，CNN 减少了模型的参数量和计算量，提高了处理效率。但 CNN 不善于处理时间序列数据中的长期依赖关系，且由于 CNN 参数量较大，导致模型的计算复杂性较高[78]。
+
+# 2.2 长短期记忆神经网络
+
+相比于CNN网络，RNN更善于处理长期依赖关系，但在处理较长的时序时会出现“梯度消失”现象。因此，有学者提出了LSTM网络对其进行改良，LSTM 神经网络主要由遗忘门、输入门和输出门构成，主要结构如图9 所示， $x ( t )$ 为当前时刻输入信息； $h ( t - 1 )$ 、 $h ( t )$ 为上一时刻和当前时刻的隐藏状态； $C ( t - 1 )$ 、 $C ( t )$ 为上一时刻和当前时刻的细胞状态。
+
+LSTM 的具体信息传播过程网络层图如图 10所示，该图包含了 2 个隐含层的 LSTM，在 $t { = } 1$ 和$\scriptstyle { t = 2 }$ 时刻，它可以看作一个普通的BP神经网络；当它沿时间轴展开后， $t { = } 1$ 时刻训练的隐含层信息会被传递到 $t { = } 2$ 时刻。
+
+LSTM 模型在序列数据上表现出优秀的性能，具有很强的抗干扰能力，可以解释模型的决策过程以及处理长序列数据[79]；又因为其可以学习长期依赖关系，故对解决负荷需求长期变化问题意义重大。文献[80]提出了一种基于二次加权时间注意力机制-长短期记忆网络的预测模型，并采用随机森林法分析相关性以提高收敛速度及预测精度。文献[81]为
+
+![](images/8aa78144fcf6f8a59f4976e8fd65e6dfaec6ffbd538a52a758e65c59f48858a8.jpg)  
+图8 卷积神经网络结构图
+
+![](images/7e444f8c6f9af745f8d41828462fe75a374fa1161a0b9cd9a217035dae94f2c6.jpg)  
+Fig.8 Convolutional neural network structure   
+图 9 LSTM 结构图
+
+![](images/e5efe4293fb9a2bbd0ef7eea584c74e1ed7d9a8e9eb0cc198199852770f9916a.jpg)  
+Fig.9 LSTM structure diagram   
+图 10 LSTM 网络层图  
+Fig.10 LSTM network layer diagram
+
+解决数据波动和强非线性的影响，提出了ResNet-LSTM-Attention 预测模型，利用 ResNet 克服传统信号分解的局限性来提取空间特征，采用LSTM 提取时间特征，使模型对综合能源系统具有更好的适应性。
+
+# 2.3 门控循环单元
+
+GRU模型相比于LSTM，采用了更简化的模型结构且处理数据速度更快，只有更新门和重置门 2个关键门控单元。更新门用于控制前一时刻的状态信息被代入到当前状态中的程度。重置门决定了如何将新的输入信息与前面的记忆相结合[82-83]，其原理如图 11 所示。其中 $x ^ { \prime } ( t )$ 为当前时刻输入信息；$h ^ { \prime } ( t - 1 )$ 为上一时刻隐藏状态； $h ^ { \prime } ( t )$ 为传递到下一时
+
+刻的隐藏状态； $\overline { { h _ { t } } }$ 为候选隐藏状态； $r _ { t }$ 为重置门； $z _ { t }$ 为更新门。
+
+GRU 参数少、计算速度快且具有很强的抗干扰能力，可以过滤掉序列中的噪声，从而提高预测精度，故在负荷预测领域得到广泛应用。文献[84]提出了一种基于贝叶斯优化的CNN-BiGRU电力负荷预测方法，将CNN和 GRU模块融合出一个混合神经网络模型。文献[85]提出了一种基于 VMD 分解的CNN-GRU电力负荷预测模型，并引入注意力机制以降低天气变化、气象条件的影响。在实际运行条件下，电力负荷会受到多种因素的影响，单一的预测模型预测结果会有一定的误差，故在实际预测时，往往需要将多种单一模型彼此进行组合并与传统方法相结合。
+
+# 2.4 Transformer 模型
+
+由于电能替代的不断深化与新能源、电动汽车等不断融入负荷侧，许多现有的概率统计和机器学习方法无法提供准确的预测。因此，有学者将人工智能模型引入到负荷预测领域，并将多个模型相结合，以及与物理、数理统计相结合，最终实现对电力负荷的预测，例如 CNN 和 LSTM 在预测中已经得到了广泛应用，而 2017 年由 Google 新提出的Transformer模型更因为并行计算能力强、训练速度快以及在处理长序列和大规模数据集时的优异表现，逐渐在负荷预测领域崭露头角。
+
+Transformer 提出了注意力机制以实现快速并行，改进了循环神经网络训练慢的缺点，由于其独特的架构和能力而被用于时间序列分析，在时间序列分析中的应用核心在于其自注意力机制，能够有效捕捉时间序列数据中的长期依赖关系。
+
+该模型主要由编码器(Encoder)和解码器(Decoder)构成，如图 12 所示，它们之间通过多头注意力机制和前馈神经网络连接在一起，通过并行处理能力和位置编码实现高效的信息交互、传递。与传统的 CNN、LSTM 等模型不同，该模型可以并行处理序列数据，从而提高处理效率。
+
+# 2.5 组合预测方法
+
+将传统物理方法与人工智能预测模型相结合，可以对预测模型产生的误差进行修正。为了克服单一模型的局限性，可以结合不同方法的优点建立组合模型，从而提高预测性能，表5对部分组合预测方法进行了归纳总结[86-94]。目前组合方法的思想主要包括数据分解、多模型融合及模型参数优化、输
+
+![](images/7a9498408dd21affe28805e88b062a15136e134da7a83fc8925af1531fdb0d06.jpg)  
+图 11 门控循环单元原理图
+
+![](images/a88550c05fb2eb3156fe94cd94d45a3cbd0682760023e9d03ce23cef9c600c93.jpg)  
+Fig.11 Schematic diagram of gated recurrent unit   
+图 12 Transformer 模型原理图  
+Fig.12 Transformer model schematic diagram
+
+入和输出数据处理几个模块。在组合负荷预测模型中，利用物理方法和人工智能预测模型构成互补机制，当人工智能预测的结果超出阈值较多、偏差较大时，利用动态切换机制将误差值切换为传统物理方法进行修正，从而降低误差、提高精度。文献[86]提出了一种数据-物理混合驱动的超短期预测方法，首先，构建了一种融合双向门控循环单元(Bi-GRU)的预测模型，将其在测试集的预测结果作为模板；然后，根据风速-风电转换特性，基于多项式-线性回归模型拟合曲线，以物理机理透明的拟合曲线进行预测；最后，根据风速波动阈值建立不同模型的动态切换机制，当预测值超出设定的阈值范围时，
+
+即切换为物理预测方法，利用风速-风电转换特性和相关计算式，计算出误差较小的负荷值。
+
+综上可知，深度学习和组合模型方法在负荷预测研究中应用广泛。单一方法主要包括 SVM、LSTM、CNN、GRU和决策森林，组合方法主要包括 CNN-LSTM、GRU-RNN、CNN-RNN、LSTM-GA混合方法等。文献[95]采用支持向量机方法进行负荷预测；文献[96-98]采用 LSTM 进行负荷预测；文献[99-101]采用 CNN 进行负荷预测；文献[102-104]采用 GRU 模型进行负荷预测。文献[105]将 CNN 与LSTM 相结合，提出了一种结合太阳能辐射模型的CNN-LSTM 预测模型，对澳大利亚某地区的电力负荷进行预测。文献[106]提出了一种结合相似日聚类的 LSTM-Transformer 模型，将 LSTM 与近几年新提出的 Transformer 模型相结合，利用 LSTM 捕捉隐藏在时序序列中的隐藏关系，再结合Transformer模型进行负荷预测。
+
+综上所述，组合预测方法通过整合多种预测技术，不仅提高了预测的准确性和鲁棒性，还增强了预测过程的科学性和适应性，使其在多个应用场景中的预测精确度和多场景适应性都得到了提高[107-108]。
+
+# 3 新型电力系统背景下负荷预测研究展望
+
+# 3.1 模型层面
+
+# 3.1.1 LLM在电力负荷预测的应用展望
+
+在预测中常出现历史数据不易获取或历史数据量少不足以支撑预测的情况，且在分析用户用电行为时用户心理等数据难以获取，故需要提出新的模型来提高预测精度。LLM 来源于深度学习与自然语言处理的交叉融合，其原理如图13 所示，是一种利用大规模语料模型进行预训练和微调的模型，具有传统人工智能模型不具备的强泛化能力与逻辑推理能力，随着技术的发展可能会用于解决负荷预测中的用户行为画像与小样本问题[109]。
+
+对于预测中遇到的小样本问题，由于 LLM 模型首先采用通用数据进行预训练，再采用领域相关数据进行微调，故其对历史数据的依赖程度较低，能从历史数据不足角度解决小样本问题[110]。此外，LLM模型具有强大的知识理解能力和强泛化能力，有助于解决用电行为理解过程中特征缺失、多源数据融合困难等问题，从而解决用户行为画像问题。因此大语言模型在负荷预测领域具有广泛的应用前景[111]。
+
+表 5 组合预测文献总结表  
+Table 5 Summary of portfolio prediction literature   
+
+<table><tr><td>参考文献</td><td>关键技术</td><td>创新点</td></tr><tr><td>[86]</td><td>数据-物理混合驱动的方法</td><td>在风速突变时点引入风速-负荷曲线的预测负荷,对预测结果进行完善</td></tr><tr><td>[87]</td><td>VNCMD与TCN-TPA-LSTM相结合的模型</td><td>把变分非线性调频模态分解(variational nonlinear chirp mode decomposition,VNCMD)与TCN-TPA-LSTM模型相结合</td></tr><tr><td>[88]</td><td>DBO-VMD和IWOA-BILSTM相结合</td><td>提出了基于蜣螂算法优化与改进鲸鱼算法的模型</td></tr><tr><td>[89]</td><td>ACMD与SSA-BILSTM组合模型</td><td>将自适应啁啾模态分解与麻雀优化算法、BiLSTM模型相结合进行预测</td></tr><tr><td>[90]</td><td>用改进Q学习算法对组合模型进行加权组合</td><td>利用改进Q学习算法对双向长短期记忆网络的预测结果和深度极限学习机的预测结果进行加权组合</td></tr><tr><td>[91]</td><td>Prophet和双重多头自注意力-时间卷积网络相结合</td><td>通过Prophet提取负荷序列中隐含的时序特征。在时间卷积网络的基础上,引入特征和时序双重多头自注意力,用于挖掘输入特征</td></tr><tr><td>[92]</td><td>将贝叶斯模型与CatBoost回归模型组合</td><td>利用BTVC模型获得各负荷分量,再利用CatBoost回归模型进行预测</td></tr><tr><td>[93]</td><td>将物理信息特征与神经网络模型相结合</td><td>建立了极端事件下风电输出的解析物理表达式,并提出了基于深度确定性策略梯度的分位数拟合模型</td></tr><tr><td>[94]</td><td>将太阳辐射物理模型与神经网络相结合</td><td>利用太阳辐射机制建立太阳辐射模型,并与LSTM模型相结合进行组合预测</td></tr></table>
+
+![](images/d632f931725ea8374af12daf1b27397265318035ddfac7370db4d1a608dcd6ce.jpg)  
+图 13 基于大语言模型的负荷预测  
+Fig.13 Load forecasting based on large language models
+
+# 3.1.2 多模态数据融合概率负荷预测
+
+在电力物联网和数字电网高速发展的背景下，电力系统中的数据呈现多模态形态特性，各种信息网络的耦合使得电力数据来源日渐丰富和多元化，对电力多模态数据进行融合利用，有利于在整体上对电力系统进行深度分析。
+
+电力多模态数据从业务领域角度可分为规划运行数据、运营数据、管理数据、非电能源数据以及非能源数据等，从数据获取的方式来看可分为仿
+
+真数据和实际量测数据等。在进行电力系统负荷预测时，数据可分为数值型和非数值型 2 种，2 者对负荷的影响程度不尽相同，电力系统源、网、储、荷各类场景均具有多模态数据，且多模态数据从不同角度对电力场景进行了描述[112]，其中多模态数据是指集成不同类型传感器或数据源信息的数据集，包括文本、图像、视频、音频、传感器数据等[113]。对多模态数据进行融合能够整合不同角度的电力场景信息，使多模态信息相互补充和增强，从而有效提高电力场景感知的精确性。
+
+图 14 为基于多源数据融合的概率负荷预测框图。多模态数据融合以多模态数据为基础，以被分析对象的整体性、统一性和全局性分析为实现途径，通过源网荷储各环节的高精确性、高容错性分析，实现电力系统全面可观可控的整体目标[114]。相比于确定性预测，概率预测更能量化结果的不确定性，并提供更全面准确的信息，反馈出更为准确、灵活的决策，因此在供给侧新能源发电比重不断提高、电力系统负荷变得更为多重不确定性的情况下，其可以实现对负荷不确定性的有效量化[115-116]。
+
+# 3.2 场景层面
+
+# 3.2.1 源-荷-电价联合预测
+
+在综合能源系统中，由于能源生产、利用和交易的显著不确定性，因此可靠的规划和运行十分必要。能源层级的不确定性和变化会导致电力价格的变化，而电力价格波动又会反作用于能源相关政策，2者具有强相关性和强耦合性[117]。只对电力负荷进行预测不能反映负荷-电价之间的强耦合性。对于IES系统，源-负荷-电价联合预测有助于全面细致地把握各种不确定性变量的未来发展趋势，实现源、负荷、电价不确定性的互补，并进一步探索和利用不同能源的互补替代性和内在耦合性，实现从源头到负荷、再到价格的全系统协同优化[118]。
+
+图15为源-荷-电价联合预测框图，现有研究主要集中于可再生能源、负荷-电价以及基于单变量预测的源-负荷联合预测等方面，尚未成功揭示 IES中电力(能源层)和电价(市场层)之间的复杂耦合关系，也未实现能源层和市场层的源-负荷-电价联合预测。由于从多能源负荷、可再生能源、能源价格、气象数据等中提取数据特征，并提取不同层之间的耦合特性较为困难[119]，因此实现联合源-负荷-电价预测是一个重大的挑战。
+
+![](images/4c62259ecb4c57ad5a7ea11da72b16e7509dea3aee0cef6dd0d9581868df2719.jpg)  
+图14 基于多模态数据融合的概率负荷预测  
+Fig.14 Probabilistic load forecasting based on multimodal data fusion
+
+![](images/bc1b442e271d8b6d964a9532a3ad9778c42f7ca0c98b9aa42e7b4330500a3e50.jpg)  
+图 15 源-荷-电价联合预测框图  
+Fig.15 Block diagram of combined source-charge-electricity price prediction
+
+# 3.2.2 有源配电网网供负荷预测
+
+配电网在电力系统中承担着分配电能的重要职能，在提高电网运行效率及安全可靠性、促进新能源并网消纳方面起到关键作用[120]。随着分布式电源、电动汽车等并入电网以及用户终端再电气化程度不断增加，传统的单电源放射状配电网变为多电源的复杂有源配电网，其负荷特性与常规负荷特性产生了较大差异[121]。有源配电网的系统负荷及馈线负荷构成日益复杂，其中分布式新能源发电分量、非计划分量与气象因素密切相关[122]。因此针对有源配电网中不同负荷构成进行预测，有助于提高配电网运行效率及安全性、可靠性。
+
+有源配电网负荷预测结构如图 16 所示，由于有源配电网由分布式发电、储能系统等集成而成，其拓扑结构比传统电网更为复杂[123]，故对有源配电网网供负荷进行预测时，要考虑其复杂的拓扑结构以及变电站-馈线-配变及分布式电源之间的拓扑层级关系[124]。
+
+现有负荷预测研究大多将馈线、配电等作为整体负荷来进行预测，对于有源负荷的不同构成成分
+
+![](images/e437145bd1ca863e1df8880dfffde04851161e104477d6a490cde1b1a6ab0dbd.jpg)  
+图 16 有源配电网负荷预测结构图  
+Fig.16 Load forecasting structure of active distribution network
+
+考虑不足，难以满足现阶段负荷预测精度需求[125]。对有源配电网的有源负荷进行分类考虑，根据不同构成建立不同的预测模型，分别对变电站供电范围内的负荷大小和分布式电源出力进行预测，能对电网进行实时宏观控制，并能够对配电网运行起到指导性作用。因此建立有源配电网变电站网供负荷预测模型，实现对有源负荷的准确预测仍具有很大的挑战性。
+
+# 4 结论
+
+随着计算机技术和人工智能技术的迅速发展，深度学习算法与新型电力系统的结合越来越紧密，随着人工智能技术的不断发展和新能源行业的持续壮大，电力负荷预测将迎来更加精确、高效和智能化的发展。未来可以预见深度学习算法将更加深入地应用于电力系统中，不断提升预测准确性和稳定性。同时，随着数据量的增加和算法的优化，负荷预测模型将更加智能化和自适应，为新型电力系统的运行和管理提供更为可靠的支持。未来的研究方向可能包括大语言模型、多源数据融合、源-荷-电价联合预测等，为电力行业的智能化转型和可持续发展注入新的活力。
+
+# 参考文献 References
+
+[1] HU Y W J, YANG B, WU P Y, et al. Optimal planning of electric-heating integrated energy system in low-carbon park with energy storage system[J]. Journal of Energy Storage, 2024, 99: 113327.   
+[2] 邱伟强，王茂春，林振智，等.“双碳”目标下面向新能源消纳场 景的共享储能综合评价[J]. 电力自动化设备，2021，41(10)：244-255. QIU Weiqiang, WANG Maochun, LIN Zhenzhi, et al. Comprehensive evaluation of shared energy storage towards new energy accommodation scenario under targets of carbon emission peak and carbon neutrality[J]. Electric Power Automation Equipment, 2021, 41(10):
+
+244-255.   
+[3] YANG B, DUAN J H, LIU Z J, et al. Exploring sustainable development of new power systems under dual carbon goals: control, optimization, and forecasting[J]. Energies, 2024, 17(16): 3909.   
+[4] EREN Y, KÜÇÜKDEMIRAL İ. A comprehensive review on deep learning approaches for short-term load forecasting[J]. Renewable and Sustainable Energy Reviews, 2024, 189: 114031.   
+[5] 秦 超，余贻鑫. 基于安全域的含风电电力系统概率小扰动稳定分 析[J]. 电力系统自动化，2014，38(10)：43-48. QIN Chao, YU Yixin. Security region based probabilistic small signal stability analysis for power systems with wind power integration[J]. Automation of Electric Power Systems, 2014, 38(10): 43-48.   
+[6] CHEN X S, LIN J, WAN C, et al. A unified frequency-domain model for automatic generation control assessment under wind power uncertainty[J]. IEEE Transactions on Smart Grid, 2019, 10(3): 2936-2947.   
+[7] 康重庆，夏 清，张伯明. 电力系统负荷预测研究综述与发展方向 的探讨[J]. 电力系统自动化，2004，28(17)：1-11. KANG Chongqing, XIA Qing, ZHANG Boming. Review of power system load forecasting and its development[J]. Automation of Electric Power Systems, 2004, 28(17): 1-11.   
+[8] 国务院国有资产监督管理委员会. 南方电网加强调度负荷预测管 理 与 考 核 [EB/OL]. (2008-11-28)[2024-09-17]. http://wap.sasac. gov.cn/n2588025/n2588124/c3957185/content. html. State-owned Assets Supervision and Administration Commission of the State Council. China Southern Power Grid strengthens load forecasting management and assessment in dispatching[EB/OL]. (2008-11-28)[2024-09-17]. http://wap.sasac.gov.cn/n2588025/n2588124/ c3957185/content. html.   
+[9] GUO R, MEUNIER S, PROTOPAPADAKI C, et al. A review of European low-voltage distribution networks[J]. Renewable and Sustainable Energy Reviews, 2023, 173: 113056.   
+[10] 李明节，梁志峰，许 涛，等. 基于敏感气温空间分布的度夏度冬日最大负荷预测与应用研究[J]. 电网技术，2023，47(3)：1088-1097.LI Mingjie, LIANG Zhifeng, XU Tao, et al. Prediction and applicationof maximum daily load in summer and winter based on spatial distri-bution of sensitive temperatures[J]. Power System Technology, 2023,47(3): 1088-1097.  
+[11] 史佳琪，马丽雅，李晨晨，等. 基于串行–并行集成学习的高峰负荷预测方法[J]. 中国电机工程学报，2020，40(14)：4463-4472.SHI Jiaqi, MA Liya, LI Chenchen, et al. Daily peak load forecastingbased on sequential-parallel ensemble learning[J]. Proceedings of theCSEE, 2020, 40(14): 4463-4472.  
+[12] 陈海鹏，唐俊敏，吴 昊，等. 计及电动汽车需求响应与碳配额收 益的配电网优化调度[J/OL]. 电网技术，2024：1-12[2024-11-01]. https://doi.org/10.13335/j.1000-3673.pst.2024.1365. CHEN Haipeng, TANG Junmin, WU Hao, et al. Optimal scheduling of distribution network considering electric vehicle demand response and carbon quota revenue[J/OL]. Power System Technology, 2024: 1-12 [2024-11-01]. https://doi.org/10.13335/j.1000-3673.pst.2024.1365.   
+[13] 姜 飞，林政阳，王文烨，等. 考虑最小平均包络熵负荷分解的最优Bagging集成超短期多元负荷预测[J]. 中国电机工程学报，2024，44(5)：1777-1788.JIANG Fei, LIN Zhengyang, WANG Wenye, et al. Optimal baggingensemble ultra short term multi-energy load forecasting consideringleast average envelope entropy load decomposition[J]. Proceedings ofthe CSEE, 2024, 44(5): 1777-1788.  
+[14] 陈逸枞，张大海，于 浩，等. 基于 Seq2seq 模型的多特征短期母线负荷预测[J]. 电力系统及其自动化学报，2023，35(1)：1-6，35.CHEN Yicong, ZHANG Dahai, YU Hao, et al. Short-term bus load
+
+forecasting of multi-feature based on Seq2seq model[J]. Proceedings of the CSU-EPSA, 2023, 35(1): 1-6, 35.   
+[15] 肖 龙，张 靖，阚 超，等. 基于变分模态分解和组合深度神经网络的综合能源系统多元负荷预测[J/OL]. 电网技术，2024：1-11[2024-11-01]. https://doi.org/10.13335/j.1000-3673.pst.2024.0947.  
+XIAO Long, ZHANG Jing, KAN Chao, et al. Multivariate load forecasting for integrated energy systems based on variational modal decomposition and combined deep neural networks[J/OL]. Power System Technology, 2024: 1-11[2024-11-01]. https://doi.org/10.13335/ j.1000-3673.pst.2024.0947.   
+[16] 刘 行，王秋晨，文韵豪，等. 基于 BO-LSTM 的天然气处理厂负荷率预测模型[J]. 天然气与石油，2023，41(5)：122-130.  
+LIU Xing, WANG Qiuchen, WEN Yunhao, et al. Forecasting model for load rate of natural gas treatment plant based on BO-LSTM model[J]. Natural Gas and Oil, 2023, 41(5): 122-130.   
+[17] 谭忠富，蒲 雷，吴 静，等. 基于负荷率差别定价的分时输配电价优化模型[J]. 系统工程理论与实践，2019，39(11)：2945-2952.  
+TAN Zhongfu, PU Lei, WU Jing, et al. Time-of-use transmission and distribution price optimization model based on differential loading rate[J]. Systems Engineering-Theory & Practice, 2019, 39(11): 2945-2952.   
+[18] 戴浩男，张辰灏，甄 钊，等. 基于时空特征聚类和双层动态图卷积网络建模的短期净负荷预测[J]. 高电压技术，2024，50(9)：3914-3923.  
+DAI Haonan, ZHANG Chenhao, ZHEN Zhao, et al. Short-term net load forecasting based on temporal-spatial feature clustering and two-layer dynamic graph convolutional network modeling[J]. High Voltage Engineering, 2024, 50(9): 3914-3923.   
+[19] ZHANG Q Y, ZHOU S Y, XU B R, et al. TCAMS-Trans: efficient temporal-channel attention multi-scale transformer for net load forecasting[J]. Computers and Electrical Engineering, 2024, 118: 109415.   
+[20] RIZI T E, RASTEGAR M, FOROOTANI A. Power system flexibility analysis using net-load forecasting based on deep learning considering distributed energy sources and electric vehicles[J]. Computers and Electrical Engineering, 2024, 117: 109305.   
+[21] 朱琼锋，李家腾，乔 骥，等. 人工智能技术在新能源功率预测的应用及展望[J]. 中国电机工程学报，2023，43(8)：3027-3047.  
+ZHU Qiongfeng, LI Jiateng, QIAO Ji, et al. Application and prospect of artificial intelligence technology in renewable energy forecasting[J]. Proceedings of the CSEE, 2023, 43(8): 3027-3047.   
+[22] 徐飞阳，薛安成，常乃超，等. 电力系统同步相量异常数据检测与修复研究现状与展望[J]. 中国电机工程学报，2021，41(20)：6869-6885.  
+XU Feiyang, XUE Ancheng, CHANG Naichao, et al. Research status and prospects of detection, correction and recovery for abnormal synchrophasor data in power system[J]. Proceedings of the CSEE, 2021, 41(20): 6869-6885.   
+[23] CHEN G, MA X F, WEI L. Multifeature-based variational mode decomposition-temporal convolutional network-long short-term memory for short-term forecasting of the load of port power systems[J]. Sustainability, 2024, 16(13): 5321.   
+[24] 曾囿钧，肖先勇，徐方维，等. 基于CNN-BiGRU-NN模型的短期负荷预测方法[J]. 中国电力，2021，54(9)：17-23.  
+ZENG Youjun, XIAO Xianyong, XU Fangwei, et al. A short-term load forecasting method based on CNN-BiGRU-NN model[J]. Electric Power, 2021, 54(9): 17-23.   
+[25] 赵永宁，叶 林，朱倩雯. 风电场弃风异常数据簇的特征及处理方法[J]. 电力系统自动化，2014，38(21)：39-46.  
+ZHAO Yongning, YE Lin, ZHU Qianwen. Characteristics and pro-
+
+cessing method of abnormal data clusters caused by wind curtailments in wind farms[J]. Automation of Electric Power Systems, 2014, 38(21): 39-46.   
+[26] 杨 茂，杨琼琼. 基于云分段最优熵算法的风电机组异常数据识别研究[J]. 中国电机工程学报，2018，38(8)：2294-2301.  
+YANG Mao, YANG Qiongqiong. The identification research of the wind turbine abnormal data based on the cloud segment optimal entropy algorithm[J]. Proceedings of the CSEE, 2018, 38(8): 2294-2301.   
+[27] 彭 勃，李耀东，龚贤夫. 基于自编码的改进 $K$ -means 光伏能源数据清洗方法[J]. 计算机科学，2024，51(增刊 1)：230700070.  
+PENG Bo, LI Yaodong, GONG Xianfu. Improved $K$ -means photovoltaic energy data cleaning method based on autoencoder[J]. Computer Science, 2024, 51(Supplement 1): 230700070.   
+[28] QIAN Z H, HU M H, WANG L H, et al. A weighted stabilized lagrange interpolation collocation method for boundary condition identification in 3D electromagnetic inverse scattering[J]. Advances in Engineering Software, 2024, 197: 103755.   
+[29] 王守相，陈海文，潘志新，等. 采用改进生成式对抗网络的电力系统量测缺失数据重建方法[J]. 中国电机工程学报，2019，39(1)：56-64.  
+WANG Shouxiang, CHEN Haiwen, PAN Zhixin, et al. A reconstruction method for missing data in power system measurement using an improved generative adversarial network[J]. Proceedings of the CSEE, 2019, 39(1): 56-64.   
+[30] ZHOU H, ZHENG P J, DONG J Q, et al. Interpretable feature selection and deep learning for short-term probabilistic PV power forecasting in buildings using local monitoring data[J]. Applied Energy, 2024, 376: 124271.   
+[31] SU Z Y, GU S Y, WANG J, et al. Improving ultra-short-term photovoltaic power forecasting using advanced deep-learning approach[J]. Measurement, 2025, 239: 115405.   
+[32] WU L X, MEI J, XU Y W, et al. Stack performance classification and fault diagnosis optimization of solid oxide fuel cell system based on bayesian artificial neural network and feature selection[J]. Journal of Power Sources, 2024, 620: 235198.   
+[33] HERCZEG B, PINTÉR É. The Nexus between wholesale electricity prices and the share of electricity production from renewables: an analysis with and without the impact of time of distress[J]. Energies, 2024, 17(4): 857.   
+[34] GANG L, JIN Z Y, YU H Z. Short-term electrical load forecasting based on fuzzy rough set feature selection and multi-kernel extreme learning machine[J]. International Journal of Computational Intelligence Systems, 2024, 17(1): 160.   
+[35] LI J X, ZHOU Z M, WEN M, et al. Multi-objective optimization method for medium and long-term power supply and demand balance considering the spatiotemporal correlation of source and load[J]. Energy Strategy Reviews, 2024, 54: 101463.   
+[36] ROUHI A, BOUYER A, ARASTEH B, et al. Two-pronged feature reduction in spectral clustering with optimized landmark selection[J]. Applied Soft Computing, 2024, 161: 111775.   
+[37] LIU J S, WANG X A, LI G F, et al. Improved secure PCA and LDA algorithms for intelligent computing in IoT-to-cloud setting[J]. Computational Intelligence, 2024, 40(1): e12613.   
+[38] 张祖菡，刘敦楠，凡 航，等. 基于大语言模型的电力系统预测技术研究综述[J]. 发电技术，2024，45(1)：1-17.  
+ZHANG Zuhan, LIU Dunnan, FAN Hang, et al. Research overview of power system forecasting technology based on large language models[J]. Power Generation Technology, 2024, 45(1): 1-17.   
+[39] 刘 杰，周博文，田 明，等. 基于迁移学习和 TCN-BIGRU 的短
+
+期负荷预测[J/OL]. 北京航空航天大学学报：1-12[2024-11-01].https://doi.org/10.13700/j. bh.1001-5965.2024.0056.  
+LIU Jie, ZHOU Bowen, TIAN Ming, et al. Short-term load forecasting based on migration learning and TCN-BIGRU[J/OL]. Journal of Beijing University of Aeronautics and Astronautics: 1-12[2024-11-01]. https://doi.org/10.13700/j.bh.1001-5965.2024.0056.   
+[40] RADWAN A, AMARNEH M, ALAWNEH H, et al. Predictive analytics in mental health leveraging LLM embeddings and machine learning models for social media analysis[J]. International Journal of Web Services Research, 2024, 21(1): 1-22.   
+[41] 本刊编辑部. 国家发展改革委、国家能源局印发《电力负荷管理办法(2023 年版)》[J]. 农村电工，2023，31(11)：1.Journal Editorial Board. National Development and Reform Commis-sion and National Energy Administration issue measures for electricityload management (2023 edition)[J]. Rural Electrician, 2023, 31(11): 1.  
+[42] 宫 婷，车建峰，王 勃，等. 考虑误差概率分布及波动特性的短 期风电功率预测修正方法[J/OL]. 高电压技术，2024：1-12 [2024-09-07]. https://doi.org/10.13336/j.1003-6520. hve. 20232200. GONG Ting, CHE Jianfeng, WANG Bo, et al. Short term wind power prediction correction method considering error probability distribution and fluctuation characteristics[J/OL]. High Voltage Engineering, 2024: 1-12[2024-09-07]. https://doi.org/10.13336/j.1003-6520.hve. 20232200.   
+[43] SARMA K A, ROY S, ANNAVARAPU C, et al. Interface PINNs (I-PINNs): a physics-informed neural networks framework for interface problems[J]. Computer Methods in Applied Mechanics and Engineering, 2024, 429: 117135.   
+[44] HUANG X F, HAN Y M, YAN J W, et al. Hybrid forecasting model of building cooling load based on EMD-LSTM-Markov algorithm[J]. Energy and Buildings, 2024, 321: 114670.   
+[45] PENG D G, LIU Y, WANG D H, et al. Multi-energy load forecasting for integrated energy system based on sequence decomposition fusion and factors correlation analysis[J]. Energy, 2024, 308: 132796.   
+[46] CHEN S H, ZHOU X Q, ZHOU G, et al. An online physical-based multiple linear regression model for building’s hourly cooling load prediction[J]. Energy and Buildings, 2022, 254: 111574.   
+[47] SINGH P K, SINGH N, NEGI R. Short-term wind power prediction using hybrid auto regressive integrated moving average model and dynamic particle swarm optimization[J]. International Journal of Cognitive Informatics and Natural Intelligence, 2021, 5(2): 111-138.   
+[48] 张昊立，张 菁，倪建辉，等. 引入注意力机制的 LSTM-FCN 海上风电功率预测[J]. 太阳能学报，2024，45(6)：444-450.ZHANG Haoli, ZHANG Jing, NI Jianhui, et al. LSTM-FCN offshorewind power forecasting with introduction of attention mechanism[J].Acta Energiae Solaris Sinica, 2024, 45(6): 444-450.  
+[49] AN W H, GAO B, LIU J H, et al. Predicting hourly heating load in residential buildings using a hybrid SSA-CNN-SVM approach[J]. Case Studies in Thermal Engineering, 2024, 59: 104516.   
+[50] 杨桂松，高炳涛，何杏宇. 融合 CNN 与 BiLSTM 模型的短期电能负荷预测[J]. 小型微型计算机系统，2024，45(9)：2253-2260.YANG Guisong, GAO Bingtao, HE Xingyu. Short-term power loadforecasting based on CNN and BiLSTM model[J]. Journal of ChineseComputer Systems, 2024, 45(9): 2253-2260.  
+[51] 田浩含，张智晟，于道林. 基于改进 LSTM 的区域综合能源系统多元负荷短期预测研究[J]. 电力系统及其自动化学报，2021，33(9)：130-137.TIAN Haohan, ZHANG Zhisheng, YU Daolin. Research on multi-loadshort-term forecasting of regional integrated energy system based onimproved LSTM[J]. Proceedings of the CSU-EPSA, 2021, 33(9):130-137.
+
+[52] ZHU Y D, CHEN S H, XING Z X, et al. Distributed generator configuration calibration method based on TCN-BiGRU-Attention algorithm[J]. Electric Power Systems Research, 2024, 230: 110248.   
+[53] 孟 衡，张 涛，王 金，等. 基于多尺度时空图卷积网络与Transformer 融合的多节点短期电力负荷预测方法[J]. 电网技术，2024，48(10)：4297-4311.MENG Heng, ZHANG Tao, WANG Jin, et al. Multi-node short-termpower load forecasting method based on multi-scale spatiotemporalgraph convolution network and transformer[J]. Power System Tech-nology, 2024, 48(10): 4297-4311.  
+[54] RODRIGUES F, CARDEIRA C, CALADO J M F, et al. Short-term load forecasting of electricity demand for the residential sector based on modelling techniques: a systematic review[J]. Energies, 2023, 16(10): 4098.   
+[55] BROWN B G, KATZ R W, MURPHY A H. Time series models to simulate and forecast wind speed and wind power[J]. Journal of Climate and Applied Meteorology, 1984, 23(8): 1184-1195.   
+[56] BHAVSAR S, PITCHUMANI R, ORTEGA-VAZQUEZ M A. Machine learning enabled reduced-order scenario generation for stochastic analysis of solar power forecasts[J]. Applied Energy, 2021, 293: 116964.   
+[57] 周思明，段金长，李颖杰，等. 一种改进的 SVM 短期电力系统负荷预测方法[J]. 沈阳工业大学学报，2023，45(6)：661-665.ZHOU Siming, DUAN Jinchang, LI Yingjie, et al. An improved SVMshort term load forecasting method for power system[J]. Journal ofShenyang University of Technology, 2023, 45(6): 661-665.  
+[58] 王永利，刘泽强，董焕然，等. 基于 VMD-CSO-RF 的综合能源系统短期负荷预测[J/OL]. 华北电力大学学报(自然科学版)，2024：1-10[2024-09-06]. http://kns.cnki.net/kcms/detail/13.1212.TM.20240314.1850.002. html.WANG Yongli, LIU Zeqiang, DONG Huanran, et al. Short-term loadforecasting of integrated energy systems based on VMD-CSO-RF[J/OL]. Journal of North China Electric Power University(Natural Science Edition), 2024: 1-10[2024-09-06]. http://kns.cnki.net/kcms/detail/13.1212. TM. 20240314.1850.002. html.  
+[59] WAN A P, CHANG Q, AL-BUKHAITI K, et al. Short-term power load forecasting for combined heat and power using CNN-LSTM enhanced by attention mechanism[J]. Energy, 2023, 282: 128274.   
+[60] 韩宇超，同向前，邓亚平. 基于概率密度估计与时序 Transformer网络的风功率日前区间预测[J]. 中国电机工程学报，2024，44(23)：9285-9295.HAN Yuchao, TONG Xiangqian, DENG Yaping. Probabilistic distri-bution estimation and temporal Transformer-based interval predictionin day-ahead wind power prediction[J]. Proceedings of the CSEE,2024, 44(23): 9285-9295.  
+[61] LIU H L, LI Z Y, LI C, et al. Research and application of short-term load forecasting based on CEEMDAN-LSTM modeling[J]. Energy Reports, 2024, 12: 2144-2155.   
+[62] HU J X, HU W H, CAO D, et al. Probabilistic net load forecasting based on transformer network and Gaussian process-enabled residual modeling learning method[J]. Renewable Energy, 2024, 225: 120253.   
+[63] WANG D, LI S, FU X J. Short-term power load forecasting based on secondary cleaning and CNN-BILSTM-Attention[J]. Energies, 2024, 17(16): 4142.   
+[64] LU Y T, WANG G C, HUANG X F, et al. Probabilistic load forecasting based on quantile regression parallel CNN and BiGRU networks[J]. Applied Intelligence, 2024, 54(15/16): 7439-7460.   
+[65] 邹 智，吴铁洲，张晓星，等. 基于贝叶斯优化 CNN-BiGRU 混合神经网络的短期负荷预测[J]. 高电压技术，2022，48(10)：3935-3945.
+
+ZOU Zhi, WU Tiezhou, ZHANG Xiaoxing, et al. Short-term load forecast based on Bayesian optimized CNN-BiGRU hybrid neural networks[J]. High Voltage Engineering, 2022, 48(10): 3935-3945.   
+[66] 李东阳，权紫轩，张 彪，等. 基于 SSA-LSTM 的海洋条件下稳 压器液位回 归预测研究[J/OL]. 核动力工程： 1-7[2024-11-01]. http://kns.cnki.net/kcms/detail/51.1158.TL.20250219.1634.010.html. LI Dongyang, QUAN Zixuan, ZHANG Biao, et al. SSA-LSTM-based regression prediction of regulator level under oceanic conditions[J/OL]. Nuclear Power Engineering: 1-7[2024-11-01]. http://kns.cnki.net/ kcms/detail/51.1158.TL.20250219.1634.010.html.   
+[67] 高寒旭，袁祖晴，张淑婷，等. 基于 LSTM 模型的短期光伏功率预 测[J]. 太阳能学报，2024，45(6)：376-381. GAO Hanxu, YUAN Zuqing, ZHANG Shuting, et al. Short-term photovoltaic power prediction based on LSTM model[J]. Acta Energiae Solaris Sinica, 2024, 45(6): 376-381.   
+[68] FAN P D, WANG D, WANG W, et al. A novel multi-energy load forecasting method based on building flexibility feature recognition technology and multi-task learning model integrating LSTM[J]. Energy, 2024, 308: 132976.   
+[69] CHEN Y X, LIN C J, ZHANG Y L, et al. Day-ahead load forecast based on Conv2D-GRU_SC aimed to adapt to steep changes in load[J]. Energy, 2024, 302: 131814.   
+[70] HE X, ZHAO W L, GAO Z J, et al. A hybrid prediction interval model for short-term electric load forecast using holt-winters and gate recurrent unit[J]. Sustainable Energy, Grids and Networks, 2024, 38: 101343.   
+[71] YANG Y, YAN J W, ZHOU X. A heat load prediction method for district heating systems based on the AE-GWO-GRU model[J]. Applied Sciences, 2024, 14(13): 5446.   
+[72] 黄文琦，梁凌宇，王 鑫，等. 基于变量选择与 Transformer 模型的中长期电力负荷预测方法[J]. 浙江大学学报(理学版)，2024，51(4)：483-491，500.HUANG Wenqi, LIANG Lingyu, WANG Xin, et al. Mid-long termpower load forecasting based variable selection and transformer mod-el[J]. Journal of Zhejiang University (Science Edition), 2024, 51(4):483-491, 500.  
+[73] TIAN Z R, LIU W C, JIANG W Q, et al. CNNs-Transformer based day-ahead probabilistic load forecasting for weekends with limited data availability[J]. Energy, 2024, 293: 130666.   
+[74] ZHAO M Z, GUO G R, FAN L J, et al. Short-term natural gas load forecasting based on EL-VMD-Transformer-ResLSTM[J]. Scientific Reports, 2024, 14(1): 20343.   
+[75] 何 晔，殷若宸，陆之洋，等. 基于 VMD-CNN-BiLSTM-CBAM的配变短期负荷预测方法[J]. 电力大数据，2024，27(6)：1-10.HE Ye, YIN Ruochen, LU Zhiyang, et al. Short-term load forecastingmethod for distribution transformers based on VMD-CNN-BiLSTM-CBAM[J]. Power Systems and Big Data, 2024, 27(6): 1-10.  
+[76] LI C, LI G J, WANG K Y, et al. A multi-energy load forecasting method based on parallel architecture CNN-GRU and transfer learning for data deficient integrated energy systems[J]. Energy, 2022, 259: 124967.   
+[77] 杨 建，常学军，姚 帅，等. 基于 WT-CNN-BiLSTM 模型的日 前光伏功率预测[J]. 南方电网技术，2024，18(8)：61-69，79. YANG Jian, CHANG Xuejun, YAO Shuai, et al. Day-ahead photovoltaic power forecasting based on WT-CNN-BiLSTM model[J]. Southern Power System Technology, 2024, 18(8): 61-69, 79.   
+[78] MUTHURAJ K, OTHMANI C, KRAUSE R, et al. A convolutional neural network to control sound level for air conditioning units in four different classroom conditions[J]. Energy and Buildings, 2024, 324:
+
+114913.   
+[79] DU R Y, CHEN H F, YU M, et al. 3DTCN-CBAM-LSTM short-term power multi-step prediction model for offshore wind power based on data space and multi-field cluster spatio-temporal correlation[J]. Applied Energy, 2024, 376: 124169.   
+[80] CAO W B, WANG G X, LIANG X L, et al. A STAM-LSTM model for wind power prediction with feature selection[J]. Energy, 2024, 296: 131030.   
+[81] LV Y, SHI Y J, LI Z Y, et al. Short-term load forecasting method of IES based on RLA neural network with dual signal processing[J]. Energy and Buildings, 2024, 309: 114074.   
+[82] 向 阳，刘亚娟，孙志伟，等. 基于帝王蝶算法的 CNN-GRU-LightGBM 模型短期风电功率预测[J]. 太阳能学报，2025，46(1)： 105-114. XIANG Yang, LIU Yajuan, SUN Zhiwei, et al. Short-term wind power prediction by CNN-GRU-LightGBM model based on monarch butterfly algorithm[J]. Acta Energiae Solaris Sinica, 2025, 46(1): 105-114.   
+[83] 刘 伟，蔡东升，冯付勇，等. 基于 DCT-CNN-GRU 的短期电力 负 荷 预 测 研 究 [J/OL]. 电 测 与 仪 表 ， 2024 ： 1-11[2024-09-07]. http://kns. cnki.net/kcms/detail/23.1202. th. 20240321.1323.002. html. LIU Wei, CAI Dongsheng, FENG Fuyong, et al. Research on short-term electric load forecasting based on DCT-CNN-GRU[J/OL]. Electrical Measurement & Instrumentation, 2024: 1-11[2024-09-07]. http://kns. cnki. net/kcms/detail/23.1202. th. 20240321.1323.002. html.   
+[84] 吐松江·卡日，雷柯松，马小晶，等. 基于 LSTM-Attention 和 CNN-BiGRU 误差修正的光伏功率预测[J]. 太阳能学报，2024， 45(12)：85-93. TUSONGJIANG Karzh, LEI Kesong, MA Xiaojing, et al. Photovoltaic power prediction based on LSTM-Attention and CNN-BiGRU error correction[J]. Acta Energiae Solaris Sinica, 2024, 45(12): 85-93.   
+[85] SUN H Y, YU Z C, ZHANG B N. Research on short-term power load forecasting based on VMD and GRU[J]. PLoS One, 2024, 19(7): e0306566.   
+[86] 杨 茂，王 达，王小海，等. 基于数据物理混合驱动的超短期风电功率预测模型[J]. 高电压技术，2024，50(11)：5132-5141.YANG Mao, WANG Da, WANG Xiaohai, et al. Ultra-short term windpower prediction method based on data physics hybrid driven model[J].High Voltage Engineering, 2024, 50(11): 5132-5141.  
+[87] 王博宇，文 中，周 翔，等. 基于变分非线性调频模态分解及 TCN-TPA-LSTM 的短期电力负荷组合预测模型[J/OL]. 现代电力， 2024：1-10[2024-09-07]. https://doi.org/10.19725/j.cnki.1007-2322.2023. 0250. WANG Boyu, WEN Wen, ZHOU Xiang, et al. Short-term load combination forecasting model based on variational nonlinear FM mode decomposition and TCN-TPA-LSTM[J/OL]. Modern Electric Power, 2024: 1-10[2024-09-07]. https://doi.org/10.19725/j.cnki.1007-2322. 2023.0250.   
+[88] 刘 杰，从兰美，夏远洋，等. 基于 DBO-VMD 和 IWOA-BILSTM神经网络组合模型的短期电力负荷预测[J]. 电力系统保护与控制，2024，52(8)：123-133.LIU Jie, CONG Lanmei, XIA Yuanyang, et al. Short-term power loadprediction based on DBO-VMD and an IWOA-BILSTM neural net-work combination model[J]. Power System Protection and Control,2024, 52(8): 123-133.  
+[89] 姚浩然，李成鑫，郑秀娟，等. 集成自适应啁啾模态分解和 Bi LSTM的短期负荷组合预测模型[J]. 电力系统保护与控制，2022，50(19)：58-66.YAO Haoran, LI Chengxin, ZHENG Xiujuan, et al. Short-term loadcombination forecasting model integrating ACMD and BiLSTM[J].
+
+Power System Protection and Control, 2022, 50(19): 58-66.   
+[90] 张 丽，李世情，艾恒涛，等. 基于改进 Q 学习算法和组合模型的超短期电力负荷预测[J]. 电力系统保护与控制，2024，52(9)：143-153.ZHANG Li, LI Shiqing, AI Hengtao, et al. Ultra-short-term powerload forecasting based on an improved Q-learning algorithm and com-bination model[J]. Power System Protection and Control, 2024, 52(9):143-153.  
+[91] 周思思，李 勇，郭钇秀，等. 考虑时序特征提取与双重注意力融 合的 TCN 超短期负荷预测[J]. 电力系统自动化，2023，47(18)： 193-205. ZHOU Sisi, LI Yong, GUO Yixiu, et al. Ultra-short-term load forecasting based on temporal convolutional network considering temporal feature extraction and dual attention fusion[J]. Automation of Electric Power Systems, 2023, 47(18): 193-205.   
+[92] 郑心仕，梁寿愚，苏 晓，等. 基于贝叶斯方法与可解释机器学习 的负荷特性分析与预测[J]. 电力系统自动化，2023，47(13)：56-68. ZHENG Xinshi, LIANG Shouyu, SU Xiao, et al. Characteristic analysis and load forecasting based on Bayesian method and interpretable machine learning[J]. Automation of Electric Power Systems, 2023, 47(13): 56-68.   
+[93] LIU Y L, WANG J Y, LIU L Q. Physics-informed reinforcement learning for probabilistic wind power forecasting under extreme events[J]. Applied Energy, 2024, 376: 124068.   
+[94] WU Y Y, LIU J, LI S H, et al. Physical model and long short-term memory-based combined prediction of photovoltaic power generation[J]. Journal of Power Electronics, 2024, 24(7): 1118-1128.   
+[95] MYAT A, KONDATH N, SOH Y L, et al. A hybrid model based on multivariate fast iterative filtering and long short-term memory for ultra-short-term cooling load prediction[J]. Energy and Buildings, 2024, 307: 113977.   
+[96] ZHOU M R, WANG L, HU F, et al. ISSA-LSTM: a new data-driven method of heat load forecasting for building air conditioning[J]. Energy and Buildings, 2024, 321: 114698.   
+[97] YU K. Adaptive Bi-directional LSTM short-term load forecasting with improved attention mechanisms[J]. Energies, 2024, 17(15): 3709.   
+[98] SONG X F, CHEN Z P, WANG J, et al. A multi-stage LSTM federated forecasting method for multi-loads under multi-time scales[J]. Expert Systems with Applications, 2024, 253: 124303-.   
+[99] HUA Q, FAN Z, MU W, et al. A short-term power load forecasting method using CNN-GRU with an attention mechanism[J]. Energies, 2024, 18(1): 106-106.   
+[100] SU Z, ZHENG G, WANG G, et al. An IDBO-optimized CNN-BiLSTM model for load forecasting in regional integrated energy systems[J]. Computers and Electrical Engineering, 2025, 123(PA): 110013.   
+[101] CHEN B C, YANG W S, YAN B, et al. An advanced airport terminal cooling load forecasting model integrating SSA and CNN-Transformer[J]. Energy and Buildings, 2024, 309: 114000.   
+[102] HUA G X, SUN Y, LI W W. Hybrid load prediction model of 5G base station based on time series decomposition and GRU network with parameter optimization[J]. IET Generation, Transmission & Distribution, 2024, 18(8): 1548-1558.   
+[103] HUA H, LIU M P, LI Y Q, et al. An ensemble framework for short-term load forecasting based on parallel CNN and GRU with improved ResNet[J]. Electric Power Systems Research, 2023, 216: 109057.   
+[104] ZHANG J, LIAO Z Y, SHU J, et al. Interval prediction of short-term photovoltaic power based on an improved GRU model[J]. Energy Science & Engineering, 2024, 12(7): 3142-3156.
+
+[105]王东风，刘 婧，黄 宇，等. 结合太阳辐射量计算与CNN-LSTM 组合的光伏功率预测方法研究[J]. 太阳能学报，2024，45(2)： 443-450. WANG Dongfeng, LIU Jing, HUANG Yu, et al. Photovoltaic power prediction method combinating solar radiation calculation and CNN-LSTM[J]. Acta Energiae Solaris Sinica, 2024, 45(2): 443-450.   
+[106] 董 俊，刘 瑞，束洪春，等. 基于 BIRCH 聚类的 L-Transformer 分布式光伏短期发电功率预测[J]. 高电压技术，2024，50(9)： 3883-3893. DONG Jun, LIU Rui, SHU Hongchun, et al. Short-term distributed photovoltaic power generation prediction based on BIRCH clustering and L-transformer[J]. High Voltage Engineering, 2024, 50(9): 3883-3893.   
+[107] 赵汉超，从兰美，刘 杰，等. 基于 EMD-GM-Elman 神经网络组合模型的新型电力系统新能源发电量及负荷需求量预测[J]. 电网与清洁能源，2024，40(10)：132-141.ZHAO Hanchao, CONG Lanmei, LIU Jie, et al. Forecasting of thenew energy generation and load demand in the novel power systembased on EMD-GM-Elman neural network combined model[J]. PowerSystem and Clean Energy, 2024, 40(10): 132-141.  
+[108] 赵俊华，文福拴，黄建伟，等. 基于大语言模型的电力系统通用人 工智能展望：理论与应用[J]. 电力系统自动化，2024，48(6)：13-28. ZHAO Junhua, WEN Fushuan, HUANG Jianwei, et al. Prospect of artificial general intelligence for power systems based on large language model: theory and applications[J]. Automation of Electric Power Systems, 2024, 48(6): 13-28.   
+[109] AUGENSTEIN I, BALDWIN T, CHA M, et al. Factuality challenges in the era of large language models and opportunities for fact-checking[J]. Nature Machine Intelligence, 2024, 6(8): 852-863.   
+[110] GAO D H, CHEN K D, CHEN B, et al. LLMs-based machine translation for E-commerce[J]. Expert Systems with Applications, 2024, 258: 125087.   
+[111] 杜 勇，黄良灿，沈小军，等. 输电线路雷电绕击风险评估多源数 据融合可视化方法[J]. 高电压技术，2024，50(5)：1877-1888. DU Yong, HUANG Liangcan, SHEN Xiaojun, et al. Multi-source data fusion visualization method for transmission line lightning shielding failure risk evaluation[J]. High Voltage Engineering, 2024, 50(5): 1877-1888.   
+[112] 乔少杰，刘晨旭，韩 楠，等. AP-IS：面向多模态数据的智能高效索 引 选 择 模 型 [J/OL]. 自 动 化 学 报 ， 2024 ： 1-18[2024-10-25].https://doi.org/10.16383/j. aas. c240196.QIAO Shaojie, LIU Chenxu, HAN Nan, et al. AP-IS: an intelligent andefficient index selection model for multimodal data[J/OL]. Acta Au-tomatica Sinica, 2024: 1-18[2024-10-25]. https: //doi. org/10.16383/j.aas. c240196.  
+[113] 王 波，王红霞，姚良忠，等. 电力系统多模态数据融合模式及关键技术问题[J]. 电力系统自动化，2022，46(19)：188-199.WANG Bo, WANG Hongxia, YAO Liangzhong, et al. Multi-modaldata fusion mode for power system and its key technical issues[J].Automation of Electric Power Systems, 2022, 46(19): 188-199.  
+[114] ÁLVAREZ V, MAZUELAS S, LOZANO J A. Probabilistic load forecasting based on adaptive online learning[J]. IEEE Transactions on Power Systems, 2021, 36(4): 3668-3680.   
+[115] QIU Y L, HE Z, ZHANG W Y, et al. MSGCN-ISTL: a multi-scaled self-attention-enhanced graph convolutional network with improved STL decomposition for probabilistic load forecasting[J]. Expert Systems With Applications, 2024, 238: 121737.   
+[116]王 巍，周芷伊，徐向彬，等. 计及源-荷不确定性及需求侧响应的多主体综合能源系统两阶段鲁棒优化配置[J]. 电力大数据，
+
+2024，27(3)：23-32.  
+WANG Wei, ZHOU Zhiyi, XU Xiangbin, et al. Two-stage robust optimal configuration of a multi-actor integrated energy system considering demand response and flexibility[J]. Power Systems and Big Data, 2024, 27(3): 23-32.   
+[117]刘巍炜，周羽生，周文晴，等. 考虑异方差性的城市电网电动汽车充电负荷预测[J]. 电力系统自动化，2024，48(15)：54-63.  
+LIU Weiwei, ZHOU Yusheng, ZHOU Wenqing, et al. Charging load forecasting for electric vehicles in urban power grid considering heteroscedasticity[J]. Automation of Electric Power Systems, 2024, 48(15): 54-63.   
+[118] LI K, MU Y C, YANG F, et al. Joint forecasting of source-load-price for integrated energy system based on multi-task learning and hybrid attention mechanism[J]. Applied Energy, 2024, 360: 122821.   
+[119] BAVISKAR A, NAZIR F U, HANSEN A D, et al. Strategic optimization framework considering unobservability in multi-voltage active distribution networks[J]. International Journal of Electrical Power & Energy Systems, 2024, 161: 110127.   
+[120] 仝新宇，张宇泽，张长生，等. 基于广义回归神经网络的有源配电网网供负荷预测方法[J]. 供用电，2020，37(12)：40-45.  
+TONG Xinyu, ZHANG Yuze, ZHANG Changsheng, et al. Load forecasting method of active distribution network based on generalized regression neural network[J]. Distribution & Utilization, 2020, 37(12): 40-45.   
+[121]张瑞雪，侯哲帆，倪永峰. 有源配电网精细化负荷预测软件开发与应用[J]. 太阳能学报，2024，45(5)：380-390.  
+ZHANG Ruixue, HOU Zhefan, NI Yongfeng. Development and application of refined load forecasting software for active distribution network[J]. Acta Energiae Solaris Sinica, 2024, 45(5): 380-390.   
+[122] RUEDA-MEDINA A C, FIOROTTI R, ROCHA H R O, et al. Novel sensitivity models for electromechanical oscillations analysis in active distribution networks considering electrical vehicles optimal charging[J]. Renewable Energy, 2024, 232: 121106.   
+[123] 王 玥，于 越，郭嘉辉，等. 基于改进 Crossformer 伪量测构建的主动配电网预测辅助状态估计方法[J/OL]. 高电压技术，2024：1-14[2024-09-07]. https://doi.org/10.13336/j.1003-6520.hve.20240178.  
+WANG Yue, YU Yue, GUO Jiahui, et al. Forecasting-aided state estimation method of active distribution network based on improved crossformer pseudo-measurements modeling[J/OL]. High Voltage Engineering, 2024: 1-14[2024-09-07]. https://doi.org/10.13336/j.1003- 6520.hve. 20240178.   
+[124] 李 鹏，李林媛，王加浩，等. 考虑风电不确定性和储能灵活性的
+
+有源配电网有功无功协同鲁棒优化[J]. 太阳能学报，2024，45(7)：303-311.  
+LI Peng, LI Linyuan, WANG Jiahao, et al. Active power and reactive power cooperative robust optimization of active distribution network considering wind power uncertainty and energy storage flexibility[J]. Acta Energiae Solaris Sinica, 2024, 45(7): 303-311.   
+[125] LIANG J Q, LI J E, DONG Z C, et al. Ultra-short-term operation situation prediction method of active distribution network based on convolutional neural networklong short term memory[J]. Sustainable Energy, Grids and Networks, 2024, 38: 101350.
+
+![](images/a502bfb8210719a2e5852e2e40bd09929b06655dec5f3a2a0dc114bc4e93eb2d.jpg)  
+MA Hengrui   
+Ph.D.
+
+![](images/e9e90240d1bd185a49b8b1ef7fbcd79f97c1aa9f02a646872d6839d2935fdf40.jpg)  
+Associate professor   
+YUAN Aotian
+
+![](images/e2d105995e34959b26b50452a68ce29904b3516a38c8158d9c9cdbabaf09ea15.jpg)  
+Corresponding author   
+WANG Bo   
+Ph.D., Professor
+
+# 马恒瑞
+
+1987—，男，博士，副教授
+
+主要研究方向为综合能源系统运行与市场交易、电力系统灵活性资源规划与运行
+
+E-mail: henry3764@foxmail.com
+
+# 袁傲添(通信作者)
+
+2000—，男，硕士生
+
+主要从事新能源功率预测、负荷预测方面的研究
+
+E-mail: yat0223@163.com
+
+#
+
+1978—，男，博士，教授，博导
+
+主要从事电力深度视觉、边缘计算和电力大数据方面的研究
+
+E-mail: whwdwb@whu.edu.cn
+
+收稿日期 2024-09-23 修回日期 2024-12-21 编辑 程子丰

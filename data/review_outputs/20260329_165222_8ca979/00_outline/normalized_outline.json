@@ -1,0 +1,230 @@
+{
+  "title": "基于大语言模型的电力负荷预测算法研究综述",
+  "language": "中文",
+  "sections": [
+    {
+      "node_id": "",
+      "title": "摘要",
+      "description": "概述本文的研究背景、核心内容、主要结论及未来展望。",
+      "query": "",
+      "needs_retrieval": false,
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    },
+    {
+      "node_id": "",
+      "title": "1. 引言：研究背景与意义",
+      "description": "阐述电力负荷预测在新型电力系统与“双碳”目标背景下的重要性，以及大语言模型（LLM）为传统预测方法带来的新机遇与挑战。",
+      "query": "电力负荷预测 研究背景 意义 新型电力系统 双碳目标",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "node_id": "",
+          "title": "1.1 电力负荷预测的定义与分类",
+          "description": "界定电力负荷预测的概念，并根据预测时间尺度（超短期、短期、中期、长期）和预测目标（确定性预测、概率预测）进行分类。",
+          "query": "电力负荷预测 定义 分类 超短期 短期 中期 长期 确定性预测 概率预测",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "1.2 新型电力系统与“双碳”目标下的新挑战",
+          "description": "分析高比例可再生能源接入、源荷互动增强、负荷特性复杂化等趋势对负荷预测精度、实时性和鲁棒性提出的更高要求。",
+          "query": "新型电力系统 双碳目标 负荷预测 挑战 可再生能源 源荷互动",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "1.3 大语言模型（LLM）在时序预测领域的潜力",
+          "description": "介绍大语言模型的基本原理，并探讨其强大的序列建模、上下文理解、多模态融合及零样本/少样本学习能力在负荷预测等时序任务中的应用前景。",
+          "query": "大语言模型 LLM 时序预测 序列建模 上下文理解 多模态 少样本学习",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "node_id": "",
+      "title": "2. 国内外研究现状",
+      "description": "系统梳理从传统方法到人工智能方法，再到当前基于大语言模型的电力负荷预测算法的演进历程与研究进展。",
+      "query": "电力负荷预测 研究现状 传统方法 人工智能 深度学习 大语言模型",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "node_id": "",
+          "title": "2.1 传统负荷预测方法回顾",
+          "description": "总结时间序列分析（如ARIMA）、回归分析等经典统计方法在负荷预测中的应用与局限性。",
+          "query": "负荷预测 传统方法 时间序列 ARIMA 回归分析",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "2.2 基于人工智能的负荷预测方法",
+          "description": "综述机器学习（如SVM、随机森林）和深度学习（如CNN、RNN/LSTM、Transformer）模型在负荷预测中的广泛应用、模型架构创新及性能提升。",
+          "query": "负荷预测 人工智能 机器学习 SVM 随机森林 深度学习 CNN RNN LSTM Transformer",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "2.3 基于大语言模型的负荷预测算法兴起",
+          "description": "重点评述近期将预训练大语言模型（如GPT系列、LLaMA等）适配或微调用于电力负荷预测的研究，包括提示工程、时序token化、领域知识注入等关键技术。",
+          "query": "大语言模型 负荷预测 LLM for time series forecasting prompt engineering 微调 领域适应",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "2.4 多源数据融合与负荷画像技术",
+          "description": "分析气象、经济、社会活动等多源异构数据在提升预测精度中的作用，以及基于数据挖掘的负荷特性刻画（负荷画像）方法。",
+          "query": "负荷预测 多源数据融合 气象数据 负荷画像 数据挖掘",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "node_id": "",
+      "title": "3. 目前存在的问题与挑战",
+      "description": "深入剖析当前基于大语言模型的电力负荷预测算法在理论、技术、数据及应用层面面临的主要瓶颈与挑战。",
+      "query": "大语言模型 负荷预测 问题 挑战 局限性",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "node_id": "",
+          "title": "3.1 模型机理与可解释性",
+          "description": "讨论LLM“黑箱”特性导致的预测结果可解释性差，难以与电力系统物理规律和运行经验深度融合的问题。",
+          "query": "大语言模型 可解释性 XAI 黑箱模型 电力系统物理规律",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "3.2 数据依赖与质量要求",
+          "description": "分析LLM训练与微调对海量高质量、标注时序数据的需求，以及实际电力数据中存在的数据缺失、噪声、不平衡等挑战。",
+          "query": "负荷预测 数据质量 数据缺失 噪声 不平衡数据 标注数据",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "3.3 计算成本与实时性",
+          "description": "指出LLM参数量大导致的高计算开销、长推理时间与电力系统在线实时预测需求之间的矛盾。",
+          "query": "大语言模型 计算成本 推理延迟 实时预测 边缘计算",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "3.4 领域适应与泛化能力",
+          "description": "探讨如何使通用LLM有效适应不同区域、不同场景（如极端天气、节假日）下差异巨大的负荷特性，提升模型的泛化与鲁棒性。",
+          "query": "大语言模型 领域适应 泛化能力 鲁棒性 迁移学习 少样本学习",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "3.5 不确定性量化与概率预测",
+          "description": "分析现有LLM在输出预测结果置信区间、进行概率性负荷预测方面的不足，以及将其与概率深度学习模型结合面临的困难。",
+          "query": "负荷预测 不确定性量化 概率预测 置信区间 概率深度学习",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "node_id": "",
+      "title": "4. 未来研究方向与展望",
+      "description": "基于现有问题，提出基于大语言模型的电力负荷预测算法未来可能的技术突破方向与发展趋势。",
+      "query": "大语言模型 负荷预测 未来方向 展望 技术趋势",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "node_id": "",
+          "title": "4.1 轻量化与高效架构设计",
+          "description": "展望面向边缘侧部署的轻量化LLM、模型压缩、知识蒸馏以及专用高效时序预测架构的研究。",
+          "query": "轻量化大语言模型 模型压缩 知识蒸馏 高效架构 边缘计算",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "4.2 物理信息融合与可解释性增强",
+          "description": "提出将电力系统微分方程、运行约束等物理知识嵌入LLM训练过程，以及发展面向LLM的可解释人工智能（XAI）工具。",
+          "query": "物理信息神经网络 PINN 可解释人工智能 XAI 领域知识注入",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "4.3 多模态与跨任务学习",
+          "description": "探讨融合文本（政策、新闻）、图像（卫星云图）、图数据（电网拓扑）等多模态信息，以及负荷预测与电价预测、故障诊断等任务的联合学习范式。",
+          "query": "多模态学习 跨任务学习 图神经网络 联合学习",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "node_id": "",
+          "title": "4.4 基础模型与开源生态构建",
+          "description": "呼吁建设电力能源领域专用的预训练基础模型，并推动高质量开源数据集、基准测试与工具链的生态发展。",
+          "query": "领域基础模型 预训练 开源数据集 基准测试 电力能源AI",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "node_id": "",
+      "title": "5. 总结与展望",
+      "description": "总结全文核心观点，重申大语言模型在电力负荷预测中的变革潜力与当前局限，并对其未来在新型电力系统中的角色进行展望。",
+      "query": "",
+      "needs_retrieval": false,
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    }
+  ]
+}

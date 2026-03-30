@@ -1,0 +1,429 @@
+# 新型电力系统背景下的智能负荷预测算法研究综述
+
+杨佳泽1 ，王 灿2 ，王增平1
+
+( 1． 华北电力大学 电气与电子工程学院，北京 102206; 2． 国网北京市供电公司，北京 100031)
+
+摘要: 在新型电力系统稳步发展与 “双碳” 目标持续构筑背景下， “源荷互动新模式” 成为电力系统能源转型的必然趋势，以多样性、 灵活性为主要特征的电力负荷作为电力系统的重要组成部分，其预测场景分析及预测模型研究对新型电力系统的运行、 维护和规划至关重要。 为深入研究人工智能背景下负荷预测领域取得的进展与突破，以新型电力系统负荷预测为着眼点，总结归纳当今负荷预测必要性与实用性，分类介绍五个典型负荷预测场景，针对基于人工智能技术的智能负荷预测算法模型进行系统化分析，结合机器学习中的神经网络、 深度学习算法、 集成学习算法对比单一预测模型及组合预测模型的特点，详细阐述各类模型在负荷预测领域的应用现状，以期为 “双碳” 目标下新型电力系统源荷互动的新模式构建提供合理化参考。
+
+关键词: 新型电力系统; 人工智能; 神经网络; 负荷预测; 机器学习; 深度学习
+
+中图分类号: TM715 文献标识码: A 文章编号: 1007－2691 ( 2025) 03－0054－14
+
+# Review on Intelligent Load Forecasting Algorithms for the New－ type Power System
+
+YANG Jiaze1 ，WANG Can2 ，WANG Zengping1
+
+( 1． School of Electrical and Electronic Engineering，North China Electric Power University，Beijing 102206，
+
+China; 2． State Grid Beijing Electric Power Company，Beijing 100301，China)
+
+Abstract: With the steady development of the new-type power system and the continuous construction of the " dual carbon" targets，the " new interactive mode of source and load" has emerged as an inevitable trend in the energy transformation of the power system． The power load，characterized by diversity and flexibility，is an important component of the power system． Research on its prediction scenario analysis and prediction model is crucial for the operation，maintenance，and planning of the new power system． In order to conduct in-depth research on the progress and breakthroughs made in the field of load forecasting under the background of artificial intelligence，we focus on load forecasting in the new-type power system． We summarize the necessity and practicality of current load forecasting and introduced five typical load forecasting scenarios in a classified manner． In addition，we conduct a systematic analysis on the load forecasting model based on artificial intelligence，and compare the characteristics of single forecasting models and combination forecasting models with artificial neural network，deep learning algorithms and ensemble learning algorithms in machine learning． Furthermore，we elaborate on the current application status of various models in the field of load forecasting，aiming to provide a reasonable reference for the construction of a new mode of source load interaction in the new-type power system within the framework of the " double carbon" targets．
+
+Key words: new-type power system; artificial intelligence; neural networks; load forecasting; machine learning; deep learning
+
+# 0 引 言
+
+随着“双碳”进程的不断深入推进，我国能源电力高质量发展面临新形式和新任务。 电力系统作为能源系统的重要组成部分及 “双碳”目标的主
+
+要参与者、推动者，其源网荷储等关键环节正在面临深刻变革［ 。
+
+传统电力系统的电源特性决定其有足够的转动惯量与发电灵活性，在保持稳定性的基础上能够实现发电侧紧随负荷波动变化的 “源随荷动”发展模式。 在新型电力系统构建过程中，电源呈现出多能化、多层化、多样化，风电、光伏等新能源占比逐步提升，其波动幅度与频次增加，大量的不确定性、随机性造成电网灵活调节能力日趋紧张，加之涉及储能材料及其成本的限制，电能依旧无法大量储存，进而导致弃电与缺电交互出现，因此源荷缺乏良性互动成为 “双碳”背景下能源绿色转型中亟待解决的问题［2］。 构建以新能源为主体的新型电力系统，需从传统模式下 “源随荷动”的稳定电网逐步转变为 “源荷互动”的非完全实时平衡、集中－分布协同控制的波动电网［3］，以适应低惯量、弱灵活性的新型电力系统发电特性。
+
+新能源的接入对电力系统调度计划的制定提出了新的挑战，面对新型电力系统背景下发电侧灵活性受限问题，要保障系统的稳定运行，用户侧必须深度参与系统运行的调节［4］，多时间尺度、高精度的电力负荷建模、预测以及优化对新型电力系统的运行、维护和规划至关重要。
+
+# 1 电力系统负荷预测场景
+
+随着电网需求侧管理的日益普及与负荷调控的日趋深入，电力用户不再同过去一样仅仅作为被动的电力需求者，传统刚性负荷的特性逐渐转变，取而代之的柔性负荷成为电网负荷调控的重点对象。 电力市场改革促使多种角色场景应运而生，负荷预测应用场景逐步多样化、层次化，合理分析负荷场景典型特征并为之选取精准预测模型成为当今电力产业发展的重要课题。 不同负荷预测场景总结归纳如下:
+
+# 1. 1 区域级负荷预测
+
+负荷特性分析工作是电力系统负荷预测的重要前提，了解并掌握预测供电区域内的负荷特性变化有助于地区电网合理规划及优化调度。 地区电网的区域级负荷特性分析与预测是我国负荷研究工作的重心。
+
+以分区域分时段负荷曲线为研究对象，综合分析天气情况、社会经济发展态势、节假日等外部因素对于区域级负荷的影响，通过三次样条插值［5］、影响因子赋值［6］等计算方法将非量化因素
+
+转化为预测模型可以识别的数学量，挖掘负荷内在变化规律与外部影响因素间的非线性关系与复杂协同作用，细化分析区域级负荷特性并总结其发展变化态势［7］。 基于负荷特性分析，区域级负荷预测模型需将高维负荷数据通过算法分析训练及模型交互融合，充分挖掘数据间的潜在关联，进而得到精度相对较高的预测结果。
+
+文献［8］与［9］以回归分析法为基础，通过将地区整体负荷分解为多个特质相似或相近的子网进行拟合预测，大幅度提升了应用回归分析法预测短期电力负荷的精度。 文献［10］将高斯核函数与多项式核函数进行组合，通过双种群的 PSO 算法对所提模型进行优化，得到了较为理想的预测结果; 文献［11］和［12］采用基于变分模态分解( VMD) 与麻雀搜索算法进行优化，削弱了负荷序列的不确定波动性，提高了电力负荷预测的规律性与模型的预测精度。
+
+区域级负荷预测模型评价体系一般以相对误差、平均相对误差、均方根误差为基准，通过数值比较进行模型预测效果判断。 具体指标计算方法如下:
+
+( 1) 相对误差
+
+$$
+E _ {\mathrm {R E}} = \frac {\left| p _ {k} - y _ {k} \right|}{y _ {k}} \tag {1}
+$$
+
+( 2) 平均相对误差
+
+$$
+E _ {\mathrm {M R E}} = \frac {1}{n} \times \sum_ {k = 1} ^ {n} \frac {\left| p _ {k} - y _ {k} \right|}{y _ {k}} \tag {2}
+$$
+
+( 3) 均方根误差
+
+$$
+E _ {\text {R M S E}} = \sqrt {\frac {1}{n} \times \sum_ {k = 1} ^ {n} \left(p _ {k} - y _ {k}\right) ^ {2}} \tag {3}
+$$
+
+式中: $p _ { k }$ 代表第 $k$ 个负荷采样点的预测值， $y _ { k }$ 代表第 $k$ 个负荷采样点的实际值， $n$ 为短期负荷预测每日预测点的个数。
+
+# 1.2 母线负荷预测
+
+作为系统区域级负荷的底层分布组成部分，母线负荷通常为由变电站的主变压器共给的终端负荷总和，其预测精度对于电网负荷调控、优化调度及精益化运行决策有着重要影响。 与区域级宏观负荷特性不同，由于受供电区域内用户自身用电行为影响，母线负荷的负荷惯性较小，规律性较差，因此需要长时间尺度的海量历史负荷数据支撑预测模型的构建。
+
+母线负荷预测方法一般以聚类、拟合等数理
+
+统计算法为理论基础，考虑到非线性特征及波动性明显，需采用人工智能算法构建预测模型。 文献［13］针对变电站负荷预测构建了基于深度信念网络的预测模型，利用 Kears 深度学习框架调整网络结构，避免了相似日等相关特征变量选取问题，实现了高精度自适应变电站负荷预测。 文献［14］在深度置信网络的基础上建立集成深度置信网络，采用差分变换法进一步提高变电站母线负荷预测精度。 考虑到短期负荷预测对电力现货交易市场运行的重要意义，文献［15］结合深度学习算法与特征工程，利用深度学习框架 Seq2seq 并结合多种神经网络进行短期母线负荷预测，预测结果误差较小。
+
+母线负荷预测模型性能评估具有其独立的评估度量体系，通常按照以下的母线负荷预测准确率 $R _ { T }$ 为基准进行预测结果精度评价:
+
+$$
+R _ {T} = \left[ 1 - \sqrt {\frac {1}{T} \sum_ {t = 1} ^ {T} \sigma_ {t} ^ {2}} \right] \times 100 \% \tag{4}
+$$
+
+$$
+\sigma_ {t} = \sqrt {\frac {1}{N} \sum_ {n = 1} ^ {N} e _ {n , t} ^ {2}} \tag {5}
+$$
+
+$$
+e _ {n, t} = \frac {\left| p _ {t} - y _ {t} \right|}{y _ {t}} \times 100 \% \tag{6}
+$$
+
+式中: $R _ { T }$ 代表当日母线负荷预测准确率， $T$ 代表日母线负荷预测的总时段数， $\mathcal { N }$ 代表母线总数， $\sigma _ { t }$ 为时段 $t$ 所有母线误差的均方根， $\boldsymbol { e } _ { n , t }$ 为第 $n$ 条单母线在时刻 $t$ 的误差。
+
+# 1. 3 居民住宅负荷预测
+
+对于城市用电负荷而言，用户侧的居民住宅负荷占比较大，其主观性的差异与用电电器的多样性对城市电网运行时的应变能力与稳定性提出了较大的挑战［16］。 考虑到居民住宅具有集群效应，且独立用户间的家用电器种类与用电习惯不尽相同，一般依据自上而下的负荷预测思想，利用相关聚类算法对海量居民住宅负荷数据进行聚类划分后再建立差异化预测模型，避免海量数据预测效率较低的问题。
+
+文献［17］利用 K-means 聚类算法对智能电表收集到的高维住宅符合数据进行降维及聚类处理，通过 BP 神经网络及 SVM 支持向量机模型进行集成负荷预测，通过交叉验证获得最优结果。文献［18］基于 LSTM 和 CNN 构建多任务、多信息融合深度学习框架进行居民用电负荷预测，通过多层次信息提取捕捉某区域内居民住宅负荷特
+
+性，与单任务深度学习及单一神经网络相比，此模型能更好地追踪住宅负荷变化趋势，预测精度较高 。
+
+作为需求响应重要参与者，电力用户的住宅楼宇中拥有大量以可平移、可中断负荷形式存在的可调度需求响应资源，其参与电力系统削峰填谷的潜力巨大，居民住宅楼宇负荷分布如图 1 所示。 通过对用户可调节负荷曲线精确预测，电力公司及负荷聚合商能够分析评估用电负荷需求响应潜力，通过分时电价引导用户参与需求响应。
+
+![](images/05196dda915a282f38ad69d181b223099a66d0a12a50c76a94854f8a8bc0e858.jpg)  
+图 1 居民住宅楼宇负荷分布  
+Fig．1 Load distribution of residential buildings
+
+考虑到电力市场改革与绿色电力蓬勃发展，文献［19］通过分析实时电价与居民负荷的变化趋势及需求响应关系，以 LSTM 网络为主体建立了计及实时电价的居民住宅短期负荷预测模型，结果表明，在需求响应背景下计及电价的预测精度较高。 文献［20］立足于负荷聚合商模式建立各类需求响应信号模型，充分考虑用户差异化的用电习惯、消费心理及当今电热气耦合模式，构建基于需求响应信号的LSTM 超短期负荷预测模型，验证了此模型对于计及需求响应信号情况下的明显优势 。
+
+以需求响应为前提进行负荷预测并建立分布式电源与智能家电之间的新型供需互动模型，对未来智能电网的建设规划、深入挖掘用户侧参与需求响应的潜力、建立切实可行的新型源－荷互动模型、保障用电高峰期电网的安全高效运行等具有重要的理论和实践意义。
+
+# 1. 4 低压配电台区负荷预测
+
+低压配电台区主要为 $3 5 \ \mathrm { k V }$ 或 $1 0 \mathrm { ~ k V }$ 配电变压器供电范围内的所有用户集合，其数量取决于
+
+配电变压器台数及其配电范围。 典型低压配电台区负荷由同一配电台区内的居民用户负荷、工业负荷及商业负荷组成，一般而言，同一配电所内包含多个配电台区，台区负荷数量仅次于前文所述的用户住宅负荷。 配电台区负荷预测旨在根据精准的预测结果指导相关配网工作、获取配电变压器裕度指标，进一步合理化安排检修计划，为实现事前预警、调配抢修资源奠定坚实基础，为提高台区供电可靠性与运行经济型提供保障。
+
+文献［21］选取同一区域内的三个低压配电台区数据，利用经细菌趋化算法优化的 BP 神经网络进行负荷数据预测，结合负荷状态结果进行台区内低压变压器负荷率、容载比等裕度指标分析，综合损耗及负荷预测数据得出配电变压器经济运行方式。 文献［22］在 LSTM 模型基础上添加循环跳跃组件与线性自回归组件，构建具有捕获配电台区负荷短期局部依赖关系能力的 LSTNet 预测模型，通过训练某小区一公共变压器的负荷数据，表明 LSTNet 模型在台区负荷变化呈现强烈波动时能够较好地捕捉其变化趋势，缓解了传统神经网络对负荷数据极端值不敏感的问题。
+
+由于配电台区具有较为明显的用电差异性，其负荷规律有较强随机性，单一预测模型的预测误差较大，多数负荷预测模型难以投入实际应用。
+
+# 1.5 综合能源系统负荷预测
+
+作为能源互联网的物理载体，综合能源系统( integrated energy system，IES) 集成多种形式的能量供应、转换和储存设备，实现不同类型能源在源、网、荷、储等环节的耦合，促成多个能源系统间的互动互联与协同运行。
+
+由于多类能源间的物理特性差异及耦合效应的必然存在，综合能源系统存在明显的负荷随机波动性，其负荷预测准确性大大影响系统优化调度与协调规划。 综合能源系统负荷预测框架如图2 所示 。
+
+文章［23］从用户级综合能源系统入手，考虑到用户级存在负荷类型多、 规模小、 波动大等特性，作者结合多通道卷积神经网络与长短期记忆循环神经网络构建MCNN-LSTM 负荷预测模型，通过对电、热、气、冷等多个用户级基本负荷单元进行图像特征重构及融合，更好地挖掘各类型负荷间的潜在关系，避免混合型负荷造成的模型预测结果混杂影响，同时组合神经网络的应用大大提
+
+![](images/5af79c309868c6a8046ff7eb281125cddee43e51d58edebb0934d303c90a733a.jpg)  
+图 2 综合能源系统负荷预测框架  
+Fig．2 Framework of the load forecasting for integrated energy systems
+
+高了预测精度。 文献［24］着眼于区域级综合能源系统，通过标签划分方法将负荷类型及其影响因素分别归纳至静态标签与动态标签，充分分析多元负荷间的相关性与变化趋势构建 CNN-LSTM 负荷预测模型，依据标签内容针对性进行差异性预测，通过利用由电、热、气三类能源组成的区域级综合能源系统真实负荷数据进行训练，此模型能够较准确地预测三种能源耦合后的各自独立负荷情况，预测精度较高。
+
+# 2 基于智能算法的负荷预测模型
+
+负荷预测发展初期主要以数学算法理论为建模基础，传统负荷预测将电力负荷数据看作时间序列数据加以处理，预测方法主要包括时间序列法、回归分析法、 灰色预测法、 卡尔曼滤波法等。当今发展态势下，电力负荷种类、数量及其外部影响因素不断增多，加之新能源发电占比增加带来的负荷端主动性荷被动不确定性增强，传统负荷预测模型难以满足新型电力系统的高要求。 人工智能技术凭借其非线性拟合等能力，在负荷建模及预测、负荷优化等方面取得突破，基于人工智能技术的智能算法模型能够较好捕捉当今电力负荷的非线性特征，大大提高了负荷预测精度，成为当今负荷预测的主流模型。
+
+# 2.1 单一预测模型
+
+# 2. 1. 1 BP 神经网络
+
+BP 神经网络一般具有输入层、隐含层及输出层三层网络结构，用于负荷预测时，历史负荷及其影响因素进行数值量化后作为输入数据，在隐含
+
+层内经过激励函数的拟合处理，多次循环、迭代误差反向传输过程，以此减小网络训练结果与已知实际真实值之间的误差，最终由输出层得到预测结果。 BP 神经网络拓扑结构图如 3 所示。
+
+![](images/29094d2db83db7299931844212f78f61f80c4e286230ed961d1e629b3a0f7cb9.jpg)  
+图 3 BP 神经网络拓扑结构  
+Fig．3 Structure of BP neural network
+
+其中: $\omega _ { i } \setminus \omega _ { j }$ 分别代表输入层与隐含层间的权重、隐含层与输出层间的权重， $X$ 代表输入量， $y$ 代表神经网络的输出量，Y 代表数据真实值， $E$ 代表真实值与预测值之间的差值。
+
+与传统的算法相比，BP 神经网络具有更好的模型泛化能力与非线性映射能力，其柔性的网络结构使之成为应用为广泛的人工神经网络之一。传统 BP 神经网络具有训练速度慢、易陷入局部极小值、易出现过拟合等缺点，应用于负荷预测时，常通过加入遗传算法［25］、粒子群优化算法［26］等对其网络内部各层权值及阈值进行优化，有效提高BP 神经网络训练精度与可靠性。
+
+考虑到过多历史负荷数据的输入将大大增加神经网络预测模型的复杂度，文献［27］构建基于随机分布式嵌入框架及 BP 神经网络的负荷预测模型，采用核密度估计法拟合多个预测结果，通过聚合估计法得出负荷最终预测值，有效改善数据维度对 BP 神经网络预测精度的影响。
+
+# 2. 1. 2 传统循环神经网络
+
+BP 神经网络的三层网络结构为全连接，且层间节点相互无连接，因此难以体现先后输出数据的关联关系 。 循环神经网络( recurrent neural net-work，RNN) 在 BP 神经网络的基础上，为隐含层各节点提供前序连接与后序连接，用以记录前序信息并将其应用于后序输出计算中。 RNN 网络拓扑结构图如图4 所示。
+
+考虑到 RNN 隐含层的基本循环体单元较多，文献［28］对多个循环体单元的权值进行 Xaier 初始化，以保证初始权值的可靠性，进而利用随机梯度下降算法优化的多尺度循环神经网络 RNN 进行短期负荷预测。 文献［29］采用半参数模型确定
+
+![](images/c58728ae74584f5442eae9e52a3b095c4420a40bd1a34bddbf332f54f45f356c.jpg)  
+图 4 RNN 网络拓扑结构  
+Fig．4 Structure of recurrent neural network
+
+合适的样条基函数，通过具有自适应能力的指数加权平均调整方案进行数据插值，以减少量测数据准确性对 RNN 模型负荷预测结果的影响。
+
+由于 RNN 具有短时记忆特性，难以保证时间跨度较大的负荷序列信息传递的准确性。 同时随着多层循环训练，内部梯度不断减小，RNN 容易出现梯度消失和梯度爆炸等问题，因此 RNN 并不适用于长时间序列训练。
+
+# 2. 1. 3 长短期记忆神经网络
+
+传统循环神经网络的内部循环单元结构无法传递前序特征信号与后序特征信号的函数关系，为此基于循环神经网络改进所得长短期记忆神经网络( long short-term memory，LSTM) ，其网络拓扑结构如图 5 所示。
+
+LSTM 保留了 RNN 基本结构中相邻时间节点的隐含层传递关系，在循环体内部更新加入遗忘门、输入门和输出门，对前序信息进行记忆、提取并筛选，进一步增强后续特征信号与前序特征信号间的关联程度，有效解决传统 RNN 在长时间序列训练时出现的梯度消失与梯度爆炸问题。
+
+为充分发挥LSTM 在处理长时间序列大数据集时性能较好的显著优势，文献［30］利用互补集合经验模态分解将电力负荷分解为不同频率的分量，其中建立经贝叶斯优化的LSTM 预测模型对复杂高频分量进行预测，进一步提高波动大、规律性差的负荷高频分量的预测精度。 文献［31］与［32］基于互信息理论对所选取的电力负荷进行最大相关最小冗余特征变量选择( mRMR) ，以此择出最优输入变量集合，并通过LSTM 进行用户日前电力负荷预测。结果表明，mRMR-LSTM 模型能够更好地处理波动较大、随机性较强的用户电力负荷序列。 文献［33提出了一种将负荷数据转化为 RGB 图像后应用LSTM 人工神经网络进行短期电力负荷预测的方法，对图像化负荷的人工智能预测进行了初步尝试，扩展了负荷预测的信息应用维度，进一步将
+
+![](images/38a4529365a6c21d14ec203905bf9072295bbfa1eaec08d79ea4971a5a04e4ac.jpg)
+
+![](images/bea25462b0a23f8afa62dfb41bffc607d58b06215876a6153aa5ab9bd0244feb.jpg)  
+图 5 LSTM 网络拓扑结构  
+Fig．5 Structure of long short-term memory
+
+LSTM 时序数据处理优势拓宽至图像领域。
+
+# 2. 1. 4 门控循环单元
+
+门控循环单元( gated recurrent unit，GRU) 为长短期记忆神经网络单元的简化变体，其将 LSTM循环体内部的遗忘门与输入门合并为更新门，将输出门替换为重置门，有效对前序信息进行记忆或遗忘，可以同时兼顾电力负荷序列的时序性与非线性，大大减少了参数数量，降低了网络训练难度。 GRU 网络拓扑图如图 6 所示。
+
+![](images/02f8610a841cc5c5f31bc92c99af14293222efe7c278a0bab0408ada542fd528.jpg)  
+图 6 GRU 网络拓扑结构  
+Fig．6 Structure of gated recurrent unit
+
+考虑到单一的 GRU 网络在处理非连续性长时间序列时难以对序列特征做差异化区分，文献［34］利用谱聚类算法对用电负荷进行聚类划分，
+
+通模型融合算法动态调节多种 GRU 模型在整体预测模型中的权重，动态融合浅层、深层及多层叠加的各类 GRU 网络，提高聚类划分下 GRU 预测模型的预测精度与泛化能力。
+
+为减少单一 GRU 模型存在的长时间序列信息丢失问题，文献［35］在 GRU 负荷预测模型中加入注意力( Attention) 机制模块，提高对负荷序列关键特征的捕捉能力，进一步减小负荷序列长度对预测精度的影响。 文献［36］在文献［35］的基础上对历史电力负荷进行经验模态分解，构建 EMD-GRU-Attention 混合预测模型，较好地捕捉了负荷数据的时序性与复杂非线性关系。 此外，GRU-At-tention 预测模型也较为广泛地应用于具有强耦合性质的综合能源系统冷、热、电负荷的预测中［37］，借助多任务学习中的权重共享机制提取不同类型负荷间的耦合信息，进一步提高大波动下单一负荷预测精度。
+
+# 2. 1. 5 卷积神经网络
+
+考虑到循环神经网络无法提取序列的空间特征，研究学者提出依靠卷积神经网络模型提取序列的时间特征与空间特征。 卷积神经网络( convo-lution neural networks，CNN) 在 BP 神经网络结构基础上将隐含层替换为卷积层与池化层，高维电力负荷相关数据进行预处理后经输入层输入网络模型，经卷积层的卷积计算提取不同数据间的关联特征，经池化层池化后实现特征值筛选与降维，从而减少系统需要优化的参数数量，降低了人为提取特征带来的预测误差。 CNN 网络拓扑图如图7 所示 。
+
+![](images/9e2c12bd9d4ff64b94a861d4c7ab970ccd649d58d33a659b862cd821f23460d3.jpg)  
+图 7 CNN 网络拓扑结构  
+Fig．7 Structure of convolution neural networks
+
+传统卷积神经网络具有较强的非线性映射能力及图像特征提取能力，用于负荷预测时可将负荷数据及相关影响因素进行图像化排列［38］，充分发挥 CNN 在网络训练中的自学习、自适应优势，通过提取图像数据关键特征来减小 CNN 处理序列数据时出现的过拟合问题。
+
+卷积时间网络在处理长时间序列时常存在视野区间有限、难以提取全部时序特征［39］等问题，针
+
+对此问题，文献［40］在传统 CNN 基础上引入扩张卷积、因果卷积及残差网络，构成具有更强时序特征捕捉能力的时序卷积神经网络( TCN) 负荷预测模型，通过对小型综合能源系统负荷数据进行分析预测，验证了此改进卷积神经网络模型具有更高特征辨识能力及稳定性。
+
+# 2. 1. 6 图神经网络
+
+图神经网络( graph neural networks，GNN) 主要包括图卷积神经网络、图记忆力网络等，是一种新兴的专门处理图数据的神经网络模型，其具备同时挖掘节点内特征信息与节点间的相关性信息的优越能力［41］，在负荷预测领域能够较好地捕捉负荷序列的时间连续性与空间关联性。 利用图神经网络进行负荷预测时，需将历史负荷数据进行预先聚类处理，利用同族负荷数据的时间序列特征与空间关联性特征构建局部时空图，利用聚合函数将自身特征信息与相邻节点特征信息进行聚合，将最终信息平均值输入至神经网络。 图神经网络一般预测流程如图 8 所示。
+
+![](images/eacd48ee7c51afca4d17bb8854b61ead2f21e8bc49af949ce206e27b707fa2a4.jpg)  
+图 8 图神经网络网络拓扑结构  
+Fig．8 Structure of graph neural networks
+
+文献［42］利用 K-means 聚类算法将用电集群进行分组，将每组用户聚合的负荷序列作为节点特征，建立面向用户集群负荷预测的图结构数据，构建并训练自适应时空同步图卷积神经网络模型，充分挖掘居民用电负荷的时空关联性，通过提取图像特征提高预测精度，但由于图神经网络捕获时间依赖关系的能力有限，预测精度仍有待提升。 为进一步提高 GNN 的时间特征提取能力，文献［43］利用图神经网络与循环神经网络组合模型进行配电网负荷时空预测，其中，利用图卷积网络捕获电力网络的拓扑结构、获得空间依赖性，利用门控递归单元捕捉负荷信息的动态变化、获取时间依赖性，发挥两种神经网络自身特性，提高时空两维负荷预测的准确性。
+
+# 2.2 组合预测模型
+
+一直以来，高稳定性和准确度都是负荷预测
+
+模型训练所追求的目标，但单一的模型算法往往存在自身固有缺陷，仅仅凭借调整算法内部参数难以减弱甚至消除缺陷所带来的结果误差。 当今，以参数耦合方式、流程组合方式、算法融合方式为基本构成的组合模型在负荷预测领域逐步兴起，较好地结合各个单一负荷预测模型的自身特长，改善因单一模型自身固有缺陷导致的预测精度受限问题。
+
+# 2. 2. 1 CNN-LSTM 模型
+
+卷积神经网络可以较好地提取长时间序列的空间特征，但难以准确地提取出序列的时间特征，长短期记忆神经网络凭借其记忆功能能够准确提取序列时间特征信息，但自身短时记忆的固有缺陷容易丢失序列信息。 因此，单一 CNN 与 LSTM 负荷预测模型在面对多维负荷数据序列常出现多维特征信息提取不充分、序列信息结构混乱等问题。
+
+CNN-LSTM 组合模型可由 CNN 层提取序列空间特征，负荷序列经 CNN 处理后输入 LSTM 进行时序特征提取并进行负荷预测，充分集成 CNN 与LSTM 两类神经网络模型的固有优势，有效减少单一模型在预测方面体现出的序列丢失、时序特征捕获不完全等问题。 CNN-LSTM 模型网络拓扑结构如图 9 所示。
+
+![](images/dee50f1f374445be915f1467b86f44fd71bcbc37d4eada67c07a8eacb5bfaa4e.jpg)  
+图 9 CNN-LSTM 模型网络拓扑结构  
+Fig．9 Structure of CNN-LSTM
+
+CNN-LSTM 预测模型在综合能源系统负荷预测［24］、居民住宅负荷预测［44］等方面应用广泛，其较强的时空特征捕捉特性能够差异化跟踪综合能源系统及居民住宅内各类负荷变化情况，有效提
+
+高具有耦合性质的独立负荷预测精度。 文献［45］在文献［44］的基础上进一步研究了居民住宅内家用电器的能耗情况，通过对电热水器与变频空调的能耗监测与预测，表明 CNN-LSTM 组合模型可以很好地预测住宅内能耗占比较大的家用电器使用情况 。
+
+在系统区域级负荷预测方面，文献［46］运用CNN 充分提取各分量的潜在特征并作为 LSTM 网络输入对各分量进行预测，明显缩短负荷预测时间，有效提升负荷预测精度。 由于传统 CNN-LSTM模型只在结构上实现两个单体网络的顺序链接，为进一步提高训练性能，在整体结构上，可引入时序注意力机制及通道注意力机制［47］来强化负荷序列特征提取能力; 在单一网络上，可建立具有双向递归反馈的双向长短期记忆循环网络 BiLSTM，利用给 L1 正则化对特征数据进行特征筛选后通过CNN-BiLSTM 模型进行负荷预测，进一步增强模型预测性能［48］ 。
+
+# 2. 2. 2 CNN-GRU 模型
+
+门控循环单元 GRU 简化了 LSTM 的内部单元结构，在保证较高预测精度的同时可有效缩短模型的训练时间，因此更适用于负荷预测领域。 使用 GRU 网络虽然可以考虑时序性数据的历史规律，但是需人工构造特征关系，不能充分挖掘非连续特征在高维空间中的联系，因此考虑结合其他网络以提升对负荷特征的挖掘能力。 与 CNN-LSTM 模型相比，CNN-GRU 模型结构更为简单，大大缩减了循环单元的参数数量与网络训练时间，进一步增强了时空关联特征提取能力。
+
+文献［49］对负荷数据进行 k-means 聚类划分后，采用 CNN 网络提取特征与负荷因素在高维空间的联系，构造时序序列的特征向量并输入到三层 GRU 网络中，通过训练 GRU 网络输出负荷预测值，此模型在保持较快训练速度的同时，具有较高的预测精度。 文献［50］在文献［49］基础上引入Attention 机制，通过映射加权和学习参数矩阵赋予 GRU 隐含状态不同的权重，以此减少序列信息的遗忘丢失，与未加 Attention 机制的预测模型相比，预测误差明显减小 文献［51］在 GRU 网络基础上建立双向门控循环单元 BiGRU，对负荷数据特征进行特征初筛后，通过经贝叶斯算法优化的CNN-BiGRU 模型进行预测，此模型得到的负荷曲线更加平滑，峰谷预测值及变化趋势更加接近真
+
+实值，预测精度较高。
+
+# 2. 2. 3 RNN-ResNet 模型
+
+高维的电力系统负荷数据通常需要结构复杂、层数较多的神经网络进行训练，以此提高负荷特征提取的完整性与预测结果的准确性。 由于神经网络层数叠加及多种神经网络耦合互联，面对高维度海量数据时模型训练速度较慢，且当训练达到一定次数与深度时，卷积神经网络、循环神经网络等将出现精度饱和甚至下降的 “模型退化现象” 。 深度残差网络( Residual Network，ResNet) 由多个残差块堆叠而成，其内部的残差块结构不会增加网络模型参数数量与计算复杂度，可以有效缓解其他神经网络的训练速度慢及模型退化问题，因此深度残差网络已被用于组合神经网络负荷预测模型中配合其他循环神经网络进行数据训练，其组合模型网络拓扑结构如图 10 所示。
+
+![](images/0638fb6b235d286bba18ca920c7f986551f13f69ba9948c793e1c9b5d2c5138c.jpg)  
+图 10 RNN-ResNet 模型网络拓扑结构  
+Fig．10 Structure of RNN-ResNet
+
+考虑到多层卷积神经网络的训练复杂度与模型退化问题，文献［52］在 CNN-LSTM 短期负荷预测模型基础上利用深度残差网络代替卷积神经网络，构建整体参数较少的 ResNet-LSTM 负荷预测模型，与相同条件下的 CNN-LSTM 模型相比，Res-Net-LSTM 模型的训练效率提高了 $1 6 . 2 \%$ ，预测精度有所提高。 文献［53］在文献［52］基础上对深度残差网络进行改进，用全连接层代替传统残差网络的卷积层，同时添加 Dropout 层与高斯噪声，构建基于注意力机制的 CNN-GRU-iResNet 短期负荷预测模型，特征向量经注意力机制动态融合后输
+
+入至改进深度残差网络中进行训练预测，与前序CNN-GRU 负荷预测模型相比，此模型解决了神经网络梯度消失与模型退化问题，在保证网络训练深度的同时明显提高了训练效率与预测精度。
+
+# 2.2. 4 集成算法融合模型
+
+组合神经网络预测模型中的各单体网络往往按照负荷预测流程进行顺序连接，单体算法或网络在组合模型中独立承担数据特征提取、模型训练等任务，以发挥各自在不同领域的优势。 与组合神经网络类似，集成学习( ensemble learning) 通过将具有各自训练特征的神经网络单体或单一算法作为弱学习器，经投票法、平均法、学习法等综合策略将弱学习器组成成泛化能力更强、特征优势更集成的强学习器，实现多个单体算法的逻辑
+
+结合与优势互补，集成算法基本原理如图 11 所示。 常用的集成学习算法包括 Bagging 并行算法、Boosting 串行算法、 梯度提升决策树算法( GBDT) 、极限梯度提升算法( XGBoost) 等，以上算法特征如表 1 所示 。
+
+![](images/770aa316d73d6f0f7bb616e781c1a79cc4a978e9a3af7470e0e4bd6b623cfeeb.jpg)  
+图 11 集成学习算法基本原理  
+Fig．11 Basic principles of ensemble learning algorithms
+
+表 1 常用集成算法特征总结  
+Tab．1 Summary of the common integration algorithm characteristics   
+
+<table><tr><td>算法名称</td><td>优点</td><td>缺点</td></tr><tr><td>Bagging</td><td>并行计算,训练速度快</td><td>各弱学习器权重相同且不可调节</td></tr><tr><td>Boosting</td><td>串行计算,权重可调节,训练精度高</td><td>弱学习器个数不定,训练耗时较长</td></tr><tr><td>GBDT</td><td>参数较少,泛化能力强,鲁棒性较好</td><td>弱学习器间存在依赖关系,速度难以提升</td></tr><tr><td>XGBoost</td><td>采用二阶泰勒展开,训练精度高,有效减少过拟合问题</td><td>对内存要求高,不适合处理较高维数据集</td></tr></table>
+
+文献［54］构建 XGBoost-BiLSTM 负荷预测模型，负荷数据及其影响因素分别通过基于注意力机制的 Bi-LSTM 模型与 XGBoost 极限梯度提升算法后并行生成对应结果，利用误差倒数法为两种模型结果赋予相应权重，经组合后获得最终负荷预测结果，充分融合利用长短期记忆网络对负荷数据特征的捕获能力与 XGBoost 算法目标函数中的正则化，与单纯神经网络组合模型相比泛化能力更强，经权重分配后所得的预测结果精度更高。
+
+考虑到 Bagging 并行算法是对数据样本进行随机有放回取样，此特点将进一步减小模型扰动影响同时减小结果方差，文献［55］将加权 GRU 神经网络选作 Bagging 集成算法中的弱学习器，负荷数据经 Bagging 取样层的 Bootstrap 重采样方法生成多个子数据集，通过双向加权 GRU 神经网络训练模拟并进行 Bagging 数据集成后得到最终预测结果。 除并行算法外，文献［56］将改进后的 Bag-ging 并行算法与 Boosting 串行算法进行结合，构建Bagging-Boosting-SVM 负荷预测模型，选取支持向量机 SVM 作为子模型的弱学习器，负荷数据经并行算法随机取样后利用 Boosting-SVM 子模型对样本子集进行训练，此组合模型充分结合两种集成算法的优点，规避了单一 Boosting 串行算法训练速
+
+度较慢的问题。
+
+综合上述分析，经过长时间的发展，电力系统短期负荷预测技术更加趋于智能化，预测模型越发复杂，预测精度随之不断提高。 虽然已经存在较为成熟的短期负荷预测理论，但随着新型电力系统的发展，传统的负荷预测理论已难以满足当前环境下对于负荷预测的要求，提出预测精度更高、预测过程更稳定、泛化能力更强的电力系统短期负荷预测模型仍为当前的重要研究方向。
+
+# 3 实验分析
+
+为进一步分析各人工智能负荷预测算法的性能特征，本文利用某地区 2012 年 8 月日负荷数据及其影响因素为研究对象，以2012 年8 月23 日当日负荷数据为预测对象，利用滑动窗口对数据进行统一预处理，采用多特征的多输入单输出建模方法，构建较为典型的 CNN、 LSTM、 BiLSTM、 GRU等单一负荷预测模型及 CNN－LSTM、 CNN-GRU、XGBoost 等组合预测模型进行预测结果比较。 七种负荷预测模型预测结果如图 12 所示，其直观展示了2012 年8 月23 日的当日负荷真实值及七种典型预测模型的预测结果曲线。
+
+由曲线整体趋势可知，七种模型均能较好预
+
+![](images/d1715717015c3a8eb24fd5f4c2a6ea8d997bffe325122655f045f52fb2c8a3b5.jpg)  
+图 12 负荷预测结果曲线  
+Fig．12 Curve of load forecasting results
+
+测负荷变化趋势，但从整体预测曲线的放大子图分析，单一神经网络模型在负荷峰谷值的拟合效果较差，误差较大，且均不同程度地出现影响局部曲线趋势骤变的数据。 与单一预测模型相比，三种组合预测模型对负荷数据特征的捕获能力更强，针对负荷峰谷值的预测效果较好，其在峰谷值区间内的预测曲线趋势与原始负荷数据曲线所呈现的趋势大致相同。
+
+为进一步分析各模型的预测性能，表 2 展示了七种模型预测相关误差指标。 结合负荷预测曲线及相关误差指标对比可知，组合模型预测效果整体优于单一负荷预测模型，其拟合程度更好，曲线整体拟合趋势与真实负荷曲线变化趋势相差甚微，跟踪效果较好。
+
+表 2 负荷预测模型误差结果  
+Tab．2 Error results of the load forecasting models   
+
+<table><tr><td>模型</td><td>RMSE</td><td>MAE</td><td>MAPE</td><td>R²</td></tr><tr><td>LSTM</td><td>183.24</td><td>120.93</td><td>1.53%</td><td>0.989 0</td></tr><tr><td>BiLSTM</td><td>176.05</td><td>116.67</td><td>1.45%</td><td>0.989 8</td></tr><tr><td>CNN</td><td>66.76</td><td>52.42</td><td>0.76%</td><td>0.997 1</td></tr><tr><td>GRU</td><td>163.05</td><td>112.20</td><td>1.41%</td><td>0.991 3</td></tr><tr><td>CNN-LSTM</td><td>54.44</td><td>39.83</td><td>0.49%</td><td>0.999 0</td></tr><tr><td>CNN-GRU</td><td>52.67</td><td>36.49</td><td>0.46%</td><td>0.999 1</td></tr><tr><td>XGBoost</td><td>64.88</td><td>47.43</td><td>0.63%</td><td>0.998 2</td></tr></table>
+
+# 4 结论与展望
+
+随着新型电力系统的构建，风光渗透率不断提高，多元化可调节负荷大规模接入电网，使得传统的发电侧与负荷侧的生产组织规模亟待转变。合理分析负荷特性，并在此基础上进行发展趋势预测成为当今电力产业发展的重要课题。 本文以新型电力系统负荷预测为着眼点，总结归纳当今负荷预测必要性与实用性，分类介绍五个典型负荷预测场景，针对智能负荷预测算法模型进行系
+
+统化分析，对比单一预测模型、 组合预测模型特点，详细阐述各类模型在负荷预测领域的应用现状。 尽管当今人工智能技术得以快速发展，但依附于新型电力系统的负荷预测研究依旧存在以下问题与挑战:
+
+( 1) 随着 HPLC 智能电表、 SCADA 系统等智能化设备的发展，可获取的负荷数据影响因素越来越多，随之常出现负荷数据记录有误或数据丢失等现象，因此负荷预测分析前期常出现数据样本不足、模型普适性不强等问题［57］。 同时随着社会经济水平的提升，影响电力负荷发展变化的外在因素不断增多，如何加强负荷影响因素辨识并赋予其合适权重有待研究考虑，摆脱数据集数量限制、尽可能提升小样本数据下预测模型精度是当今负荷预测模型亟待解决的问题之一。  
+( 2) 新型电力系统下的源荷互动模式要求负荷预测模型具有较强的实时数据捕捉能力及高精度自学习自适应能力，以神经网络为主体的负荷预测模型通常需要模型网络内大量网络超参数进行自身性能调试。 一般而言，模型超参数常通过试探法进行重复实验调优，缺少统一参数调优理论成为限制负荷预测模型优化发展较为明显的问题 。
+
+随着新型电力系统稳步发展与负荷预测技术日益先进，面对当今负荷预测研究面对的问题与挑战，需着力推进负荷预测模型综合化、精准化发展，高效提升以人工智能为基础的预测模型泛化能力与自调节能力。 同时，在保证负荷预测精准度前提下开展柔性可控负荷参与电网优化调度方面的研究也在逐步展开，综合考虑多指标下的可控负荷响应与互动潜力，构建负荷可调潜力评估指标体系与可控负荷预测模型，为电网开展需求响应潜力分析及调峰调度工作提供参考性建议与合理化策略，缓解用电高峰时段下的供电压力，逐步实现源网荷协调、平衡发展。
+
+# 参考文献:
+
+［1］ 王继业． 人工智能赋能源网荷储协同互动的应用及展望 ［J］． 中国电机工程学报，2022，42 ( 21) :7667－7682．  
+WANG Jiye． Application and prospect of source-gridload-storage coordination enabled by artificial intelligence ［J］． Proceedings of the CSEE， 2022， 42 ( 21) : 7667－7682 ( in Chinese) ．
+
+［2］ 李鹏． 刍议 “源网荷储一体化” ［J］． 风能，2022，( 2) : 16－17．LI Peng． Discussion on integrated power balance meth-od of source network load storage ［J］． Wind Energy，2022，( 2) : 16－17 ( in Chinese) ．  
+［3］ 沈元红． 供电服务与源荷聚合互动深化应用的探讨 ［J］． 大众用电，2021，36 ( 9) : 23－24． SHEN Yuanhong． Discussion on deeping application of interaction between power supply service and sourceload aggregation ［J］． Popular Utilization of Electricity， 2021，36 ( 9) : 23－24 ( in Chinese) ．   
+［4］ 章勇高，邱兴隆，方华亮． 基于互联网技术的源荷互动配电网规划模式 ［J］． 电测与仪表，2024，61( 11) : 148－156．ZHANG Yonggao， QIU Xinglong， FANG Hualiang．Source and load interaction distribution network plan-ning mode based on internet technology ［J］． ElectricalMeasurement ＆ Instrumentation， 2024， 61 ( 11 ) :148－156 ( in Chinese) ．  
+［5］ 席雅雯． 融合历史数据和实时影响因素的精细化短期负荷预测［D］． 北京: 北京交通大学，2019．XI Yawen． Refined short-term load forecasting based onhistorical data and real-time influencing factors ［D］．Beijing: Beijing Jiaotong University，2019 ( in Chi-nese) ．  
+［6］ 薛琳，黄南天，赵树野，等． 基于条件互信息的低冗余短期负荷预测特征选择 ［J］． 东北电力大学学报，2019，39 ( 2) : 30－38．XUE Lin， HUANG Nantian， ZHAO Shuye， et al．Low redundancy feature selection using conditional mu-tual information for short-term load forecasting ［J］．Journal of Northeast Electric Power University，2019，39 ( 2) : 30－38 ( in Chinese) ．  
+［7］ 郑睿程，顾洁，金之俭，等． 数据驱动与预测误差驱动融合的短期负荷预测输入变量选择方法研究［J］． 中国电机工程学报，2020，40 ( 2) : 487－500．ZHENG Ruicheng，GU Jie，JIN Zhijian，et al． Re-search on short-term load forecasting variable selectionbased on fusion of data driven method and forecast errordriven method ［J］． Proceedings of the CSEE，2020，40 ( 2) : 487－500 ( in Chinese) ．  
+［8］ 樊昊，谢国辉． 京津唐电网负荷特性分析及预测［J］． 中国电力，2014，47 ( 11) : 70－74．FAN Hao，XIE Guohui． Load characteristics analysisand forecast od Beijing-Tinjin-Tangshan power grid［J］． Electric Power，2014，47 ( 11) : 70 － 74 ( inChinese) ．  
+［9］ 武星辰． 地市级地区短期负荷分类预测方法的研究
+
+［D］． 北京: 华北电力大学，2017．  
+WU Xingchen． Research on classify forecasting of regional short-term load ［D］． Beijing: North China Electric Power University，2017 ( in Chinese) ．   
+［10］ 杨小明，崔雪，周斌，等． 基于粒子群优化支持向量机的短期负荷预测 ［J］． 武汉大学学报 ( 工学版) ，2018，51 ( 8) : 715－720．YANG Xiaoming，CUI Xue，ZHOU Bin，et al． Re-search on short term load forecasting based on particleswarm optimization support vector machine ［J］． Engi-neering Journal of Wuhan University，2018，51 ( 8) :715－720 ( in Chinese) ．  
+［11］ 杨邓，杨俊杰，胡晨阳，等． 基于改进 LSSVM 的短期电力负荷预测 ［J］． 电子测量技术，2021，44( 18) : 47－53．YANG Deng， YANG Junjie， HU Chenyang， et al．Short-term power load forecasting based on improvedLSSVM ［J］． Electronic Measurement Technology，2021，44 ( 18) : 47－53 ( in Chinese) ．  
+［12］ 李焱，贾雅君，李磊，等． 基于随机森林算法的短期电力负荷预测［J］． 电力系统保护与控制，2020，48 ( 21) : 117－124．LI Yan，JIA Yajun，LI Lei，et al． Short term powerload forecasting based on a stochastic forest algorithm［J］． Power System Protection and Control，2020，48( 21) : 117－124 ( in Chinese) ．  
+［13］ 杨智宇，刘俊勇，刘友波，等． 基于自适应深度信念网络的变电站负荷预测［J］． 中国电机工程学报，2019，39 ( 14) : 4049－4061．YANG Zhiyu， LIU Junyong， LIU Youbo， et al．Transformer load forecasting based on adaptive deep be-lief network ［J］． Proceedings of the CSEE，2019，39( 14) : 4049－4061 ( in Chinese) ．  
+［14］ CAO Zhaojing，WAN Can，ZhANG Zijun，et al． Hybrid ensemble deep learning for deterministic and probabilistic low-voltage load forecasting ［J］． IEEE Transactions on Power Systems，2020，35 ( 3 ) : 1881 － 1897．   
+［15］ 陈逸枞，张大海，于浩，等． 基于 Seq2seq 模型的多特征短期母线负荷预测 ［J］． 电力系统及其自动化学报，2023，35 ( 1) : 1－6．CHEN Yizong，ZHANG Dahai，YU Hao，et al． Short-term bus load forecasting of multi-feature based onSeq2seq model ［J］． Proceedings of the CSU-EPSA，2023，35 ( 1) : 1－6 ( in Chinese) ．  
+［16］ 胡纯瑾． 能源互联模式下面向可调节负荷预测的需求响应潜力分析研究 ［D］． 北京: 华北电力大学，2022．
+
+HU Chunjin． Resaearch on demand response potential for adjustable load forecasting under energy interconnection mode ［D］． Beijing: North China Electric Power University，2022 ( in Chinese) ．   
+［17］ 杨德昌，赵肖余，何绍文，等． 面向海量用户用电数据的集成负荷预测 ［J］． 电 网 技 术，2018，42( 9) : 2923－2929．  
+YANG Dechang，ZHAO Xiaoyu，HE Shaowen，et al． Aggregated load forecasting based on massive household smart meter data ［J］． Power System Technology， 2018，42 ( 9) : 2923－2929 ( in Chinese) ．   
+［18］ JIANG Lianjie，WANG Xinli，LI Wei，et al． Hybrid multitask multi-information fusion deep learning for household short-Term load forecasting ［J］． IEEE Transactions on Smart Grid，2021，12 ( 6) : 5362 － 5372．   
+［19］ 李鹏，何帅，韩鹏飞，等． 基于长短期记忆的实时电价条件下智能电网短期负荷预测［J］． 电网技术，2018，42 ( 12) : 4045－4052．  
+LI Peng，HE Shuai，HAN Pengfei，et al． Short-term load forecasting of smart grid based on long-short-term memory recurrent neural networks in condition of realtime electricity price ［J］． Power System Technology， 2018，42 ( 12) : 4045－4052 ( in Chinese) ．   
+［20］ 郭亦宗，冯斌，岳铂雄，等． 负荷聚合商模式下考虑需求响应的超短期负荷预测 ［J］． 电力系统自动化，2021，45 ( 1) : 79－87．  
+GUO Yizong，FENG Bin，YUE Boxiong，et al． Ultalshort-term load forecasting considering demand response in load aggregator mode ［J］． Automation of Electric Power Systems，2021，45 ( 1) : 79－87 ( in Chinese) ．   
+［21］ 杨溢． 基于 BP 神经网络的典型低压台区短期电力负荷预测 ［D］． 南京: 东南大学，2019．  
+YANG Yi． Short-term load forecasting of typical lowvoltage station based on BP neural network ［D］． Nanjing: Southeast University，2019 ( in Chinese) ．   
+［22］ 顾吉鹏，邵亮，陆垂基，等． 基于 LSTNet 模型的配电台区短期电力负荷预测研究 ［J］． 电气传动，2023，53 ( 5) : 63－70．  
+GU Jipeng，SHAO Liang，LU Chuiji，et al． Research on short-term power load forecasting in distribution area based on LSTNet model ［J］． Electric Drive，2023，53 ( 5) : 63－70 ( in Chinese) ．   
+［23］ 栗然，孙帆，丁星，等． 考虑多能时空耦合的用户级综合能源系统超短期负荷预测方法 ［J］． 电网技术，2020，44 ( 11) : 4121－4134．  
+LI Ran，SUN Fan，DING Xing，et al． Ultra Shortterm load forecasting for user-level integrated energy
+
+system considering multi-energy spatio-temporal coupling ［J］． Power System Technology， 2020， 44 ( 11) : 4121－4134 ( in Chinese) ．   
+［24］ LI Wensheng，WU Kuihua，FENG Liang，et al． A region-level integrated energy load forecasting method based on CNN-LSTM model with user energy label differentiation ［C］． The 5th International Conference on Power and Renewable Energy， Shanghai， China， 2020．   
+［25］ XU Jianjun，PAN Lichao，SUN Yi，et al． Short-term load forecasting of power system based on genetic algorithm improved BP neural network algorithm ［C］． IEEE International Conference on Advances in Electrical Engineering and Computer Applications，Dalian，China， 2022．   
+［26］ BASHIR Z，EL-HAWARY M． Applying wavelets to short-term load forecasting using PSO-based neural networks ［J］． IEEE Transactions on Power Systems， 2009，24 ( 1) : 20－27．   
+［27］ 李国庆，刘钊，金国彬，等． 基于随机分布式嵌入框架及BP 神经网络的超短期电力负荷预测［J］． 电网技术，2020，44 ( 2) : 437－445．  
+LI Guoqing， LIU Zhao， JIN Guobin， et al． Ultra short-term power load forecasting based on randomly distributive embedded framework and BP neural network ［J］． Power System Technology，2020，44 ( 2) : 437－ 445 ( in Chinese) ．   
+［28］ BUI V，NGUYEN V，PHAM T，et al． RNN-based deep learning for one-hour ahead load forecasting ［C］． International Conference on Artificial Intelligence in Information and Communication，Fukuoka，Japan，2020．   
+［29］ YUAN T，JIANG D，HUANG S，et al． Recurrent neural network based short-term load forecast with spline bases and real-Time adaptation ［J］． Applied Sciences， 2021，11 ( 13) : 1－17．   
+［30］ 王子乐，王子谋，蔡莹，等． 基于长短期记忆神经网络组合算法的短期电力负荷预测［J］． 现代电力，2023，40 ( 2) : 201－209．  
+WANG Zile，WANG Zimou，CAI Ying，et al． Shortterm load forecasting based on long short-term memory network combination algorithm ［J］． Modern Electric Power，2023，40 ( 2) : 201－209 ( in Chinese)   
+［31］ 钟劲松，王少林，冉懿，等． 基于互信息和 LSTM的用户负荷短期预测 ［J］． 电力建设，2022，43( 7) : 96－102．  
+ZHONG Jingsong，WANG Shaolin，RAN Yi，et al． Short-term consumer load forecasting based on mutual information and LSTM ［J］． Electric Power Construc-
+
+tion，2022，43 ( 7) : 96－102 ( in Chinese) ．  
+［32］ 胡威，张新燕，李振恩，等． 基于优化的 VMD-mRMR-LSTM 模型的短期负荷预测 ［J］． 电力系统保护与控制，2022，50 ( 1) : 88－97．  
+HU Wei，ZHANG Xinyan，LI Zhenen，et al． Shortterm load forecasting based on an optimized VMDmRMR-LSTM model ［J］． Power System Protection and Control，2022，50 ( 1) : 88－97 ( in Chinese) ．   
+［33］ 杨书强，王涛，檀晓林，等． 基于长短期记忆的图像化短期电力负荷预测方法 ［J］． 全球能源互联网，2023，6 ( 3) : 282－288．  
+YANG Shuqiang，WANG Tao，TAN Xiaolin，et al． Image based short-term power load forecasting method using long short-term memory ［J］． Journal of Global Energy Interconnection，2023，6 ( 3) : 282－288 ( in Chinese) ．   
+［34］ 陈海文，王守相，王绍敏，等． 基于门控循环单元网络与模型融合的负荷聚合体预测方法 ［J］． 电力系统自动化，2019，43 ( 1) : 65－72．  
+CHEN Haiwen，WANG Shouxiang，WANG Shaomin， et al． Aggregaated load forecasting method based on gated recurrent unit networks and model fusion ［J］． Automation of Electric Power Systems，2019，43 ( 1) : 65－ 72 ( in Chinese) ．   
+［35］ JUNG S，MOON J，PARK S，et al． An attention-basedmultilayer GRU model for multistep-ahead short-termload forecasting ［J］． Sensors，2021，21 ( 5) : 1－19．  
+［36］ 方娜，余俊杰，李俊晓，等． 注意力机制下的EMD-GRU 短期电力负荷预测 ［J］． 华侨大学学报( 自然科学版) ，2021，42 ( 6) : 817－824．  
+FANG Na，YU Junjie，LI Junxiao，et al． Short-term power load forecasting under EMD-GRU attention mechanism ［J］． Journal of Huaqiao University ( Natural Science) ，2021，42 ( 6) : 817－824 ( in Chinese) ．   
+［37］ 岳伟民，刘青荣，阮应君，等． 基于 MTL-GRU-At-tention 的综合能源系统多元负荷预测 ［J］． 电力系统及其自动化学报，2023，35 ( 6) : 83－89．  
+YUE Weimin，LIU Qingrong，RUAN Yingjun，et al． Multiple load forecasting of integrated energy system based on MTL-GRU-Attention ［J］． Proceedings of the CSU-EPSA，2023，35 ( 6) : 83－89 ( in Chinese) ．   
+［38］ SADAEI H，CANDID D，GUIMARAES F，et al． Shortterm load forecasting by using a combined method of convolutional neural networks and fuzzy time series ［J］． Energy，2019，175: 365－377．   
+［39］ TUDOSE A，SIDEA D，PICIOROAGA I，et al． A CNN based model for short-term load forecasting: a real case study on the romanian power system ［C］． The 55th In-
+
+ternational Universities Power Engineering Conference， Torino，Italy，2020．   
+［40］ 李文武，张鹏宇，石强，等． 基于聚合混合模态分解和时序卷积神经网络的综合能源系统负荷修正预测 ［J］． 电网技术，2022，46 ( 9) : 3345－3357．  
+LI Wenwu，ZHANG Pengyu，SHI Qiang，et al． Correction prediction of integrated energy system load based on aggregated mixed mode decomposition and TCN ［J］． Power System Technology，2022，46 ( 9) : 3345－3357 ( in Chinese) ．   
+［41］ 史炯． 基于图神经网络的时空负荷预测与潮流优化技术研究［D］． 武汉: 华中科技大学，2021．  
+SHI Jiong． Research on spatio-temporal load forecasting and power flow optimization technology based on graph neural network ［D］． Wuhan: Huazhong University of Science ＆ Technology，2021 ( in Chinese) ．   
+［42］ 董雷，陈振平，韩富佳，等． 基于图卷积神经网络与 K-means 聚类的居民用户集群短期负荷预测［J］．电网技术，2023，47 ( 10) : 4291－4301．  
+DONG Lei， CHEN Zhenping， HAN Fujia， et al． Short-term load forecasting of residential user groups based on graph convolutional neural network and Kmeans clustering ［J］． Power System Technology， 2023，47 ( 10) : 4291－4301 ( in Chinese) ．   
+［43］ XIONG Jun，HONG Haisheng，XU Chende，et al． Graph convolutional network based electricity demand forecasting in power distribution networks ［C］． 2022 International Conference on Artificial Intelligence and Autonomous Robot Systems，Bristol，United Kingdom， 2022．   
+［44］ PENALOZA A，BALBINOT A，LEBORGNE R C． Review of deep learning application for short-term household load forecasting ［C］． IEEE PES Transmission ＆ Distribution Conference and Exhibition － Latin America，Montevideo，Uruguay，2020．   
+［45］ KIM T，CHO S． Predicting residential energy consumption using CNN-LSTM neural networks ［J］． Energy， 2019，182: 72－81．   
+［46］ 魏健，赵红涛，刘敦楠，等． 基于注意力机制的CNN-LSTM 短期电力负荷预测方法 ［J］． 华北电力大学学报 ( 自然科学版) ，2021，48 ( 1) : 42－47．  
+WEI Jian， ZHAO Hongtao， LIU Dunnan， et al． Short-term power load forecasting method by attentionbased CNN-LSTM ［J］． Journal of North China Electric Power University ( Natural Science Edition ) ，2021， 48 ( 1) : 42－47 ( in Chinese) ．   
+［47］ 徐岩，向益锋，马天祥． 基于 EMD-CNN-LSTM 混合模型的短期电力负荷预测 ［J］． 华北电力大学学报
+
+( 自然科学版) ，2022，49 ( 2) : 81－89．  
+XU Yan，XIANG Yifeng，MA Tianxiang． Short-term power load forecasting method based on EMD-CNN-LSTM hybrid model ［J］． Journal of North China Electric Power University ( Natural Science Edition ) ， 2022，49 ( 2) : 81－89 ( in Chinese) ．   
+［48］ 林涵，郝正航，郭家鹏，等． 基于 TCA-CNN-LSTM的短期负荷预测研究 ［J］． 电测与仪表，2023，60( 8) : 73－80．  
+LIN Han，HAO Zhenghang，GUO Jiapeng，et al． Research on short-term load forecasting based on TCA-CNN-LSTM ［J］． Electrical Measurement ＆ Instrumentation，2023，60 ( 8) : 73－80 ( in Chinese) ．   
+［49］ 姚程文，杨苹，刘泽健． 基于 CNN-GRU 混合神经网络的负荷预测方法 ［J］． 电 网 技 术，2020，44( 9) : 3416－3424．  
+YAO Chengwen，YANG ping，LIU Zejian． Load forecasting method based on CNN-GRU hybrid neural network ［J］． Power System Technology，2020，44 ( 9) : 3416－3424 ( in Chinese) ．   
+［50］ 赵兵，王增平，纪维佳，等． 基于注意力机制的CNN-GRU 短期电力负荷预测方法 ［J］． 电网技术，2019，43 ( 12) : 4370－4376．  
+ZHAO Bing，WANG Zengping，JI Weijia，et al． A short-term power load forecasting method based on attention mechanism of CNN-GRU ［J］． Power System Technology，2019，43 ( 12) : 4370 － 4376 ( in Chinese) ．   
+［51］ 邹智，吴 铁 洲，张 晓 星，等． 基于贝叶斯优化CNN-BiGRU 混合神经网络的短期负荷预测［J］． 高电压技术，2022，48 ( 10) : 3935－3945．  
+ZOU Zhi， WU Tiezhou， ZHANG Xiaoxing， et al． Short-term load forecast based on bayesian optimized CNN-BiGRU hybrid neural networks ［J］． High Voltage Engineering，2022，48 ( 10) : 3935 － 3945 ( in Chinese) ．   
+［52］ CHOI H，RYU S，KIM H． Short-term load forecasting based on ResNet and LSTM ［C］． IEEE International Conference on Communications，Control，and Compu-
+
+ting Technologies for Smart Grids，Chengdu，China， 2018．   
+［53］ HUA Heng，LIU Mingping，LI Yuqin，et al． An ensemble framework for short-term load forecasting based on parallel CNN and GRU with improved ResNet ［J］． Electric Power Systems Research，2023，216 ( 3) : 1－ 8．   
+［54］ DAI Yeming，ZHOU Qiong，LENG Mingming，et al． Improving the Bi-LSTM model with XGBoost and attention mechanism: a combined approach for short-term power load prediction ［J］． Appiled Soft Computing， 2022，130: 1－14．   
+［55］ 王康． 基于改进 GRU 神经网络的电力系统短期负荷预测研究［D］． 青岛: 青岛大学，2021．  
+WANG Kang． Research on short term load forecasting of power system based on improved GRU neural network ［D］． Qingdao: Qingdao University，2021 ( in Chinese) ．   
+［56］ 郭宇航． 基于特征选择与集成算法的支持向量机短期电力负荷预测［D］． 徐州: 中国矿业大学，2022．  
+GUO Yuhang． Short-term power load forecasting based on support vector machine of feature selection and ensemble algorithm ［D］． Xuzhou: China University of Mining and Technology，2022 ( in Chinese) ．   
+［57］ 万灿，宋永华． 新能源电力系统概率预测理论与方法及其应用［J］． 电力系统自动化，2021，45 ( 1) :2－16．  
+WAN Can，SONG Yonghua． Theories，methodologies， and applications of probabilistic forecasting for power systems with renewable energy sources ［J］． Automation of Electric Power Systems，2021，45 ( 1) : 2－16 ( in Chinese) ．
+
+作者简介:
+
+杨佳泽 ( 2000) ，女，博士研究生，通信作者，研究方向为电力系统负荷预测，E-mail: 18931576688@ 163．com;
+
+王增平 ( 1964) ，男，教授，研究方向为电力系统自动化、继电保护，E-mail: wangzp $. 1 0 3 \textcircled { a }$ sina．com 。

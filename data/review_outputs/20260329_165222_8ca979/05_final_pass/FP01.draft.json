@@ -1,0 +1,125 @@
+{
+  "chapter_id": "FP01",
+  "chapter_title": "摘要",
+  "sections": [
+    {
+      "section_id": "FP01_S01",
+      "section_title": "研究背景与意义",
+      "paragraphs": [
+        {
+          "paragraph_id": "FP01_S01_P01",
+          "sentences": [
+            {
+              "sentence_id": "FP01_S01_P01_S01",
+              "text": "电力负荷预测旨在通过提升预测精度和量化预测误差分布，来减少电力系统运行面临的不确定性，从而为调度决策提供有效的基础边界条件，保障电力系统的经济与安全运行。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S01_P01_S02",
+              "text": "在“双碳”目标驱动下，构建以新能源为主体的新型电力系统已成为必然趋势，这对负荷预测的精度提出了前所未有的更高要求。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S01_P01_S03",
+              "text": "近年来，大语言模型（LLM）凭借其强大的序列建模、上下文理解及长程依赖关系捕捉能力，为电力负荷预测提供了新的思路。",
+              "cite_source_ids": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "FP01_S02",
+      "section_title": "核心内容与现状",
+      "paragraphs": [
+        {
+          "paragraph_id": "FP01_S02_P01",
+          "sentences": [
+            {
+              "sentence_id": "FP01_S02_P01_S01",
+              "text": "电力负荷预测方法经历了从传统物理与数理统计方法，到基于人工智能的数据驱动方法的演进，显著提升了预测精度。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S02_P01_S02",
+              "text": "随着大语言模型在自然语言处理等领域取得突破，其强大的模式识别和推理能力开始被探索用于时间序列预测，为电力负荷预测提供了新的思路。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S02_P01_S03",
+              "text": "同时，多源数据融合与负荷画像技术通过整合历史负荷、气象、地理信息等多模态数据，为提升预测模型准确性提供了重要基础。",
+              "cite_source_ids": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "FP01_S03",
+      "section_title": "主要问题与挑战",
+      "paragraphs": [
+        {
+          "paragraph_id": "FP01_S03_P01",
+          "sentences": [
+            {
+              "sentence_id": "FP01_S03_P01_S01",
+              "text": "基于大语言模型的负荷预测方法普遍面临模型机理“黑箱”带来的可解释性挑战，难以与电力系统物理规律深度融合。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S03_P01_S02",
+              "text": "模型训练高度依赖海量高质量数据，而实际电力数据常面临缺失、噪声和异常值等问题。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S03_P01_S03",
+              "text": "大语言模型庞大的参数规模导致高昂的计算成本与内存占用，对实时预测构成挑战。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S03_P01_S04",
+              "text": "如何使通用大语言模型有效适应电力负荷预测的特定领域并具备跨场景泛化能力，是当前的核心挑战之一。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S03_P01_S05",
+              "text": "现有研究大多聚焦于点预测精度提升，在量化预测不确定性、提供概率预测方面存在明显不足。",
+              "cite_source_ids": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "FP01_S04",
+      "section_title": "未来展望",
+      "paragraphs": [
+        {
+          "paragraph_id": "FP01_S04_P01",
+          "sentences": [
+            {
+              "sentence_id": "FP01_S04_P01_S01",
+              "text": "未来研究应致力于发展轻量化与高效的模型架构，以推动大语言模型在资源受限环境下的实际部署。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S04_P01_S02",
+              "text": "通过物理信息融合与可解释性增强，提升模型预测的物理一致性与决策可信度是核心方向。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S04_P01_S03",
+              "text": "融合文本、图像、图数据等多模态信息，并探索跨任务学习，是提升预测精度的新机遇。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "FP01_S04_P01_S04",
+              "text": "构建电力能源领域专用的基础模型和繁荣的开源生态，包括完善公开的负荷数据库，对促进该领域深度应用至关重要。",
+              "cite_source_ids": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

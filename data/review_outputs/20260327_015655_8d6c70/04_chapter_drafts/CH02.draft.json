@@ -1,0 +1,358 @@
+{
+  "chapter_id": "CH02",
+  "chapter_title": "国内外研究现状",
+  "sections": [
+    {
+      "section_id": "CH02-SEC01",
+      "section_title": "传统与经典机器学习负荷预测方法",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC01-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P01-S01",
+              "text": "电力负荷预测方法的发展始于传统的统计方法，这些方法基于统计学原理，利用历史负荷、气象等数据建立预测模型。",
+              "cite_source_ids": [
+                "SRC-CH02-001"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P01-S02",
+              "text": "常见的统计方法包括回归分析、时间序列分析和指数平滑法等。",
+              "cite_source_ids": [
+                "SRC-CH02-001",
+                "SRC-CH02-003"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P01-S03",
+              "text": "例如，有研究基于多元线性回归和前馈神经网络构建了多元输入并行输出的预测模型，也有研究利用偏最小二乘法回归解决了样本数量少及自变量多重相关性的问题。",
+              "cite_source_ids": [
+                "SRC-CH02-001"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC01-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P02-S01",
+              "text": "然而，随着分布式光伏广泛接入和制冷/制热负荷增加，电力负荷的非平稳性和非线性特征显著增强，相对简易的统计方法适用性降低。",
+              "cite_source_ids": [
+                "SRC-CH02-001"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P02-S02",
+              "text": "面对复杂的负荷影响因素，传统预测模型对线性关系表现较好，但难以处理用户用电负荷的典型非线性特征。",
+              "cite_source_ids": [
+                "SRC-CH02-003",
+                "SRC-CH02-014"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P02-S03",
+              "text": "因此，具备强大非线性映射能力的机器学习方法在负荷预测领域得到了广泛应用。",
+              "cite_source_ids": [
+                "SRC-CH02-001",
+                "SRC-CH02-010"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC01-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P03-S01",
+              "text": "经典机器学习方法主要包括人工神经网络、支持向量机、随机森林以及集成学习等。",
+              "cite_source_ids": [
+                "SRC-CH02-003",
+                "SRC-CH02-004",
+                "SRC-CH02-011"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P03-S02",
+              "text": "例如，有研究利用主分量分析和独立分量分析法处理负荷数据，然后基于BP神经网络建立预测模型；也有研究通过遗传算法优化支持向量机，或利用C均值模糊聚类结合随机森林进行预测。",
+              "cite_source_ids": [
+                "SRC-CH02-011"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P03-S03",
+              "text": "集成学习通过整合多种基本学习方法的差异性，能够获得泛化能力更强的模型，有效规避单一方法的缺陷。",
+              "cite_source_ids": [
+                "SRC-CH02-013"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC01-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC01-P04-S01",
+              "text": "尽管如此，传统机器学习方法多为浅层学习，难以充分学习和利用负荷数据中隐含的深层特征信息。",
+              "cite_source_ids": [
+                "SRC-CH02-011"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC01-P04-S02",
+              "text": "面对越发复杂的电力系统结构，其预测精度已难以满足新型电力系统的高要求，这推动了预测方法向深度学习的演进。",
+              "cite_source_ids": [
+                "SRC-CH02-010",
+                "SRC-CH02-011"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH02-SEC02",
+      "section_title": "基于深度学习的负荷预测方法",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC02-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P01-S01",
+              "text": "深度学习凭借其处理复杂数据及挖掘深层特征的能力，已成为负荷预测领域的主流算法和新的研究热点。",
+              "cite_source_ids": [
+                "SRC-CH02-006",
+                "SRC-CH02-012"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P01-S02",
+              "text": "与浅层机器学习模型相比，深度学习模型能够更有效地提取负荷序列中隐藏的时序特征，克服了传统方法局部最优、过拟合等缺陷。",
+              "cite_source_ids": [
+                "SRC-CH02-005",
+                "SRC-CH02-027"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC02-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P02-S01",
+              "text": "在众多深度学习模型中，循环神经网络及其变体，如长短期记忆网络和门控循环单元，因其擅长处理序列数据而备受关注。",
+              "cite_source_ids": [
+                "SRC-CH02-005",
+                "SRC-CH02-022"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P02-S02",
+              "text": "LSTM通过遗忘门、输入门和输出门构成的记忆细胞，能够学习长期依赖关系，缓解了传统RNN的梯度消失问题，对解决负荷需求的长期变化意义重大。",
+              "cite_source_ids": [
+                "SRC-CH02-015",
+                "SRC-CH02-025"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P02-S03",
+              "text": "例如，有研究引入注意力机制到LSTM网络中，或构建基于二次加权时间注意力机制的LSTM模型，以提高预测精度。",
+              "cite_source_ids": [
+                "SRC-CH02-012",
+                "SRC-CH02-015"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC02-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P03-S01",
+              "text": "卷积神经网络也被广泛应用于负荷预测，其通过一维卷积层可以捕捉时间序列数据的局部模式和空间特征。",
+              "cite_source_ids": [
+                "SRC-CH02-022"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P03-S02",
+              "text": "为了同时提取时空特征，研究者常将CNN与RNN/LSTM组合使用。",
+              "cite_source_ids": [
+                "SRC-CH02-017",
+                "SRC-CH02-019"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P03-S03",
+              "text": "CNN-LSTM组合模型由CNN层提取空间特征，再将处理后的序列输入LSTM进行时序特征提取，有效集成了两类模型的优势，减少了序列信息丢失等问题。",
+              "cite_source_ids": [
+                "SRC-CH02-019",
+                "SRC-CH02-026"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P03-S04",
+              "text": "此外，为了缓解模型退化问题并提高训练效率，深度残差网络也被引入与循环神经网络结合，构建了如ResNet-LSTM等模型。",
+              "cite_source_ids": [
+                "SRC-CH02-020"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC02-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC02-P04-S01",
+              "text": "近年来，完全基于注意力机制的Transformer模型因其并行计算能力强、能有效捕捉长期依赖关系，也在负荷预测领域崭露头角。",
+              "cite_source_ids": [
+                "SRC-CH02-016",
+                "SRC-CH02-018"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P04-S02",
+              "text": "有研究将概率密度统计模型与时序Transformer相结合，实现了高精度的预测。",
+              "cite_source_ids": [
+                "SRC-CH02-005"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC02-P04-S03",
+              "text": "除了上述主流模型，深度信念网络、自编码器、深度残差网络等其他深度学习模型也被尝试用于负荷预测，以更深层次地挖掘数据特征。",
+              "cite_source_ids": [
+                "SRC-CH02-012",
+                "SRC-CH02-017",
+                "SRC-CH02-024"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "CH02-SEC03",
+      "section_title": "大语言模型在时序预测及相关领域的应用探索",
+      "paragraphs": [
+        {
+          "paragraph_id": "CH02-SEC03-P01",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P01-S01",
+              "text": "随着大语言模型在自然语言处理等领域展现出强大的模式识别和推理能力，研究者开始探索将其应用于时间序列预测任务，包括电力负荷预测。",
+              "cite_source_ids": [
+                "SRC-CH02-031",
+                "SRC-CH02-032"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P01-S02",
+              "text": "LLM处理时序数据的主要挑战在于如何有效对齐时间序列数据与自然语言这两种模态。",
+              "cite_source_ids": [
+                "SRC-CH02-032"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P02",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P02-S01",
+              "text": "目前，将LLM用于时间序列预测的方法大致可分为两类。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH02-SEC03-P02-S02",
+              "text": "第一类是基于提示的重编程方法，即保持预训练LLM的权重不变，通过精心设计的指令或提示词来引导模型进行预测。",
+              "cite_source_ids": [
+                "SRC-CH02-035"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P02-S03",
+              "text": "例如，TIME-LLM框架通过将输入时间序列重编程为文本原型，并利用“提示即前缀”的方法来丰富输入上下文，从而让冻结的LLM能够理解并预测时间序列趋势。",
+              "cite_source_ids": [
+                "SRC-CH02-032",
+                "SRC-CH02-033",
+                "SRC-CH02-034"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P03",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P03-S01",
+              "text": "第二类方法涉及对LLM本身在时间序列数据上进行微调。",
+              "cite_source_ids": [
+                "SRC-CH02-035"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P03-S02",
+              "text": "有研究通过微调GPT-2中的Transformer模块和位置编码，或引入重编程方法对齐LLM的词嵌入与时间序列嵌入，使预训练LLM适应时序预测任务。",
+              "cite_source_ids": [
+                "SRC-CH02-031"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P04",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P04-S01",
+              "text": "在负荷预测领域，LLM的应用潜力主要体现在处理小样本问题和多模态信息融合方面。",
+              "cite_source_ids": []
+            },
+            {
+              "sentence_id": "CH02-SEC03-P04-S02",
+              "text": "针对历史数据不足的小样本问题，LLM可以先通过大量通用数据预训练，再使用少量领域数据微调，从而巧妙解决数据支撑不足的难题。",
+              "cite_source_ids": [
+                "SRC-CH02-028"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P04-S03",
+              "text": "同时，面对包含结构化与非结构化数据的复杂输入类型，LLM可以通过对不同类型输入数据进行微调，或结合多模态数据融合技术，来提取综合特征。",
+              "cite_source_ids": [
+                "SRC-CH02-029"
+              ]
+            }
+          ]
+        },
+        {
+          "paragraph_id": "CH02-SEC03-P05",
+          "sentences": [
+            {
+              "sentence_id": "CH02-SEC03-P05-S01",
+              "text": "尽管已有研究表明重编程后的LLM在部分时间序列预测任务上可以超越专业的预测模型，并在少样本和零样本场景中表现优异，但也有研究对其实际效用提出了质疑。",
+              "cite_source_ids": [
+                "SRC-CH02-030",
+                "SRC-CH02-032"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P05-S02",
+              "text": "这些研究发现，在某些情况下，用简单的注意力层或基础Transformer块替换LLM，甚至完全移除LLM，也能获得相当或更好的性能，且训练和推理速度大幅提升。",
+              "cite_source_ids": [
+                "SRC-CH02-030"
+              ]
+            },
+            {
+              "sentence_id": "CH02-SEC03-P05-S03",
+              "text": "这表明，LLM在纯数值时间序列预测中的优势可能并不明显，其更适用的场景可能是需要结合文本推理的多模态应用。",
+              "cite_source_ids": [
+                "SRC-CH02-030",
+                "SRC-CH02-033"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

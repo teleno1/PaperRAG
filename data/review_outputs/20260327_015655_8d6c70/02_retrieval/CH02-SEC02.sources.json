@@ -1,0 +1,285 @@
+{
+  "chapter_id": "CH02",
+  "chapter_title": "国内外研究现状",
+  "section_id": "CH02-SEC02",
+  "section_title": "基于深度学习的负荷预测方法",
+  "section_description": "综述以CNN、RNN/LSTM、Transformer等为代表的深度学习模型在负荷预测中的主流应用、模型架构改进（如注意力机制）及其性能优势。",
+  "section_query": "深度学习 负荷预测 CNN RNN LSTM Transformer 注意力机制",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH02-015",
+    "SRC-CH02-016",
+    "SRC-CH02-017",
+    "SRC-CH02-018",
+    "SRC-CH02-019",
+    "SRC-CH02-020",
+    "SRC-CH02-021",
+    "SRC-CH02-022",
+    "SRC-CH02-012",
+    "SRC-CH02-023",
+    "SRC-CH02-024",
+    "SRC-CH02-025",
+    "SRC-CH02-026",
+    "SRC-CH02-027"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH02-015",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0024",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "2.2 长短期记忆神经网络",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 2.2 长短期记忆神经网络]\n相比于CNN网络，RNN更善于处理长期依赖关系，但在处理较长的时序时会出现“梯度消失”现象。因此，有学者提出了LSTM网络对其进行改良，LSTM 神经网络主要由遗忘门、输入门和输出门构成，主要结构如图9 所示， 为当前时刻输入信息； 、 为上一时刻和当前时刻的隐藏状态； 、 为上一时刻和当前时刻的细胞状态。 LSTM 的具体信息传播过程网络层图如图 10所示，该图包含了 2 个隐含层的 LSTM，在 和 时刻，它可以看作一个普通的BP神经网络；当它沿时间轴展开后， 时刻训练的隐含层信息会被传递到 时刻。 LSTM 模型在序列数据上表现出优秀的性能，具有很强的抗干扰能力，可以解释模型的决策过程以及处理长序列数据[79]；又因为其可以学习长期依赖关系，故对解决负荷需求长期变化问题意义重大。文献[80]提出了一种基于二次加权时间注意力机制-长短期记忆网络的预测模型，并采用随机森林法分析相关性以提高收敛速度及预测精度。文献[81]为 解决数据波动和强非线性的影响，提出了ResNet-LSTM-Attention 预测模型，利用 ResNet 克服传统信号分解的局限性来提取空间特征，采用LSTM 提取时间特征，使模型对综合能源系统具有更好的适应性。",
+      "paper_score": 0.9561621891467137,
+      "chunk_score": 0.9727871732064995
+    },
+    {
+      "source_id": "SRC-CH02-016",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0026",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "2.4 Transformer 模型",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 2.4 Transformer 模型]\n由于电能替代的不断深化与新能源、电动汽车等不断融入负荷侧，许多现有的概率统计和机器学习方法无法提供准确的预测。因此，有学者将人工智能模型引入到负荷预测领域，并将多个模型相结合，以及与物理、数理统计相结合，最终实现对电力负荷的预测，例如 CNN 和 LSTM 在预测中已经得到了广泛应用，而 2017 年由 Google 新提出的Transformer模型更因为并行计算能力强、训练速度快以及在处理长序列和大规模数据集时的优异表现，逐渐在负荷预测领域崭露头角。 Transformer 提出了注意力机制以实现快速并行，改进了循环神经网络训练慢的缺点，由于其独特的架构和能力而被用于时间序列分析，在时间序列分析中的应用核心在于其自注意力机制，能够有效捕捉时间序列数据中的长期依赖关系。 该模型主要由编码器(Encoder)和解码器(Decoder)构成，如图 12 所示，它们之间通过多头注意力机制和前馈神经网络连接在一起，通过并行处理能力和位置编码实现高效的信息交互、传递。与传统的 CNN、LSTM 等模型不同，该模型可以并行处理序列数据，从而提高处理效率。",
+      "paper_score": 0.9561621891467137,
+      "chunk_score": 1.005890866059624
+    },
+    {
+      "source_id": "SRC-CH02-017",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0041",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "1.2.2 电力负荷预测算法研究现状",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 1.2.2 电力负荷预测算法研究现状]\nStergiou 和 T. E. Karakasidis 将包括 LSTM 和双向 LSTM 在内的 4 种神经网络模型进行集成，用于预测希腊的电力负荷[61]。 考虑到 RNN 和 LSTM 模型只能学习到序列数据中的时间特征，无法提出空间特征，因此，一些研究人员尝试通过串联卷积神经网络（Convolutional Neural Networks，CNN）的方式同时提取负荷序列中的时间特征和空间特征，以提高负荷预测精度[62,63]，联合两种神经网络的电力负荷预测模型的一般框架如图 1.4 所示。例如，Tae-Young Kim 和 Sung-Bae Cho 提出一种串联 CNN 和 LSTM 的电力负荷预测模型。历史负荷序列首先经过卷积层获取局部空间信息，再通过双向 LSTM 层提取时间信息，最后经过一个全连接层输出最终的负荷预测结果，取得了优越的预测性能[64]。Chuan Shang 等人先将历史负荷序列和影响因子序列合并，再利用 1 维卷积 层和池化层提取空间信息，最后利用 LSTM 和全连接层得到负荷值[65]。Swati Sharda 在 CNN 和 LSTM 联合模型之后，增加了基于 Boosting 采样的集成学习模块，并利用 XGBoost 实现模型的并行化，在两个公开数据集上的预测结果表明，所提出方法的 RMSE 和平均绝对误差（Mean Absolute Error，MAE）更低[66]。 除了 RNN 和 LSTM 以外，研究人员也尝试了利用其他神经网络模型进行电力负荷预测，包括深度信念网络[67-70]、自编码器[71]、深度残差网络[72,73]、卷积神经网络[74,75]、受限玻尔兹曼机[76]等。例如，Liangzhi Li 等人提出了一种基于物联网的深度神经网络，该网络由 10 层全连接层组成，前两层各包含 4096 个神经元，3 至 5 层包含 2048 个神经元，6 至 10 层则包含 1024 个神经元。此外，作者还利用该模型定量分析了若干因素对负荷的影响规律，对特征选择起到了指导作用[77]。Xueheng Qiu 首先利用经验模态分解算法将电力负荷序列分解为若干个本征模函数，再利用包含两层受限",
+      "paper_score": 0.8942800767505319,
+      "chunk_score": 0.8952868900466551
+    },
+    {
+      "source_id": "SRC-CH02-018",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0093",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.1 引言",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.1 引言]\n电力负荷数据是一种长时间序列数据，当前时刻负荷可能与过去很长时期内的负荷存在长期依赖关系，将这种暗藏在长序列中的长期依赖挖掘出来，对提高负荷预测精度具有一定的潜在价值。长短期记忆网络仅在一定程度上缓解了传统RNN网络长期依赖的问题，但仍然存在长期记忆丢失的问题，限制了它们从长序列中提取特征的能力。近年来，以Transformer为代表的神经网络模型，抛弃了传统的RNN或CNN结构，完全由注意力机制组成，已在机器翻译等自然语言处理任务中取得了良好的效果。本章以Transformer模型的最新改良模型之一——Informer模型为基础，通过考虑电力负荷数据的周期性特点，提出一种基于周期增强Informer（periodic Informer，P-Informer）的短期电力负荷预测模型，进一步提高了短期电力负荷预测的精度。",
+      "paper_score": 0.8942800767505319,
+      "chunk_score": 0.9418766540100267
+    },
+    {
+      "source_id": "SRC-CH02-019",
+      "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "chunk_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽__chunk_0018",
+      "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "authors": [
+        "杨佳泽",
+        "王灿",
+        "王增平"
+      ],
+      "year": "2025",
+      "venue": "华北电力大学学报",
+      "section": "2. 2. 1 CNN-LSTM 模型",
+      "content": "[Title: 新型电力系统背景下的智能负荷预测算法研究综述]\n[Section: 2. 2. 1 CNN-LSTM 模型]\n卷积神经网络可以较好地提取长时间序列的空间特征，但难以准确地提取出序列的时间特征，长短期记忆神经网络凭借其记忆功能能够准确提取序列时间特征信息，但自身短时记忆的固有缺陷容易丢失序列信息。 因此，单一 CNN 与 LSTM 负荷预测模型在面对多维负荷数据序列常出现多维特征信息提取不充分、序列信息结构混乱等问题。 CNN-LSTM 组合模型可由 CNN 层提取序列空间特征，负荷序列经 CNN 处理后输入 LSTM 进行时序特征提取并进行负荷预测，充分集成 CNN 与LSTM 两类神经网络模型的固有优势，有效减少单一模型在预测方面体现出的序列丢失、时序特征捕获不完全等问题。 CNN-LSTM 模型网络拓扑结构如图 9 所示。 CNN-LSTM 预测模型在综合能源系统负荷预测［24］、居民住宅负荷预测［44］等方面应用广泛，其较强的时空特征捕捉特性能够差异化跟踪综合能源系统及居民住宅内各类负荷变化情况，有效提 高具有耦合性质的独立负荷预测精度。 文献［45］在文献［44］的基础上进一步研究了居民住宅内家用电器的能耗情况，通过对电热水器与变频空调的能耗监测与预测，表明 CNN-LSTM 组合模型可以很好地预测住宅内能耗占比较大的家用电器使用情况 。 在系统区域级负荷预测方面，文献［46］运用CNN 充分提取各分量的潜在特征并作为 LSTM 网络输入对各分量进行预测，明显缩短负荷预测时间，有效提升负荷预测精度。 由于传统 CNN-LSTM模型只在结构上实现两个单体网络的顺序链接，为进一步提高训练性能，在整体结构上，可引入时序注意力机制及通道注意力机制［47］来强化负荷序列特征提取能力; 在单一网络上，可建立具有双向递归反馈的双向长短期记忆循环网络 BiLSTM，利用给 L1 正则化对特征数据进行特征筛选后通过CNN-BiLSTM 模型进行负荷预测，进一步增强模型预测性能［48］ 。",
+      "paper_score": 0.8223328122239857,
+      "chunk_score": 0.9485424511996126
+    },
+    {
+      "source_id": "SRC-CH02-020",
+      "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "chunk_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽__chunk_0020",
+      "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+      "authors": [
+        "杨佳泽",
+        "王灿",
+        "王增平"
+      ],
+      "year": "2025",
+      "venue": "华北电力大学学报",
+      "section": "2. 2. 3 RNN-ResNet 模型",
+      "content": "[Title: 新型电力系统背景下的智能负荷预测算法研究综述]\n[Section: 2. 2. 3 RNN-ResNet 模型]\n高维的电力系统负荷数据通常需要结构复杂、层数较多的神经网络进行训练，以此提高负荷特征提取的完整性与预测结果的准确性。 由于神经网络层数叠加及多种神经网络耦合互联，面对高维度海量数据时模型训练速度较慢，且当训练达到一定次数与深度时，卷积神经网络、循环神经网络等将出现精度饱和甚至下降的 “模型退化现象” 。 深度残差网络( Residual Network，ResNet) 由多个残差块堆叠而成，其内部的残差块结构不会增加网络模型参数数量与计算复杂度，可以有效缓解其他神经网络的训练速度慢及模型退化问题，因此深度残差网络已被用于组合神经网络负荷预测模型中配合其他循环神经网络进行数据训练，其组合模型网络拓扑结构如图 10 所示。 考虑到多层卷积神经网络的训练复杂度与模型退化问题，文献［52］在 CNN-LSTM 短期负荷预测模型基础上利用深度残差网络代替卷积神经网络，构建整体参数较少的 ResNet-LSTM 负荷预测模型，与相同条件下的 CNN-LSTM 模型相比，Res-Net-LSTM 模型的训练效率提高了 ，预测精度有所提高。 文献［53］在文献［52］基础上对深度残差网络进行改进，用全连接层代替传统残差网络的卷积层，同时添加 Dropout 层与高斯噪声，构建基于注意力机制的 CNN-GRU-iResNet 短期负荷预测模型，特征向量经注意力机制动态融合后输 入至改进深度残差网络中进行训练预测，与前序CNN-GRU 负荷预测模型相比，此模型解决了神经网络梯度消失与模型退化问题，在保证网络训练深度的同时明显提高了训练效率与预测精度。",
+      "paper_score": 0.8223328122239857,
+      "chunk_score": 0.9186200884238094
+    },
+    {
+      "source_id": "SRC-CH02-021",
+      "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "chunk_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning__chunk_0038",
+      "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+      "authors": [
+        "Qi Dong",
+        "Rubing Huang",
+        "Chenhui Cui",
+        "Dave Towey",
+        "Ling Zhou",
+        "Jinyu Tian",
+        "Jianzhou Wang"
+      ],
+      "year": "2018",
+      "venue": "",
+      "section": "8.1 Deterministic Forecasting Models ",
+      "content": "[Title: Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey]\n[Section: 8.1 Deterministic Forecasting Models ]\nThis divide-and-conquer mechanism generates multiple preliminary prediction results, which ultimately need to be synthesized into a final prediction using weighted averaging, voting mechanisms, or attention mechanisms. Hua et al. [86] used an attention mechanism to dynamically connect the preliminary results, with a CNN capturing spatial features and a GRU capturing temporal features. Unlike existing ELF methods that place separate convolutional layers on top of the entire RNN, Liu et al. [118] embedded a 3-D convolutional filter within the LSTM unit, enabling the capture of translation-invariant local patterns both within and across spatial neighborhoods in the channels. This strategy of embedding one deep-learning model into another, through hierarchical model integration, enabled deep abstraction and effective utilization of data features. Eskandari et al. [44] also used this strategy, combining a GRU and an LSTM to form a bidirectionally-propagating neural network. This used multidimensional features extracted by a 2-D CNN as input and provided these features to the bidirectional units for hourly ELF.",
+      "paper_score": 0.8200683268312431,
+      "chunk_score": 0.9196655210511255
+    },
+    {
+      "source_id": "SRC-CH02-022",
+      "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "chunk_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning__chunk_0011",
+      "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+      "authors": [
+        "Qi Dong",
+        "Rubing Huang",
+        "Chenhui Cui",
+        "Dave Towey",
+        "Ling Zhou",
+        "Jinyu Tian",
+        "Jianzhou Wang"
+      ],
+      "year": "2018",
+      "venue": "",
+      "section": "2.2 Basic Deep-Learning Models ",
+      "content": "[Title: Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey]\n[Section: 2.2 Basic Deep-Learning Models ]\nThe key to LSTM is its internal structure, the memory cell, which includes four main components: an input gate, a forget gate, an output gate, and a cell state that can maintain information over time [66]. GRU is an improved model based on LSTM, but with a simpler structure and shorter training times, which helps it to better capture long-term dependencies within sequential data. GRU integrates the forget and input gates of LSTM into a single update gate, combining the cell state and hidden state. Compared to LSTM, GRU has fewer parameters, due to having one less gating unit. This significantly improves the computational efficiency. Both LSTM and GRU improve the information flow control through their gating mechanisms. While LSTM provides precise control mechanisms, GRU improves the computational efficiency of these controls by simplifying them. A choice between these two models typically depends on the specific demands of the task, the nature of the data, and the computational resources available. 2.2.3 Convolutional Neural Networks (CNNs). In recent years, CNNs have become one of the most popular and widely utilized deep-learning models [119]. Although initially designed for processing image data, CNNs are also very effective at handling time-series data. For such data, One-Dimensional (1-D) convolutional layers can capture local patterns and features through a sliding window mechanism. Additionally, CNNs can handle data with grid-like topologies, allowing sequence data to be converted into graph-structured data for processing. A CNN model consists of four main parts [98, 112]: (i) convolutional layers (which create feature maps from the input data); (ii) pooling layers (which reduce the dimensionality of the convolutional features); (iii) flattening layers (which reshape the data into a column vector); and (iv) fully connected layers (which link the features extracted by the convolutional and pooling layers to other layers).",
+      "paper_score": 0.8200683268312431,
+      "chunk_score": 0.6961360515595686
+    },
+    {
+      "source_id": "SRC-CH02-012",
+      "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "chunk_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷__chunk_0007",
+      "title": "基于人工智能算法的电力系统负荷预测研究综述",
+      "authors": [
+        "杨雷",
+        "罗雪红",
+        "韩鹍",
+        "张启立",
+        "郭鹏",
+        "李晓飞"
+      ],
+      "year": "2024",
+      "venue": "电工技术",
+      "section": "3．2 基于深度学习的电力系统负荷预测",
+      "content": "[Title: 基于人工智能算法的电力系统负荷预测研究综述]\n[Section: 3．2 基于深度学习的电力系统负荷预测]\n深度学习 作 为 近10年来机器学习领域的重大突破 ，它凭借着处理复杂数据的强大能力以及对复杂数据中隐含的信息特征的高效学习能力 ， 已经在图像处理、 故 障 预警、 语音识别等领域实现了广泛的应用 ， 目前在负荷预测领域也逐渐发挥其作用。 基于深度学习的电力系统负荷预测的主要方法有深度神经网络、 卷积神经网络、 极限学习机、 深度信念网络等。 文献［15］采用引入注意力机制的长短期记忆神经网络建立了电力系统短期负荷预测模型 ， 研究结果表明该模型的单日与单周短期负荷预测准确率可以分别达到 与 文献［16］利用长短期记忆神经网络建立了负荷预测模型 ， 从时间维度辨识学习负荷数据本身的规律特性 ， 从影响因素上识别不同因素对负荷的非线性影响 ， 并借助实际负荷数据对模型进行了验证 结果证明该方法可以有效实现电力系统负荷的预测。 文献［17］提出一种基于改进深度信念网络算法的负荷预测方法 通过将负荷数据的特征向量输入自编码神经网络进行特征融合后输入建立的电力系统负荷预测模型 ， 成功实现了短期负荷预测 文献［18］将高效通道注意力模块与时间卷积神经网络相结合 ， 通过在时间卷积神经网络中嵌入高效通道注意力模块改进了基本时间卷积神经网络的残差块下取样位置 构建了电力系统短期负荷预测模型 ， 经过实际电网负荷数据测试 ， 结果证明该方法能够有效实现电力系统的短期负荷预测 文献［19］提出一种基于量子粒子群优化极限学习机与卡尔曼滤波相结合的负荷预测模型（如图2所示） ， 该模型首先通过量子粒子群对极限学习机的输入层和隐藏层结构进行寻优 ， 以此预测各时间点的负荷值 ， 然后将得到的结果借助卡尔曼滤波算法进行进一步的更新和优化 最终得到各个时间点的最优电力负荷预测值 ， 实验表明该模型具 有较高的负荷预测精度和较高的稳定性。",
+      "paper_score": 0.534827507651646,
+      "chunk_score": 0.4890255968347509
+    },
+    {
+      "source_id": "SRC-CH02-023",
+      "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "chunk_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷__chunk_0010",
+      "title": "基于人工智能算法的电力系统负荷预测研究综述",
+      "authors": [
+        "杨雷",
+        "罗雪红",
+        "韩鹍",
+        "张启立",
+        "郭鹏",
+        "李晓飞"
+      ],
+      "year": "2024",
+      "venue": "电工技术",
+      "section": "5 结语 ",
+      "content": "[Title: 基于人工智能算法的电力系统负荷预测研究综述]\n[Section: 5 结语 ]\n电力系统负荷预测一直是电力系统中最热门的研究领域之一 ， 且随着新型电力系统的构建 ， 电力系统的负荷预测精度要求也将不断提高 本文对基于人工智能算法的电力系统负荷预测方法进行了详细介绍 ， 首先介绍了电力负荷预测的方法分类以及电力负荷预测的必要性 ， 然后将基于人工智能算法的电力负荷预测方法分为基于传统机器学习、 基于深 度 学 习、 基 于 组 合 模 型 3种 方 法 展 开 详 细 叙述 ， 介绍了各个方法的研究成果和特点 ， 最后对基于人工智能算法的电力系统负荷预测研究进行了展望和总结 ， 如何建立完善的负荷数据库、 合适的负荷预测模型同时降低预测模型的训练代价仍是需要深思的问题",
+      "paper_score": 0.8058196865138583,
+      "chunk_score": 0.725316818634067
+    },
+    {
+      "source_id": "SRC-CH02-024",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0014",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "2.7 其他深度学习模型",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 2.7 其他深度学习模型]\n除 CNN、LSTM、GRU 等常用模型外, 还有部分其他深度学习模型也被应用于短期负荷预测中. 例如Dedinec 等人[56] 将多层受限玻尔兹曼机组成的深度信念网络 (deep belief networks, DBN) 用于负荷预测, 在逐层无监督训练后使用有监督反向传播训练方法微调模型参数, 同时引入电价变量, 有效提高了预测精度. 为降低由于复杂的网络结构和受限于确定性点预测而导致的计算成本问题, Dong 等人[57] 利用 K 近邻算法寻找与未来值相似的历史电力负荷时间序列特征,采用 DBN 进行预测, 而文献 [58] 则利用纵横交叉算法 (crisscross optimization, CSO) 优化 DBN, 利用互信息算法筛选影响因素, 这两种模型均表现出较好的性能. Alipour 等人[59] 利用自动编码器与级联神经网络构建 DNN 模型进行负荷预测. 文献 [60] 同时考虑历 史负荷与温度、阳光等气象数据, 利用梯度增强回归树 (gradient boosting regression tree, GBRT) 进行概率净负荷预测. 文献 [61] 研究光伏渗透率、季节性和负荷需求增加对净负荷预测间隔的影响, 采用分位数回归和动态高斯模型进行日负荷区间概率预测. 文献[62]采用相空间重构和BNN相结合进行短期净负荷预测. 深度学习模型可以更深层次的挖掘负荷数据集特征, 提高预测精确度, 但模型框架、参数选择仍然是亟待解决的难题.",
+      "paper_score": 0.7828279274761871,
+      "chunk_score": 0.8462955952362103
+    },
+    {
+      "source_id": "SRC-CH02-025",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0011",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "2.6 循环神经网络",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 2.6 循环神经网络]\nRNN在负荷预测方面也做出了巨大贡献. 文献[42]针对家庭用电负荷预测中的波动性和不确定性问题,将住宅消费者的负荷概况作为池化深度递归神经网络(pooling-based deep recurrent neural network, PDRNN)的输入, 直接对不确定性信息进行处理学习, 有效解决模型过拟合问题. RNN 一般被用于离线学习, 每次训练都存在无法从新数据中及时学习新知识, 针对此问题, Fekri 等人[43] 利用 RNN 捕捉时间相关性, 并根据新数据更新 RNN 的权重, 自动调整 RNN 超参数以适应数据变化. 文献 [44] 则将 RNN 与一维 CNN 网络相结合, 提出了用于短期电力负荷预测的递归检验神经网络模型 (recurrent inspection CNN, RICNN), 利用 RNN学习电力负荷时间序列数据中存在的长期和短期时间相关性, CNN 则处理负荷时间序列的谷峰特征, 与MLP 模型相比, 有效提高了 MAPE. RNN 通过共享所有时间步的参数来学习过去时刻的模式表示, 但随着时间的推移, 序列的增长使过去时刻的模式记忆逐渐消失, LSTM 利用门控记忆单元可以将数据信息保持更长的时间, 并做出更好的预测.文献 [45] 充分考虑能耗数据的周期性, 利用自相关性分析影响因素特征, 构建 LSTM 网络对序列数据进行建模和预测, 与 ARMA、BPNN 等传统模型相比,RMSE 大幅度降低. 文献 [46] 则将 LSTM 应用到非住宅用户负荷预测上, 利用 K-means 分类挖掘用户能耗 行为模式, 应用 Spearman 相关系数研究非住宅消费者在多个时间序列下的时间相关性, 最终设计提出一种基于多序列 LSTM 递归神经网络的非住宅负荷预测框架. 而针对住宅用户, 文献 [47,48] 利用负荷序列分解和基于互信息的多源输入数据重构双层特征方式处理住宅用户负荷数据, 引入自注意力机制 (self-attentionmechanism, SAM) 为时间序列特征分配权重, 最终采用 LSTM 和 SAM 相结合的混合模型进行预测, 弥补了单一 LSTM 的不足.",
+      "paper_score": 0.7828279274761871,
+      "chunk_score": 0.8990569928928811
+    },
+    {
+      "source_id": "SRC-CH02-026",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0051",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "2.4.3 CNN-LSTM 深度特征挖掘的时序模型",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 2.4.3 CNN-LSTM 深度特征挖掘的时序模型]\n由此，本文提出的自适应模态分解的深度学习短期负荷预测方法的预测步骤主要分为4个步： 步骤1：对原始负荷序列数据进行数据分解。利用AMD方法将原始负荷数据分解为高频、中频和低频三个分量数据集{SIMF1, SIMF2, SIMF3}。 步骤2：对各个数据集进行数据标准化。将每个分量数据与气象特征数据进行标准化： 其中， 和 分别为各个分量的原始数据以及标准化以后得数据： 和 分别为各个分量原始数据集的所求得的最大值和最小值。 步骤3：构建高频、中频、低频三个分量的CNN-LSTM预测模型。针对SIMF1，SIMF2，SIMF3每个分量序列建立其独有的CNN-LSTM预测模型，将各分量序列的前7日相同预报时刻的数据、星期几标签以及预测时刻的辐照度、温度、风速等气象特征数据作为模型输入，将预测时刻的分量序列作为输出，进行模型训练，确定各个分量的预测模型的参数。 步骤4：对预测结果进行对比分析。将SIMF1，SIMF2，SIMF3三个分量预测结果进行叠加，得到最终的负荷预测结果。构建基础预测模型，利用误差评估指标与所提模型预测结果进行比较，分析所提模型预测性能。",
+      "paper_score": 0.7728975671061048,
+      "chunk_score": 0.8520166054733717
+    },
+    {
+      "source_id": "SRC-CH02-027",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0012",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "2.1 系统或区域级负荷预测",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 2.1 系统或区域级负荷预测]\n深度学习方法能够通过多层非线性映射从大量数据中逐层学习到隐藏的抽象特征，从而有效提升预测效果[18-22]。文献[18]提出 1 种基于深度信念网络的短期负荷预测方法，其通过预训练方式得到深度信念网络的初始参数，有效解决深度神经网络由于随机初始化参数导致泛化能力降低、易陷入局 部最优等问题。实验结果表明，该方法在训练样本较大且负荷影响因素较复杂的情况下具有较高的预测准确率。另外，针对负荷影响因素复杂多变且影响因素数据往往分布在不同时间尺度上的特点，文献[20]将不同时间尺度的数据融合作为堆叠长短期记忆神经网络模型的输入特征，充分考虑了不同时间尺度数据的依懒性，有效提高了中长期系统级负荷预测精度。文献[21]则利用卷积神经网络进行特征融合，并结合长短期记忆神经网络对区域负荷进行短期预测。 当前，针对系统或区域级负荷预测场景，国内外研究人员已经开展了广泛深入的学术研究，并且预测精度能够达到较高的水平。特别地，近年来越来越多的专家学者采用深度学习方法进行负荷预测建模，以提升预测精度，其主要原因在于相比传统机器学习算法，深度学习算法对于挖掘大数据量中存在的复杂非线性关系更具优势，能够大幅提升模型对样本分布规律的表达效果。",
+      "paper_score": 0.6698053207839372,
+      "chunk_score": 0.7385912268752373
+    }
+  ]
+}

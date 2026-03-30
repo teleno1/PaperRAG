@@ -1,0 +1,175 @@
+{
+  "chapter_id": "CH02",
+  "chapter_title": "大语言模型用于时序预测的核心技术",
+  "section_id": "CH02-SEC01",
+  "section_title": "基于提示工程的时序重编程",
+  "section_description": "介绍通过精心设计的提示词，将原始时间序列数据“翻译”或“重编程”为大语言模型可理解的文本输入，直接利用其预训练知识进行预测的方法。",
+  "section_query": "提示工程、时序重编程、TIME-LLM、大语言模型预训练知识利用",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH02-001",
+    "SRC-CH02-002",
+    "SRC-CH02-003",
+    "SRC-CH02-004",
+    "SRC-CH02-005",
+    "SRC-CH02-006",
+    "SRC-CH02-007",
+    "SRC-CH02-008"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH02-001",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0004",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "1 INTRODUCTION ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 1 INTRODUCTION ]\nTherefore, it remains an open challenge to unlock the knowledge within LLMs in activating their ability for general time series forecasting in a way that is accurate, data-efficient, and task-agnostic. In this work, we propose TIME-LLM, a reprogramming framework to adapt large language models for time series forecasting while keeping the backbone model intact. The core idea is to reprogram the input time series into text prototype representations that are more naturally suited to language models’ capabilities. To further augment the model’s reasoning about time series concepts, we introduce Prompt-as-Prefix (PaP), a novel idea in enriching the input time series with additional context and providing task instructions in the modality of natural language. This provides declarative guidance about desired transformations to apply to the reprogrammed input. The output of the language model is then projected to generate time series forecasts. Our comprehensive evaluation demonstrates that large language models can act as effective few-shot and zero-shot time series learners when adopted through this reprogramming approach, outperforming specialized forecasting models. By leveraging LLMs’ reasoning capability while keeping the models intact, our work points the way toward multimodal foundation models that can excel on both language and sequential data tasks. Our proposed reprogramming framework offers an extensible paradigm for imbuing large models with new capabilities beyond their original pre-training. Our main contributions in this work can be summarized as follows: • • We introduce a novel concept of reprogramming large language models for time series forecasting without altering the pre-trained backbone model. In doing so, we show that forecasting can be cast as yet another “language” task that can be effectively tackled by an off-the-shelf LLM.",
+      "paper_score": 0.8961787358027562,
+      "chunk_score": 0.9646909540920134
+    },
+    {
+      "source_id": "SRC-CH02-002",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0011",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "3.1 MODEL STRUCTURE ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 3.1 MODEL STRUCTURE ]\nIn both cases, there are explicit, learnable transformations between the source and target data, allowing for the direct editing of input samples. However, time series can neither be directly edited nor described losslessly in natural language, posing significant challenges to directly bootstrap the LLM for understanding time series without resource-intensive fine-tuning. To close this gap, we propose reprogramming using pre-trained word embeddings in the backbone, where is the vocabulary size. Nevertheless, there is no prior knowledge indicating which source tokens are directly relevant. Thus, simply leveraging will result in large and potentially dense reprogramming space. A simple solution is to maintain a small collection of text prototypes by linearly probing , denoted as , where . An illustration is in Fig. 3(a). Text prototypes learn connecting language cues, e.g., “short up” (red lines) and “steady down” (blue lines), which are then combined to represent the local patch information (e.g., “short up then down steadily” for characterizing patch 5) without leaving the space where the language model is pre-trained. This approach is efficient and allows for the adaptive selection of relevant source inforhead e this, we employ a multi-, we define query matrices W Qk K  ( i )k on layer. Spec, key matrices ,\r  and value matrices V(i)k , where P and k. Specifically, is the hidden dimension of the backbone model, and . Then, we have the operation to reprogram time series patches in each attention head defined as: By aggregating each in every head, we obtain ### Domain Kelectricity conssignificant incr . This is then linearlyerve that noon, with a projected to align the hidden dimensions with the backbone model, yielding O(i) ∈ RP ×D.ease in transformer load … Temperature (ETT) <BOS> The Electricity Transformer Temperature (ETT)Prompt-as-Prefix. Prompting serves as a straightforerm deployment.",
+      "paper_score": 0.8961787358027562,
+      "chunk_score": 0.9701357993824509
+    },
+    {
+      "source_id": "SRC-CH02-003",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0006",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "1.3. Large language models for time-series forecasting ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 1.3. Large language models for time-series forecasting ]\nThe first relies on prompt-based reprogramming of pretrained LLMs, whereby carefully crafted instructions are prepended to raw time series to steer the model’s predictions [39,40]. Inspired by their remarkable conversational capabilities, these methods leverage the LLM’s inherent pattern-recognition power to interpret temporal dynamics without any weight updates [41]. The second paradigm involves fine-tuning the LLM itself on time series data [42,43]. Chang et al. [44] subsequently proposed a two-stage fine-tuning pipeline—first aligning the backbone network to time series representations, then training a lightweight prediction head. Sun et al. [45] introduced contrastive learning objectives to sharpen the model’s temporal embeddings. A summary and review of relevant research on LLM for time-series forecasting is shown in Table 2.",
+      "paper_score": 0.7079676114661133,
+      "chunk_score": 0.654561500845562
+    },
+    {
+      "source_id": "SRC-CH02-004",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0021",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "2.3.7. TimeLLM ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 2.3.7. TimeLLM ]\nTimeLLM is a novel framework designed to adapt LLM for time series forecasting by reprogramming the input time series data [36]. Instead of fine-tuning the pre-trained LLM or altering their internal architectures, TimeLLM leverages a reprogramming technique that transforms the time series data into a format compatible with LLM. This is achieved by converting time series into text-like prototypes that the LLM can understand. To further enhance the model’s reasoning capabilities, TimeLLM incorporates a ‘‘Prompt-as-Prefix’’ (PaP) approach, which enriches the input data with additional context, such as taskspecific instructions and domain knowledge, allowing the LLM to better interpret and predict time series trends.",
+      "paper_score": 0.7079676114661133,
+      "chunk_score": 0.8079556870351514
+    },
+    {
+      "source_id": "SRC-CH02-005",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0019",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "4.5 Do LLMs help with few-shot learning in forecasting? (RQ5) ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 4.5 Do LLMs help with few-shot learning in forecasting? (RQ5) ]\nIn this section, our evaluation demonstrates that LLMs are still not meaningfully useful in few-shot learning scenarios. While our results indicate that LLMs are not useful for time series forecasting, it is nonetheless possible that knowledge encoded in pretrained weights could help performance in few-shot settings where data are scarce. To evaluate whether this is the case we trained models and their ablations on of each dataset. Specifically, we evaluated LLaMA in Time-LLM methods. The results for LLaMA, shown in Table 7, compared LLaMA with completely removing the LLM (w/o LLM). There was no difference, with each performing better in 8 cases. We conducted similar experiments with CALF, a GPT-2-based method. Our results in Table 8 indicate that our ablations can perform better than LLMs in few-shot scenarios.",
+      "paper_score": 0.5303307961090006,
+      "chunk_score": 0.63311535768601
+    },
+    {
+      "source_id": "SRC-CH02-006",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0008",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "3.1 Reference Methods for Language Models and Time Series ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 3.1 Reference Methods for Language Models and Time Series ]\nWe experiment with three recent methods for time series forecasting using LLMs. All models were published between December 2023 and May 2024 and are popular, with their GitHub repositories collectively amassing 1,245 stars. These methods are summarized in Table 2, and use either GPT-2 [29] or LLaMA [34] as base models, with different alignment and fine-tuning strategies. • • OneFitsAll [50]: OneFitsAll, sometimes called GPT4TS, applies instance norm and patching to the input time series and then feeds it into a linear layer to obtain a input representation for the language model. The multi-head attention and feed forward layers of the language model are frozen while the positional embeddings and layer norm are optimized during training. A final linear layer is used to transform the language model’s final hidden states into a prediction. • • Time-LLM [15]: In Time-LLM the input time series is tokenized via patching and aligned with a low-dimensional representation of word embeddings using multi-head attention. The outputs of this alignment, combined with the embeddings of descriptive statistical features, are passed to a frozen pre-trained language model. The output representations of the language model are then flattened and passed through a linear layer to obtain a forecast. • • CALF [22]: CALF embeds the input time series by treating each channel as a token. One half of the architecture is a “textual branch” which uses cross attention to align the time series representation with a low dimensional representation of the language model’s word embeddings. This representation is then passed through a pretrained, frozen language model to obtain a “textual prediction”. Simultaneously, a “temporal” branch learns a low-rank adapter for a pretrained language model based on the input time series to produce a “temporal prediction” which is used for inference. The model includes additional loss terms that enforce similarity between these representations. Reproducibility Note.",
+      "paper_score": 0.5303307961090006,
+      "chunk_score": 0.7046484799462548
+    },
+    {
+      "source_id": "SRC-CH02-007",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0094",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.2 传统 Informer 模型",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.2 传统 Informer 模型]\nTransformer是谷歌于2017年提出的一种完全由自注意力（self-attention）构成的神经网络模型[134]，有效地解决了传统循环神经网络和长短期记忆网络的长期依赖问题，已在自然语言处理、图像识别等领域取得了很大的成功。然而，自注意力机制的计算复杂度为 ，限制了Transformer模型在长序列学习中的应用。为此，北京航空航天大学Zhou Haoyi等人在2021年的AAAI会议上提出了一种全新的长序列特征学习模型——Informer，在保证特征学习效果的前提下，解决了Transformer模型在长序列学习时面临的计算复杂度高的问题[135]。 与Transformer类似，Informer同样采用编码器-解码器的结构，主要包括输入表示（input representation）、编码器（Encoder）和解码器（Decoder），如图4.1所示。下面依次介绍各个部分。",
+      "paper_score": 0.23282017286767698,
+      "chunk_score": 0.2107716712165519
+    },
+    {
+      "source_id": "SRC-CH02-008",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0095",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.2.1 输入表示",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.2.1 输入表示]\nInformer 模型输入表示模块的主要目的是将时间序列的局部时间戳和全局时间戳统一考虑至输入张量中。循环神经网络利用其自身的循环结构来处理时间序列，很少 依赖时间戳，Transformer模型则是利用了时间序列的局部时间戳。但为了提取长时间序列中长期依赖，需要将时间序列的全局时间戳提供给模型，例如周、年、月等层次时间戳（hierarchical timestamps）和假期、时间等不可知的时间戳（agnostic timestamps）。 Informer 模型的输入表示模块由标量投影、局部时间戳和全局时间戳三部分叠加而成，如图 4.2 所示。 对于一条时间序列 中 时刻的标量值 ，标量投影是利用 个卷积核尺寸为3、步长为1的一维卷积滤波器将 投影为 维的矢量，记为 ，其中 为输入，表示模型的维度。 时间序列 中 时刻的局部时间戳为该时刻在序列中的固定位置编码： 其中 为整数，表示 时刻在序列中的固定位置， ， 为输入序列的长度，在对编码器和解码器的输入序列进行表示时， 的取值分别为它们输入序列的长度， 和 。 全局时间戳则是小时、天、星期和月份四种类型时间戳的和，每一种时间戳 都由pytorch中的nn.Embedding包计算得来。 最后，输入序列 中 时刻的输入表示结果为： 其中 是标量投影系数。",
+      "paper_score": 0.23282017286767698,
+      "chunk_score": 0.2605012689068704
+    }
+  ]
+}

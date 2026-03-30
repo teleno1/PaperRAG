@@ -1,0 +1,2316 @@
+{
+  "title": "大语言模型在电力负荷预测中的应用综述",
+  "language": "中文",
+  "body_chapters": [
+    {
+      "chapter_id": "CH01",
+      "chapter_title": "研究背景与意义",
+      "sections": [
+        {
+          "section_id": "CH01-SEC01",
+          "section_title": "电力负荷预测概述",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH01-SEC01-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC01-P01-S01",
+                  "text": "电力负荷预测是指充分考虑各种自然因素、社会影响、系统运行等条件，利用各种数学方法或智能化模型预测用户未来一定时间内的负荷数值。",
+                  "cite_source_ids": [
+                    "SRC-CH01-003"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC01-P01-S02",
+                  "text": "根据预测时间尺度的不同，负荷预测通常可分为超短期、短期、中期和长期预测。",
+                  "cite_source_ids": [
+                    "SRC-CH01-001",
+                    "SRC-CH01-003",
+                    "SRC-CH01-006"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC01-P01-S03",
+                  "text": "超短期负荷预测主要用于电力系统实时调度和控制，短期预测服务于发电计划制定与日前市场交易，而中长期预测则对电力系统的规划与发展具有重要指导意义。",
+                  "cite_source_ids": [
+                    "SRC-CH01-001",
+                    "SRC-CH01-005"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH01-SEC01-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC01-P02-S01",
+                  "text": "精确的负荷预测对于保障电力系统安全、稳定、经济运行至关重要。",
+                  "cite_source_ids": [
+                    "SRC-CH01-003",
+                    "SRC-CH01-005"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC01-P02-S02",
+                  "text": "特别是在构建以新能源为主体的新型电力系统背景下，负荷预测作为基础支撑工作，对于系统的规划、运行、控制及调度具有更为关键的意义。",
+                  "cite_source_ids": [
+                    "SRC-CH01-007",
+                    "SRC-CH01-010"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC01-P02-S03",
+                  "text": "随着电力负荷朝着多元化、复杂多变的方向发展，对预测的准确性提出了更高要求。",
+                  "cite_source_ids": [
+                    "SRC-CH01-007",
+                    "SRC-CH01-013"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH01-SEC02",
+          "section_title": "从传统方法到人工智能的演进",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH01-SEC02-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC02-P01-S01",
+                  "text": "负荷预测方法经历了从传统统计模型到机器学习，再到深度学习的演变历程。",
+                  "cite_source_ids": [
+                    "SRC-CH01-017",
+                    "SRC-CH01-020"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC02-P01-S02",
+                  "text": "早期的统计方法，如回归分析、时间序列分析等，模型简单、计算速度快，但在处理电力负荷日益增强的非平稳性和非线性特征时存在局限。",
+                  "cite_source_ids": [
+                    "SRC-CH01-004",
+                    "SRC-CH01-018"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH01-SEC02-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC02-P02-S01",
+                  "text": "随后，以支持向量机、随机森林等为代表的传统机器学习方法被引入，凭借其非线性映射能力提升了预测效果。",
+                  "cite_source_ids": [
+                    "SRC-CH01-011",
+                    "SRC-CH01-020"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC02-P02-S02",
+                  "text": "然而，这些浅层模型在提取负荷序列中隐藏的深层时序特征方面仍存在制约，且易出现局部最优、过拟合等问题。",
+                  "cite_source_ids": [
+                    "SRC-CH01-016",
+                    "SRC-CH01-021"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH01-SEC02-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC02-P03-S01",
+                  "text": "近年来，以循环神经网络、长短期记忆网络、Transformer等为代表的深度学习方法，因其强大的非线性拟合和自动特征提取能力，在负荷预测领域得到广泛应用。",
+                  "cite_source_ids": [
+                    "SRC-CH01-016",
+                    "SRC-CH01-023",
+                    "SRC-CH01-025"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC02-P03-S02",
+                  "text": "这些方法能够更好地挖掘大数据量中的复杂关系，显著提升了模型的表达能力和预测精度。",
+                  "cite_source_ids": [
+                    "SRC-CH01-010",
+                    "SRC-CH01-025"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC02-P03-S03",
+                  "text": "尽管如此，深度学习模型也存在模型复杂、训练代价高、对高质量标记数据依赖性强，以及在小样本或数据分布变化时泛化能力不足等挑战。",
+                  "cite_source_ids": [
+                    "SRC-CH01-004",
+                    "SRC-CH01-013",
+                    "SRC-CH01-035"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH01-SEC03",
+          "section_title": "大语言模型引入负荷预测的动机",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH01-SEC03-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC03-P01-S01",
+                  "text": "面对现有预测方法的局限性，大语言模型作为一种新兴的人工智能范式，展现出解决负荷预测关键难题的潜力。",
+                  "cite_source_ids": [
+                    "SRC-CH01-028"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC03-P01-S02",
+                  "text": "大语言模型通过在海量通用数据上进行预训练，获得了强大的知识理解、上下文建模和逻辑推理能力，其泛化能力远超传统人工智能模型。",
+                  "cite_source_ids": [
+                    "SRC-CH01-028"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH01-SEC03-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC03-P02-S01",
+                  "text": "这种“预训练-微调”的范式使其对特定领域历史数据的依赖程度较低，有望从根源上缓解负荷预测中长期存在的小样本数据问题。",
+                  "cite_source_ids": [
+                    "SRC-CH01-028",
+                    "SRC-CH01-036"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC03-P02-S02",
+                  "text": "同时，其强大的序列建模能力非常适合处理具有长期依赖和复杂周期性的电力负荷时序数据。",
+                  "cite_source_ids": [
+                    "SRC-CH01-029",
+                    "SRC-CH01-034"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH01-SEC03-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH01-SEC03-P03-S01",
+                  "text": "此外，大语言模型在理解和融合多源异构数据（如气象、经济、用户行为文本描述等）方面具有天然优势，有助于更全面地构建用户用电行为画像，并解决特征缺失、多源数据融合困难等传统难题。",
+                  "cite_source_ids": [
+                    "SRC-CH01-028",
+                    "SRC-CH01-031"
+                  ]
+                },
+                {
+                  "sentence_id": "CH01-SEC03-P03-S02",
+                  "text": "因此，将大语言模型引入电力负荷预测，被视为一种有望突破现有方法瓶颈、提升模型自适应能力和泛化性能的新兴研究方向。",
+                  "cite_source_ids": [
+                    "SRC-CH01-028",
+                    "SRC-CH01-030"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH02",
+      "chapter_title": "大语言模型用于时序预测的核心技术",
+      "sections": [
+        {
+          "section_id": "CH02-SEC01",
+          "section_title": "基于提示工程的时序重编程",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH02-SEC01-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC01-P01-S01",
+                  "text": "基于提示工程的时序重编程是一种无需修改大语言模型预训练权重的技术路径，其核心思想是通过精心设计的提示词，将原始时间序列数据“翻译”或“重编程”为模型可理解的文本输入，从而直接利用其预训练知识进行预测。",
+                  "cite_source_ids": [
+                    "SRC-CH02-001",
+                    "SRC-CH02-003"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC01-P01-S02",
+                  "text": "这种方法旨在激活大语言模型在通用时序预测中的能力，实现准确、数据高效且任务无关的预测。",
+                  "cite_source_ids": [
+                    "SRC-CH02-001"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC01-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC01-P02-S01",
+                  "text": "TIME-LLM是这一范式的代表性框架，它通过将输入时间序列重新编程为文本原型表示，使其更自然地适配语言模型的能力。",
+                  "cite_source_ids": [
+                    "SRC-CH02-001",
+                    "SRC-CH02-004"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC01-P02-S02",
+                  "text": "该框架引入“提示即前缀”（Prompt-as-Prefix, PaP）的概念，用自然语言模态的任务指令和额外上下文来丰富输入时间序列，为模型提供关于期望转换的声明性指导。",
+                  "cite_source_ids": [
+                    "SRC-CH02-001",
+                    "SRC-CH02-004"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC01-P02-S03",
+                  "text": "具体而言，模型通过多注意力头操作，将时间序列片段与预训练词嵌入的低维表示进行对齐，从而在语言模型预训练的空间内表征局部片段信息。",
+                  "cite_source_ids": [
+                    "SRC-CH02-002"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC01-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC01-P03-S01",
+                  "text": "然而，有研究指出，在少样本学习场景下，基于提示工程的方法（如Time-LLM）可能并未展现出显著优势。",
+                  "cite_source_ids": [
+                    "SRC-CH02-005"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC01-P03-S02",
+                  "text": "实验表明，在某些情况下，移除大语言模型组件的简化模型在少样本预测任务中可能表现更优。",
+                  "cite_source_ids": [
+                    "SRC-CH02-005"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC01-P03-S03",
+                  "text": "尽管如此，这种不改变预训练主干模型的重编程范式，为将预测任务转化为另一种“语言”任务并由现成大语言模型有效处理提供了可扩展的范例。",
+                  "cite_source_ids": [
+                    "SRC-CH02-001"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH02-SEC02",
+          "section_title": "基于微调的领域适应",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH02-SEC02-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC02-P01-S01",
+                  "text": "与大语言模型在时序预测中的另一种主流技术路径是基于微调的领域适应，即通过对预训练模型进行有监督微调，使其适应电力负荷等特定领域的数据特性。",
+                  "cite_source_ids": [
+                    "SRC-CH02-003",
+                    "SRC-CH02-011"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC02-P01-S02",
+                  "text": "这种方法通常先利用通用数据进行预训练，再使用少量领域相关数据进行参数调整，从而降低模型对大量历史数据的依赖，有助于解决负荷预测中的小样本问题。",
+                  "cite_source_ids": [
+                    "SRC-CH02-011",
+                    "SRC-CH02-012"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC02-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC02-P02-S01",
+                  "text": "微调策略的核心是找到源域（预训练数据）与目标域（电力负荷数据）之间可共享的参数，并对其余参数进行调整以提高模型在目标领域的适应性。",
+                  "cite_source_ids": [
+                    "SRC-CH02-010"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC02-P02-S02",
+                  "text": "例如，有研究采用两阶段微调流程，首先将主干网络与时间序列表示对齐，然后训练一个轻量级的预测头。",
+                  "cite_source_ids": [
+                    "SRC-CH02-003"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC02-P02-S03",
+                  "text": "此外，引入对比学习目标来锐化模型的时间嵌入，也是提升微调效果的一种方法。",
+                  "cite_source_ids": [
+                    "SRC-CH02-003"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC02-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC02-P03-S01",
+                  "text": "在电力负荷预测的具体实践中，迁移学习被广泛用于模型微调。",
+                  "cite_source_ids": [
+                    "SRC-CH02-016"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC02-P03-S02",
+                  "text": "例如，有方法将改进的Transformer模型作为预训练模型，固定特征提取器的共享参数，仅对分类预测器部分采用Adapter迁移学习方法进行微调，以挖掘节假日负荷的特有规律。",
+                  "cite_source_ids": [
+                    "SRC-CH02-009"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC02-P03-S03",
+                  "text": "这种基于模型的迁移学习方法，通过共享参数和微调剩余参数，有效提升了模型在目标领域（如特定节假日负荷预测）中的效果。",
+                  "cite_source_ids": [
+                    "SRC-CH02-010"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH02-SEC03",
+          "section_title": "时间序列的表示与编码",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH02-SEC03-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC03-P01-S01",
+                  "text": "将数值型、多变量的电力负荷数据有效编码为大语言模型能够处理的嵌入表示，是应用大语言模型进行预测的关键前提。",
+                  "cite_source_ids": [
+                    "SRC-CH02-012"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P01-S02",
+                  "text": "这一过程涉及数据预处理、特征工程和嵌入层设计，旨在统一多模态数据的向量表示，并更好地捕捉时序依赖关系。",
+                  "cite_source_ids": [
+                    "SRC-CH02-012",
+                    "SRC-CH02-026"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC03-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC03-P02-S01",
+                  "text": "数据预处理是提升预测模型准确性和可靠性的关键步骤，包括数据清洗、缺失值处理、异常检测和归一化等。",
+                  "cite_source_ids": [
+                    "SRC-CH02-027"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P02-S02",
+                  "text": "归一化处理可以消除不同特征间的量纲差异，将输入数据缩放到相同范围（如[-1,1]），防止神经元饱和，并提高模型的训练效果和收敛速度。",
+                  "cite_source_ids": [
+                    "SRC-CH02-025"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P02-S03",
+                  "text": "对于非数字类型数据（如天气类型、日期），需要进行数字量化处理。",
+                  "cite_source_ids": [
+                    "SRC-CH02-025"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC03-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC03-P03-S01",
+                  "text": "在特征提取与表示方面，深度学习模型能够以无监督学习的方式自动从原始负荷数据中学习有用的特征表示。",
+                  "cite_source_ids": [
+                    "SRC-CH02-028"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P03-S02",
+                  "text": "针对电力负荷数据的长序列特性，一些模型设计了专门的输入表示模块。",
+                  "cite_source_ids": [
+                    "SRC-CH02-008"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P03-S03",
+                  "text": "例如，Informer模型的输入表示由标量投影、局部时间戳编码和全局时间戳编码三部分叠加而成，以统一考虑局部和全局时间信息，从而提取长时间序列中的长期依赖关系。",
+                  "cite_source_ids": [
+                    "SRC-CH02-008",
+                    "SRC-CH02-013"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC03-P04",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC03-P04-S01",
+                  "text": "此外，为了更有效地捕捉复杂的时间变化，一些方法探索将一维时间序列数据转换为二维张量进行表示。",
+                  "cite_source_ids": [
+                    "SRC-CH02-029"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P04-S02",
+                  "text": "例如，TimesNet模型利用时间序列的多周期性概念，将序列重塑为二维张量，其中列表示周期内变化，行表示周期间变化。",
+                  "cite_source_ids": [
+                    "SRC-CH02-029"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC03-P04-S03",
+                  "text": "对于包含空间关联性的负荷预测问题，图神经网络（GNN）则被用于同时挖掘节点内特征信息与节点间的相关性信息，构建局部时空图以捕捉负荷序列的时间连续性与空间关联性。",
+                  "cite_source_ids": [
+                    "SRC-CH02-030"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH02-SEC04",
+          "section_title": "注意力机制的增强与改进",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH02-SEC04-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC04-P01-S01",
+                  "text": "注意力机制，特别是自注意力机制，是大语言模型及Transformer类模型的核心组件，使其能够有效捕捉时间序列数据中的长期依赖关系。",
+                  "cite_source_ids": [
+                    "SRC-CH02-007",
+                    "SRC-CH02-032"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P01-S02",
+                  "text": "该机制通过查询（Query）、键（Key）和值（Value）三个向量，动态地为输入数据中的不同要素分配权重，从而挖掘强相关信息。",
+                  "cite_source_ids": [
+                    "SRC-CH02-035"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P01-S03",
+                  "text": "多头注意力机制则通过构造多组查询、键、值参数矩阵，从不同子空间捕获信息，增强了模型的表示能力。",
+                  "cite_source_ids": [
+                    "SRC-CH02-035"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC04-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC04-P02-S01",
+                  "text": "针对电力负荷预测任务，研究者们对基础的注意力机制进行了多种改进与增强。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P02-S02",
+                  "text": "一种常见思路是将注意力机制与其他网络结合，以弥补单一模型的不足。",
+                  "cite_source_ids": [
+                    "SRC-CH02-036",
+                    "SRC-CH02-040"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P02-S03",
+                  "text": "例如，在LSTM或GRU网络中引入注意力模块，可以提高模型对负荷序列关键特征的捕捉能力，减少长序列信息丢失问题。",
+                  "cite_source_ids": [
+                    "SRC-CH02-033",
+                    "SRC-CH02-036"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P02-S04",
+                  "text": "同样，在CNN-GRU等组合模型中加入注意力机制，通过赋予隐含状态不同权重，也能有效减小预测误差。",
+                  "cite_source_ids": [
+                    "SRC-CH02-037"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC04-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC04-P03-S01",
+                  "text": "另一类改进是针对注意力机制本身的计算效率与特征捕获能力。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P03-S02",
+                  "text": "例如，有研究指出，标准的Transformer自注意力机制计算复杂度高，限制了其在长序列学习中的应用。",
+                  "cite_source_ids": [
+                    "SRC-CH02-007"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P03-S03",
+                  "text": "为此，Informer模型采用了概率稀疏注意力等方法提高计算效率，但可能造成周期性特征丢失。",
+                  "cite_source_ids": [
+                    "SRC-CH02-007",
+                    "SRC-CH02-038"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P03-S04",
+                  "text": "针对此问题，有方法提出了周期增强的Informer模型，通过额外构建全连接层来显式利用周期负荷值，以弥补注意力机制可能丢失的周期性信息。",
+                  "cite_source_ids": [
+                    "SRC-CH02-038"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH02-SEC04-P04",
+              "sentences": [
+                {
+                  "sentence_id": "CH02-SEC04-P04-S01",
+                  "text": "此外，注意力机制也被用于增强模型的可解释性。",
+                  "cite_source_ids": [
+                    "SRC-CH02-041"
+                  ]
+                },
+                {
+                  "sentence_id": "CH02-SEC04-P04-S02",
+                  "text": "通过注意力权重，可以反映输入特征与预测输出结果之间的依赖关系，解释模型学习到的关键信息，从而提升负荷预测模型在实际应用中的可信性和可靠性。",
+                  "cite_source_ids": [
+                    "SRC-CH02-041"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH03",
+      "chapter_title": "大语言模型在电力负荷预测中的应用现状",
+      "sections": [
+        {
+          "section_id": "CH03-SEC01",
+          "section_title": "短期与超短期负荷预测",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH03-SEC01-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC01-P01-S01",
+                  "text": "短期与超短期负荷预测是电力系统运行调度的核心环节，其预测精度直接影响发电计划、机组启停与检修安排以及电价的制定。",
+                  "cite_source_ids": [
+                    "SRC-CH03-003"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P01-S02",
+                  "text": "短期负荷预测通常指未来1至3天的预测，而超短期负荷预测的时间尺度则更短，例如未来数小时或数分钟。",
+                  "cite_source_ids": [
+                    "SRC-CH03-007",
+                    "SRC-CH03-011"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P01-S03",
+                  "text": "相比于中长期预测，短期与超短期负荷预测面临更强的波动性、随机性和不确定性，预测难度更大。",
+                  "cite_source_ids": [
+                    "SRC-CH03-005",
+                    "SRC-CH03-006"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC01-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC01-P02-S01",
+                  "text": "电力负荷数据受到社会活动、气象条件等多种复杂因素的影响，呈现出显著的周期性和随机性紧密耦合的特征。",
+                  "cite_source_ids": [
+                    "SRC-CH03-001"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P02-S02",
+                  "text": "这种复杂的波动特性使得传统的统计方法，如时间序列分析，因其对数据平稳性要求较高且未充分考虑其他不确定性因素，难以取得理想的预测精度。",
+                  "cite_source_ids": [
+                    "SRC-CH03-004"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P02-S03",
+                  "text": "因此，亟需能够有效表征负荷周期性与随机性波动规律，并深度挖掘关键相依特征信息的先进预测方法。",
+                  "cite_source_ids": [
+                    "SRC-CH03-001"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC01-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC01-P03-S01",
+                  "text": "现有研究主要通过构建复杂的深度学习模型来挖掘负荷的复杂波动规律。",
+                  "cite_source_ids": [
+                    "SRC-CH03-002"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P03-S02",
+                  "text": "例如，长短期记忆网络（LSTM）因其在处理长时间序列数据方面的优势，被广泛应用于处理波动大、随机性强的负荷序列预测。",
+                  "cite_source_ids": [
+                    "SRC-CH03-013"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P03-S03",
+                  "text": "然而，仅采用单一预测模型会限制对数据波动性和非线性的挖掘能力，因此组合模型被提出以发挥各类模型的优势。",
+                  "cite_source_ids": [
+                    "SRC-CH03-001",
+                    "SRC-CH03-008"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC01-P04",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC01-P04-S01",
+                  "text": "一种典型的思路是结合数据分解技术与深度学习模型。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P04-S02",
+                  "text": "例如，有研究采用改进的自适应噪声完备集合经验模态分解方法对电力负荷数据进行分解，得到平稳和非平稳分量以分别表征负荷的周期性和随机性，再结合卷积神经网络和LSTM构建时序网络模型进行预测，有效提高了精度。",
+                  "cite_source_ids": [
+                    "SRC-CH03-001"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P04-S03",
+                  "text": "类似地，其他研究也利用经验模态分解或变分模态分解将负荷数据分解为不同频率的分量，再分别用LSTM等模型进行预测。",
+                  "cite_source_ids": [
+                    "SRC-CH03-008",
+                    "SRC-CH03-013"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC01-P05",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC01-P05-S01",
+                  "text": "此外，以Transformer为代表的自注意力机制模型，因其强大的长序列依赖关系捕捉能力，也开始被应用于短期负荷预测。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P05-S02",
+                  "text": "有研究指出，传统LSTM模型在处理长序列时仍存在长期记忆丢失的问题，而基于Transformer改进的Informer模型则能更好地挖掘负荷数据中的长期依赖关系。",
+                  "cite_source_ids": [
+                    "SRC-CH03-009"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC01-P05-S03",
+                  "text": "为了进一步提升性能，有学者提出了周期增强的Informer模型，通过显式引入周期性负荷特征来弥补模型可能丢失的周期信息。",
+                  "cite_source_ids": [
+                    "SRC-CH03-010"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH03-SEC02",
+          "section_title": "考虑多源信息融合的预测",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH03-SEC02-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC02-P01-S01",
+                  "text": "精确的负荷预测需要全面考虑各种影响因素，而输入数据已从传统的结构化时序数据向包含气象、日历、经济等在内的多模态数据转化。",
+                  "cite_source_ids": [
+                    "SRC-CH03-016"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P01-S02",
+                  "text": "这些多源异构数据不仅包括数值型数据（如温度、历史负荷），也包括非数值型数据（如星期类型、天气类型），其影响程度各不相同。",
+                  "cite_source_ids": [
+                    "SRC-CH03-025"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P01-S03",
+                  "text": "数据类型的复杂化对传统的数据预处理方法和预测模型提出了新的挑战。",
+                  "cite_source_ids": [
+                    "SRC-CH03-012"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC02-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC02-P02-S01",
+                  "text": "为了有效整合多源信息，研究者们提出了多种特征构建与融合方法。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P02-S02",
+                  "text": "例如，针对气象因素，有研究提出考虑广域气象差异性的特征构建方法，利用网格化数值天气预报数据来反映空间范围气象差异性对整体负荷波动的影响。",
+                  "cite_source_ids": [
+                    "SRC-CH03-021"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P02-S03",
+                  "text": "在模型层面，随机森林等集成算法被用于根据气象和日历特征来确定待预测日的负荷模式，进而指导后续的曲线预测。",
+                  "cite_source_ids": [
+                    "SRC-CH03-014",
+                    "SRC-CH03-015"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC02-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC02-P03-S01",
+                  "text": "大语言模型（LLMs）因其强大的多模态知识融合与推理能力，为处理多源信息融合的负荷预测提供了新的思路。",
+                  "cite_source_ids": [
+                    "SRC-CH03-023"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P03-S02",
+                  "text": "LLMs可以通过对不同类型输入数据进行微调，或通过专门设计的框架来提取不同特征之间的有意义的相互依赖关系。",
+                  "cite_source_ids": [
+                    "SRC-CH03-012",
+                    "SRC-CH03-018"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P03-S03",
+                  "text": "例如，有研究设计了一种基于交叉注意力的预处理方法，无需复杂的提示工程即可将多变量时间序列数据同时输入LLM进行预测。",
+                  "cite_source_ids": [
+                    "SRC-CH03-018"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC02-P04",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC02-P04-S01",
+                  "text": "为了将LLMs适配于时间序列预测任务，同时保持其预训练知识，研究者提出了轻量级的重编程框架。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P04-S02",
+                  "text": "例如，TIME-LLM框架仅更新轻量级的输入转换和输出投影参数，而冻结主干语言模型，使其能够高效地利用少量时间序列数据进行优化，从而实现对电力需求等多源数据的预测。",
+                  "cite_source_ids": [
+                    "SRC-CH03-024"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P04-S03",
+                  "text": "类似地，迁移学习中的Adapter技术也被应用于负荷预测，通过冻结预训练模型主体，仅对新增的适配器模块进行微调，以快速适应节假日等特定场景的预测任务。",
+                  "cite_source_ids": [
+                    "SRC-CH03-022"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC02-P05",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC02-P05-S01",
+                  "text": "在多源信息融合的背景下，概率负荷预测技术因其能有效量化未来负荷的不确定性而受到重视。",
+                  "cite_source_ids": [
+                    "SRC-CH03-025"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC02-P05-S02",
+                  "text": "通过融合多源异构数据，并应用概率预测模型，可以生成给定置信度的区间预测或完整的概率分布预测，从而为新型电力系统中高不确定性的负荷预测提供更全面的信息支撑。",
+                  "cite_source_ids": [
+                    "SRC-CH03-025"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH03-SEC03",
+          "section_title": "新型电力系统下的负荷预测",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH03-SEC03-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC03-P01-S01",
+                  "text": "在“双碳”目标驱动下，构建以新能源为主体的新型电力系统已成为我国能源发展的核心战略。",
+                  "cite_source_ids": [
+                    "SRC-CH03-027",
+                    "SRC-CH03-033"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P01-S02",
+                  "text": "新型电力系统的一个主要特征是从传统的“源随荷动”模式转变为“源荷互动”模式。",
+                  "cite_source_ids": [
+                    "SRC-CH03-027",
+                    "SRC-CH03-028"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P01-S03",
+                  "text": "这一转变源于风电、光伏等波动性可再生能源占比的显著提升，其出力的不确定性、随机性加剧了电网灵活调节能力的紧张。",
+                  "cite_source_ids": [
+                    "SRC-CH03-027",
+                    "SRC-CH03-034"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC03-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC03-P02-S01",
+                  "text": "新型电力系统背景下，负荷预测面临前所未有的新挑战。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P02-S02",
+                  "text": "首先，供给侧高比例可再生能源的接入使得净负荷（总用电负荷与新能源出力的差值）的波动特性更加复杂，对预测模型的实时数据捕捉和自适应能力提出了更高要求。",
+                  "cite_source_ids": [
+                    "SRC-CH03-011",
+                    "SRC-CH03-026"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P02-S03",
+                  "text": "其次，需求侧灵活性负荷、电动汽车、需求响应等新元素的加入，使得负荷特性更加多元化和复杂化。",
+                  "cite_source_ids": [
+                    "SRC-CH03-033"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC03-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC03-P03-S01",
+                  "text": "为应对这些挑战，负荷预测模型需要更强的泛化能力和自调节能力。",
+                  "cite_source_ids": [
+                    "SRC-CH03-026"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P03-S02",
+                  "text": "然而，当前以神经网络为主体的模型通常依赖大量超参数，其调优过程缺乏统一理论，且在面对小样本数据（如新增负荷类型或特定节假日）时，模型普适性不强、精度易受影响。",
+                  "cite_source_ids": [
+                    "SRC-CH03-026",
+                    "SRC-CH03-030"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P03-S03",
+                  "text": "因此，如何在小样本条件下提升预测精度，并加强模型对复杂影响因素的辨识与权重分配能力，是亟待解决的问题。",
+                  "cite_source_ids": [
+                    "SRC-CH03-026"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH03-SEC03-P04",
+              "sentences": [
+                {
+                  "sentence_id": "CH03-SEC03-P04-S01",
+                  "text": "大语言模型等人工智能技术为应对新型电力系统的预测难题提供了潜在解决方案。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P04-S02",
+                  "text": "其强大的推理能力和对多模态知识的融合潜力，有助于实现更综合、精准的预测。",
+                  "cite_source_ids": [
+                    "SRC-CH03-023",
+                    "SRC-CH03-029"
+                  ]
+                },
+                {
+                  "sentence_id": "CH03-SEC03-P04-S03",
+                  "text": "未来研究方向可能包括利用大语言模型进行多源数据融合、源-荷-储-价联合预测，以及构建考虑可控负荷响应潜力的预测模型，从而为电网优化调度和需求响应提供支持，促进源网荷储的协调平衡发展。",
+                  "cite_source_ids": [
+                    "SRC-CH03-026",
+                    "SRC-CH03-029"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH04",
+      "chapter_title": "面临的挑战与关键问题",
+      "sections": [
+        {
+          "section_id": "CH04-SEC01",
+          "section_title": "数据依赖与质量挑战",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH04-SEC01-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC01-P01-S01",
+                  "text": "大语言模型（LLM）的训练通常依赖于海量高质量数据，然而在电力负荷预测领域，获取充足且高质量的负荷数据面临显著挑战。",
+                  "cite_source_ids": [
+                    "SRC-CH04-001",
+                    "SRC-CH04-003"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC01-P01-S02",
+                  "text": "由于量测装置（如PMU、SCADA、智能电表）的数据采集与传输问题，以及气象信息等外部因素的数据缺失，负荷数据常存在噪声过高、样本缺失等异常情况，导致可用于模型构建的有效数据样本不足，即小样本问题。",
+                  "cite_source_ids": [
+                    "SRC-CH04-001",
+                    "SRC-CH04-004",
+                    "SRC-CH04-007"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC01-P01-S03",
+                  "text": "这一问题在节假日等特殊日期尤为突出，其独特的负荷模式与常规日期差异明显，但历史样本有限，难以支撑模型挖掘其波动规律。",
+                  "cite_source_ids": [
+                    "SRC-CH04-005",
+                    "SRC-CH04-006"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH04-SEC01-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC01-P02-S01",
+                  "text": "针对数据质量问题，现有研究提出了多种处理方法，包括直接删除、简单插补（如均值、中位数插补）以及基于传统机器学习的插补方法。",
+                  "cite_source_ids": [
+                    "SRC-CH04-002"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC01-P02-S02",
+                  "text": "然而，这些方法或会丢失重要信息，或主要关注数据本身的统计学特征而忽视时序特征，导致插补精度有限。",
+                  "cite_source_ids": [
+                    "SRC-CH04-002"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC01-P02-S03",
+                  "text": "为了应对小样本问题，研究者探索了数据增强、迁移学习和联邦学习等技术。",
+                  "cite_source_ids": [
+                    "SRC-CH04-002",
+                    "SRC-CH04-003",
+                    "SRC-CH04-006"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC01-P02-S04",
+                  "text": "例如，生成对抗学习可用于负荷数据的修复与重构，实现样本增强；迁移学习通过从数据丰富的源域迁移知识来提升目标域任务的性能；联邦学习则能在保护数据隐私的前提下，通过多个参与方的数据共享来丰富样本空间。",
+                  "cite_source_ids": [
+                    "SRC-CH04-002",
+                    "SRC-CH04-003",
+                    "SRC-CH04-039"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH04-SEC02",
+          "section_title": "模型效率与部署成本",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH04-SEC02-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC02-P01-S01",
+                  "text": "大语言模型通常具有庞大的参数量（可达数十亿甚至更多），这导致了高昂的计算成本和内存开销。",
+                  "cite_source_ids": [
+                    "SRC-CH04-014",
+                    "SRC-CH04-015"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC02-P01-S02",
+                  "text": "研究表明，基于LLM的时间序列预测方法在训练和推理时间上，可能比轻量化的模型（如经过修改的基准模型）高出数十倍，但其性能提升却并不显著，甚至有时不如更小、更简单的模型。",
+                  "cite_source_ids": [
+                    "SRC-CH04-014",
+                    "SRC-CH04-015"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC02-P01-S03",
+                  "text": "这种计算强度与性能收益的不匹配，使得在资源受限或对实时性要求高的电力负荷预测场景中，直接部署大型LLM面临严峻挑战。",
+                  "cite_source_ids": [
+                    "SRC-CH04-013",
+                    "SRC-CH04-021"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH04-SEC02-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC02-P02-S01",
+                  "text": "为了缓解效率问题，研究者提出了模型轻量化与高效微调策略。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH04-SEC02-P02-S02",
+                  "text": "例如，TIME-LLM等方法采用模型重编程（Reprogramming）技术，冻结预训练LLM的主干参数，仅更新轻量级的输入转换和输出投影层，从而大幅减少可训练参数和内存占用，并保持较高的训练效率。",
+                  "cite_source_ids": [
+                    "SRC-CH04-016",
+                    "SRC-CH04-017"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC02-P02-S03",
+                  "text": "与参数高效微调（PEFT）方法相比，模型重编程在可训练参数量、GPU内存开销和训练速度上均展现出显著优势。",
+                  "cite_source_ids": [
+                    "SRC-CH04-017"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC02-P02-S04",
+                  "text": "此外，量化等模型压缩技术也被视为降低LLM部署资源需求的有效途径。",
+                  "cite_source_ids": [
+                    "SRC-CH04-016",
+                    "SRC-CH04-021"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH04-SEC03",
+          "section_title": "可解释性与可靠性",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH04-SEC03-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC03-P01-S01",
+                  "text": "大语言模型内部结构复杂，决策过程如同“黑箱”，这导致其预测结果缺乏直观的可解释性。",
+                  "cite_source_ids": [
+                    "SRC-CH04-029",
+                    "SRC-CH04-033"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC03-P01-S02",
+                  "text": "在关乎电网安全稳定运行的负荷预测应用中，无法理解模型的决策依据会降低其可信度和可靠性，影响实际部署。",
+                  "cite_source_ids": [
+                    "SRC-CH04-028",
+                    "SRC-CH04-033"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC03-P01-S03",
+                  "text": "同时，负荷预测本身存在来自模型结构和数据噪声的不确定性，如何量化并管理这种不确定性，提供可靠的预测区间，是确保预测结果稳健性的关键。",
+                  "cite_source_ids": [
+                    "SRC-CH04-027",
+                    "SRC-CH04-030",
+                    "SRC-CH04-031"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH04-SEC03-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC03-P02-S01",
+                  "text": "提升模型可解释性是当前研究的重要方向。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH04-SEC03-P02-S02",
+                  "text": "在负荷预测场景中，可以考虑通过敏感度分析来量化输入特征对预测结果的影响程度，或利用注意力机制来可视化模型关注的关键信息，从而增强模型内部决策的透明度。",
+                  "cite_source_ids": [
+                    "SRC-CH04-033"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC03-P02-S03",
+                  "text": "此外，针对模型在训练过程中可能出现的过拟合、梯度消失或“模型退化”等问题，采用残差网络（ResNet）等结构或结合注意力机制进行改进，有助于提升模型的训练稳定性和泛化能力，间接增强其可靠性。",
+                  "cite_source_ids": [
+                    "SRC-CH04-003",
+                    "SRC-CH04-036"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH04-SEC04",
+          "section_title": "领域知识融合与泛化能力",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH04-SEC04-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC04-P01-S01",
+                  "text": "大语言模型在通用语料上预训练获得的知识，如何与电力系统特有的物理规律、运行约束等先验知识有效融合，是一个关键挑战。",
+                  "cite_source_ids": [
+                    "SRC-CH04-038",
+                    "SRC-CH04-043"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC04-P01-S02",
+                  "text": "纯粹的“数据驱动”模型可能忽略负荷变化的物理本质（如日周期、周周期与气象随机性的深度耦合），导致在复杂场景下泛化能力不足。",
+                  "cite_source_ids": [
+                    "SRC-CH04-005",
+                    "SRC-CH04-040"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC04-P01-S03",
+                  "text": "此外，模型在不同区域、不同用户群体或不同时间尺度间的迁移与泛化能力，直接决定了其实际应用的广度。",
+                  "cite_source_ids": [
+                    "SRC-CH04-007",
+                    "SRC-CH04-013"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH04-SEC04-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH04-SEC04-P02-S01",
+                  "text": "提升模型泛化能力的常见策略包括采用组合模型和迁移学习。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH04-SEC04-P02-S02",
+                  "text": "组合模型通过集成不同单一模型的优势（如CNN提取空间特征、LSTM捕捉时序依赖），可以改善因单一模型固有缺陷导致的预测精度受限问题，从而增强整体泛化性能。",
+                  "cite_source_ids": [
+                    "SRC-CH04-008",
+                    "SRC-CH04-045",
+                    "SRC-CH04-046"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC04-P02-S03",
+                  "text": "迁移学习则被广泛应用于解决数据匮乏场景下的泛化问题，例如，将从非节假日负荷数据中学习到的模式迁移到节假日预测任务中，或利用预训练的大语言模型通过少量领域数据微调来适应新的预测场景。",
+                  "cite_source_ids": [
+                    "SRC-CH04-003",
+                    "SRC-CH04-039",
+                    "SRC-CH04-041"
+                  ]
+                },
+                {
+                  "sentence_id": "CH04-SEC04-P02-S04",
+                  "text": "这些方法旨在使模型能够更好地适应数据分布的变化，提升其在未见过的区域或场景下的预测稳定性。",
+                  "cite_source_ids": [
+                    "SRC-CH04-024",
+                    "SRC-CH04-040"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "CH05",
+      "chapter_title": "未来研究方向与展望",
+      "sections": [
+        {
+          "section_id": "CH05-SEC01",
+          "section_title": "高效轻量化模型设计",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH05-SEC01-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC01-P01-S01",
+                  "text": "为了满足边缘计算和实时预测的需求，开发高效、轻量化的大语言模型架构是未来的重要方向。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH05-SEC01-P01-S02",
+                  "text": "现有研究已表明，通过冻结骨干语言模型参数，仅更新轻量级的输入转换和输出投影层，可以在保持高性能的同时显著降低计算和内存开销。",
+                  "cite_source_ids": [
+                    "SRC-CH05-001"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC01-P01-S03",
+                  "text": "例如，TIME-LLM方法通过这种设计，仅需少量时间序列数据和几个训练周期即可优化，相比从头构建或微调大型领域专用模型，资源约束更少，效率更高。",
+                  "cite_source_ids": [
+                    "SRC-CH05-001"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC01-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC01-P02-S01",
+                  "text": "模型压缩技术，如量化，可以无缝集成以进一步减少内存占用。",
+                  "cite_source_ids": [
+                    "SRC-CH05-001"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC01-P02-S02",
+                  "text": "同时，在时间序列预测领域，已有研究表明存在大量参数更少但性能优于庞大模型的高效框架。",
+                  "cite_source_ids": [
+                    "SRC-CH05-005"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC01-P02-S03",
+                  "text": "例如，DLinear等简单模型通过结合分解技术，在性能上超越了当时基于Transformer的先进架构。",
+                  "cite_source_ids": [
+                    "SRC-CH05-005",
+                    "SRC-CH05-008"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC01-P02-S04",
+                  "text": "此外，TimesNet等参数高效的设计，使其在输入序列变化时参数量保持不变，并在GPU内存效率上表现出色，这对于长序列建模至关重要。",
+                  "cite_source_ids": [
+                    "SRC-CH05-014"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC01-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC01-P03-S01",
+                  "text": "未来研究将继续探索更高效的优化算法和网络架构优化，推动模型向更轻量化的方向发展，并更加注重计算效率。",
+                  "cite_source_ids": [
+                    "SRC-CH05-009"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC01-P03-S02",
+                  "text": "这包括开发专门针对电力负荷预测的边缘计算专用架构，以应对实时性要求高的应用场景。",
+                  "cite_source_ids": [
+                    "SRC-CH05-003"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH05-SEC02",
+          "section_title": "小样本与零样本学习",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH05-SEC02-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC02-P01-S01",
+                  "text": "在新型电力系统数字化转型中，历史数据不足导致的小样本问题已成为制约负荷预测精度的重要因素。",
+                  "cite_source_ids": [
+                    "SRC-CH05-015"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC02-P01-S02",
+                  "text": "大语言模型凭借其强大的泛化能力和逻辑推理能力，为解决这一问题提供了新的途径。",
+                  "cite_source_ids": [
+                    "SRC-CH05-004"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC02-P01-S03",
+                  "text": "其典型范式是首先利用通用数据进行预训练，再使用少量领域相关数据进行微调，从而降低对历史数据的依赖。",
+                  "cite_source_ids": [
+                    "SRC-CH05-004",
+                    "SRC-CH05-015"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC02-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC02-P02-S01",
+                  "text": "迁移学习是应对小样本问题的有效方法之一，它通过从数据丰富的源域迁移知识来提升目标域任务的性能。",
+                  "cite_source_ids": [
+                    "SRC-CH05-015",
+                    "SRC-CH05-016"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC02-P02-S02",
+                  "text": "基于模型的迁移学习方法，其关键在于找到源域和目标域可以共享的模型参数，并对其余参数进行微调。",
+                  "cite_source_ids": [
+                    "SRC-CH05-013"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC02-P02-S03",
+                  "text": "此外，联邦学习作为一种分布式机器学习框架，可以在保护数据隐私的前提下，通过融合多方数据来丰富样本空间，也是解决小样本问题的潜在技术方向。",
+                  "cite_source_ids": [
+                    "SRC-CH05-016"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC02-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC02-P03-S01",
+                  "text": "展望未来，利用大语言模型的先验知识和推理能力实现零样本学习，是电力负荷预测领域一个极具潜力的研究方向。",
+                  "cite_source_ids": [
+                    "SRC-CH05-007",
+                    "SRC-CH05-009"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC02-P03-S02",
+                  "text": "这类模型不仅能在多样化的数据集上表现出更强的适应性和预测能力，还能对未见过的数据做出合理预测。",
+                  "cite_source_ids": [
+                    "SRC-CH05-009"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC02-P03-S03",
+                  "text": "摆脱数据集数量限制，提升小样本数据下的预测模型精度，是当前负荷预测亟待解决的关键问题。",
+                  "cite_source_ids": [
+                    "SRC-CH05-021"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH05-SEC03",
+          "section_title": "物理信息融合与可解释性增强",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH05-SEC03-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC03-P01-S01",
+                  "text": "将物理机理与数据驱动模型深度融合，是提高负荷预测模型可信度和科学性的重要趋势。",
+                  "cite_source_ids": [
+                    "SRC-CH05-027"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC03-P01-S02",
+                  "text": "数据-物理混合驱动的方法能够结合机理建模与数据建模的双重优势，例如通过动态切换机制，在数据驱动预测结果偏差较大时，切换至基于物理机理的模型进行修正。",
+                  "cite_source_ids": [
+                    "SRC-CH05-027",
+                    "SRC-CH05-031",
+                    "SRC-CH05-032"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC03-P01-S03",
+                  "text": "这种方法在电动汽车充放电负荷预测等场景中展现出潜力，能够有效预测负荷的时空分布。",
+                  "cite_source_ids": [
+                    "SRC-CH05-027"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC03-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC03-P02-S01",
+                  "text": "未来研究的一个重要方向是将物理方程和系统约束以可微的形式嵌入到大语言模型中，形成物理信息神经网络。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH05-SEC03-P02-S02",
+                  "text": "同时，发展模型的可解释性技术对于提高预测可信度至关重要。",
+                  "cite_source_ids": [
+                    "SRC-CH05-017"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC03-P02-S03",
+                  "text": "例如，在多任务学习框架中应用神经网络可解释性技术，可以证实模型是否充分利用了不同负荷之间的耦合信息。",
+                  "cite_source_ids": [
+                    "SRC-CH05-038"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC03-P02-S04",
+                  "text": "增强模型的可解释性，有助于理解其决策过程，从而建立更可信的预测系统。",
+                  "cite_source_ids": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "CH05-SEC04",
+          "section_title": "多任务协同与主动学习",
+          "paragraphs": [
+            {
+              "paragraph_id": "CH05-SEC04-P01",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC04-P01-S01",
+                  "text": "利用大语言模型的统一框架进行多任务协同学习，是提升负荷预测系统综合能力的重要方向。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH05-SEC04-P01-S02",
+                  "text": "多任务学习能够有效利用多个相关任务中包含的有用信息，通过共享层模拟任务间的耦合关系，从而提高每个任务的性能。",
+                  "cite_source_ids": [
+                    "SRC-CH05-038",
+                    "SRC-CH05-039"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC04-P01-S03",
+                  "text": "在综合能源系统负荷预测中，已有研究利用多任务学习框架，通过共享层挖掘热、电、气等多元负荷之间的关联，显著提升了预测精度。",
+                  "cite_source_ids": [
+                    "SRC-CH05-038",
+                    "SRC-CH05-039"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC04-P02",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC04-P02-S01",
+                  "text": "组合模型或集成学习通过整合多个弱学习器（模型），可以形成泛化能力更强的预测系统，这已被证明在性能与准确性上优于单一模型。",
+                  "cite_source_ids": [
+                    "SRC-CH05-019",
+                    "SRC-CH05-020",
+                    "SRC-CH05-041"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC04-P02-S02",
+                  "text": "例如，将CNN与LSTM结合可以同时提取负荷序列的空间和时间特征；将XGBoost与注意力机制Bi-LSTM结合则能融合不同算法的优势。",
+                  "cite_source_ids": [
+                    "SRC-CH05-040",
+                    "SRC-CH05-034"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC04-P02-S03",
+                  "text": "挖掘深度学习模型的更多组合与集成方式，是未来的研究热点。",
+                  "cite_source_ids": [
+                    "SRC-CH05-019"
+                  ]
+                }
+              ]
+            },
+            {
+              "paragraph_id": "CH05-SEC04-P03",
+              "sentences": [
+                {
+                  "sentence_id": "CH05-SEC04-P03-S01",
+                  "text": "此外，基于主动学习的数据标注与模型迭代策略也值得关注。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "CH05-SEC04-P03-S02",
+                  "text": "面对负荷数据来源多样化、质量不一的问题，模型需要具备自适应能力。",
+                  "cite_source_ids": [
+                    "SRC-CH05-042"
+                  ]
+                },
+                {
+                  "sentence_id": "CH05-SEC04-P03-S03",
+                  "text": "未来可以探索构建基于深度强化学习的自适应框架，建立环境与模型预测效果之间的反馈机制，使模型能够在线感知外界变化并主动更新，从而增强其适应性和稳定性。",
+                  "cite_source_ids": [
+                    "SRC-CH05-043"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final_pass_chapters": [
+    {
+      "chapter_id": "FP02",
+      "chapter_title": "总结与展望",
+      "sections": [
+        {
+          "section_id": "FP02_S01",
+          "section_title": "总结",
+          "paragraphs": [
+            {
+              "paragraph_id": "FP02_S01_P01",
+              "sentences": [
+                {
+                  "sentence_id": "FP02_S01_P01_S01",
+                  "text": "大语言模型为电力负荷预测领域带来了范式转变的机遇，其强大的知识理解、上下文建模和逻辑推理能力，为解决该领域长期存在的非线性、非平稳性以及小样本数据等关键难题提供了新的潜力。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP02_S01_P01_S02",
+                  "text": "通过提示工程时序重编程和基于微调的领域适应等核心技术路径，大语言模型能够有效处理电力负荷时序数据，并在短期、超短期预测以及考虑多源信息融合的复杂场景中展现出应用价值。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP02_S01_P01_S03",
+                  "text": "然而，其实际应用仍面临数据质量依赖、模型计算成本高昂、决策过程可解释性不足以及与电力系统物理知识融合困难等多重挑战，这些因素制约了其在资源敏感、高可靠性要求的电力系统中的广泛部署。",
+                  "cite_source_ids": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "section_id": "FP02_S02",
+          "section_title": "展望",
+          "paragraphs": [
+            {
+              "paragraph_id": "FP02_S02_P01",
+              "sentences": [
+                {
+                  "sentence_id": "FP02_S02_P01_S01",
+                  "text": "未来研究应致力于开发高效轻量化的模型架构，以降低计算与部署成本，满足边缘计算和实时预测的需求。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP02_S02_P01_S02",
+                  "text": "同时，需深入探索小样本与零样本学习范式，以缓解历史数据不足的瓶颈，并推动物理信息融合与可解释性增强，构建可信赖的混合驱动预测模型。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP02_S02_P01_S03",
+                  "text": "此外，利用大语言模型框架进行多任务协同与主动学习，有望进一步提升负荷预测系统的综合性能与泛化能力。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP02_S02_P01_S04",
+                  "text": "总体而言，大语言模型与电力负荷预测的交叉融合是一个充满前景的方向，其长期发展将深刻影响新型电力系统的智能化运行与规划。",
+                  "cite_source_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter_id": "FP01",
+      "chapter_title": "摘要",
+      "sections": [
+        {
+          "section_id": "FP01_S01",
+          "section_title": "摘要",
+          "paragraphs": [
+            {
+              "paragraph_id": "FP01_S01_P01",
+              "sentences": [
+                {
+                  "sentence_id": "FP01_S01_P01_S01",
+                  "text": "电力负荷预测是电力系统运行、规划和市场交易的关键环节，其方法经历了从传统统计模型到机器学习，再到深度学习的演进。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P01_S02",
+                  "text": "面对现有方法在处理负荷非平稳性、非线性及小样本数据时的局限，大语言模型作为一种新兴的人工智能范式，凭借其强大的知识理解、上下文建模和泛化能力，展现出解决这些关键难题的潜力。",
+                  "cite_source_ids": []
+                }
+              ]
+            },
+            {
+              "paragraph_id": "FP01_S01_P02",
+              "sentences": [
+                {
+                  "sentence_id": "FP01_S01_P02_S01",
+                  "text": "将大语言模型应用于时序预测的核心技术主要包括基于提示工程的时序重编程和基于微调的领域适应。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P02_S02",
+                  "text": "前者通过精心设计的提示词将时间序列数据“翻译”为模型可理解的文本输入，直接利用其预训练知识；后者则通过对预训练模型进行有监督微调，使其适应特定领域的数据特性。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P02_S03",
+                  "text": "此外，时间序列的有效表示与编码，以及注意力机制的增强，是成功应用大语言模型的关键前提。",
+                  "cite_source_ids": []
+                }
+              ]
+            },
+            {
+              "paragraph_id": "FP01_S01_P03",
+              "sentences": [
+                {
+                  "sentence_id": "FP01_S01_P03_S01",
+                  "text": "当前，大语言模型在电力负荷预测中的应用主要集中于短期与超短期预测、考虑多源信息融合的预测，以及适应新型电力系统“源荷互动”模式的预测。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P03_S02",
+                  "text": "这些应用旨在应对负荷的强波动性、随机性，并整合气象、日历等多模态数据，以提升预测精度。",
+                  "cite_source_ids": []
+                }
+              ]
+            },
+            {
+              "paragraph_id": "FP01_S01_P04",
+              "sentences": [
+                {
+                  "sentence_id": "FP01_S01_P04_S01",
+                  "text": "然而，该领域仍面临数据依赖与质量、模型效率与部署成本、可解释性与可靠性，以及领域知识融合与泛化能力等多重挑战。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P04_S02",
+                  "text": "数据噪声、缺失和小样本问题制约模型构建，而大模型的庞大参数量则带来高昂的计算开销与实时部署困难。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P04_S03",
+                  "text": "模型决策的“黑箱”特性降低了其可信度，且如何有效融合电力系统物理规律以提升泛化能力仍是关键问题。",
+                  "cite_source_ids": []
+                }
+              ]
+            },
+            {
+              "paragraph_id": "FP01_S01_P05",
+              "sentences": [
+                {
+                  "sentence_id": "FP01_S01_P05_S01",
+                  "text": "展望未来，研究将聚焦于高效轻量化模型设计、小样本与零样本学习、物理信息融合与可解释性增强，以及多任务协同与主动学习等方向。",
+                  "cite_source_ids": []
+                },
+                {
+                  "sentence_id": "FP01_S01_P05_S02",
+                  "text": "开发资源需求少、性能优越的轻量化架构，结合物理机理与数据驱动模型，并利用大语言模型的统一框架进行多任务学习，是提升负荷预测系统综合能力、可信度与广泛应用前景的重要趋势。",
+                  "cite_source_ids": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "citation_registry": {
+    "paper_id_to_ref_no": {
+      "基于机器学习的短期负荷预测算法综述_梁宏涛": 1,
+      "电力负荷自适应短期预测理论与方法研究_于一潇": 2,
+      "基于人工智能算法的电力系统负荷预测研究综述_杨雷": 3,
+      "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳": 4,
+      "基于深度学习的负荷预测研究综述与展望_马恒瑞": 5,
+      "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽": 6,
+      "基于深度学习的电力负荷模式识别与预测方法研究_董添": 7,
+      "TIME-LLM": 8,
+      "A-novel-attention-enhanced-LLM-approach": 9,
+      "are-language-models-actually-useful-for-time-series-forecasting": 10,
+      "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning": 11,
+      "双碳目标的挑战与电力结构调整趋势展望_蔡绍宽": 12,
+      "TimesNet": 13
+    },
+    "source_id_to_paper_id": {
+      "SRC-CH01-001": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH01-002": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH01-003": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH01-004": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH01-005": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH01-006": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH01-007": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH01-008": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH01-009": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH01-010": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH01-011": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH01-012": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH01-013": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH01-014": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH01-015": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH01-016": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH01-017": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH01-018": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH01-019": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH01-020": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH01-021": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH01-022": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH01-023": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH01-024": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH01-025": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH01-026": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH01-027": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH01-028": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH01-029": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH01-030": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH01-031": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH01-032": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH01-033": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH01-034": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH01-035": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH01-036": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH02-001": "TIME-LLM",
+      "SRC-CH02-002": "TIME-LLM",
+      "SRC-CH02-003": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH02-004": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH02-005": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH02-006": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH02-007": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH02-008": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH02-009": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH02-010": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH02-011": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH02-012": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH02-013": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH02-014": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH02-015": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH02-016": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH02-017": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH02-018": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH02-019": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH02-020": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH02-021": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH02-022": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH02-023": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH02-024": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH02-025": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH02-026": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH02-027": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH02-028": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH02-029": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH02-030": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH02-031": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH02-032": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH02-033": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH02-034": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH02-035": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH02-036": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH02-037": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH02-038": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH02-039": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH02-040": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH02-041": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH03-001": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH03-002": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH03-003": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH03-004": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH03-005": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH03-006": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH03-007": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH03-008": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH03-009": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH03-010": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH03-011": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH03-012": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH03-013": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH03-014": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH03-015": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH03-016": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH03-017": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH03-018": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH03-019": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH03-020": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH03-021": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH03-022": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH03-023": "TIME-LLM",
+      "SRC-CH03-024": "TIME-LLM",
+      "SRC-CH03-025": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH03-026": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH03-027": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH03-028": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH03-029": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH03-030": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH03-031": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH03-032": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH03-033": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH03-034": "双碳目标的挑战与电力结构调整趋势展望_蔡绍宽",
+      "SRC-CH03-035": "双碳目标的挑战与电力结构调整趋势展望_蔡绍宽",
+      "SRC-CH03-036": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH03-037": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH03-038": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-001": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH04-002": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH04-003": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH04-004": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH04-005": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-006": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-007": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH04-008": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH04-009": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-010": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-011": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH04-012": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH04-013": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH04-014": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH04-015": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH04-016": "TIME-LLM",
+      "SRC-CH04-017": "TIME-LLM",
+      "SRC-CH04-018": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH04-019": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-020": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-021": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH04-022": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-023": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-024": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH04-025": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH04-026": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH04-027": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-028": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-029": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH04-030": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-031": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-032": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH04-033": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH04-034": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH04-035": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH04-036": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH04-037": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH04-038": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH04-039": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH04-040": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-041": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH04-042": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH04-043": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH04-044": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH04-045": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH04-046": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH04-047": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-001": "TIME-LLM",
+      "SRC-CH05-002": "TIME-LLM",
+      "SRC-CH05-003": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH05-004": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH05-005": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH05-006": "are-language-models-actually-useful-for-time-series-forecasting",
+      "SRC-CH05-007": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH05-008": "A-novel-attention-enhanced-LLM-approach",
+      "SRC-CH05-009": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH05-010": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "SRC-CH05-011": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-012": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-013": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH05-014": "TimesNet",
+      "SRC-CH05-015": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH05-016": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH05-017": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH05-018": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH05-019": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH05-020": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH05-021": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH05-022": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH05-023": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH05-024": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH05-025": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-026": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-027": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH05-028": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH05-029": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH05-030": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH05-031": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH05-032": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH05-033": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH05-034": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+      "SRC-CH05-035": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-036": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "SRC-CH05-037": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH05-038": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH05-039": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "SRC-CH05-040": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "SRC-CH05-041": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "SRC-CH05-042": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "SRC-CH05-043": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH05-044": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "SRC-CH05-045": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽"
+    },
+    "paper_id_to_metadata": {
+      "电力负荷自适应短期预测理论与方法研究_于一潇": {
+        "title": "电力负荷自适应短期预测理论与方法研究",
+        "authors": [
+          "于一潇"
+        ],
+        "year": "2024",
+        "venue": "山东大学博士学位论文"
+      },
+      "基于机器学习的短期负荷预测算法综述_梁宏涛": {
+        "title": "基于机器学习的短期负荷预测算法综述",
+        "authors": [
+          "梁宏涛",
+          "刘红菊",
+          "李静",
+          "王莹",
+          "郭超男"
+        ],
+        "year": "2022",
+        "venue": "计算机系统应用"
+      },
+      "基于人工智能算法的电力系统负荷预测研究综述_杨雷": {
+        "title": "基于人工智能算法的电力系统负荷预测研究综述",
+        "authors": [
+          "杨雷",
+          "罗雪红",
+          "韩鹍",
+          "张启立",
+          "郭鹏",
+          "李晓飞"
+        ],
+        "year": "2024",
+        "venue": "电工技术"
+      },
+      "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳": {
+        "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+        "authors": [
+          "韩富佳",
+          "王晓辉",
+          "乔骥",
+          "史梦洁",
+          "蒲天骄"
+        ],
+        "year": "2023",
+        "venue": "中国电机工程学报"
+      },
+      "基于深度学习的负荷预测研究综述与展望_马恒瑞": {
+        "title": "基于深度学习的负荷预测研究综述与展望",
+        "authors": [
+          "马恒瑞",
+          "袁傲添",
+          "王波",
+          "杨昌华",
+          "董旭柱",
+          "陈来军"
+        ],
+        "year": "2025",
+        "venue": "高电压技术"
+      },
+      "基于深度学习的电力负荷模式识别与预测方法研究_董添": {
+        "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+        "authors": [
+          "董添"
+        ],
+        "year": "2022",
+        "venue": "吉林大学博士学位论文"
+      },
+      "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽": {
+        "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+        "authors": [
+          "杨佳泽",
+          "王灿",
+          "王增平"
+        ],
+        "year": "2025",
+        "venue": "华北电力大学学报"
+      },
+      "TIME-LLM": {
+        "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+        "authors": [
+          "Ming",
+          "Shiyu Wang",
+          "Lintao",
+          "Zhixuan",
+          "James Y. Zhang",
+          "Xiaoming",
+          "Pin-Yu Chen",
+          "Yuxuan Liang",
+          "Yuan-Fang",
+          "Shirui Pan",
+          "Qingsong Wen"
+        ],
+        "year": "2024",
+        "venue": "ICLR"
+      },
+      "A-novel-attention-enhanced-LLM-approach": {
+        "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+        "authors": [
+          "Zehuan Hu",
+          "Yuan Gao",
+          "Luning Sun",
+          "Masayuki Mae"
+        ],
+        "year": "2025",
+        "venue": "Renewable Energy"
+      },
+      "are-language-models-actually-useful-for-time-series-forecasting": {
+        "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+        "authors": [
+          "Mingtian Tan",
+          "Mike A. Merrill",
+          "Vinayak Gupta",
+          "Tim Althoff",
+          "Thomas Hartvigsen"
+        ],
+        "year": "",
+        "venue": ""
+      },
+      "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning": {
+        "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+        "authors": [
+          "Qi Dong",
+          "Rubing Huang",
+          "Chenhui Cui",
+          "Dave Towey",
+          "Ling Zhou",
+          "Jinyu Tian",
+          "Jianzhou Wang"
+        ],
+        "year": "2018",
+        "venue": ""
+      },
+      "双碳目标的挑战与电力结构调整趋势展望_蔡绍宽": {
+        "title": "双碳目标的挑战与电力结构调整趋势展望",
+        "authors": [
+          "蔡绍宽"
+        ],
+        "year": "2021",
+        "venue": "南方能源建设"
+      },
+      "TimesNet": {
+        "title": "TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS",
+        "authors": [
+          "Haixu Wu",
+          "Tengge Hu",
+          "Yong Liu",
+          "Hang Zhou",
+          "Jianmin Wang",
+          "Mingsheng Long"
+        ],
+        "year": "2023",
+        "venue": "ICLR"
+      }
+    },
+    "references": [
+      {
+        "ref_no": 1,
+        "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+        "title": "基于机器学习的短期负荷预测算法综述",
+        "authors": [
+          "梁宏涛",
+          "刘红菊",
+          "李静",
+          "王莹",
+          "郭超男"
+        ],
+        "year": "2022",
+        "venue": "计算机系统应用"
+      },
+      {
+        "ref_no": 2,
+        "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+        "title": "电力负荷自适应短期预测理论与方法研究",
+        "authors": [
+          "于一潇"
+        ],
+        "year": "2024",
+        "venue": "山东大学博士学位论文"
+      },
+      {
+        "ref_no": 3,
+        "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+        "title": "基于人工智能算法的电力系统负荷预测研究综述",
+        "authors": [
+          "杨雷",
+          "罗雪红",
+          "韩鹍",
+          "张启立",
+          "郭鹏",
+          "李晓飞"
+        ],
+        "year": "2024",
+        "venue": "电工技术"
+      },
+      {
+        "ref_no": 4,
+        "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+        "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+        "authors": [
+          "韩富佳",
+          "王晓辉",
+          "乔骥",
+          "史梦洁",
+          "蒲天骄"
+        ],
+        "year": "2023",
+        "venue": "中国电机工程学报"
+      },
+      {
+        "ref_no": 5,
+        "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+        "title": "基于深度学习的负荷预测研究综述与展望",
+        "authors": [
+          "马恒瑞",
+          "袁傲添",
+          "王波",
+          "杨昌华",
+          "董旭柱",
+          "陈来军"
+        ],
+        "year": "2025",
+        "venue": "高电压技术"
+      },
+      {
+        "ref_no": 6,
+        "paper_id": "新型电力系统背景下的智能负荷预测算法研究综述_杨佳泽",
+        "title": "新型电力系统背景下的智能负荷预测算法研究综述",
+        "authors": [
+          "杨佳泽",
+          "王灿",
+          "王增平"
+        ],
+        "year": "2025",
+        "venue": "华北电力大学学报"
+      },
+      {
+        "ref_no": 7,
+        "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+        "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+        "authors": [
+          "董添"
+        ],
+        "year": "2022",
+        "venue": "吉林大学博士学位论文"
+      },
+      {
+        "ref_no": 8,
+        "paper_id": "TIME-LLM",
+        "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+        "authors": [
+          "Ming",
+          "Shiyu Wang",
+          "Lintao",
+          "Zhixuan",
+          "James Y. Zhang",
+          "Xiaoming",
+          "Pin-Yu Chen",
+          "Yuxuan Liang",
+          "Yuan-Fang",
+          "Shirui Pan",
+          "Qingsong Wen"
+        ],
+        "year": "2024",
+        "venue": "ICLR"
+      },
+      {
+        "ref_no": 9,
+        "paper_id": "A-novel-attention-enhanced-LLM-approach",
+        "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+        "authors": [
+          "Zehuan Hu",
+          "Yuan Gao",
+          "Luning Sun",
+          "Masayuki Mae"
+        ],
+        "year": "2025",
+        "venue": "Renewable Energy"
+      },
+      {
+        "ref_no": 10,
+        "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+        "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+        "authors": [
+          "Mingtian Tan",
+          "Mike A. Merrill",
+          "Vinayak Gupta",
+          "Tim Althoff",
+          "Thomas Hartvigsen"
+        ],
+        "year": "",
+        "venue": ""
+      },
+      {
+        "ref_no": 11,
+        "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+        "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+        "authors": [
+          "Qi Dong",
+          "Rubing Huang",
+          "Chenhui Cui",
+          "Dave Towey",
+          "Ling Zhou",
+          "Jinyu Tian",
+          "Jianzhou Wang"
+        ],
+        "year": "2018",
+        "venue": ""
+      },
+      {
+        "ref_no": 12,
+        "paper_id": "双碳目标的挑战与电力结构调整趋势展望_蔡绍宽",
+        "title": "双碳目标的挑战与电力结构调整趋势展望",
+        "authors": [
+          "蔡绍宽"
+        ],
+        "year": "2021",
+        "venue": "南方能源建设"
+      },
+      {
+        "ref_no": 13,
+        "paper_id": "TimesNet",
+        "title": "TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS",
+        "authors": [
+          "Haixu Wu",
+          "Tengge Hu",
+          "Yong Liu",
+          "Hang Zhou",
+          "Jianmin Wang",
+          "Mingsheng Long"
+        ],
+        "year": "2023",
+        "venue": "ICLR"
+      }
+    ]
+  }
+}

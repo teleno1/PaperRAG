@@ -1,0 +1,290 @@
+{
+  "chapter_id": "CH02",
+  "chapter_title": "国内外研究现状",
+  "section_id": "CH02-SEC03",
+  "section_title": "大语言模型在时序预测及相关领域的应用探索",
+  "section_description": "分析大语言模型（如GPT系列、LLaMA等）在处理时序数据、理解上下文、融合多模态信息（如天气文本报告、政策文件）方面的能力，及其在负荷预测领域的初步尝试与潜在范式。",
+  "section_query": "大语言模型 时间序列预测 文本到时序 多模态学习 负荷预测 LLM",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH02-028",
+    "SRC-CH02-029",
+    "SRC-CH02-030",
+    "SRC-CH02-031",
+    "SRC-CH02-032",
+    "SRC-CH02-033",
+    "SRC-CH02-034",
+    "SRC-CH02-035",
+    "SRC-CH02-026",
+    "SRC-CH02-036",
+    "SRC-CH02-037",
+    "SRC-CH02-018",
+    "SRC-CH02-038",
+    "SRC-CH02-012"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH02-028",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0013",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2.4 小样本问题",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2.4 小样本问题]\n当原始数据样本不足时，会使得预测模型因没有足够数据支撑，无法达到预期效果，小样本问题已成为制约新型电力系统数字化转型的重要因素之一，目前针对小样本问题的研究包括迁移学习、大语言模型等。 迁移学习通过从数据丰富的源域迁移知识来提升目标域任务的性能，在历史数据不足的情况下，大语言模型先通过大量通用数据对模型进行预训练，再使用少量预测领域强相关数据对预训练模型进行微调，巧妙解决了原始数据样本不足的问题。在进行预测之前，首先需要对输入数据进行预处理，构建固定步长的时间序列输入模型；随后，大语言模型(large language model, LLM)通过嵌入层将输入数据中的特征转为向量形式，以便更好地捕捉时序依赖关系并处理多模态数据，使其向量表示统一化[38]。此外，还有部分学者利用生成对抗网络等生成式无监督深度学习方法进行数据增强处理。文献[39]结合迁移学习与 TCN-BiGRU 模型，将相关性高的信息迁移到实验模型中，在解决了小样本问题的同时提高了预测精度。文献[40]结合大语言模型中的 GPT-3模型与深度学习模型，利用通用数据进行预训练，利用领域数据进行调整，解决了输入数据不足的问题。",
+      "paper_score": 0.8990919703749005,
+      "chunk_score": 0.9226239658021649
+    },
+    {
+      "source_id": "SRC-CH02-029",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0011",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "1.2.2 类型复杂化",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 1.2.2 类型复杂化]\n数据来源的多样化导致输入数据类型的复杂化，例如历史数据往往包括气象数据、负荷数据及社会因素等，其中不仅有结构化数据，还包含如风向、季节及用户特征等非结构化数据。数据类型的复杂化导致基于数学的传统预处理方法不再适用，因此在训练模型之前不仅需要对输入数据进行相关性分析以构建特征，还需引进能同时处理多种数据类型的模型来进行完善。 目前，随着大语言模型及数据融合技术的发展，其在负荷预测领域的应用趋势也逐渐显现。大语言模型可以通过不同类型输入数据对模型进行微调，而多模态数据融合模型则可以同时处理多种类型输入数据以提取数据特征。除了从模型层面解决数据复杂化问题，还需对不同类型的数据进行特征选择及特征构建以剔除冗余干扰信息。",
+      "paper_score": 0.8990919703749005,
+      "chunk_score": 0.8033040579862056
+    },
+    {
+      "source_id": "SRC-CH02-030",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0003",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "1 Introduction ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 1 Introduction ]\nRather, we aim to highlight surprising findings that existing methods do very little to use the innate reasoning power of pretrained language models on established time series tasks. We substantiate our claim by performing three ablations of three popular and recent LLM-based forecasting methods [50, 15, 22] using eight standard benchmark datasets from reference methods and another five datasets from MONASH [13]. First, we successfully reproduce results from the original publications. Then, we show that replacing language models with simple attention layers, basic transformer blocks, randomly-initialized language models, and even removing the language model entirely, yields comparable or better performance. The same performance was observed on another five datasets that were not studied by the reference methods. Next, we compare the training and inference speed of these methods against their ablations, showing that these simpler methods reduce training and inference time by up to three orders of magnitude while maintaining comparable performance. Then, to investigate the source of LLM forecaster‘s performance, we further explore time series encoders. We find that a simple linear model with an encoder composed of patching and attention can achieve forecasting performance similar to that of LLMs. Next, we test whether the sequence modeling capabilities of LLMs transfer to time series by shuffling input time series and find no appreciable change in performance. Finally, we show that LLMs do not even help forecasting in few-shot settings with of the training data. We discuss the implications of our findings and suggest that time series methods that use large language models are better left to multimodal applications [4, 12, 38] that require textual reasoning. The key contributions we make in this paper are as follows: • • We propose three straightforward ablation methods for methods that pass time series into LLMs for forecasting.",
+      "paper_score": 0.8153995900233869,
+      "chunk_score": 0.7783436210219559
+    },
+    {
+      "source_id": "SRC-CH02-031",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0005",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "2 Related Work ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 2 Related Work ]\nHere, we summarize the key works relevant to LLM-based time series models. They can be broadly classified into three sections: (i) time series forecasting using LLMs; (ii) encoders in LLM time series models; and (iii) smaller and efficient neural models for time-series. Time Series Forecasting Using LLMs. Recently, with the development of Large Language Models (LLMs) [10, 29, 34] and their demonstrated multi-modal capabilities, more researchers have successfully applied LLMs to time series forecasting tasks [14, 16, 5, 4]. Chang et al., [5] used finetuning the transformer module and positional encoding in GPT-2 to align pre-trained LLMs with time series data for forecasting tasks. Zhou et al. [50] proposed a similar finetuning method, named “OneFitsAll”, for time series forecasting with GPT-2. Additionally, Jin et al. [15] introduced a reprogramming method to align LLM’s Word Embedding with time series embeddings, showing good representation of time series data on LLaMA [34]. Similarly, CALF [22] and TEST [32] adapted word embeddings to enable LLMs to forecast time series data effectively. In addition to time-series forecasting models, Liu et al. [23] show that these models can be extended to classifying health-time series, such as heart-rate and daily-footsteps. These models have also been shown to outperform supervised neural models in few-shot settings. Encoders in LLM Time Series Models. In order for an LLM to learn from text it must first be discretized and encoded as word tokens which are vectors [10, 29, 34]. Similarly, LLM-based methods for time series learn discrete time series tokens. One method is to segment the time series into overlapping patches, which effectively shortens the time series while retaining its features [15, 50, 5, 4, 28, 27, 11]. Other methods decompose time series into trend, seasonal components, and residual components [4, 28]. Lastly, Liu et al.",
+      "paper_score": 0.8153995900233869,
+      "chunk_score": 0.9018895370102592
+    },
+    {
+      "source_id": "SRC-CH02-032",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0001",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "ABSTRACT ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: ABSTRACT ]\nTime series forecasting holds significant importance in many real-world dynamic systems and has been extensively studied. Unlike natural language process (NLP) and computer vision (CV), where a single large model can tackle multiple tasks, models for time series forecasting are often specialized, necessitating distinct designs for different tasks and applications. While pre-trained foundation models have made impressive strides in NLP and CV, their development in time series domains has been constrained by data sparsity. Recent studies have revealed that large language models (LLMs) possess robust pattern recognition and reasoning abilities over complex sequences of tokens. However, the challenge remains in effectively aligning the modalities of time series data and natural language to leverage these capabilities. In this work, we present TIME-LLM, a reprogramming framework to repurpose LLMs for general time series forecasting with the backbone language models kept intact. We begin by reprogramming the input time series with text prototypes before feeding it into the frozen LLM to align the two modalities. To augment the LLM’s ability to reason with time series data, we propose Prompt-as-Prefix (PaP), which enriches the input context and directs the transformation of reprogrammed input patches. The transformed time series patches from the LLM are finally projected to obtain the forecasts. Our comprehensive evaluations demonstrate that TIME-LLM is a powerful time series learner that outperforms state-of-the-art, specialized forecasting models. Moreover, TIME-LLM excels in both few-shot and zero-shot learning scenarios. The code is made available at https://github.com/KimMeen/Time-LLM",
+      "paper_score": 0.7692969835154795,
+      "chunk_score": 0.9021794797846244
+    },
+    {
+      "source_id": "SRC-CH02-033",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0021",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "5 CONCLUSION AND FUTURE WORK ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 5 CONCLUSION AND FUTURE WORK ]\nTIME-LLM shows promise in adapting frozen large language models for time series forecasting by reprogramming time series data into text prototypes more natural for LLMs and providing natural language guidance via Prompt-as-Prefix to augment reasoning. Evaluations demonstrate the adapted LLMs can outperform specialized expert models, indicating their potential as effective time series machines. Our results also provide a novel insight that time series forecasting can be cast as yet another “language” task that can be tackled by an off-the-shelf LLM to achieve state-of-the-art performance through our Time-LLM framework. Further research should explore optimal reprogramming representations, enrich LLMs with explicit time series knowledge through continued pre-training, and build towards multimodal models with joint reasoning across time series, natural language, and other modalities. Furthermore, applying the reprogramming framework to equip LLMs with broader time series analytical abilities or other new capabilities should also be considered.",
+      "paper_score": 0.7692969835154795,
+      "chunk_score": 0.9424309034532339
+    },
+    {
+      "source_id": "SRC-CH02-034",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0021",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "2.3.7. TimeLLM ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 2.3.7. TimeLLM ]\nTimeLLM is a novel framework designed to adapt LLM for time series forecasting by reprogramming the input time series data [36]. Instead of fine-tuning the pre-trained LLM or altering their internal architectures, TimeLLM leverages a reprogramming technique that transforms the time series data into a format compatible with LLM. This is achieved by converting time series into text-like prototypes that the LLM can understand. To further enhance the model’s reasoning capabilities, TimeLLM incorporates a ‘‘Prompt-as-Prefix’’ (PaP) approach, which enriches the input data with additional context, such as taskspecific instructions and domain knowledge, allowing the LLM to better interpret and predict time series trends.",
+      "paper_score": 0.7493040989438537,
+      "chunk_score": 0.8046637528627482
+    },
+    {
+      "source_id": "SRC-CH02-035",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0006",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "1.3. Large language models for time-series forecasting ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 1.3. Large language models for time-series forecasting ]\nThe first relies on prompt-based reprogramming of pretrained LLMs, whereby carefully crafted instructions are prepended to raw time series to steer the model’s predictions [39,40]. Inspired by their remarkable conversational capabilities, these methods leverage the LLM’s inherent pattern-recognition power to interpret temporal dynamics without any weight updates [41]. The second paradigm involves fine-tuning the LLM itself on time series data [42,43]. Chang et al. [44] subsequently proposed a two-stage fine-tuning pipeline—first aligning the backbone network to time series representations, then training a lightweight prediction head. Sun et al. [45] introduced contrastive learning objectives to sharpen the model’s temporal embeddings. A summary and review of relevant research on LLM for time-series forecasting is shown in Table 2.",
+      "paper_score": 0.7493040989438537,
+      "chunk_score": 0.8608703256401424
+    },
+    {
+      "source_id": "SRC-CH02-026",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0051",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "2.4.3 CNN-LSTM 深度特征挖掘的时序模型",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 2.4.3 CNN-LSTM 深度特征挖掘的时序模型]\n由此，本文提出的自适应模态分解的深度学习短期负荷预测方法的预测步骤主要分为4个步： 步骤1：对原始负荷序列数据进行数据分解。利用AMD方法将原始负荷数据分解为高频、中频和低频三个分量数据集{SIMF1, SIMF2, SIMF3}。 步骤2：对各个数据集进行数据标准化。将每个分量数据与气象特征数据进行标准化： 其中， 和 分别为各个分量的原始数据以及标准化以后得数据： 和 分别为各个分量原始数据集的所求得的最大值和最小值。 步骤3：构建高频、中频、低频三个分量的CNN-LSTM预测模型。针对SIMF1，SIMF2，SIMF3每个分量序列建立其独有的CNN-LSTM预测模型，将各分量序列的前7日相同预报时刻的数据、星期几标签以及预测时刻的辐照度、温度、风速等气象特征数据作为模型输入，将预测时刻的分量序列作为输出，进行模型训练，确定各个分量的预测模型的参数。 步骤4：对预测结果进行对比分析。将SIMF1，SIMF2，SIMF3三个分量预测结果进行叠加，得到最终的负荷预测结果。构建基础预测模型，利用误差评估指标与所提模型预测结果进行比较，分析所提模型预测性能。",
+      "paper_score": 0.7728975671061048,
+      "chunk_score": 0.8520166054733717
+    },
+    {
+      "source_id": "SRC-CH02-036",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0005",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "3.2基于时间序列生成对抗网络的节假日负荷数据增强方法.....39",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 3.2基于时间序列生成对抗网络的节假日负荷数据增强方法.....39]\n• 3.2.1生成对抗网络 40 • 3.2.2 时间序列生成对抗网络 41 • 3.2.3 基于主成分分析的生成数据质量评价方法 44",
+      "paper_score": 0.454078620575255,
+      "chunk_score": 0.4932918733690932
+    },
+    {
+      "source_id": "SRC-CH02-037",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0092",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "3.4 小结",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 3.4 小结]\n针对电力负荷数据的周期性特点和LSTM模型的长期遗忘问题，通过将输入序列中与待测时刻同周期的负荷值与LSTM模型输出串联，构建全连接层，实现负荷序列特征与周期特征的同步学习，结合负荷模式识别算法，有效提高了短期电力负荷预测精度。本章模型对其他具有周期性变化的时间序列学习任务也具有参考价值。",
+      "paper_score": 0.4403533676628647,
+      "chunk_score": 0.4961570948643377
+    },
+    {
+      "source_id": "SRC-CH02-018",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0093",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.1 引言",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.1 引言]\n电力负荷数据是一种长时间序列数据，当前时刻负荷可能与过去很长时期内的负荷存在长期依赖关系，将这种暗藏在长序列中的长期依赖挖掘出来，对提高负荷预测精度具有一定的潜在价值。长短期记忆网络仅在一定程度上缓解了传统RNN网络长期依赖的问题，但仍然存在长期记忆丢失的问题，限制了它们从长序列中提取特征的能力。近年来，以Transformer为代表的神经网络模型，抛弃了传统的RNN或CNN结构，完全由注意力机制组成，已在机器翻译等自然语言处理任务中取得了良好的效果。本章以Transformer模型的最新改良模型之一——Informer模型为基础，通过考虑电力负荷数据的周期性特点，提出一种基于周期增强Informer（periodic Informer，P-Informer）的短期电力负荷预测模型，进一步提高了短期电力负荷预测的精度。",
+      "paper_score": 0.8942800767505319,
+      "chunk_score": 0.9418766540100267
+    },
+    {
+      "source_id": "SRC-CH02-038",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0006",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "1.2 人工智能方法",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 1.2 人工智能方法]\n随着新一代人工智能技术的兴起，数据驱动的人工智能方法逐渐成为电力系统负荷预测的主要研究方法，特别是基于传统机器学习、深度学习的大数据分析方法，由于其具备提取复杂抽象特征的优越能力，因而在负荷预测领域表现出更好的预测精度。 一般而言，预测问题可以定义为：在给定预测信息空间 中选取特定信息作为预测输入 ，应用一定的预测模型 ，构建预测输入 到预测对象 的映射关系。具体数学表达如下所示： 式中 l 为预测提前时间。 针对基于人工智能方法的负荷预测而言， 通常是指机器学习、深度学习等数据驱动模型； 一般是以确定性预测结果与概率预测结果2种形式表达； 包括历史负荷信息和外部信息(如天气、地理位置、时间标签、电价、政策等信息)。 人工智能预测模型的训练是指寻找使损失函数 , 最小化的参数及模型 。在负荷预测场景下，损失函数 一般为均方根误差、Pinball loss 等。通常，可以利用期望风险 最小化作为模型训练依据， 表达为 则所构建的人工智能预测模型应满足： 然而，在实际应用中，仅利用已知样本难以计算期望风险。因此，通常利用已知样本集合 , (T 为样本数量)计算经验风险 用于近似期望风险，因为根据大数定律，当训练样本数量足够大时，经验风险将趋近于期望风险，即 在有限训练样本条件下， 无法完全逼近 ，因而所得到的预测模型仅能够实现对现有样本的高度拟合。 为防止模型过拟合问题，更加有效实现对未来数据的精准估计，可以通过增加正则惩罚项，构建结构风险 以折中平衡经验风险与期望风险，具体数学表达如下： 式中正则惩罚项 一般指 L1 正则惩罚项、L2 正则惩罚项等。 所以，所构建的人工智能预测模型应满足：",
+      "paper_score": 0.38211289976805773,
+      "chunk_score": 0.413159099175926
+    },
+    {
+      "source_id": "SRC-CH02-012",
+      "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "chunk_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷__chunk_0007",
+      "title": "基于人工智能算法的电力系统负荷预测研究综述",
+      "authors": [
+        "杨雷",
+        "罗雪红",
+        "韩鹍",
+        "张启立",
+        "郭鹏",
+        "李晓飞"
+      ],
+      "year": "2024",
+      "venue": "电工技术",
+      "section": "3．2 基于深度学习的电力系统负荷预测",
+      "content": "[Title: 基于人工智能算法的电力系统负荷预测研究综述]\n[Section: 3．2 基于深度学习的电力系统负荷预测]\n深度学习 作 为 近10年来机器学习领域的重大突破 ，它凭借着处理复杂数据的强大能力以及对复杂数据中隐含的信息特征的高效学习能力 ， 已经在图像处理、 故 障 预警、 语音识别等领域实现了广泛的应用 ， 目前在负荷预测领域也逐渐发挥其作用。 基于深度学习的电力系统负荷预测的主要方法有深度神经网络、 卷积神经网络、 极限学习机、 深度信念网络等。 文献［15］采用引入注意力机制的长短期记忆神经网络建立了电力系统短期负荷预测模型 ， 研究结果表明该模型的单日与单周短期负荷预测准确率可以分别达到 与 文献［16］利用长短期记忆神经网络建立了负荷预测模型 ， 从时间维度辨识学习负荷数据本身的规律特性 ， 从影响因素上识别不同因素对负荷的非线性影响 ， 并借助实际负荷数据对模型进行了验证 结果证明该方法可以有效实现电力系统负荷的预测。 文献［17］提出一种基于改进深度信念网络算法的负荷预测方法 通过将负荷数据的特征向量输入自编码神经网络进行特征融合后输入建立的电力系统负荷预测模型 ， 成功实现了短期负荷预测 文献［18］将高效通道注意力模块与时间卷积神经网络相结合 ， 通过在时间卷积神经网络中嵌入高效通道注意力模块改进了基本时间卷积神经网络的残差块下取样位置 构建了电力系统短期负荷预测模型 ， 经过实际电网负荷数据测试 ， 结果证明该方法能够有效实现电力系统的短期负荷预测 文献［19］提出一种基于量子粒子群优化极限学习机与卡尔曼滤波相结合的负荷预测模型（如图2所示） ， 该模型首先通过量子粒子群对极限学习机的输入层和隐藏层结构进行寻优 ， 以此预测各时间点的负荷值 ， 然后将得到的结果借助卡尔曼滤波算法进行进一步的更新和优化 最终得到各个时间点的最优电力负荷预测值 ， 实验表明该模型具 有较高的负荷预测精度和较高的稳定性。",
+      "paper_score": 0.534827507651646,
+      "chunk_score": 0.4890255968347509
+    }
+  ]
+}

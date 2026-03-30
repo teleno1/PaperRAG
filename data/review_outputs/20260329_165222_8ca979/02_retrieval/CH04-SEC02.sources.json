@@ -1,0 +1,221 @@
+{
+  "chapter_id": "CH04",
+  "chapter_title": "4. 未来研究方向与展望",
+  "section_id": "CH04-SEC02",
+  "section_title": "4.2 物理信息融合与可解释性增强",
+  "section_description": "提出将电力系统微分方程、运行约束等物理知识嵌入LLM训练过程，以及发展面向LLM的可解释人工智能（XAI）工具。",
+  "section_query": "物理信息神经网络 PINN 可解释人工智能 XAI 领域知识注入",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH04-015",
+    "SRC-CH04-016",
+    "SRC-CH04-017",
+    "SRC-CH04-011",
+    "SRC-CH04-018",
+    "SRC-CH04-019",
+    "SRC-CH04-020",
+    "SRC-CH04-021",
+    "SRC-CH04-022",
+    "SRC-CH04-023",
+    "SRC-CH04-024"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH04-015",
+      "paper_id": "NHITS",
+      "chunk_id": "NHITS__chunk_0009",
+      "title": "NHITS: Neural Hierarchical Interpolation for Time Series Forecasting",
+      "authors": [
+        "Cristian Challu",
+        "Kin G. Olivares",
+        "Boris N. Oreshkin",
+        "Federico Garza Ramirez",
+        "Max Mergenthaler-Canseco",
+        "Artur Dubrawski"
+      ],
+      "year": "2023",
+      "venue": "The Thirty-Seventh AAAI Conference on Artificial Intelligence (AAAI-23)",
+      "section": "Non-Linear Regression ",
+      "content": "[Title: NHITS: Neural Hierarchical Interpolation for Time Series Forecasting]\n[Section: Non-Linear Regression ]\nFollowing subsampling, block looks at its input and nonlinearly regresses forward and backward interpolation MLP coefficients that learn hidden vector , which is then linearly projected: The coefficients are then used to synthesize backcast and forecast outputs of the block, via the process described below.",
+      "paper_score": 0.29846651571355043,
+      "chunk_score": 0.2924936004109626
+    },
+    {
+      "source_id": "SRC-CH04-016",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0040",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "9. Code Of Ethics ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 9. Code Of Ethics ]\nQuestion: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics https://neurips.cc/public/EthicsGuidelines? Answer: [Yes] Justification: Yes, we do follow the Code Of Ethics.",
+      "paper_score": 0.29682492066669164,
+      "chunk_score": 0.3329619032779937
+    },
+    {
+      "source_id": "SRC-CH04-017",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0014",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "第4章 基于周期增强 Informer 的短期电力负荷预测模型 53",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 第4章 基于周期增强 Informer 的短期电力负荷预测模型 53]\n• 4.1 引言 53 • 4.2 传统 Informer 模型 ..... 53 • 4.2.1 输入表示 53 • 4.2.2 编码器 55 • 4.2.3 解码器 57 4.3 基于周期增强 Informer 的电力负荷预测模型 57 4.3.1 构建输入矩阵 57",
+      "paper_score": 0.28164737726810496,
+      "chunk_score": 0.32889366149010835
+    },
+    {
+      "source_id": "SRC-CH04-011",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0015",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "VIII ",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: VIII ]\n• 4.3.2 P-Informer模型结构 58 • 4.3.3 P-Informer 模型的训练过程 59",
+      "paper_score": 0.27192134152549347,
+      "chunk_score": 0.3410873909353544
+    },
+    {
+      "source_id": "SRC-CH04-018",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0096",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "（2）敏锐性",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: （2）敏锐性]\n敏锐性反映了模型获得准确预测信息的能力，该指标量化了概率预测区间的非精确程度，由预测区间带宽（Prediction Interval Normalized Average Width, PINAW）指标来评估，PINAW可以表示为 其中， 为样本个数， 与 分别表示预测置信区间的下界以及上界。 如果预测结果的区间宽度较大，则提供的有效预测信息较少。相反，较窄的预测区间可以提供更多预测信息。因此，PINAW的值越小越好，表示模型的敏感性越高。",
+      "paper_score": 0.27809790864599043,
+      "chunk_score": 0.3210043624468219
+    },
+    {
+      "source_id": "SRC-CH04-019",
+      "paper_id": "电力负荷自适应短期预测理论与方法研究_于一潇",
+      "chunk_id": "电力负荷自适应短期预测理论与方法研究_于一潇__chunk_0005",
+      "title": "电力负荷自适应短期预测理论与方法研究",
+      "authors": [
+        "于一潇"
+      ],
+      "year": "2024",
+      "venue": "山东大学博士学位论文",
+      "section": "3.2基于时间序列生成对抗网络的节假日负荷数据增强方法.....39",
+      "content": "[Title: 电力负荷自适应短期预测理论与方法研究]\n[Section: 3.2基于时间序列生成对抗网络的节假日负荷数据增强方法.....39]\n• 3.2.1生成对抗网络 40 • 3.2.2 时间序列生成对抗网络 41 • 3.2.3 基于主成分分析的生成数据质量评价方法 44",
+      "paper_score": 0.27809790864599043,
+      "chunk_score": 0.33781552262257786
+    },
+    {
+      "source_id": "SRC-CH04-020",
+      "paper_id": "基于机器学习的短期负荷预测算法综述_梁宏涛",
+      "chunk_id": "基于机器学习的短期负荷预测算法综述_梁宏涛__chunk_0008",
+      "title": "基于机器学习的短期负荷预测算法综述",
+      "authors": [
+        "梁宏涛",
+        "刘红菊",
+        "李静",
+        "王莹",
+        "郭超男"
+      ],
+      "year": "2022",
+      "venue": "计算机系统应用",
+      "section": "2.3 人工神经网络",
+      "content": "[Title: 基于机器学习的短期负荷预测算法综述]\n[Section: 2.3 人工神经网络]\nBPNN 因其强大的非线性映射能力和柔性的网络结构使之成为应用最广泛的人工神经网络之一[21]. 但目前没有统一标准来定义神经元个数与网络层数, 同时 BPNN 还存在学习收敛速度慢以及局部最优解的问题. 许多专家学者针对这些问题进行改进. 文献 [22] 利用蝙蝠算法优化模型参数选择, 从负荷曲线形状以及距离相似性两个维度设计灰色关联模型以选取负荷相似日, 与单一 BPNN 等模型相比, RMSE 降低了 . 用户因地理位置、地域经济等情况不同导致用电负荷量产生较大差异, 主成分分析以及 Pearson 相关系数等常用方法具有一定的主观性. 针对该问题, 文献[23]利用最小二乘法、最小方差以及遗传算法等模型计算各因素权重, 利用加权方式得出影响因素的重要性排名, 结合径向基函数模型进行预测. 文献 [24] 构建新型随机嵌入式分布框架, 利用核密度估计法拟合多个神经网络预测结果形成概率密度函数, 结合期望估计法计算得到最终预测值, 适用于数据较少的情况, 并且BPNN 结构与隐含层节点个数仍需通过反复试验确定.文献 [25] 利用鲁棒性较强的 CIM 度量方式作为 ANN的损失函数以减少噪声和异常值的影响.",
+      "paper_score": 0.2732763502870392,
+      "chunk_score": 0.278852089493326
+    },
+    {
+      "source_id": "SRC-CH04-021",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0054",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "4.1.5 基于自动机器学习的负荷预测技术",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 4.1.5 基于自动机器学习的负荷预测技术]\n术的准确性与实用性。近年来，已有专家学者利用粒子群优化、遗传算法、模拟退火算法、蚁群优化等经验启发式算法对负荷预测模型进行超参数优化并取得了良好的预测效果[13]。然而，经验启发式算法的反复迭代优化使得模型训练次数骤增，因而造成了巨大的计算负担。贝叶斯优化作为 1 种新兴的超参数优化方法正逐渐被广泛应用，其能够基于先验信息高效推理后验信息，大幅提升超参数寻优的收敛速度。值得注意的是，考虑到超参数自动调优需要反复多次的模型训练而涉及巨大的运算量，利用 Hadoop、Spark 等分布式计算技术以及多线程并行计算技术，可以达到降低训练时间成本的目的。4.1.6 考虑模型可解释性的负荷预测技术 可解释性一般是指以可理解的术语向人类解释或呈现的能力，其本质是人类可以理解决策原因的程度。针对可解释对象的不同，机器学习可解释性技术大致可以按照模型的解释、预测结果的解释以及模仿者模型的解释 3 个方面进行分类[114]。目前，机器学习可解释性技术在计算机视觉、医疗等少数研究领域已经取得一定程度的进展，尤其深度学习的可解释性技术研究[115]。然而，在电力研究领域，机器学习可解释性技术的研究与应用仍然处于初步探索阶段。对于负荷预测场景，可以考虑通过敏感度分析计算相关性分数，量化评估输入特征对于预测输出结果的影响程度，准确挖掘高度影响预测输出结果的相关输入特征，以提升负荷预测模型结果的可解释性。同时，可以利用注意力机制，反映输入特征与预测输出结果之间的对齐关系或依赖关系，解释说明预测模型学习获得的关键重要信息，从而增强负荷预测模型内部的可解释性。图10为考虑模型可解释性的负荷预测方法示意图。 因此，深入开展考虑模型可解释性的负荷预测技术研究，能够大幅提升负荷预测模型在实际应用中的可信性、可靠性以及安全性。",
+      "paper_score": 0.262495205490899,
+      "chunk_score": 0.3103069649876514
+    },
+    {
+      "source_id": "SRC-CH04-022",
+      "paper_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳",
+      "chunk_id": "基于人工智能技术的新型电力系统负荷预测研究综述_韩富佳__chunk_0040",
+      "title": "基于人工智能技术的新型电力系统负荷预测研究综述",
+      "authors": [
+        "韩富佳",
+        "王晓辉",
+        "乔骥",
+        "史梦洁",
+        "蒲天骄"
+      ],
+      "year": "2023",
+      "venue": "Proceedings of the CSEE",
+      "section": "3 人工智能方法目前存在的问题与不足",
+      "content": "[Title: 基于人工智能技术的新型电力系统负荷预测研究综述]\n[Section: 3 人工智能方法目前存在的问题与不足]\n当前，虽然基于人工智能技术的新型电力系统负荷预测研究已经取得诸多进展与成果，但在数据与模型 2 个方面仍然存在一定程度的问题与不足。",
+      "paper_score": 0.262495205490899,
+      "chunk_score": 0.3138875055168361
+    },
+    {
+      "source_id": "SRC-CH04-023",
+      "paper_id": "Informer",
+      "chunk_id": "Informer__chunk_0024",
+      "title": "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting",
+      "authors": [
+        "Haoyi Zhou",
+        "Shanghai Zhang",
+        "Jieqi Peng",
+        "Shuai Zhang",
+        "Jianxin Li",
+        "Hui Xiong",
+        "Wancai Zhang"
+      ],
+      "year": "2021",
+      "venue": "The Thirty-Fifth AAAI Conference on Artificial Intelligence (AAAI-21)",
+      "section": "Ethics Statement ",
+      "content": "[Title: Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting]\n[Section: Ethics Statement ]\nIn addition to identifying the bias data, one promising method is to adopt transfer learning. We have donated the collected data (ETT dataset) for further research on related topics, such as water supply management and 5G network deployment. Another drawback is that our method requires high-performance GPU, which limits its application in the underdevelopment regions.",
+      "paper_score": 0.262431181119474,
+      "chunk_score": 0.2586837406514486
+    },
+    {
+      "source_id": "SRC-CH04-024",
+      "paper_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷",
+      "chunk_id": "基于人工智能算法的电力系统负荷预测研究综述_杨雷__chunk_0001",
+      "title": "基于人工智能算法的电力系统负荷预测研究综述",
+      "authors": [
+        "杨雷",
+        "罗雪红",
+        "韩鹍",
+        "张启立",
+        "郭鹏",
+        "李晓飞"
+      ],
+      "year": "2024",
+      "venue": "电工技术",
+      "section": "AReviewofPowerSystemLoadForecastingBasedonArtificialIntelligenceAlgorithms ",
+      "content": "[Title: 基于人工智能算法的电力系统负荷预测研究综述]\n[Section: AReviewofPowerSystemLoadForecastingBasedonArtificialIntelligenceAlgorithms ]\nYANGLei1， LUOXuehong1， HAN ， ZHANGQili2， GUOPeng2， LIXiaofei2 • （1．StateGridWeinanElectricPowerSupplyCompany， Weinan714000， China； • 2．BeijingGuodiantongNetworkTechnologyCo．， Ltd．， Beijing100070， China） Abstract： Undertheenvironmentofenergyinternet，theintermittencyproblembroughtbylarge－scaleintegrationofnew energysourcessuchaswindandphotovoltaicgenerationsimpactsstableoperationofthepowersystem．Theconventional loadforecastingmethodscannolongerguaranteetheiraccuracyforthissituation， andtheforecastingmethodsbasedon artificialintelligencealgorithmshavefoundwideapplication．Thispaperencompassesfirstanoutlineonclassificationand necessityofpowersystemloadforecastingmethods， andthenasummaryoftheAIalgorithm－basedmethodsfromthe perspectivesofdifferentalgorithmclasses，i．e．， conventionalmachinelearning， deeplearning， andcombinedmodels．The paperendswithafutureoutlookofthisfastadvancingfield Keywords： powersystemloadforecasting； conventionalmachinelearning； deeplearning； combinatorialmodel",
+      "paper_score": 0.2557000664572275,
+      "chunk_score": 0.27387679194627523
+    }
+  ]
+}

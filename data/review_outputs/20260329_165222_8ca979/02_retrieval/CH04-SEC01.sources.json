@@ -1,0 +1,304 @@
+{
+  "chapter_id": "CH04",
+  "chapter_title": "4. 未来研究方向与展望",
+  "section_id": "CH04-SEC01",
+  "section_title": "4.1 轻量化与高效架构设计",
+  "section_description": "展望面向边缘侧部署的轻量化LLM、模型压缩、知识蒸馏以及专用高效时序预测架构的研究。",
+  "section_query": "轻量化大语言模型 模型压缩 知识蒸馏 高效架构 边缘计算",
+  "citation_policy": "required",
+  "source_ids": [
+    "SRC-CH04-001",
+    "SRC-CH04-002",
+    "SRC-CH04-003",
+    "SRC-CH04-004",
+    "SRC-CH04-005",
+    "SRC-CH04-006",
+    "SRC-CH04-007",
+    "SRC-CH04-008",
+    "SRC-CH04-009",
+    "SRC-CH04-010",
+    "SRC-CH04-011",
+    "SRC-CH04-012",
+    "SRC-CH04-013",
+    "SRC-CH04-014"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-CH04-001",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0009",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "3 METHODOLOGY ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: 3 METHODOLOGY ]\nWe note that only the parameters of the lightweight input transformation and output projection are updated, while the backbone language model is frozen. In contrast to vision-language and other multimodal language models, which usually fine-tune with paired cross-modality data, TIME-LLM is directly optimized and becomes readily available with only a small set of time series and a few training epochs, maintaining high efficiency and imposing fewer resource constraints compared to building large domain-specific models from scratch or fine-tuning them. To further reduce memory footprints, various off-the-shelf techniques (e.g., quantization) can be seamlessly integrated for slimming TIME-LLM.",
+      "paper_score": 0.350160297031023,
+      "chunk_score": 0.4765883796227619
+    },
+    {
+      "source_id": "SRC-CH04-002",
+      "paper_id": "TIME-LLM",
+      "chunk_id": "TIME-LLM__chunk_0000",
+      "title": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS",
+      "authors": [
+        "Ming",
+        "Shiyu Wang",
+        "Lintao",
+        "Zhixuan",
+        "James Y. Zhang",
+        "Xiaoming",
+        "Pin-Yu Chen",
+        "Yuxuan Liang",
+        "Yuan-Fang",
+        "Shirui Pan",
+        "Qingsong Wen"
+      ],
+      "year": "2024",
+      "venue": "ICLR",
+      "section": "TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS ",
+      "content": "[Title: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS]\n[Section: TIME-LLM: TIME SERIES FORECASTING REPROGRAMMING LARGE LANGUAGE MODELS ]\nMing ∗, Shiyu Wang2∗, Lintao , Zhixuan , James Y. Zhang2, Xiaoming , Pin-Yu Chen3, Yuxuan Liang6, Yuan-Fang , Shirui Pan4†, Qingsong Wen5† 1Monash University 2Ant Group 3IBM Research 4Griffith University 5Alibaba Group 6The Hong Kong University of Science and Technology (Guangzhou) {ming.jin, yuanfang.li}@monash.edu, pin-yu.chen@ibm.com yuxliang@outlook.com, s.pan@griffith.edu.au, qingsongedu@gmail.com {weiming.wsy,lintao.mlt,chuzhixuan.czx,james.z,peter.sxm}@antgroup.com",
+      "paper_score": 0.350160297031023,
+      "chunk_score": 0.3706814635943533
+    },
+    {
+      "source_id": "SRC-CH04-003",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0001",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "A R T I C L E I N F O ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: A R T I C L E I N F O ]\nKeywords: Large language model Multi-attention mechanism Electricity demand and generation forecasting Zero-shot learning",
+      "paper_score": 0.3488091932436913,
+      "chunk_score": 0.40082402399784023
+    },
+    {
+      "source_id": "SRC-CH04-004",
+      "paper_id": "A-novel-attention-enhanced-LLM-approach",
+      "chunk_id": "A-novel-attention-enhanced-LLM-approach__chunk_0017",
+      "title": "A novel attention-enhanced LLM approach for accurate power demand and generation forecasting",
+      "authors": [
+        "Zehuan Hu",
+        "Yuan Gao",
+        "Luning Sun",
+        "Masayuki Mae"
+      ],
+      "year": "2025",
+      "venue": "Renewable Energy",
+      "section": "2.3.3. Informer ",
+      "content": "[Title: A novel attention-enhanced LLM approach for accurate power demand and generation forecasting]\n[Section: 2.3.3. Informer ]\nInformer is an efficient Transformer variant specifically designed for long-sequence time-series forecasting [18]. It introduces a ProbSparse self-attention mechanism that selects only the most informative query– key pairs, reducing the quadratic complexity of standard attention. To further accelerate processing, Informer employs a self-attention distilling operation that progressively shortens the sequence at intermediate layers, allowing it to scale to very long input horizons while maintaining high accuracy.",
+      "paper_score": 0.3488091932436913,
+      "chunk_score": 0.29015414304394127
+    },
+    {
+      "source_id": "SRC-CH04-005",
+      "paper_id": "Informer",
+      "chunk_id": "Informer__chunk_0005",
+      "title": "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting",
+      "authors": [
+        "Haoyi Zhou",
+        "Shanghai Zhang",
+        "Jieqi Peng",
+        "Shuai Zhang",
+        "Jianxin Li",
+        "Hui Xiong",
+        "Wancai Zhang"
+      ],
+      "year": "2021",
+      "venue": "The Thirty-Fifth AAAI Conference on Artificial Intelligence (AAAI-21)",
+      "section": "Introduction ",
+      "content": "[Title: Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting]\n[Section: Introduction ]\nIt achieves the • time complexity and • memory usage on dependency alignments. • - We propose self-attention distilling operation to privilege dominating attention scores in • -stacking layers and sharply reduce the total space complexity to be , which helps receiving long sequence input. - We propose generative style decoder to acquire long sequence output with only one forward step needed, simultaneously avoiding cumulative error spreading during the inference phase.",
+      "paper_score": 0.3324969675608419,
+      "chunk_score": 0.40522838258828525
+    },
+    {
+      "source_id": "SRC-CH04-006",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0026",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "2.4 Transformer 模型",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: 2.4 Transformer 模型]\n由于电能替代的不断深化与新能源、电动汽车等不断融入负荷侧，许多现有的概率统计和机器学习方法无法提供准确的预测。因此，有学者将人工智能模型引入到负荷预测领域，并将多个模型相结合，以及与物理、数理统计相结合，最终实现对电力负荷的预测，例如 CNN 和 LSTM 在预测中已经得到了广泛应用，而 2017 年由 Google 新提出的Transformer模型更因为并行计算能力强、训练速度快以及在处理长序列和大规模数据集时的优异表现，逐渐在负荷预测领域崭露头角。 Transformer 提出了注意力机制以实现快速并行，改进了循环神经网络训练慢的缺点，由于其独特的架构和能力而被用于时间序列分析，在时间序列分析中的应用核心在于其自注意力机制，能够有效捕捉时间序列数据中的长期依赖关系。 该模型主要由编码器(Encoder)和解码器(Decoder)构成，如图 12 所示，它们之间通过多头注意力机制和前馈神经网络连接在一起，通过并行处理能力和位置编码实现高效的信息交互、传递。与传统的 CNN、LSTM 等模型不同，该模型可以并行处理序列数据，从而提高处理效率。",
+      "paper_score": 0.3215704601058011,
+      "chunk_score": 0.2807366266649684
+    },
+    {
+      "source_id": "SRC-CH04-007",
+      "paper_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞",
+      "chunk_id": "基于深度学习的负荷预测研究综述与展望_马恒瑞__chunk_0036",
+      "title": "基于深度学习的负荷预测研究综述与展望",
+      "authors": [
+        "马恒瑞",
+        "袁傲添",
+        "王波",
+        "杨昌华",
+        "董旭柱",
+        "陈来军"
+      ],
+      "year": "2025",
+      "venue": "高电压技术",
+      "section": "",
+      "content": "[Title: 基于深度学习的负荷预测研究综述与展望]\n[Section: ]\n1978—，男，博士，教授，博导 主要从事电力深度视觉、边缘计算和电力大数据方面的研究 E-mail: whwdwb@whu.edu.cn 收稿日期 2024-09-23 修回日期 2024-12-21 编辑 程子丰",
+      "paper_score": 0.3215704601058011,
+      "chunk_score": 0.34766585018114293
+    },
+    {
+      "source_id": "SRC-CH04-008",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0026",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "D.1 System Configuration ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: D.1 System Configuration ]\nWe train and evaluate each reference method and each architecture modification using the same device. For Time-LLM [15], applying LlaMA-7B [34], we use NVIDIA A100 GPU with 80GB memory. For other methods [50, 22], applying GPT-2 [29], we use NVIDIA RTX A6000 GPU with 48GB memory. Though an analysis of memory footprint is beyond scope of this research, we note that training the baselines in the absence of LLM can be done within smaller GPUs as well.",
+      "paper_score": 0.2909923861055313,
+      "chunk_score": 0.3588742291676049
+    },
+    {
+      "source_id": "SRC-CH04-009",
+      "paper_id": "are-language-models-actually-useful-for-time-series-forecasting",
+      "chunk_id": "are-language-models-actually-useful-for-time-series-forecasting__chunk_0006",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "authors": [
+        "Mingtian Tan",
+        "Mike A. Merrill",
+        "Vinayak Gupta",
+        "Tim Althoff",
+        "Thomas Hartvigsen"
+      ],
+      "year": "",
+      "venue": "",
+      "section": "2 Related Work ",
+      "content": "[Title: Are Language Models Actually Useful for Time Series Forecasting?]\n[Section: 2 Related Work ]\nOther methods decompose time series into trend, seasonal components, and residual components [4, 28]. Lastly, Liu et al. [22] feed the multivariate time series using a Transformer to enable different channels to learn the dynamics of other channels. These embedding procedures are followed by a linear neural network layer that projects the time series encoding to the same dimensions used by the pre-trained LLM. Small and Efficient Neural Forecasters. In addition to LLMs, there has been a large body of research on smaller yet efficient frameworks that outperform their bulky counterparts in time series forecasting [19, 47, 33, 24, 2]. For example, Zeng et al. [46] present DLinear, an incredibly simple model that combines decomposition techniques and achieves better forecasting performance than state-of-the-art transformer-based time series architectures at the time, such as Informer [48], FEDformer [49], and Autoformer [40]. Furthermore, Xu et al. [43] introduces a lightweight model with only 10k parameters, which captures both amplitude and phase information in the time-series to outperform transformer-based models.",
+      "paper_score": 0.2909923861055313,
+      "chunk_score": 0.38230533760506946
+    },
+    {
+      "source_id": "SRC-CH04-010",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0016",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "4.4 实验结果 59",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: 4.4 实验结果 59]\n• 4.4.1 P-Informer 模型的预测结果 59 • 4.4.2 P-Informer 模型的鲁棒性分析 62 • 4.4.3 消融实验 65 • 4.4.4 运行时间 66",
+      "paper_score": 0.27192134152549347,
+      "chunk_score": 0.32522119188879156
+    },
+    {
+      "source_id": "SRC-CH04-011",
+      "paper_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添",
+      "chunk_id": "基于深度学习的电力负荷模式识别与预测方法研究_董添__chunk_0015",
+      "title": "基于深度学习的电力负荷模式识别与预测方法研究",
+      "authors": [
+        "董添"
+      ],
+      "year": "2022",
+      "venue": "吉林大学博士学位论文",
+      "section": "VIII ",
+      "content": "[Title: 基于深度学习的电力负荷模式识别与预测方法研究]\n[Section: VIII ]\n• 4.3.2 P-Informer模型结构 58 • 4.3.3 P-Informer 模型的训练过程 59",
+      "paper_score": 0.27192134152549347,
+      "chunk_score": 0.3410873909353544
+    },
+    {
+      "source_id": "SRC-CH04-012",
+      "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "chunk_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning__chunk_0049",
+      "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+      "authors": [
+        "Qi Dong",
+        "Rubing Huang",
+        "Chenhui Cui",
+        "Dave Towey",
+        "Ling Zhou",
+        "Jinyu Tian",
+        "Jianzhou Wang"
+      ],
+      "year": "2018",
+      "venue": "",
+      "section": "11.2 Research Trends ",
+      "content": "[Title: Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey]\n[Section: 11.2 Research Trends ]\nHowever, the use of LLMs for STELF has not yet been developed. Nevertheless, it is anticipated that application of LLMs to STELF shall become an important research direction. This may provide us with new ways to address the challenge of insufficient generalizability of forecasting models, while also opening up the possibility to achieve zero-shot learning in ELF [59]. This type of model may not only demonstrate stronger adaptability and predictive power on diverse datasets, but also make reasonable predictions on unseen data. • Optimization is a critical stage in the development of deep-learning models, and has been receiving attention in STELF [200]. Future research will continue to explore more efficient optimization algorithms, such as improved SSA [129], Adam [75], and other optimization methods tailored to specific problems. Network architecture optimization is evolving towards more lightweight networks, with the relevant error-optimization process becoming more refined (including in-depth research and customization of loss functions). Model compression techniques and acceleration algorithms will continue to evolve, leading the optimization process to place greater emphasis on computational efficiency.",
+      "paper_score": 0.2628303079884146,
+      "chunk_score": 0.4213300487543376
+    },
+    {
+      "source_id": "SRC-CH04-013",
+      "paper_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning",
+      "chunk_id": "Short-Term-Electricity-Load-Forecasting-by-Deep-Learning__chunk_0030",
+      "title": "Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey",
+      "authors": [
+        "Qi Dong",
+        "Rubing Huang",
+        "Chenhui Cui",
+        "Dave Towey",
+        "Ling Zhou",
+        "Jinyu Tian",
+        "Jianzhou Wang"
+      ],
+      "year": "2018",
+      "venue": "",
+      "section": "7.1 Temporal Feature Relationship Extraction ",
+      "content": "[Title: Short-Term Electricity-Load Forecasting by Deep Learning: A Comprehensive Survey]\n[Section: 7.1 Temporal Feature Relationship Extraction ]\nZhang et al. [206] proposed a hybrid network architecture combining TCN and LSTM to address the issue of model complexity. Their model leveraged the TCN’s ability to capture the receptive field in time series and effectively model temporal dependencies, while also incorporating the LSTM’s ability to handle long-term dependency problems.",
+      "paper_score": 0.2628303079884146,
+      "chunk_score": 0.22449254622220938
+    },
+    {
+      "source_id": "SRC-CH04-014",
+      "paper_id": "TimesNet",
+      "chunk_id": "TimesNet__chunk_0029",
+      "title": "TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS",
+      "authors": [
+        "Haixu Wu",
+        "Tengge Hu",
+        "Yong Liu",
+        "Hang Zhou",
+        "Jianmin Wang",
+        "Mingsheng Long"
+      ],
+      "year": "2023",
+      "venue": "ICLR",
+      "section": "G MODEL EFFICIENCY ANALYSIS ",
+      "content": "[Title: TIMESNET: TEMPORAL 2D-VARIATION MODELING FOR GENERAL TIME SERIES ANALYSIS]\n[Section: G MODEL EFFICIENCY ANALYSIS ]\nTo summarize the model performance and efficiency, we calculate the relative performance rankings for comparing baselines. The rankings are compared from the common models used in all five tasks: LSTM (1997) and LSSL (2022); TCN (2019); LightTS (2022) and DLinear (2023); Reformer (2020), Informer (2021), Pyraformer (2021a), Autoformer (2021), FEDformer (2022), Non-stationary Transformer (2022a), ETSformer (2022) and our proposed TimesNet, namely 13 models in total. As shown in Table 11, our proposed TimesNet achieves the best performance in all five tasks. Among the top three models, TimesNet also achieves the greatest efficiency. Compared to MLP-based models, our proposed TimesNet shows a significant advantage in performance. And benefiting from the utilization of 2D kernels and parameter-efficient design, the parameter size is invariant when the input series changes. Compared to Transformer-based models, TimesNet is with great efficiency in GPU memory, which is essential in long sequence modeling.",
+      "paper_score": 0.2439741048286087,
+      "chunk_score": 0.20503415365734365
+    }
+  ]
+}
