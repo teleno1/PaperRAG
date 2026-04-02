@@ -105,5 +105,4 @@ app/
   domain/
   infrastructure/
   schemas/
-  services/        # 兼容层 / 过渡封装
 ```
