@@ -15,12 +15,11 @@ paths:
 models:
   llm_model: deepseek-chat
   deepseek_base_url: https://api.deepseek.com/v1
-  embedding_model: qwen3-vl-embedding
+  embedding_model: text-embedding-v4
   embedding_dimension: 1024
-  rerank_model: qwen3-vl-rerank
+  rerank_model: qwen3-rerank
 
 pipeline:
-  parallel_body_writing: true
   max_workers: 5
   top_k_recall: 20
   outline_query_count: 5
@@ -28,7 +27,6 @@ pipeline:
   temperature_chapter: 0.2
   temperature_final_pass: 0.2
   max_cites_per_sentence: 3
-  previous_recap_chars: 1200
 
 mineru:
   upload_url: https://mineru.net/api/v4/file-urls/batch

@@ -214,11 +214,20 @@ class DeepSeekJsonClient:
             self._client = OpenAI(api_key=api_key, base_url=base_url)
         return self._client
 
-    def complete_json(self, prompt: str, temperature: float = 0.2) -> Any:
+    def complete_json(
+        self,
+        prompt: str,
+        temperature: float = 0.2,
+        system_prompt: str | None = None,
+    ) -> Any:
         client = self._ensure_client()
+        messages: list[dict[str, str]] = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": prompt})
         response = client.chat.completions.create(
             model=self._settings.models.llm_model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             temperature=temperature,
         )
         content = response.choices[0].message.content or ""

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from app.domain.review.chapter_ops import is_abstract_title
 from app.domain.review.models import ChapterDraft, CitationRegistry, ExecutionPlan, ReferenceEntry, SourceRegistry
 
 EXPORT_TEXT_FILENAME = "final_review.txt"
@@ -32,21 +33,40 @@ def sentence_to_text(sentence, citation_registry: CitationRegistry, source_regis
     return text
 
 
+def _paragraph_to_text(paragraph, citation_registry: CitationRegistry, source_registry: SourceRegistry) -> str:
+    return "".join(
+        sentence_to_text(sentence, citation_registry, source_registry)
+        for sentence in paragraph.sentences
+    ).strip()
+
+
+def _keywords_line(chapter: ChapterDraft) -> str:
+    return f"\u5173\u952e\u8bcd\uff1a{'\uff1b'.join(chapter.keywords)}" if chapter.keywords else ""
+
+
 def chapter_to_plain_text(
     chapter: ChapterDraft,
     citation_registry: CitationRegistry,
     source_registry: SourceRegistry,
 ) -> str:
     lines = [chapter.chapter_title]
+
+    if chapter.paragraphs:
+        for paragraph in chapter.paragraphs:
+            paragraph_text = _paragraph_to_text(paragraph, citation_registry, source_registry)
+            if paragraph_text:
+                lines.append(paragraph_text)
+        keyword_line = _keywords_line(chapter) if is_abstract_title(chapter.chapter_title) else ""
+        if keyword_line:
+            lines.append(keyword_line)
+        return "\n".join(lines).strip()
+
     for section in chapter.sections:
         lines.append(section.section_title)
         for paragraph in section.paragraphs:
-            paragraph_text = "".join(
-                sentence_to_text(sentence, citation_registry, source_registry)
-                for sentence in paragraph.sentences
-            )
-            if paragraph_text.strip():
-                lines.append(paragraph_text.strip())
+            paragraph_text = _paragraph_to_text(paragraph, citation_registry, source_registry)
+            if paragraph_text:
+                lines.append(paragraph_text)
         lines.append("")
     return "\n".join(lines).strip()
 
@@ -57,15 +77,24 @@ def chapter_to_markdown(
     source_registry: SourceRegistry,
 ) -> str:
     lines = [f"# {chapter.chapter_title}"]
+
+    if chapter.paragraphs:
+        for paragraph in chapter.paragraphs:
+            paragraph_text = _paragraph_to_text(paragraph, citation_registry, source_registry)
+            if paragraph_text:
+                lines.append(paragraph_text)
+                lines.append("")
+        keyword_line = _keywords_line(chapter) if is_abstract_title(chapter.chapter_title) else ""
+        if keyword_line:
+            lines.append(keyword_line)
+        return "\n".join(lines).strip()
+
     for section in chapter.sections:
         lines.append(f"## {section.section_title}")
         for paragraph in section.paragraphs:
-            paragraph_text = "".join(
-                sentence_to_text(sentence, citation_registry, source_registry)
-                for sentence in paragraph.sentences
-            )
-            if paragraph_text.strip():
-                lines.append(paragraph_text.strip())
+            paragraph_text = _paragraph_to_text(paragraph, citation_registry, source_registry)
+            if paragraph_text:
+                lines.append(paragraph_text)
                 lines.append("")
     return "\n".join(lines).strip()
 
@@ -97,16 +126,14 @@ def export_all(
 
     ordered_blocks: list[ChapterDraft] = []
     for chapter in plan.final_pass_chapters:
-        if chapter.chapter_title.lower() == "abstract" or "摘要" in chapter.chapter_title:
-            if chapter.chapter_id in final_map:
-                ordered_blocks.append(final_map[chapter.chapter_id])
+        if is_abstract_title(chapter.chapter_title) and chapter.chapter_id in final_map:
+            ordered_blocks.append(final_map[chapter.chapter_id])
     for chapter in plan.body_chapters:
         if chapter.chapter_id in body_map:
             ordered_blocks.append(body_map[chapter.chapter_id])
     for chapter in plan.final_pass_chapters:
-        if chapter.chapter_title.lower() != "abstract" and "摘要" not in chapter.chapter_title:
-            if chapter.chapter_id in final_map:
-                ordered_blocks.append(final_map[chapter.chapter_id])
+        if not is_abstract_title(chapter.chapter_title) and chapter.chapter_id in final_map:
+            ordered_blocks.append(final_map[chapter.chapter_id])
 
     ordered_text_blocks = [chapter_to_plain_text(chapter, citation_registry, source_registry) for chapter in ordered_blocks]
     ordered_md_blocks = [chapter_to_markdown(chapter, citation_registry, source_registry) for chapter in ordered_blocks]
@@ -116,8 +143,8 @@ def export_all(
     final_md = "\n\n".join(block for block in ordered_md_blocks if block.strip())
 
     if references_text:
-        final_text += "\n\n参考文献\n" + references_text
-        final_md += "\n\n# 参考文献\n" + references_text
+        final_text += "\n\n\u53c2\u8003\u6587\u732e\n" + references_text
+        final_md += "\n\n# \u53c2\u8003\u6587\u732e\n" + references_text
 
     aggregated = {
         "title": plan.title,

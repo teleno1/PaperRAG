@@ -1,0 +1,128 @@
+{
+  "language": "中文",
+  "title": "大语言模型在电力负荷预测中的应用研究综述",
+  "sections": [
+    {
+      "title": "摘要",
+      "description": "概述综述的研究背景、核心内容、主要发现及未来展望。",
+      "query": "",
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    },
+    {
+      "title": "引言",
+      "description": "阐述研究背景、意义及综述的整体结构安排。",
+      "query": "电力负荷预测 研究背景 意义 新型电力系统 挑战",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "电力负荷预测概述与挑战",
+      "description": "介绍电力负荷预测的基本概念、分类、重要性，并系统分析当前面临的主要挑战。",
+      "query": "电力负荷预测 定义 分类 重要性 挑战 小样本 波动性 不确定性",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "电力负荷预测方法演进与研究现状",
+      "description": "梳理从传统方法到机器学习、深度学习方法的演进历程，并评述各类方法的优缺点。",
+      "query": "负荷预测方法 时间序列 回归分析 机器学习 深度学习 卷积神经网络 循环神经网络 注意力机制",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "title": "传统预测方法",
+          "description": "回顾时间序列法、回归分析法、灰色预测法等传统方法的原理与应用。",
+          "query": "传统负荷预测 时间序列法 回归分析 灰色预测",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "机器学习方法",
+          "description": "总结支持向量机、随机森林、极限学习机等机器学习模型在负荷预测中的应用。",
+          "query": "机器学习 负荷预测 支持向量机 随机森林 极限学习机",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "深度学习方法",
+          "description": "综述以CNN、RNN、LSTM、Transformer为代表的深度学习模型在负荷预测中的最新进展。",
+          "query": "深度学习 负荷预测 CNN RNN LSTM Transformer",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "大语言模型基础及其在时序预测中的潜力",
+      "description": "介绍大语言模型的基本原理、技术特点，并探讨其应用于时序数据预测（如负荷预测）的独特优势与适配性。",
+      "query": "大语言模型 原理 预训练 微调 时序预测 时间序列 泛化能力 逻辑推理",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "大语言模型在电力负荷预测中的应用现状",
+      "description": "系统梳理和评述当前将大语言模型直接或间接用于电力负荷预测的研究工作、技术路径及初步成果。",
+      "query": "大语言模型 电力负荷预测 应用 案例 注意力增强 微调 提示工程",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "title": "直接预测模型构建",
+          "description": "分析将LLM作为核心预测模型，通过微调或提示工程直接进行负荷预测的研究。",
+          "query": "LLM 直接预测 微调 提示工程 负荷预测",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "特征提取与增强",
+          "description": "探讨利用LLM强大的语义理解和特征提取能力，为传统预测模型提供更优输入特征的研究。",
+          "query": "大语言模型 特征提取 特征增强 负荷预测",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "不确定性量化与解释性分析",
+          "description": "综述利用LLM的逻辑推理能力，进行预测不确定性评估和结果解释的相关研究。",
+          "query": "大语言模型 不确定性量化 可解释性 负荷预测",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "关键问题与挑战",
+      "description": "深入分析当前大语言模型应用于电力负荷预测领域所面临的具体技术瓶颈、数据障碍和实际应用难题。",
+      "query": "大语言模型 负荷预测 问题 挑战 数据稀缺 计算成本 模型适配 可解释性",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "未来研究方向与展望",
+      "description": "基于现有研究和挑战，提出大语言模型在电力负荷预测领域未来可能的研究方向和发展趋势。",
+      "query": "大语言模型 负荷预测 未来方向 展望 小样本学习 多模态融合 自适应预测",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "总结与展望",
+      "description": "总结全文核心观点，重申大语言模型在电力负荷预测中的价值，并对未来发展进行总体展望。",
+      "query": "",
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    }
+  ]
+}

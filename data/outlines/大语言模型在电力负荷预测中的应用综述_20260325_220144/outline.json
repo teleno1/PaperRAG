@@ -1,0 +1,163 @@
+{
+  "language": "中文",
+  "title": "大语言模型在电力负荷预测中的应用综述",
+  "sections": [
+    {
+      "title": "摘要",
+      "description": "概括大语言模型应用于电力负荷预测的研究背景、主要方法、研究现状、关键问题以及未来展望。",
+      "query": "",
+      "needs_retrieval": false,
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    },
+    {
+      "title": "研究背景与意义",
+      "description": "阐述电力负荷预测的重要性、面临的挑战，以及大语言模型为解决这些挑战（如小样本、用户行为建模）带来的新机遇和潜在价值。",
+      "query": "电力负荷预测的背景、意义、挑战、大语言模型在负荷预测中的应用价值",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "title": "电力负荷预测概述",
+          "description": "介绍电力负荷预测的基本概念、任务分类（如短期、中期、长期预测）及其在新型电力系统运行、规划中的关键作用。",
+          "query": "电力负荷预测定义、分类、任务、新型电力系统背景下的重要性",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "大语言模型概述及其在时序预测中的潜力",
+          "description": "简述大语言模型的基本原理、核心能力（如泛化、推理），并探讨其从自然语言处理迁移到时序预测（如电力负荷）的可行性与优势。",
+          "query": "大语言模型原理、特点、时序预测应用、时间序列预测中的大语言模型方法",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "国内外研究现状",
+      "description": "系统梳理和评述大语言模型应用于电力负荷预测的现有方法、代表性工作及技术路线。",
+      "query": "大语言模型电力负荷预测研究现状、方法、模型、应用案例",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "title": "基于提示工程与重编程的方法",
+          "description": "综述通过精心设计提示词或前缀，将原始时序数据“翻译”为大语言模型可理解的输入，从而直接利用预训练模型进行预测的方法。",
+          "query": "大语言模型提示工程 时序预测 重编程 电力负荷预测 Prompt-as-Prefix",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "基于微调与适配器的方法",
+          "description": "综述在预训练大语言模型基础上，使用领域数据（电力负荷数据）进行参数微调或插入轻量级适配器模块，以适配预测任务的方法。",
+          "query": "大语言模型微调 适配器 电力负荷预测 领域适应",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "大语言模型与传统/深度学习模型的结合",
+          "description": "综述将大语言模型作为特征提取器、推理引擎或与其他预测模型（如CNN、LSTM、Transformer）进行集成或级联的混合方法。",
+          "query": "大语言模型 混合模型 集成学习 特征提取 电力负荷预测",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "目前存在的问题与挑战",
+      "description": "分析当前大语言模型在电力负荷预测应用中面临的技术瓶颈、数据难题、计算成本及可解释性等方面的挑战。",
+      "query": "大语言模型负荷预测 问题 挑战 局限性 数据需求 计算成本 可解释性",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "title": "数据依赖与领域适配问题",
+          "description": "讨论大语言模型对高质量、大规模预训练数据的依赖，以及在电力领域小样本、数据异构场景下的适配困难。",
+          "query": "大语言模型 小样本学习 领域适配 数据异构 电力负荷数据",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "模型效率与部署成本",
+          "description": "分析大语言模型参数量大、推理延迟高、计算资源消耗多等问题对实时负荷预测及实际工程部署带来的挑战。",
+          "query": "大语言模型 计算效率 推理延迟 部署成本 实时预测",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "可解释性与可靠性",
+          "description": "探讨大语言模型“黑箱”特性导致的预测结果可解释性差，以及在关键电力系统应用中可靠性、鲁棒性不足的风险。",
+          "query": "大语言模型 可解释性 可靠性 鲁棒性 负荷预测不确定性",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "未来研究方向与展望",
+      "description": "基于现有问题和挑战，展望大语言模型在电力负荷预测领域未来可能的技术突破、应用场景及交叉研究方向。",
+      "query": "大语言模型 电力负荷预测 未来研究方向 发展趋势 展望",
+      "needs_retrieval": true,
+      "write_stage": "body",
+      "citation_policy": "optional",
+      "subsections": [
+        {
+          "title": "高效轻量化与专用模型设计",
+          "description": "展望面向电力负荷预测的专用、轻量化大语言模型架构，以及知识蒸馏、模型压缩等效率优化技术。",
+          "query": "轻量化大语言模型 专用模型 知识蒸馏 模型压缩 电力领域",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "optional",
+          "subsections": []
+        },
+        {
+          "title": "多模态与跨域知识融合",
+          "description": "展望融合气象、经济、用户行为文本等多模态数据，以及引入电力领域知识图谱，增强模型上下文理解和推理能力。",
+          "query": "多模态大语言模型 跨域知识融合 知识图谱 电力负荷预测",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "optional",
+          "subsections": []
+        },
+        {
+          "title": "可信与可解释预测",
+          "description": "展望提升大语言模型预测过程可解释性、输出不确定性量化，以及建立可靠评估与验证框架的研究方向。",
+          "query": "可解释人工智能 不确定性量化 可信预测 评估框架 大语言模型",
+          "needs_retrieval": true,
+          "write_stage": "body",
+          "citation_policy": "optional",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "总结与展望",
+      "description": "总结全文核心观点，概括大语言模型为电力负荷预测带来的变革与现存挑战，并对该交叉领域的长期发展进行展望。",
+      "query": "",
+      "needs_retrieval": false,
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    }
+  ]
+}

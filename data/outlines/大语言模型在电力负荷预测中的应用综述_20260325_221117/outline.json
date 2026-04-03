@@ -1,256 +1,236 @@
 {
-  "title": "大语言模型在电力负荷预测中的应用综述",
   "language": "中文",
-  "body_chapters": [
+  "title": "大语言模型在电力负荷预测中的应用综述",
+  "sections": [
     {
-      "chapter_id": "CH01",
-      "chapter_title": "研究背景与意义",
-      "chapter_description": "阐述电力负荷预测的重要性、传统及AI方法的局限性，并引出大语言模型作为新兴工具在时序预测领域的潜力及其在电力负荷预测中的应用价值。",
+      "title": "摘要",
+      "description": "概括大语言模型应用于电力负荷预测的研究背景、主要方法、研究现状、关键挑战以及未来发展趋势。",
+      "query": "",
+      "needs_retrieval": false,
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    },
+    {
+      "title": "研究背景与意义",
+      "description": "阐述电力负荷预测的重要性、传统及AI方法的局限性，并引出大语言模型作为新兴工具在时序预测领域的潜力及其在电力负荷预测中的应用价值。",
       "query": "电力负荷预测的重要性、挑战、传统方法、深度学习方法的局限性、大语言模型在时序预测中的潜力",
-      "citation_policy": "required",
+      "needs_retrieval": true,
       "write_stage": "body",
-      "leaf_sections": [
+      "citation_policy": "required",
+      "subsections": [
         {
-          "chapter_id": "CH01",
-          "chapter_title": "研究背景与意义",
-          "section_id": "CH01-SEC01",
           "title": "电力负荷预测概述",
           "description": "介绍电力负荷的基本概念、分类（短期、中期、长期）及其在电力系统安全经济运行中的关键作用。",
           "query": "电力负荷定义、负荷预测分类、短期负荷预测、电力系统运行",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH01",
-          "chapter_title": "研究背景与意义",
-          "section_id": "CH01-SEC02",
           "title": "从传统方法到人工智能的演进",
           "description": "回顾负荷预测方法从统计模型、机器学习到深度学习的演变历程，分析各类方法的优缺点。",
           "query": "负荷预测方法演进、统计模型、机器学习负荷预测、深度学习负荷预测、优缺点",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH01",
-          "chapter_title": "研究背景与意义",
-          "section_id": "CH01-SEC03",
           "title": "大语言模型引入负荷预测的动机",
           "description": "分析大语言模型在处理复杂序列、理解上下文和泛化能力方面的优势，探讨其为何能成为负荷预测的新范式。",
           "query": "大语言模型优势、时序预测、泛化能力、负荷预测新范式",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         }
       ]
     },
     {
-      "chapter_id": "CH02",
-      "chapter_title": "大语言模型用于时序预测的核心技术",
-      "chapter_description": "系统梳理将大语言模型应用于时间序列预测（特别是电力负荷序列）的主流技术路径与核心方法。",
+      "title": "大语言模型用于时序预测的核心技术",
+      "description": "系统梳理将大语言模型应用于时间序列预测（特别是电力负荷序列）的主流技术路径与核心方法。",
       "query": "大语言模型时间序列预测方法、提示工程、微调、时间序列编码、注意力机制增强",
-      "citation_policy": "required",
+      "needs_retrieval": true,
       "write_stage": "body",
-      "leaf_sections": [
+      "citation_policy": "required",
+      "subsections": [
         {
-          "chapter_id": "CH02",
-          "chapter_title": "大语言模型用于时序预测的核心技术",
-          "section_id": "CH02-SEC01",
           "title": "基于提示工程的时序重编程",
           "description": "介绍通过精心设计的提示词，将原始时间序列数据“翻译”或“重编程”为大语言模型可理解的文本输入，直接利用其预训练知识进行预测的方法。",
           "query": "提示工程、时序重编程、TIME-LLM、大语言模型预训练知识利用",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH02",
-          "chapter_title": "大语言模型用于时序预测的核心技术",
-          "section_id": "CH02-SEC02",
           "title": "基于微调的领域适应",
           "description": "探讨通过对大语言模型进行有监督微调，使其适应电力负荷数据特性，学习领域特定知识的方法。",
           "query": "大语言模型微调、领域适应、电力负荷数据、有监督训练",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH02",
-          "chapter_title": "大语言模型用于时序预测的核心技术",
-          "section_id": "CH02-SEC03",
           "title": "时间序列的表示与编码",
           "description": "分析如何将数值型、多变量的电力负荷数据有效编码为大语言模型能够处理的嵌入表示，包括特征工程和嵌入层设计。",
           "query": "时间序列编码、特征工程、嵌入表示、多变量负荷数据",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH02",
-          "chapter_title": "大语言模型用于时序预测的核心技术",
-          "section_id": "CH02-SEC04",
           "title": "注意力机制的增强与改进",
           "description": "综述针对负荷预测任务，对大语言模型内部注意力机制进行改进或增强的研究，如引入时间注意力、空间注意力等。",
           "query": "注意力机制增强、时间注意力、空间注意力、负荷预测模型改进",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         }
       ]
     },
     {
-      "chapter_id": "CH03",
-      "chapter_title": "大语言模型在电力负荷预测中的应用现状",
-      "chapter_description": "总结和评述当前大语言模型在不同场景（如短期、超短期）、不同类型负荷预测中的具体应用案例、模型架构及性能表现。",
+      "title": "大语言模型在电力负荷预测中的应用现状",
+      "description": "总结和评述当前大语言模型在不同场景（如短期、超短期）、不同类型负荷预测中的具体应用案例、模型架构及性能表现。",
       "query": "大语言模型电力负荷预测应用案例、短期负荷预测、超短期负荷预测、模型性能比较",
-      "citation_policy": "required",
+      "needs_retrieval": true,
       "write_stage": "body",
-      "leaf_sections": [
+      "citation_policy": "required",
+      "subsections": [
         {
-          "chapter_id": "CH03",
-          "chapter_title": "大语言模型在电力负荷预测中的应用现状",
-          "section_id": "CH03-SEC01",
           "title": "短期与超短期负荷预测",
           "description": "聚焦于大语言模型在小时级、分钟级负荷预测任务中的应用，分析其处理高波动性、周期性和随机性的能力。",
           "query": "大语言模型短期负荷预测、超短期负荷预测、负荷波动性、周期性处理",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH03",
-          "chapter_title": "大语言模型在电力负荷预测中的应用现状",
-          "section_id": "CH03-SEC02",
           "title": "考虑多源信息融合的预测",
           "description": "综述大语言模型如何整合气象、日历、经济等多源异构信息，提升负荷预测精度的研究。",
           "query": "多源信息融合、气象数据、日历特征、大语言模型多模态输入",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH03",
-          "chapter_title": "大语言模型在电力负荷预测中的应用现状",
-          "section_id": "CH03-SEC03",
           "title": "新型电力系统下的负荷预测",
           "description": "探讨在新型电力系统背景下，大语言模型如何应对高比例可再生能源接入、源荷互动等新挑战下的负荷预测问题。",
           "query": "新型电力系统、可再生能源、源荷互动、大语言模型适应性",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         }
       ]
     },
     {
-      "chapter_id": "CH04",
-      "chapter_title": "面临的挑战与关键问题",
-      "chapter_description": "深入分析当前大语言模型应用于电力负荷预测领域所面临的技术瓶颈、数据障碍及实际部署困难。",
+      "title": "面临的挑战与关键问题",
+      "description": "深入分析当前大语言模型应用于电力负荷预测领域所面临的技术瓶颈、数据障碍及实际部署困难。",
       "query": "大语言模型负荷预测挑战、数据不足、计算成本、可解释性、模型泛化",
-      "citation_policy": "required",
+      "needs_retrieval": true,
       "write_stage": "body",
-      "leaf_sections": [
+      "citation_policy": "required",
+      "subsections": [
         {
-          "chapter_id": "CH04",
-          "chapter_title": "面临的挑战与关键问题",
-          "section_id": "CH04-SEC01",
           "title": "数据依赖与质量挑战",
           "description": "讨论大语言模型训练对海量高质量数据的需求，与电力领域负荷数据样本有限、存在缺失和噪声之间的矛盾。",
           "query": "负荷数据样本不足、数据质量、数据缺失、噪声处理、小样本学习",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH04",
-          "chapter_title": "面临的挑战与关键问题",
-          "section_id": "CH04-SEC02",
           "title": "模型效率与部署成本",
           "description": "分析大语言模型参数量大、推理速度慢、计算资源消耗高的问题，及其在实时性要求高的电力预测场景中的适用性。",
           "query": "大语言模型计算成本、推理速度、实时预测、模型轻量化",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH04",
-          "chapter_title": "面临的挑战与关键问题",
-          "section_id": "CH04-SEC03",
           "title": "可解释性与可靠性",
           "description": "探讨大语言模型“黑箱”特性导致的预测结果可解释性差，以及在关乎电网安全的负荷预测中确保模型可靠性和鲁棒性的难题。",
           "query": "大语言模型可解释性、黑箱问题、预测可靠性、鲁棒性、电网安全",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH04",
-          "chapter_title": "面临的挑战与关键问题",
-          "section_id": "CH04-SEC04",
           "title": "领域知识融合与泛化能力",
           "description": "分析如何将电力系统物理规律、运行约束等先验知识有效融入大语言模型，以及模型在不同区域、不同用户群体间的泛化能力问题。",
           "query": "领域知识融合、物理规律约束、模型泛化能力、跨区域负荷预测",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         }
       ]
     },
     {
-      "chapter_id": "CH05",
-      "chapter_title": "未来研究方向与展望",
-      "chapter_description": "基于现有挑战，展望大语言模型在电力负荷预测领域的潜在突破方向和技术发展趋势。",
+      "title": "未来研究方向与展望",
+      "description": "基于现有挑战，展望大语言模型在电力负荷预测领域的潜在突破方向和技术发展趋势。",
       "query": "大语言模型负荷预测未来方向、小样本学习、高效架构、可解释人工智能、多任务学习",
-      "citation_policy": "required",
+      "needs_retrieval": true,
       "write_stage": "body",
-      "leaf_sections": [
+      "citation_policy": "required",
+      "subsections": [
         {
-          "chapter_id": "CH05",
-          "chapter_title": "未来研究方向与展望",
-          "section_id": "CH05-SEC01",
           "title": "高效轻量化模型设计",
           "description": "展望面向边缘计算和实时预测的轻量化、专用化大语言模型架构设计。",
           "query": "轻量化大语言模型、边缘计算、专用架构、模型压缩",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH05",
-          "chapter_title": "未来研究方向与展望",
-          "section_id": "CH05-SEC02",
           "title": "小样本与零样本学习",
           "description": "探讨如何利用大语言模型的先验知识和推理能力，实现在数据稀缺场景下的有效负荷预测。",
           "query": "小样本学习、零样本学习、少数据负荷预测、大语言模型推理",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH05",
-          "chapter_title": "未来研究方向与展望",
-          "section_id": "CH05-SEC03",
           "title": "物理信息融合与可解释性增强",
           "description": "展望将物理方程、系统约束以可微形式嵌入大语言模型，并发展新的可解释性技术以提高预测可信度。",
           "query": "物理信息神经网络、可解释人工智能、可信预测、机理模型融合",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         },
         {
-          "chapter_id": "CH05",
-          "chapter_title": "未来研究方向与展望",
-          "section_id": "CH05-SEC04",
           "title": "多任务协同与主动学习",
           "description": "展望利用大语言模型统一框架进行负荷预测、异常检测、模式识别等多任务协同学习，以及基于主动学习的数据标注与模型迭代策略。",
           "query": "多任务学习、主动学习、负荷异常检测、模式识别、统一框架",
+          "needs_retrieval": true,
+          "write_stage": "body",
           "citation_policy": "required",
-          "write_stage": "body"
+          "subsections": []
         }
       ]
-    }
-  ],
-  "final_pass_chapters": [
-    {
-      "chapter_id": "FP02",
-      "chapter_title": "总结与展望",
-      "chapter_description": "总结大语言模型为电力负荷预测带来的机遇与挑战，概括主要研究发现，并对该交叉领域的长期发展进行展望。",
-      "query": "",
-      "citation_policy": "none",
-      "write_stage": "final_pass",
-      "leaf_sections": []
     },
     {
-      "chapter_id": "FP01",
-      "chapter_title": "摘要",
-      "chapter_description": "概括大语言模型应用于电力负荷预测的研究背景、主要方法、研究现状、关键挑战以及未来发展趋势。",
+      "title": "总结与展望",
+      "description": "总结大语言模型为电力负荷预测带来的机遇与挑战，概括主要研究发现，并对该交叉领域的长期发展进行展望。",
       "query": "",
-      "citation_policy": "none",
+      "needs_retrieval": false,
       "write_stage": "final_pass",
-      "leaf_sections": []
+      "citation_policy": "none",
+      "subsections": []
     }
   ]
 }

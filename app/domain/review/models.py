@@ -119,7 +119,9 @@ class SectionDraft(BaseModel):
 class ChapterDraft(BaseModel):
     chapter_id: str
     chapter_title: str
+    paragraphs: List[ParagraphDraft] = Field(default_factory=list)
     sections: List[SectionDraft] = Field(default_factory=list)
+    keywords: List[str] = Field(default_factory=list)
 
 
 class ReferenceEntry(BaseModel):
@@ -152,4 +154,3 @@ class ValidationReport(BaseModel):
 
 
 OutlineNode.model_rebuild()
-

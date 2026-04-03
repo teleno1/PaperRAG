@@ -16,7 +16,6 @@
 #   $env:MINERU_API_KEY="your_api_key"
 
 # Optional pipeline overrides.
-#   $env:PARALLEL_BODY_WRITING="1"
 #   $env:BODY_CHAPTER_MAX_WORKERS="5"
 #   $env:EMBEDDING_DIMENSION="1024"
 #   $env:TEMPERATURE_CHAPTER="0.2"

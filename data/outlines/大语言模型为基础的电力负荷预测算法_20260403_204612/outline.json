@@ -1,0 +1,79 @@
+{
+  "language": "中文",
+  "title": "基于大语言模型的电力负荷预测算法综述",
+  "sections": [
+    {
+      "title": "摘要",
+      "description": "概述本文的研究背景、主要内容、核心观点及结论。",
+      "query": "",
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    },
+    {
+      "title": "研究背景与意义",
+      "description": "阐述电力负荷预测的重要性、面临的挑战，以及大语言模型（LLM）技术为负荷预测带来的新机遇和潜在价值。",
+      "query": "电力负荷预测 重要性 挑战 大语言模型 机遇",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "国内外研究现状",
+      "description": "系统梳理电力负荷预测算法的发展脉络，重点分析从传统方法、机器学习到深度学习，以及当前大语言模型在负荷预测领域的应用探索与研究进展。",
+      "query": "负荷预测算法 传统方法 机器学习 深度学习 大语言模型 应用现状",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": [
+        {
+          "title": "传统负荷预测方法",
+          "description": "回顾时间序列分析、回归分析、灰色预测等传统统计方法的原理、应用及局限性。",
+          "query": "传统负荷预测 时间序列 回归分析 灰色预测",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "基于机器学习的负荷预测方法",
+          "description": "总结支持向量机（SVM）、人工神经网络（ANN）等机器学习模型在负荷预测中的应用与特点。",
+          "query": "机器学习 负荷预测 SVM ANN",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "基于深度学习的负荷预测方法",
+          "description": "分析循环神经网络（RNN）、长短期记忆网络（LSTM）、卷积神经网络（CNN）及其组合模型在提取时序与空间特征、提升预测精度方面的进展。",
+          "query": "深度学习 负荷预测 RNN LSTM CNN 特征提取",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        },
+        {
+          "title": "大语言模型在负荷预测中的初步探索",
+          "description": "综述当前将大语言模型（LLM）及其注意力机制等应用于电力需求预测、时间序列预测的最新研究案例、技术路径与初步效果。",
+          "query": "大语言模型 电力负荷预测 注意力机制 时间序列预测",
+          "write_stage": "body",
+          "citation_policy": "required",
+          "subsections": []
+        }
+      ]
+    },
+    {
+      "title": "目前存在的问题",
+      "description": "分析当前基于大语言模型的电力负荷预测研究在模型适配、数据、泛化能力、可解释性等方面面临的主要挑战与局限性。",
+      "query": "大语言模型 负荷预测 问题 挑战 局限性 数据 泛化 可解释性",
+      "write_stage": "body",
+      "citation_policy": "required",
+      "subsections": []
+    },
+    {
+      "title": "总结与展望",
+      "description": "总结全文核心观点，并面向未来，探讨大语言模型在电力负荷预测领域的发展趋势、潜在研究方向、关键技术突破点以及面临的开放性问题。",
+      "query": "大语言模型 电力负荷预测 未来趋势 研究方向 发展前景 开放问题",
+      "write_stage": "final_pass",
+      "citation_policy": "none",
+      "subsections": []
+    }
+  ]
+}

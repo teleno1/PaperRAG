@@ -64,13 +64,10 @@ def _format_unique_sources(bundle: ChapterBundle) -> str:
 def write_chapter(
     outline_summary: str,
     bundle: ChapterBundle,
-    previous_recap: str = "",
-    citation_snapshot: dict | None = None,
 ) -> ChapterDraft:
     parser = PydanticOutputParser(pydantic_object=ChapterDraft)
     llm = DeepSeekChatFactory().create(temperature=get_settings().pipeline.temperature_chapter)
     prompt = build_chapter_writer_prompt()
-    citation_snapshot = citation_snapshot or {}
 
     chain = prompt | llm | parser
     result = chain.invoke(
@@ -80,11 +77,8 @@ def write_chapter(
             "chapter_meta": _format_chapter_meta(bundle),
             "leaf_sections_json": _format_leaf_sections(bundle),
             "unique_sources_json": _format_unique_sources(bundle),
-            "previous_recap": previous_recap or "无",
-            "citation_snapshot": _json_dumps(citation_snapshot),
         }
     )
     result.chapter_id = bundle.chapter_id
     result.chapter_title = bundle.chapter_title
     return result
-

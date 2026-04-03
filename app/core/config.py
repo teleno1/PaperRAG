@@ -61,7 +61,6 @@ class ModelsConfig(StrictConfigModel):
 class PipelineConfig(StrictConfigModel):
     """Pipeline behavior."""
 
-    parallel_body_writing: bool = True
     max_workers: int = 5
     top_k_recall: int = 20
     outline_query_count: int = 5
@@ -69,7 +68,6 @@ class PipelineConfig(StrictConfigModel):
     temperature_chapter: float = 0.2
     temperature_final_pass: float = 0.2
     max_cites_per_sentence: int = 3
-    previous_recap_chars: int = 1200
 
 
 class MinerUConfig(StrictConfigModel):
@@ -162,8 +160,6 @@ def _merge_env_to_settings(settings_obj: Settings) -> Settings:
     if os.getenv("MINERU_API_KEY"):
         settings_obj.models.mineru_api_key = os.getenv("MINERU_API_KEY")
 
-    if os.getenv("PARALLEL_BODY_WRITING"):
-        settings_obj.pipeline.parallel_body_writing = os.getenv("PARALLEL_BODY_WRITING") not in {"0", "false", "False"}
     if os.getenv("BODY_CHAPTER_MAX_WORKERS"):
         settings_obj.pipeline.max_workers = int(
             os.getenv("BODY_CHAPTER_MAX_WORKERS", str(settings_obj.pipeline.max_workers))

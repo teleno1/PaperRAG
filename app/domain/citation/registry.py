@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from app.domain.review.chapter_ops import iter_sentences
 from app.domain.review.models import ChapterDraft, CitationRegistry, ReferenceEntry, SourceRegistry
 
 
@@ -14,18 +15,16 @@ def build_citation_registry(
     next_ref = 1
 
     for chapter in body_chapter_drafts:
-        for section in chapter.sections:
-            for paragraph in section.paragraphs:
-                for sentence in paragraph.sentences:
-                    seen_papers_in_sentence: set[str] = set()
-                    for source_id in sentence.cite_source_ids:
-                        paper_id = source_registry.source_id_to_paper_id.get(source_id)
-                        if not paper_id or paper_id in seen_papers_in_sentence:
-                            continue
-                        seen_papers_in_sentence.add(paper_id)
-                        if paper_id not in paper_id_to_ref_no:
-                            paper_id_to_ref_no[paper_id] = next_ref
-                            next_ref += 1
+        for sentence in iter_sentences(chapter):
+            seen_papers_in_sentence: set[str] = set()
+            for source_id in sentence.cite_source_ids:
+                paper_id = source_registry.source_id_to_paper_id.get(source_id)
+                if not paper_id or paper_id in seen_papers_in_sentence:
+                    continue
+                seen_papers_in_sentence.add(paper_id)
+                if paper_id not in paper_id_to_ref_no:
+                    paper_id_to_ref_no[paper_id] = next_ref
+                    next_ref += 1
 
     references = []
     for paper_id, ref_no in sorted(paper_id_to_ref_no.items(), key=lambda item: item[1]):
@@ -53,4 +52,3 @@ def dump_citation_registry(registry: CitationRegistry, path: str | Path) -> None
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(registry.model_dump(), ensure_ascii=False, indent=2), encoding="utf-8")
-

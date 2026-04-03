@@ -46,7 +46,6 @@ def test_config_yaml_values_take_effect(tmp_path, monkeypatch):
           embedding_dimension: 768
           rerank_model: demo-rerank
         pipeline:
-          parallel_body_writing: false
           max_workers: 2
           top_k_recall: 9
           outline_query_count: 3
@@ -54,7 +53,6 @@ def test_config_yaml_values_take_effect(tmp_path, monkeypatch):
           temperature_chapter: 0.5
           temperature_final_pass: 0.6
           max_cites_per_sentence: 2
-          previous_recap_chars: 800
         mineru:
           upload_url: https://mineru.example/upload
           result_url_template: https://mineru.example/result/{}
@@ -74,9 +72,8 @@ def test_config_yaml_values_take_effect(tmp_path, monkeypatch):
     assert settings.models.deepseek_base_url == "https://example.com/v1"
     assert settings.models.embedding_model == "demo-embedding"
     assert settings.models.embedding_dimension == 768
-    assert settings.pipeline.parallel_body_writing is False
+    assert settings.pipeline.max_workers == 2
     assert settings.pipeline.top_k_recall == 9
-    assert settings.pipeline.previous_recap_chars == 800
     assert settings.mineru.poll_interval == 9
 
 
@@ -120,6 +117,23 @@ def test_config_rejects_api_keys_in_yaml(monkeypatch, tmp_path):
     config._settings = None
 
     with pytest.raises(ConfigurationError, match="environment"):
+        config.get_settings()
+
+
+def test_config_rejects_removed_serial_pipeline_fields(monkeypatch, tmp_path):
+    config_path = tmp_path / "settings.yaml"
+    _write_settings(
+        config_path,
+        """
+        pipeline:
+          parallel_body_writing: false
+          previous_recap_chars: 800
+        """,
+    )
+    monkeypatch.setenv("PAPERRAG_CONFIG_PATH", str(config_path))
+    config._settings = None
+
+    with pytest.raises(ConfigurationError, match="Invalid configuration file"):
         config.get_settings()
 
 
