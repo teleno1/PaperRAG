@@ -5,7 +5,13 @@ from app.domain.models.adapters import (
     paper_metadata_to_document_metadata,
     paper_metadata_to_source,
 )
-from app.domain.models.document import DocumentChunk, DocumentMetadata, Source
+from app.domain.models.document import (
+    DocumentChunk,
+    DocumentMetadata,
+    ParsedDocument,
+    ParsedDocumentUnit,
+    Source,
+)
 from app.domain.models.runtime import (
     BuildIndexResult,
     HealthStatus,
@@ -19,6 +25,8 @@ __all__ = [
     "DocumentChunk",
     "DocumentMetadata",
     "HealthStatus",
+    "ParsedDocument",
+    "ParsedDocumentUnit",
     "PrepareCorpusResult",
     "ProjectState",
     "ReviewRunResult",

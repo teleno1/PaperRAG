@@ -2,7 +2,7 @@
 
 ## T2-01: Define a general parser interface
 
-Status: todo
+Status: done
 Phase: Phase 2
 Priority: high
 
@@ -24,6 +24,12 @@ Verification:
 Notes:
 - Do not implement all parsers in this task unless the user explicitly expands
   scope.
+- Added `ParsedDocument` and `ParsedDocumentUnit` as the normalized parser
+  boundary before chunking.
+- Added `DocumentParser` protocol and `ParserRegistry` with fake-parser tests
+  covering extension-based selection and invalid payload handling.
+- Review suggestion recorded: add constructor validation tests for
+  `ParserRegistry` when Phase 2 parser implementations expand.
 
 ## T2-02: Implement TXT and Markdown parsers
 
@@ -102,4 +108,3 @@ Verification:
 
 Notes:
 - Do not commit generated FAISS indexes.
-

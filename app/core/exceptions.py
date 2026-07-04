@@ -66,6 +66,21 @@ class MineruParseError(PaperRAGError):
         super().__init__(message, {"pdf_path": pdf_path, "reason": reason})
 
 
+class UnsupportedDocumentTypeError(PaperRAGError):
+    """No parser is registered for the given document type."""
+
+    def __init__(self, source_path: str, supported_extensions: list[str]):
+        self.source_path = source_path
+        self.supported_extensions = supported_extensions
+        super().__init__(
+            f"Unsupported document type: {source_path}",
+            {
+                "source_path": source_path,
+                "supported_extensions": supported_extensions,
+            },
+        )
+
+
 class IndexBuildError(PaperRAGError):
     """Vector index build failed."""
 

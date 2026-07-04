@@ -80,6 +80,10 @@ Use these names for new general RAG work:
 - `DocumentChunk`
   - Searchable text span derived from a document.
   - Has `chunk_id`, `document_id`, `section`, `content`, token estimate, metadata.
+- `ParsedDocument` / `ParsedDocumentUnit`
+  - Normalized parser output before chunking.
+  - Units preserve raw content plus optional section/page metadata across PDF,
+    TXT, and Markdown ingestion.
 - `Source`
   - A retrieved chunk exposed to generation and citation validation.
   - Has stable `source_id`, chunk metadata, score, and original content.
@@ -124,7 +128,7 @@ Use these names for new general RAG work:
 ```text
 Markdown/TXT/PDF documents
   -> parser interface
-  -> normalized document units
+  -> ParsedDocument / ParsedDocumentUnit
   -> DocumentChunk
   -> embeddings
   -> vector index
@@ -134,4 +138,3 @@ Markdown/TXT/PDF documents
   -> eval metrics
   -> deployable API/CLI
 ```
-
