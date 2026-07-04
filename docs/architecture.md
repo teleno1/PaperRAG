@@ -115,9 +115,11 @@ Use these names for new general RAG work:
 - `api`
   - Thin request/response translation only.
   - No complex business logic.
+  - General Phase 3 surfaces include `POST /query` and `POST /report`, while old review routes stay as compatibility endpoints.
 - `cli`
   - Thin command parsing and output formatting.
   - Call use cases instead of duplicating logic.
+  - General Phase 3 surfaces include `query run` and `report run`, while old review commands stay as compatibility commands.
 
 ## Compatibility Strategy
 

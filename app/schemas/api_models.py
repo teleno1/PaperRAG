@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -71,6 +71,78 @@ class ReviewRunResponse(BaseModel):
     final_review_json: str
     references_json: str
     validation_report: str
+    elapsed_time: float
+
+
+class RetrievedSourceResponse(BaseModel):
+    source_id: str
+    document_id: str = ""
+    paper_id: str = ""
+    chunk_id: str
+    title: str = ""
+    authors: list[str] = Field(default_factory=list)
+    year: str = ""
+    venue: str = ""
+    section: str = ""
+    content: str
+    paper_score: Optional[float] = None
+    chunk_score: Optional[float] = None
+
+
+class AnswerValidationResponse(BaseModel):
+    ok: bool = True
+    cited_source_ids: list[str] = Field(default_factory=list)
+    available_source_ids: list[str] = Field(default_factory=list)
+    unknown_source_ids: list[str] = Field(default_factory=list)
+    duplicate_source_ids: list[str] = Field(default_factory=list)
+
+
+class QueryRunRequest(BaseModel):
+    query: str = Field(..., description="User query", min_length=2)
+    top_k: Optional[int] = Field(default=None, description="Optional retrieval depth override")
+    include_retrieved_sources: bool = Field(default=True, description="Return retrieved source content in the response")
+
+
+class QueryRunResponse(BaseModel):
+    query: str
+    answer_text: str
+    cited_source_ids: list[str] = Field(default_factory=list)
+    retrieved_sources: list[RetrievedSourceResponse] = Field(default_factory=list)
+    validation: AnswerValidationResponse
+    elapsed_time: float
+
+
+class ReportSectionResponse(BaseModel):
+    title: str
+    body: str
+    cited_source_ids: list[str] = Field(default_factory=list)
+
+
+class GeneratedReportResponse(BaseModel):
+    title: str
+    overview: str = ""
+    sections: list[ReportSectionResponse] = Field(default_factory=list)
+
+
+class ReportRunRequest(BaseModel):
+    query: str = Field(..., description="Report request", min_length=2)
+    output_format: Literal["markdown", "json", "bullet_summary"] = Field(default="markdown")
+    top_k: Optional[int] = Field(default=None, description="Optional retrieval depth override")
+
+
+class ReportRunResponse(BaseModel):
+    run_id: str
+    run_dir: str
+    query: str
+    output_format: Literal["markdown", "json", "bullet_summary"]
+    output_path: str
+    report_json_path: str
+    retrieved_sources_path: str
+    validation_path: str
+    content: str
+    report: GeneratedReportResponse
+    retrieved_sources: list[RetrievedSourceResponse] = Field(default_factory=list)
+    validation: AnswerValidationResponse
     elapsed_time: float
 
 

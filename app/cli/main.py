@@ -15,8 +15,15 @@ from app.use_cases.build_index import BuildIndexUseCase
 from app.use_cases.generate_outline import GenerateOutlineUseCase
 from app.use_cases.health_and_state import HealthAndStateUseCase
 from app.use_cases.prepare_corpus import PrepareCorpusUseCase
+from app.use_cases.run_query import RunQueryUseCase
+from app.use_cases.run_report import RunReportUseCase
 from app.use_cases.run_review_from_outline import RunReviewFromOutlineUseCase
 from app.use_cases.run_review_from_topic import RunReviewFromTopicUseCase
+
+
+def _print_parser_help(parser: argparse.ArgumentParser) -> int:
+    parser.print_help()
+    return 0
 
 
 def cmd_corpus_prepare(args) -> int:
@@ -130,6 +137,34 @@ def cmd_review_run_from_outline(args) -> int:
         return 1
 
 
+def cmd_query_run(args) -> int:
+    try:
+        result = RunQueryUseCase().execute(
+            query=args.query,
+            top_k=args.top_k,
+            include_retrieved_sources=not args.hide_sources,
+        )
+        print(result.model_dump_json(indent=2))
+        return 0
+    except PaperRAGError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
+def cmd_report_run(args) -> int:
+    try:
+        result = RunReportUseCase().execute(
+            query=args.query,
+            output_format=args.format,
+            top_k=args.top_k,
+        )
+        print(result.model_dump_json(indent=2))
+        return 0
+    except PaperRAGError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
 def cmd_state(args) -> int:
     state = HealthAndStateUseCase().get_state()
     print(
@@ -195,14 +230,33 @@ def build_parser() -> argparse.ArgumentParser:
     outline_generate_parser.add_argument("--output", "-o", help="Custom outline path")
     outline_generate_parser.set_defaults(func=cmd_outline_generate)
 
-    review_parser = subparsers.add_parser("review", help="Review operations")
+    query_parser = subparsers.add_parser("query", help="General query operations")
+    query_parser.set_defaults(func=lambda args, parser=query_parser: _print_parser_help(parser))
+    query_subparsers = query_parser.add_subparsers(dest="query_command")
+    query_run_parser = query_subparsers.add_parser("run", help="Run a cited answer query")
+    query_run_parser.add_argument("--query", "-q", required=True, help="User query")
+    query_run_parser.add_argument("--top-k", type=int, default=None, help="Optional retrieval depth override")
+    query_run_parser.add_argument("--hide-sources", action="store_true", help="Return trace-only source metadata")
+    query_run_parser.set_defaults(func=cmd_query_run)
+
+    report_parser = subparsers.add_parser("report", help="General report operations")
+    report_parser.set_defaults(func=lambda args, parser=report_parser: _print_parser_help(parser))
+    report_subparsers = report_parser.add_subparsers(dest="report_command")
+    report_run_parser = report_subparsers.add_parser("run", help="Run a cited report request")
+    report_run_parser.add_argument("--query", "-q", required=True, help="Report request")
+    report_run_parser.add_argument("--format", choices=["markdown", "json", "bullet_summary"], default="markdown", help="Output format")
+    report_run_parser.add_argument("--top-k", type=int, default=None, help="Optional retrieval depth override")
+    report_run_parser.set_defaults(func=cmd_report_run)
+
+    review_parser = subparsers.add_parser("review", help="Review operations (legacy compatibility)")
+    review_parser.set_defaults(func=lambda args, parser=review_parser: _print_parser_help(parser))
     review_subparsers = review_parser.add_subparsers(dest="review_command")
-    review_run_parser = review_subparsers.add_parser("run", help="Run review from topic")
+    review_run_parser = review_subparsers.add_parser("run", help="Run review from topic (legacy compatibility)")
     review_run_parser.add_argument("--topic", "-t", required=True, help="Review topic")
     review_run_parser.add_argument("--skip-index-check", action="store_true", help="Skip index preparation")
     review_run_parser.set_defaults(func=cmd_review_run)
 
-    review_outline_parser = review_subparsers.add_parser("run-from-outline", help="Run review from outline")
+    review_outline_parser = review_subparsers.add_parser("run-from-outline", help="Run review from outline (legacy compatibility)")
     review_outline_parser.add_argument("--outline", "-o", required=True, help="Outline JSON path")
     review_outline_parser.set_defaults(func=cmd_review_run_from_outline)
 

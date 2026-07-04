@@ -61,7 +61,7 @@ Notes:
 
 ## T3-03: Add CLI/API query and report entrypoints
 
-Status: todo
+Status: done
 Phase: Phase 3
 Priority: high
 
@@ -84,3 +84,8 @@ Verification:
 
 Notes:
 - Keep API route logic thin; call use cases.
+- Added `query run` and `report run` CLI commands that call the new use cases and print structured JSON outputs.
+- Added `POST /query` and `POST /report` FastAPI endpoints with traceable source metadata and explicit `ErrorResponse` payloads on failures.
+- Review commands/routes remain available as legacy compatibility surfaces.
+- Verification: `python -m pytest -q` -> `84 passed`; `python -m app.cli.main health` -> healthy JSON response.
+- Review: subagent flagged parser-level CLI dispatch and API error-schema mismatches; both were fixed and re-verified with no blocking findings.
