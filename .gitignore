@@ -29,8 +29,20 @@ Thumbs.db
 .env
 .env.*
 
-# output
-data/review_outputs
+# Phase 0 data policy
+# Keep source-controlled sample inputs under data/papers/, data/outlines/, and
+# data/.gitkeep until the Phase 0 data audit decides what should move.
+data/database/
+data/processed_papers/
+data/review_outputs/
+data/eval_outputs/
+
+# Common local caches and run artifacts
+.cache/
+.hypothesis/
+.nox/
+.tox/
+.ipynb_checkpoints/
 
 # Local research workspace
 research/

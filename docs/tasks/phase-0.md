@@ -2,7 +2,7 @@
 
 ## T0-01: Update `.gitignore` for generated artifacts
 
-Status: todo
+Status: done
 Phase: Phase 0
 Priority: high
 
@@ -27,6 +27,9 @@ Verification:
 
 Notes:
 - Do not delete or untrack data in this task.
+- Completed by tightening `.gitignore` for generated artifacts while keeping
+  `data/papers/`, `data/outlines/`, and `data/.gitkeep` intentionally
+  source-controlled until `T0-02` audits tracked data.
 
 ## T0-02: Audit and slim `data/`
 
@@ -81,4 +84,3 @@ Verification:
 
 Notes:
 - Keep README honest: distinguish current behavior from target behavior.
-
