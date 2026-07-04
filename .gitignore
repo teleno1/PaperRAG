@@ -30,12 +30,18 @@ Thumbs.db
 .env.*
 
 # Phase 0 data policy
-# Keep source-controlled sample inputs under data/papers/, data/outlines/, and
-# data/.gitkeep until the Phase 0 data audit decides what should move.
+# Local corpora, parsed artifacts, indexes, outlines, and run outputs stay out
+# of git. Only tiny curated samples under data/samples/ may be source-controlled.
 data/database/
+data/outlines/
+data/papers/
 data/processed_papers/
 data/review_outputs/
 data/eval_outputs/
+!data/README.md
+!data/.gitkeep
+!data/samples/
+!data/samples/.gitkeep
 
 # Common local caches and run artifacts
 .cache/

@@ -33,7 +33,7 @@ Notes:
 
 ## T0-02: Audit and slim `data/`
 
-Status: todo
+Status: done
 Phase: Phase 0
 Priority: high
 
@@ -59,6 +59,10 @@ Verification:
 Notes:
 - Be careful: this task may delete tracked files. Verify paths before removing
   anything.
+- Completed by removing tracked files from `data/papers/`, `data/processed_papers/`,
+  `data/database/`, `data/outlines/`, and `data/review_outputs/` after an audit.
+- Added `data/README.md` and reserved `data/samples/` as the only future
+  source-controlled sample-data path.
 
 ## T0-03: Update README with the refactor direction
 
