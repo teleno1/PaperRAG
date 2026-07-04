@@ -33,7 +33,7 @@ Notes:
 
 ## T1-02: Add compatibility adapters for old paper models
 
-Status: todo
+Status: done
 Phase: Phase 1
 Priority: high
 
@@ -55,6 +55,13 @@ Verification:
 
 Notes:
 - Prefer adapters over broad renames.
+- Completed by adding `app/domain/models/adapters.py` to convert legacy
+  `PaperMetadata` and `Chunk` objects into `DocumentMetadata`, `Source`, and
+  `DocumentChunk` models while preserving compatibility metadata such as
+  `paper_id`, `title`, `authors`, `year`, and `venue`.
+- Added `tests/test_document_adapters.py` to cover conversion behavior,
+  reserved legacy metadata keys, and the requirement that callers supply either
+  `chunk_id` or `chunk_index` for traceable chunk identifiers.
 
 ## T1-03: Add document metadata to vector index records
 

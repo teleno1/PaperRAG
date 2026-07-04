@@ -53,7 +53,7 @@ The project is not complete unless all of the following are true:
 
 ## Active Task
 
-Current: `T1-02`
+Current: `T1-03`
 
 Details: [docs/tasks/phase-1.md](docs/tasks/phase-1.md)
 
@@ -88,7 +88,7 @@ Run the listed verification commands.
 | T0-02 | done | [Phase 0](docs/tasks/phase-0.md#t0-02-audit-and-slim-data) |
 | T0-03 | done | [Phase 0](docs/tasks/phase-0.md#t0-03-update-readme-with-the-refactor-direction) |
 | T1-01 | done | [Phase 1](docs/tasks/phase-1.md#t1-01-add-document-centric-domain-models) |
-| T1-02 | todo | [Phase 1](docs/tasks/phase-1.md#t1-02-add-compatibility-adapters-for-old-paper-models) |
+| T1-02 | done | [Phase 1](docs/tasks/phase-1.md#t1-02-add-compatibility-adapters-for-old-paper-models) |
 | T1-03 | todo | [Phase 1](docs/tasks/phase-1.md#t1-03-add-document-metadata-to-vector-index-records) |
 | T2-01 | todo | [Phase 2](docs/tasks/phase-2.md#t2-01-define-a-general-parser-interface) |
 | T2-02 | todo | [Phase 2](docs/tasks/phase-2.md#t2-02-implement-txt-and-markdown-parsers) |
