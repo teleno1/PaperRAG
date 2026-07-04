@@ -65,7 +65,7 @@ Notes:
 
 ## T1-03: Add document metadata to vector index records
 
-Status: todo
+Status: done
 Phase: Phase 1
 Priority: high
 
@@ -87,3 +87,10 @@ Verification:
 
 Notes:
 - Do not change vector storage backend in this task.
+- Completed by extending `app/infrastructure/vectorstore/index_builder.py` so
+  saved index metadata now includes `document_id`, `source_path`,
+  `source_type`, and `chunk_id` while keeping legacy `paper_id` and
+  `source_dir` fields for compatibility.
+- Added `tests/test_index_builder_metadata.py` to verify metadata shape from
+  `IndexBuilder.build()` and to round-trip saved records through
+  `FaissRepository` and `FaissRecallService`.

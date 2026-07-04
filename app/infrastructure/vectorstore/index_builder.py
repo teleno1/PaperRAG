@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from app.domain.models.adapters import chunk_to_document_chunk
 from app.domain.models.chunk import Chunk
 from app.infrastructure.chunking.chunk_builder import ChunkBuilder
 from app.infrastructure.llm.clients import DashScopeEmbeddingClient
@@ -44,20 +45,36 @@ class IndexBuilder:
                 for offset, (embedding, chunk) in enumerate(zip(batch_embeddings, batch_chunks)):
                     chunk_index = start + offset
                     all_embeddings.append(embedding)
-                    all_metadata.append(self._chunk_to_metadata(chunk, paper_id=paper_id, chunk_index=chunk_index))
+                    all_metadata.append(
+                        self._chunk_to_metadata(
+                            chunk,
+                            paper_id=paper_id,
+                            chunk_index=chunk_index,
+                            source_path=str(json_path),
+                        )
+                    )
 
         return all_embeddings, all_metadata
 
     @staticmethod
-    def _chunk_to_metadata(chunk: Chunk, paper_id: str, chunk_index: int) -> dict:
+    def _chunk_to_metadata(chunk: Chunk, paper_id: str, chunk_index: int, source_path: str) -> dict:
+        document_chunk = chunk_to_document_chunk(
+            chunk,
+            paper_id=paper_id,
+            chunk_index=chunk_index,
+            source_path=source_path,
+        )
         return {
-            "content": chunk.content,
-            "section": chunk.section,
+            "content": document_chunk.content,
+            "section": document_chunk.section,
             "title": chunk.title,
             "authors": chunk.authors,
             "year": chunk.year,
             "venue": chunk.venue,
+            "document_id": document_chunk.document_id,
+            "source_path": document_chunk.source_path,
+            "source_type": document_chunk.source_type,
             "source_dir": paper_id,
             "paper_id": paper_id,
-            "chunk_id": f"{paper_id}__chunk_{chunk_index:04d}",
+            "chunk_id": document_chunk.chunk_id,
         }
