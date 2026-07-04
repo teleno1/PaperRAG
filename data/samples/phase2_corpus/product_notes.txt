@@ -1,0 +1,4 @@
+PaperRAG is evolving into a document-centric RAG system.
+This sample note explains that TXT ingestion should work without MinerU.
+
+The index builder should turn this text into chunks and searchable metadata.

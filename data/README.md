@@ -6,7 +6,8 @@ This repository does not track local research corpora or generated runtime artif
 
 - `data/.gitkeep` keeps the top-level directory present.
 - `data/samples/` is the only approved location for tiny curated demo assets.
-  Phase 0 keeps it empty until a later task adds a reproducible cross-format sample corpus.
+  Phase 2 adds `data/samples/phase2_corpus/` as a tiny TXT/Markdown sample
+  corpus for ingestion and indexing tests.
 
 ## Local-only files
 

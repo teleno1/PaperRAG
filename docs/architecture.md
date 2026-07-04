@@ -51,6 +51,8 @@ Keep and evolve these unless a roadmap phase explicitly replaces them:
   - Network calls should stay mockable in tests.
 - `app/infrastructure/vectorstore`
   - FAISS persistence and metadata handling are reusable.
+  - `IndexBuilder` can now index either legacy MinerU JSON outputs or a tiny
+    parser-driven TXT/Markdown source corpus for tests.
 - `app/infrastructure/chunking`
   - Chunk sizing, overlap, and section-aware splitting are useful.
 - `app/domain/validation`

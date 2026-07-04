@@ -98,7 +98,7 @@ Notes:
 
 ## T2-04: Index a tiny TXT/Markdown sample corpus
 
-Status: todo
+Status: done
 Phase: Phase 2
 Priority: high
 
@@ -122,3 +122,12 @@ Verification:
 
 Notes:
 - Do not commit generated FAISS indexes.
+- Added a tiny tracked sample corpus under `data/samples/phase2_corpus/` using
+  TXT and Markdown inputs only.
+- Extended `ChunkBuilder` and `IndexBuilder` with a parser-driven source-doc
+  indexing path so tests can prove `parse -> chunk -> embed -> index` without
+  MinerU or external APIs.
+- Added fake-embedding tests covering both an injected TXT/Markdown-only
+  registry and the default `IndexBuilder` registry with `MinerUParser` present.
+- Updated `data/README.md` and `docs/architecture.md` to reflect the new
+  sample-corpus indexing path.

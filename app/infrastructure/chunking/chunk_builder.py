@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 
+from app.domain.models import ParsedDocument
 from app.domain.models.chunk import Chunk
 from app.domain.models.paper_metadata import PaperMetadata
 from app.infrastructure.chunking.metadata_extractor import MetadataExtractor
@@ -127,6 +128,28 @@ class ChunkBuilder:
         if current_sentences and current_section is not None:
             chunks.append(self._make_chunk(current_sentences, current_section, metadata))
         return chunks
+
+    @staticmethod
+    def _parsed_document_metadata(parsed_document: ParsedDocument) -> PaperMetadata:
+        raw_metadata = parsed_document.metadata
+        authors = raw_metadata.get("authors", [])
+        return PaperMetadata(
+            title=str(raw_metadata.get("title") or parsed_document.document_id),
+            authors=[str(item) for item in authors] if isinstance(authors, list) else [],
+            year=str(raw_metadata.get("year") or ""),
+            venue=str(raw_metadata.get("venue") or ""),
+        )
+
+    def build_chunks_from_parsed_document(self, parsed_document: ParsedDocument) -> list[Chunk]:
+        units = [
+            {
+                "text": unit.content,
+                "section": unit.section or "UNKNOWN",
+            }
+            for unit in parsed_document.units
+            if unit.content.strip()
+        ]
+        return self._build_chunks(units, self._parsed_document_metadata(parsed_document))
 
     def build_chunks(self, mineru_json_path: Path) -> list[Chunk]:
         with mineru_json_path.open("r", encoding="utf-8") as file_obj:
