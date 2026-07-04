@@ -53,7 +53,7 @@ The project is not complete unless all of the following are true:
 
 ## Active Task
 
-Current: `T3-02`
+Current: `T3-03`
 
 Details: [docs/tasks/phase-3.md](docs/tasks/phase-3.md)
 
@@ -95,7 +95,7 @@ Run the listed verification commands.
 | T2-03 | done | [Phase 2](docs/tasks/phase-2.md#t2-03-wrap-mineru-as-the-pdf-parser) |
 | T2-04 | done | [Phase 2](docs/tasks/phase-2.md#t2-04-index-a-tiny-txtmarkdown-sample-corpus) |
 | T3-01 | done | [Phase 3](docs/tasks/phase-3.md#t3-01-add-cited-answer-use-case) |
-| T3-02 | todo | [Phase 3](docs/tasks/phase-3.md#t3-02-add-report-generation-use-case) |
+| T3-02 | done | [Phase 3](docs/tasks/phase-3.md#t3-02-add-report-generation-use-case) |
 | T3-03 | todo | [Phase 3](docs/tasks/phase-3.md#t3-03-add-cliapi-query-and-report-entrypoints) |
 | T4-01 | todo | [Phase 4](docs/tasks/phase-4.md#t4-01-add-eval-dataset-format-and-loader) |
 | T4-02 | todo | [Phase 4](docs/tasks/phase-4.md#t4-02-implement-retrieval-metrics) |

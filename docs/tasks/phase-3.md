@@ -31,7 +31,7 @@ Notes:
 
 ## T3-02: Add report generation use case
 
-Status: todo
+Status: done
 Phase: Phase 3
 Priority: medium
 
@@ -53,6 +53,11 @@ Verification:
 
 Notes:
 - Do not remove old `review` commands in this task.
+- Added a general `RunReportUseCase` that retrieves sources, asks the LLM for one canonical JSON report payload, validates cited source ids, and renders local `markdown`, `json`, or `bullet_summary` outputs.
+- Report artifacts now persist under `outputs_dir/reports/<run_id>/` with canonical report JSON, retrieved source snapshots, and validation metadata.
+- Verification: `python -m pytest -q` -> `76 passed`.
+- Review: subagent flagged invalid citations leaking into outputs and a `latest_run_dir` regression for nested report runs; both were fixed and re-verified.
+- Follow-up note: shared path helpers and README still describe the older single-layer run layout, so future surfaces should keep that inconsistency in mind.
 
 ## T3-03: Add CLI/API query and report entrypoints
 

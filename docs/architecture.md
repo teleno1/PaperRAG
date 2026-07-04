@@ -95,6 +95,7 @@ Use these names for new general RAG work:
   - Cited response with source ids and optional structured output.
 - `Report`
   - Longer generated artifact with sections and citations.
+  - Phase 3 report outputs are rendered locally into `markdown`, `json`, or `bullet_summary`.
 - `EvaluationRun`
   - A reproducible run over an eval dataset with metrics and failed cases.
 

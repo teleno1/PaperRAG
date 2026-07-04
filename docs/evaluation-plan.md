@@ -41,7 +41,7 @@ Field meanings:
 - `expected_sources`: source ids, document ids, or section anchors that should be
   retrievable for the query.
 - `answer_points`: key facts or concepts that should appear in the answer.
-- `output_format`: expected output type, such as `markdown`, `json`, or `bullets`.
+- `output_format`: expected output type, such as `markdown`, `json`, or `bullet_summary`.
 - `tags`: optional grouping for analysis.
 
 ## Target Metrics
@@ -120,4 +120,3 @@ Evaluation summary
 
 Also include one successful trace and one failed case with the lesson learned.
 That makes the project look engineered instead of merely demoed.
-

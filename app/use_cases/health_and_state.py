@@ -23,7 +23,7 @@ class HealthAndStateUseCase:
         outlines_count = len(list(self._paths.outlines_dir.glob("*/outline.json"))) if self._paths.outlines_dir.exists() else 0
         latest_run_dir = None
         if self._paths.outputs_dir.exists():
-            run_dirs = sorted([item for item in self._paths.outputs_dir.iterdir() if item.is_dir()], key=lambda path: path.stat().st_mtime, reverse=True)
+            run_dirs = sorted(self._list_output_run_dirs(), key=lambda path: path.stat().st_mtime, reverse=True)
             latest_run_dir = str(run_dirs[0]) if run_dirs else None
         return ProjectState(
             pdf_count=pdf_count,
@@ -33,6 +33,17 @@ class HealthAndStateUseCase:
             outlines_count=outlines_count,
             latest_run_dir=latest_run_dir,
         )
+
+    def _list_output_run_dirs(self) -> list:
+        run_dirs = []
+        for item in self._paths.outputs_dir.iterdir():
+            if not item.is_dir():
+                continue
+            if item.name == "reports":
+                run_dirs.extend(child for child in item.iterdir() if child.is_dir())
+                continue
+            run_dirs.append(item)
+        return run_dirs
 
     def get_health(self) -> HealthStatus:
         settings = get_settings()

@@ -114,7 +114,7 @@ Goal:
 
 Allowed changes:
 - Add query/answer use cases that retrieve sources and produce cited answers.
-- Add configurable report generation for Markdown/JSON outputs.
+- Add configurable report generation for Markdown, JSON, and bullet-summary outputs.
 - Keep old review commands temporarily as compatibility or mark them deprecated.
 - Add API routes for query and report generation.
 
@@ -204,4 +204,3 @@ Every phase handoff should include:
 - Test results.
 - New risks or cleanup items.
 - Which phase should be executed next.
-
