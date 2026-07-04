@@ -1,52 +1,96 @@
 # PaperRAG
 
-`PaperRAG` 是一个论文综述生成流水线项目。它会在统一的 `app/` 包下完成论文语料准备、FAISS 索引构建、大纲生成，以及最终综述写作。
+PaperRAG is being refactored from an academic paper review prototype into a
+general, trustworthy knowledge-base RAG system.
 
-## 配置说明
+## Current Status
 
-非敏感配置放在 `configs/settings.yaml` 中。
+This repository is still in progress.
 
-- `settings.yaml` 用于配置路径、模型名称、检索数量、写作温度、嵌入维度和 MinerU 轮询参数。
-- API Key 不要写进 YAML，请通过环境变量设置 `DEEPSEEK_API_KEY`、`DASHSCOPE_API_KEY`、`MINERU_API_KEY`。
-- 如果环境变量和 `settings.yaml` 同时配置了同一项，环境变量优先。
+What works today:
 
-## 快速开始
+- Verified test baseline: `python -m pytest -q` with 35 passing tests.
+- Current product shape: `PDF papers -> MinerU parse -> chunks -> FAISS index -> outline -> review`.
+- Existing entrypoints remain available through the CLI and FastAPI app.
 
-安装依赖：
+What is not finished yet:
+
+- General first-class ingestion for `TXT` and `Markdown`.
+- General cited question-answering and report generation outputs.
+- Eval dataset, retrieval metrics, citation metrics, and strategy comparison.
+- Final reproducible portfolio/demo packaging.
+
+If any of the unfinished items above matter for your use case, treat the project
+as a refactor in progress rather than a completed general RAG system.
+
+## Target Product
+
+The refactor target is a portfolio-grade RAG system that can:
+
+- ingest `PDF`, `TXT`, and `Markdown` documents
+- run `clean -> chunk -> embed -> index -> retrieve -> generate`
+- produce cited answers or reports in formats such as Markdown and JSON
+- trace citations back to `document_id` and `chunk_id`
+- evaluate retrieval and output quality with reproducible metrics
+
+The active task list and roadmap define the real finish line:
+
+- [AGENTS.md](AGENTS.md)
+- [TASKS.md](TASKS.md)
+- [docs/refactor-roadmap.md](docs/refactor-roadmap.md)
+
+## Setup
+
+Install the package:
 
 ```bash
 pip install -e .
 ```
 
-设置必需环境变量。
+Sensitive keys must stay in environment variables, not in
+`configs/settings.yaml`.
 
-PowerShell：
+PowerShell:
 
 ```powershell
 $env:DEEPSEEK_API_KEY="..."
 $env:DASHSCOPE_API_KEY="..."
 
-# 仅在解析 PDF 时需要
+# Required only for PDF parsing with MinerU
 $env:MINERU_API_KEY="..."
 ```
 
-Bash：
+Bash:
 
 ```bash
 export DEEPSEEK_API_KEY="..."
 export DASHSCOPE_API_KEY="..."
 
-# 仅在解析 PDF 时需要
+# Required only for PDF parsing with MinerU
 export MINERU_API_KEY="..."
 ```
 
-不要把 API Key 写进 `configs/settings.yaml`。
+Non-secret configuration lives in `configs/settings.yaml`.
 
-把 PDF 论文放到 `data/papers/` 目录下。
+## Verification
 
-## CLI 用法
+Current baseline verification:
 
-常用命令：
+```bash
+python -m pytest -q
+```
+
+Useful health checks for the current CLI surface:
+
+```bash
+python -m app.cli.main health
+python -m app.cli.main state
+```
+
+## Current CLI Surface
+
+These commands reflect the current paper-review-oriented workflow, not the final
+general RAG interface:
 
 ```bash
 python -m app.cli.main corpus prepare
@@ -58,33 +102,21 @@ python -m app.cli.main state
 python -m app.cli.main health
 ```
 
-综述输出目录：
+Current review outputs are written under:
 
 ```text
 data/review_outputs/<run_id>/
 ```
 
-单次运行通常包含以下阶段目录：
+## Current API Surface
 
-```text
-00_outline/
-02_retrieval/
-03_chapter_bundles/
-04_chapter_drafts/
-05_final_pass/
-06_validation/
-07_export/
-```
-
-## API 用法
-
-启动 API：
+Start the API:
 
 ```bash
 uvicorn app.api.main:app --reload
 ```
 
-主要路由：
+Current routes:
 
 - `POST /corpus/prepare`
 - `POST /index/build`
@@ -94,15 +126,29 @@ uvicorn app.api.main:app --reload
 - `GET /state`
 - `GET /health`
 
-## 项目结构
+These routes are also part of the refactor and should not be read as the final
+general RAG API contract.
+
+## Data Policy
+
+Tracked sample data is intentionally minimal during the refactor.
+
+- Put your own local PDFs in `data/papers/` when running the current pipeline.
+- Generated indexes, parsed outputs, outlines, and run artifacts stay local.
+- The source-controlled data policy is documented in [data/README.md](data/README.md).
+
+## Repository Layout
 
 ```text
 app/
   api/
   cli/
   core/
-  use_cases/
   domain/
   infrastructure/
   schemas/
+  use_cases/
+docs/
+data/
+tests/
 ```

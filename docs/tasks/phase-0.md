@@ -66,7 +66,7 @@ Notes:
 
 ## T0-03: Update README with the refactor direction
 
-Status: todo
+Status: done
 Phase: Phase 0
 Priority: medium
 
@@ -88,3 +88,6 @@ Verification:
 
 Notes:
 - Keep README honest: distinguish current behavior from target behavior.
+- Completed by rewriting the README to describe the repository as an in-progress
+  refactor, link the task/roadmap docs, document the current verification
+  command, and avoid claiming unfinished general RAG features.

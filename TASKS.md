@@ -53,7 +53,7 @@ The project is not complete unless all of the following are true:
 
 ## Active Task
 
-Current: `T0-03`
+Current: `T1-01`
 
 Details: [docs/tasks/phase-0.md](docs/tasks/phase-0.md)
 
@@ -86,7 +86,7 @@ Run the listed verification commands.
 |------|--------|---------|
 | T0-01 | done | [Phase 0](docs/tasks/phase-0.md#t0-01-update-gitignore-for-generated-artifacts) |
 | T0-02 | done | [Phase 0](docs/tasks/phase-0.md#t0-02-audit-and-slim-data) |
-| T0-03 | todo | [Phase 0](docs/tasks/phase-0.md#t0-03-update-readme-with-the-refactor-direction) |
+| T0-03 | done | [Phase 0](docs/tasks/phase-0.md#t0-03-update-readme-with-the-refactor-direction) |
 | T1-01 | todo | [Phase 1](docs/tasks/phase-1.md#t1-01-add-document-centric-domain-models) |
 | T1-02 | todo | [Phase 1](docs/tasks/phase-1.md#t1-02-add-compatibility-adapters-for-old-paper-models) |
 | T1-03 | todo | [Phase 1](docs/tasks/phase-1.md#t1-03-add-document-metadata-to-vector-index-records) |
