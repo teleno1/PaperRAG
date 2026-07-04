@@ -53,7 +53,7 @@ The project is not complete unless all of the following are true:
 
 ## Active Task
 
-Current: `T2-03`
+Current: `T2-04`
 
 Details: [docs/tasks/phase-2.md](docs/tasks/phase-2.md)
 
@@ -92,7 +92,7 @@ Run the listed verification commands.
 | T1-03 | done | [Phase 1](docs/tasks/phase-1.md#t1-03-add-document-metadata-to-vector-index-records) |
 | T2-01 | done | [Phase 2](docs/tasks/phase-2.md#t2-01-define-a-general-parser-interface) |
 | T2-02 | done | [Phase 2](docs/tasks/phase-2.md#t2-02-implement-txt-and-markdown-parsers) |
-| T2-03 | todo | [Phase 2](docs/tasks/phase-2.md#t2-03-wrap-mineru-as-the-pdf-parser) |
+| T2-03 | done | [Phase 2](docs/tasks/phase-2.md#t2-03-wrap-mineru-as-the-pdf-parser) |
 | T2-04 | todo | [Phase 2](docs/tasks/phase-2.md#t2-04-index-a-tiny-txtmarkdown-sample-corpus) |
 | T3-01 | todo | [Phase 3](docs/tasks/phase-3.md#t3-01-add-cited-answer-use-case) |
 | T3-02 | todo | [Phase 3](docs/tasks/phase-3.md#t3-02-add-report-generation-use-case) |

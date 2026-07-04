@@ -64,7 +64,7 @@ Notes:
 
 ## T2-03: Wrap MinerU as the PDF parser
 
-Status: todo
+Status: done
 Phase: Phase 2
 Priority: medium
 
@@ -87,6 +87,14 @@ Verification:
 
 Notes:
 - Do not remove MinerU support.
+- Added `MinerUParser` to adapt MinerU PDF output into normalized
+  `ParsedDocumentUnit` records with page and section metadata.
+- Preserved compatibility by defaulting parser output to
+  `processed_dir/<pdf_stem>`, matching the existing PDF pipeline layout.
+- Added fake MinerU tests covering normalized PDF units and mixed-parser
+  registry behavior without requiring `MINERU_API_KEY` for non-PDF inputs.
+- Review suggestions recorded: add failure-path coverage for missing/malformed
+  `content_list_v2.json`, skipped block types, and plain `text` blocks.
 
 ## T2-04: Index a tiny TXT/Markdown sample corpus
 
