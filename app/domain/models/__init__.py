@@ -1,5 +1,6 @@
 """Shared domain models."""
 
+from app.domain.models.document import DocumentChunk, DocumentMetadata, Source
 from app.domain.models.runtime import (
     BuildIndexResult,
     HealthStatus,
@@ -10,9 +11,12 @@ from app.domain.models.runtime import (
 
 __all__ = [
     "BuildIndexResult",
+    "DocumentChunk",
+    "DocumentMetadata",
     "HealthStatus",
     "PrepareCorpusResult",
     "ProjectState",
     "ReviewRunResult",
+    "Source",
 ]
 

@@ -2,7 +2,7 @@
 
 ## T1-01: Add document-centric domain models
 
-Status: todo
+Status: done
 Phase: Phase 1
 Priority: high
 
@@ -24,6 +24,12 @@ Verification:
 
 Notes:
 - Do not rename the whole domain package in this task.
+- Completed by adding `Source`, `DocumentMetadata`, and `DocumentChunk` in
+  `app/domain/models/document.py`, exporting them from
+  `app/domain/models/__init__.py`, and covering validation plus serialization
+  with `tests/test_document_models.py`.
+- Kept existing `PaperMetadata` and `Chunk` untouched so the paper-specific
+  pipeline remains compatible at this phase.
 
 ## T1-02: Add compatibility adapters for old paper models
 
@@ -74,4 +80,3 @@ Verification:
 
 Notes:
 - Do not change vector storage backend in this task.
-
