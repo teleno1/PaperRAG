@@ -25,6 +25,7 @@ class FakeRepository:
     def metadata(self):
         return [
             {
+                "document_id": "doc-1",
                 "paper_id": "paper-1",
                 "chunk_id": "chunk-1",
                 "title": "Paper 1",
@@ -35,6 +36,7 @@ class FakeRepository:
                 "content": "Chunk 1",
             },
             {
+                "document_id": "doc-2",
                 "paper_id": "paper-2",
                 "chunk_id": "chunk-2",
                 "title": "Paper 2",
@@ -65,6 +67,7 @@ def test_retrieval_search_returns_models():
     )
     results = service.search("query", top_k=2)
     assert len(results) == 2
+    assert results[0].document_id == "doc-1"
     assert results[0].paper_id
     assert results[0].chunk_id
 

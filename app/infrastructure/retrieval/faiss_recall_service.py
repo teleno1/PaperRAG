@@ -82,7 +82,8 @@ class FaissRecallService(RetrievalService):
             if index == -1:
                 continue
             item = dict(metadata[index])
-            item["paper_id"] = item.get("paper_id") or item.get("source_dir") or self._normalize_text(item.get("title", "")) or "unknown"
+            item["document_id"] = item.get("document_id") or item.get("paper_id") or item.get("source_dir") or self._normalize_text(item.get("title", "")) or "unknown"
+            item["paper_id"] = item.get("paper_id") or item["document_id"]
             item["vector_distance"] = float(distance)
             item["vector_rank"] = vector_rank
             item["vector_score"] = 1.0 / (1.0 + float(distance))
@@ -258,6 +259,7 @@ class FaissRecallService(RetrievalService):
         return [
             RetrievedSource(
                 source_id=item.get("chunk_id", ""),
+                document_id=item.get("document_id", "") or item.get("paper_id", ""),
                 paper_id=item.get("paper_id", ""),
                 chunk_id=item.get("chunk_id", ""),
                 title=str(item.get("title", "") or ""),

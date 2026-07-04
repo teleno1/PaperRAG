@@ -49,6 +49,7 @@ class ExecutionPlan(BaseModel):
 
 class RetrievedSource(BaseModel):
     source_id: str
+    document_id: str = ""
     paper_id: str
     chunk_id: str
     title: str = ""

@@ -107,6 +107,7 @@ Use these names for new general RAG work:
 - `use_cases`
   - Orchestrates domain and infrastructure.
   - Owns high-level workflows such as ingest, index, answer, report, eval.
+  - The new general query flow is `retrieve -> structured cited answer -> cited-source validation`.
 - `infrastructure`
   - Implements parsers, embedding clients, rerankers, vector stores, exporters.
   - External services must be injectable or replaceable in tests.
@@ -135,7 +136,8 @@ Markdown/TXT/PDF documents
   -> embeddings
   -> vector index
   -> retrieval + rerank
-  -> cited answer/report
+  -> structured cited answer/report
+  -> retrieved-source id validation
   -> citation validation
   -> eval metrics
   -> deployable API/CLI

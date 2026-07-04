@@ -2,7 +2,7 @@
 
 ## T3-01: Add cited answer use case
 
-Status: todo
+Status: done
 Phase: Phase 3
 Priority: high
 
@@ -24,6 +24,10 @@ Verification:
 
 Notes:
 - Keep prompts domain-neutral.
+- Added a general `RunQueryUseCase` that retrieves sources, asks the LLM for structured JSON, and validates cited source ids against the retrieved source registry.
+- Retrieved sources now expose `document_id` when available and preserve `paper_id` compatibility for older metadata records.
+- Verification: `python -m pytest -q` -> `70 passed`.
+- Review: subagent found and we fixed a default `top_k` regression; final review reported no blocking findings.
 
 ## T3-02: Add report generation use case
 
@@ -75,4 +79,3 @@ Verification:
 
 Notes:
 - Keep API route logic thin; call use cases.
-
