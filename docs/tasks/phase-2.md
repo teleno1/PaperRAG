@@ -33,7 +33,7 @@ Notes:
 
 ## T2-02: Implement TXT and Markdown parsers
 
-Status: todo
+Status: done
 Phase: Phase 2
 Priority: high
 
@@ -55,6 +55,12 @@ Verification:
 
 Notes:
 - Keep parser logic simple and deterministic.
+- Added deterministic `TxtParser` and `MarkdownParser` implementations that
+  produce normalized `ParsedDocumentUnit` lists without API keys.
+- Added parser fixtures and tests covering Markdown heading sections and TXT
+  plain-text fallback.
+- Review suggestions recorded: clarify whitespace-normalization behavior, add
+  a no-heading Markdown case, and optionally add `.markdown` extension coverage.
 
 ## T2-03: Wrap MinerU as the PDF parser
 
