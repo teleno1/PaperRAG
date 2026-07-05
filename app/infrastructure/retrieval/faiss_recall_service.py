@@ -30,10 +30,12 @@ class FaissRecallService(RetrievalService):
         repository: FaissRepository,
         embedding_client: DashScopeEmbeddingClient | None = None,
         rerank_client: DashScopeRerankClient | None = None,
+        enable_rerank: bool = True,
     ) -> None:
         self._repository = repository
         self._embedding_client = embedding_client or DashScopeEmbeddingClient()
         self._rerank_client = rerank_client or DashScopeRerankClient()
+        self._enable_rerank = enable_rerank
 
     @staticmethod
     def _safe_str(value) -> str:
@@ -93,6 +95,17 @@ class FaissRecallService(RetrievalService):
         return candidates
 
     def _score_chunk_candidates(self, query: str, candidates: list[dict]) -> list[dict]:
+        if not self._enable_rerank:
+            scored_chunks: list[dict] = []
+            for vector_rank, item in enumerate(candidates, start=1):
+                chunk = dict(item)
+                chunk["chunk_rerank_rank"] = vector_rank
+                chunk["chunk_rerank_score"] = float(chunk["vector_score"])
+                chunk["chunk_score"] = float(chunk["vector_score"]) + chunk["section_bonus"]
+                scored_chunks.append(chunk)
+            scored_chunks.sort(key=lambda entry: entry["chunk_score"], reverse=True)
+            return scored_chunks
+
         docs = [candidate["content"] for candidate in candidates]
         rerank_results = self._rerank_client.rerank(query, docs)
         scored_chunks: list[dict] = []
@@ -174,6 +187,13 @@ class FaissRecallService(RetrievalService):
                     "paper_doc": self._build_paper_doc(representative_chunks),
                 }
             )
+
+        if not self._enable_rerank:
+            for rank, paper in enumerate(sorted(paper_candidates, key=lambda item: item["paper_pre_score"], reverse=True), start=1):
+                paper["paper_rerank_rank"] = rank
+                paper["paper_rerank_score"] = paper["paper_pre_score"]
+                paper["paper_score"] = paper["paper_pre_score"]
+            return sorted(paper_candidates, key=lambda item: item["paper_score"], reverse=True)
 
         docs = [paper["paper_doc"] for paper in paper_candidates]
         rerank_results = self._rerank_client.rerank(query, docs)

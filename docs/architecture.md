@@ -122,6 +122,7 @@ Use these names for new general RAG work:
   - Call use cases instead of duplicating logic.
   - General Phase 3 surfaces include `query run` and `report run`, while old review commands stay as compatibility commands.
   - Phase 4 adds `eval run` for reproducible dataset-based evaluation artifacts.
+  - Phase 4 strategy comparison can layer on top as `eval compare`, reusing the eval/report flow with explicit preset-driven indexing.
 
 ## Compatibility Strategy
 

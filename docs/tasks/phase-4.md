@@ -124,7 +124,7 @@ Notes:
 
 ## T4-05: Add strategy comparison
 
-Status: todo
+Status: done
 Phase: Phase 4
 Priority: medium
 
@@ -147,3 +147,8 @@ Verification:
 
 Notes:
 - Keep strategy comparison small and inspectable.
+- Added chunking presets on the existing `ChunkBuilder`, a `RunEvalStrategyComparisonUseCase`, and CLI support for `python -m app.cli.main eval compare --dataset ... --source-dir ...`.
+- Strategy comparison now emits reproducible `comparison.json` output with metrics per strategy across `balanced` / `fine_grained`, `top_k` 3 / 5, and rerank `on` / `off`.
+- `rerank_mode="off"` now bypasses both chunk-level and paper-level rerank passes in retrieval, and tests cover the no-rerank path, preset wiring, aggregation output, and the `eval compare` parser surface.
+- Verification: `python -m pytest -q` -> `116 passed`; phase-level `python -m app.cli.main eval run --dataset data/eval_samples/eval_dataset.jsonl` completed and wrote artifacts, with `failure_count: 3` because the current configured index does not contain the sample comparison corpus.
+- Review: subagent first flagged fake rerank-off semantics and thin orchestration/parser coverage; both were fixed. Final re-review reported no blocking findings and noted only advisory residual risk around the real comparison path not yet being covered end-to-end with live FAISS/report execution.

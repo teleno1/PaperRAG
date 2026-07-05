@@ -16,6 +16,7 @@ from app.use_cases.generate_outline import GenerateOutlineUseCase
 from app.use_cases.health_and_state import HealthAndStateUseCase
 from app.use_cases.prepare_corpus import PrepareCorpusUseCase
 from app.use_cases.run_eval import RunEvalUseCase
+from app.use_cases.run_eval_comparison import RunEvalStrategyComparisonUseCase
 from app.use_cases.run_query import RunQueryUseCase
 from app.use_cases.run_report import RunReportUseCase
 from app.use_cases.run_review_from_outline import RunReviewFromOutlineUseCase
@@ -182,6 +183,19 @@ def cmd_eval_run(args) -> int:
         return 1
 
 
+def cmd_eval_compare(args) -> int:
+    try:
+        result = RunEvalStrategyComparisonUseCase().execute(
+            dataset=args.dataset,
+            source_dir=args.source_dir,
+        )
+        print(json.dumps(result.model_dump(mode="json"), ensure_ascii=False, indent=2))
+        return 0
+    except PaperRAGError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
 def cmd_state(args) -> int:
     state = HealthAndStateUseCase().get_state()
     print(
@@ -272,6 +286,14 @@ def build_parser() -> argparse.ArgumentParser:
     eval_run_parser.add_argument("--dataset", required=True, help="Path to eval dataset JSONL")
     eval_run_parser.add_argument("--top-k", type=int, default=None, help="Optional retrieval depth override")
     eval_run_parser.set_defaults(func=cmd_eval_run)
+    eval_compare_parser = eval_subparsers.add_parser("compare", help="Compare evaluation strategies on a dataset")
+    eval_compare_parser.add_argument("--dataset", required=True, help="Path to eval dataset JSONL")
+    eval_compare_parser.add_argument(
+        "--source-dir",
+        default="data/samples/phase2_corpus",
+        help="Source corpus directory to reindex for strategy comparison",
+    )
+    eval_compare_parser.set_defaults(func=cmd_eval_compare)
 
     review_parser = subparsers.add_parser("review", help="Review operations (legacy compatibility)")
     review_parser.set_defaults(func=lambda args, parser=review_parser: _print_parser_help(parser))

@@ -35,7 +35,7 @@ For execution rules, see [AGENTS.md](AGENTS.md).
 
 ## Active Task
 
-Current: `T4-05`
+Current: `T5-01`
 
 Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
 
@@ -71,7 +71,7 @@ Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
 | T4-02 | done | [Phase 4](docs/tasks/phase-4.md#t4-02-implement-retrieval-metrics) |
 | T4-03 | done | [Phase 4](docs/tasks/phase-4.md#t4-03-implement-citation-and-output-metrics) |
 | T4-04 | done | [Phase 4](docs/tasks/phase-4.md#t4-04-add-eval-cli-api-and-output-artifacts) |
-| T4-05 | todo | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
+| T4-05 | done | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
 | T5-01 | todo | [Phase 5](docs/tasks/phase-5.md#t5-01-add-deployment-files) |
 | T5-02 | todo | [Phase 5](docs/tasks/phase-5.md#t5-02-complete-healthstate-and-run-visibility) |
 | T5-03 | todo | [Phase 5](docs/tasks/phase-5.md#t5-03-update-readme-for-portfolio-presentation) |

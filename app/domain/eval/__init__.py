@@ -1,5 +1,6 @@
 """Evaluation dataset models and helpers."""
 
+from app.domain.eval.comparison import StrategyComparisonResult, StrategyComparisonRow, StrategyConfig
 from app.domain.eval.loader import load_eval_dataset
 from app.domain.eval.models import EvalDataset, EvalDatasetRow
 from app.domain.eval.results import EvalCaseResult, EvalRunMetrics, EvalRunResult
@@ -28,6 +29,9 @@ __all__ = [
     "EvalCaseResult",
     "EvalRunMetrics",
     "EvalRunResult",
+    "StrategyComparisonResult",
+    "StrategyComparisonRow",
+    "StrategyConfig",
     "GenerationAggregateMetrics",
     "GenerationCaseMetrics",
     "RetrievalAggregateMetrics",

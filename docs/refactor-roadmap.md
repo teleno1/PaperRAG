@@ -143,6 +143,7 @@ Goal:
 Allowed changes:
 - Add `eval_dataset.jsonl` support.
 - Add an eval CLI target: `python -m app.cli.main eval run`.
+- Add a small strategy-comparison CLI surface for chunking / top-k / rerank presets.
 - Add an eval API target: `POST /eval/run`.
 - Compute retrieval and generation reliability metrics.
 - Save artifacts to `data/eval_outputs/<run_id>/`, including `metrics.json`,

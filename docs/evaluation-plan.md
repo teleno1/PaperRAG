@@ -89,6 +89,7 @@ Future CLI:
 
 ```bash
 python -m app.cli.main eval run --dataset data/eval_samples/eval_dataset.jsonl
+python -m app.cli.main eval compare --dataset data/eval_samples/eval_dataset.jsonl --source-dir data/samples/phase2_corpus
 ```
 
 Future API:
@@ -115,6 +116,10 @@ data/eval_outputs/<run_id>/
 
 `metrics.json` should be the resume-friendly artifact. `failures.jsonl` should
 make debugging honest and repeatable.
+
+For small strategy studies, Phase 4 can reindex the tracked sample corpus under
+explicit chunking/rerank presets so comparisons stay reproducible and
+inspectable.
 
 ## Testing Rules
 

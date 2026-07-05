@@ -15,8 +15,30 @@ MIN_UNIT_LEN = 50
 
 
 class ChunkBuilder:
-    def __init__(self, metadata_extractor: MetadataExtractor | None = None) -> None:
+    def __init__(
+        self,
+        metadata_extractor: MetadataExtractor | None = None,
+        *,
+        max_tokens: int = MAX_TOKENS,
+        overlap_sentences: int = OVERLAP_SENTENCES,
+        min_unit_len: int = MIN_UNIT_LEN,
+    ) -> None:
         self._metadata_extractor = metadata_extractor or MetadataExtractor()
+        self._max_tokens = max_tokens
+        self._overlap_sentences = overlap_sentences
+        self._min_unit_len = min_unit_len
+
+    @property
+    def max_tokens(self) -> int:
+        return self._max_tokens
+
+    @property
+    def overlap_sentences(self) -> int:
+        return self._overlap_sentences
+
+    @property
+    def min_unit_len(self) -> int:
+        return self._min_unit_len
 
     @staticmethod
     def _clean_text(text: str) -> str:
@@ -83,7 +105,7 @@ class ChunkBuilder:
             if buffer is None:
                 buffer = unit
                 continue
-            if unit["section"] == buffer["section"] and self._estimate_tokens(buffer["text"]) < MIN_UNIT_LEN:
+            if unit["section"] == buffer["section"] and self._estimate_tokens(buffer["text"]) < self._min_unit_len:
                 buffer["text"] += " " + unit["text"]
             else:
                 merged.append(buffer)
@@ -120,9 +142,9 @@ class ChunkBuilder:
 
             for sentence in sentences:
                 candidate = " ".join(current_sentences + [sentence])
-                if current_sentences and self._estimate_tokens(candidate) > MAX_TOKENS:
+                if current_sentences and self._estimate_tokens(candidate) > self._max_tokens:
                     chunks.append(self._make_chunk(current_sentences, current_section, metadata))
-                    current_sentences = current_sentences[-OVERLAP_SENTENCES:]
+                    current_sentences = current_sentences[-self._overlap_sentences:]
                 current_sentences.append(sentence)
 
         if current_sentences and current_section is not None:

@@ -2,7 +2,14 @@ import json
 from argparse import Namespace
 
 from app.domain.answer.models import AnswerResult, AnswerValidation
-from app.domain.eval import EvalRunMetrics, EvalRunResult, GenerationAggregateMetrics, RetrievalAggregateMetrics
+from app.domain.eval import (
+    EvalRunMetrics,
+    EvalRunResult,
+    GenerationAggregateMetrics,
+    RetrievalAggregateMetrics,
+    StrategyComparisonResult,
+    StrategyComparisonRow,
+)
 from app.domain.report.models import GeneratedReport, ReportResult, ReportSection
 from app.domain.retrieval.models import RetrievedSource
 
@@ -143,6 +150,62 @@ def test_cmd_eval_run(monkeypatch, capsys):
     assert payload["metrics"]["retrieval"]["recall_at_5"] == 1.0
 
 
+def test_cmd_eval_compare(monkeypatch, capsys):
+    from app.cli import main as cli_main
+
+    class FakeUseCase:
+        def execute(self, dataset, source_dir):
+            assert dataset == "data/eval_samples/eval_dataset.jsonl"
+            assert source_dir == "data/samples/phase2_corpus"
+            return StrategyComparisonResult(
+                run_id="compare-1",
+                run_dir="F:/tmp/compare-1",
+                dataset_path="data/eval_samples/eval_dataset.jsonl",
+                source_dir="data/samples/phase2_corpus",
+                comparison_path="F:/tmp/compare-1/comparison.json",
+                summary_table="strategy_id | chunking | top_k | rerank",
+                strategies=[
+                    StrategyComparisonRow(
+                        strategy_id="balanced_topk3_rerank_on",
+                        chunking_preset="balanced",
+                        top_k=3,
+                        rerank_mode="on",
+                        run_dir="F:/tmp/compare-1/strategies/balanced_topk3_rerank_on",
+                        case_count=3,
+                        failure_count=0,
+                        metrics=EvalRunMetrics(
+                            retrieval=RetrievalAggregateMetrics(
+                                recall_at_5=1.0,
+                                recall_at_10=1.0,
+                                mrr=0.8,
+                                avg_retrieved_sources=3.0,
+                                case_count=3,
+                            ),
+                            generation=GenerationAggregateMetrics(
+                                citation_hit_rate=0.9,
+                                unknown_citation_count=0,
+                                format_compliance_rate=1.0,
+                                no_source_assertion_rate=0.1,
+                                case_count=3,
+                            ),
+                            avg_latency_ms=12.0,
+                            p95_latency_ms=15.0,
+                            failure_rate=0.0,
+                        ),
+                    )
+                ],
+            )
+
+    monkeypatch.setattr(cli_main, "RunEvalStrategyComparisonUseCase", FakeUseCase)
+    code = cli_main.cmd_eval_compare(
+        Namespace(dataset="data/eval_samples/eval_dataset.jsonl", source_dir="data/samples/phase2_corpus")
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert code == 0
+    assert payload["run_id"] == "compare-1"
+
+
 def test_query_parser_without_subcommand_prints_help(capsys):
     from app.cli.main import build_parser
 
@@ -165,6 +228,16 @@ def test_eval_parser_without_subcommand_prints_help(capsys):
     output = capsys.readouterr().out
     assert code == 0
     assert "Run evaluation over a dataset" in output
+
+
+def test_eval_compare_parser_routes_to_compare_handler():
+    from app.cli.main import build_parser, cmd_eval_compare
+
+    parser = build_parser()
+    args = parser.parse_args(["eval", "compare", "--dataset", "data/eval_samples/eval_dataset.jsonl"])
+
+    assert args.func == cmd_eval_compare
+    assert args.source_dir == "data/samples/phase2_corpus"
 
 
 def test_report_parser_without_subcommand_prints_help(capsys):

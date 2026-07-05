@@ -59,6 +59,11 @@ class FakeRerankClient:
         return [{"index": idx, "relevance_score": float(len(docs) - idx)} for idx in range(len(docs))]
 
 
+class FailingRerankClient:
+    def rerank(self, query: str, docs):
+        raise AssertionError("rerank should not be called when disabled")
+
+
 def test_retrieval_search_returns_models():
     service = FaissRecallService(
         repository=FakeRepository(),
@@ -70,6 +75,21 @@ def test_retrieval_search_returns_models():
     assert results[0].document_id == "doc-1"
     assert results[0].paper_id
     assert results[0].chunk_id
+
+
+def test_retrieval_search_can_skip_rerank():
+    service = FaissRecallService(
+        repository=FakeRepository(),
+        embedding_client=FakeEmbeddingClient(),
+        rerank_client=FailingRerankClient(),
+        enable_rerank=False,
+    )
+
+    results = service.search("query", top_k=2)
+
+    assert len(results) == 2
+    assert results[0].chunk_id == "chunk-1"
+    assert results[1].chunk_id == "chunk-2"
 
 
 def test_deepseek_json_client_parses_fenced_or_wrapped_json():
