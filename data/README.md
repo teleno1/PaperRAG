@@ -8,6 +8,8 @@ This repository does not track local research corpora or generated runtime artif
 - `data/samples/` is the only approved location for tiny curated demo assets.
   Phase 2 adds `data/samples/phase2_corpus/` as a tiny TXT/Markdown sample
   corpus for ingestion and indexing tests.
+- `data/eval_samples/` is the approved location for tiny tracked evaluation
+  fixtures such as `eval_dataset.jsonl`.
 
 ## Local-only files
 

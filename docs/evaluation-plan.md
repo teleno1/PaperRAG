@@ -21,6 +21,10 @@ Future eval data should live in:
 data/eval_samples/eval_dataset.jsonl
 ```
 
+Phase 4 starts with a tiny tracked sample fixture at the same path to validate
+the loader and manual eval command. The final 30-case dataset is still future
+work.
+
 Each line should be one JSON object:
 
 ```json

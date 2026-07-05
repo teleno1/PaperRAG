@@ -2,7 +2,7 @@
 
 ## T4-01: Add eval dataset format and loader
 
-Status: todo
+Status: done
 Phase: Phase 4
 Priority: high
 
@@ -25,6 +25,10 @@ Verification:
 
 Notes:
 - The full 30-question dataset can be added later; this task establishes format.
+- Added eval dataset models and a JSONL loader with row-numbered validation errors for malformed JSON, missing fields, unsupported output formats, and blank required values.
+- Added a tiny tracked sample dataset at `data/eval_samples/eval_dataset.jsonl` for fixture coverage and later manual eval verification.
+- Verification: `python -m pytest -q` -> `90 passed`.
+- Review: subagent flagged whitespace-only required values slipping through validation; this was fixed and re-verified with no blocking findings.
 
 ## T4-02: Implement retrieval metrics
 
@@ -128,4 +132,3 @@ Verification:
 
 Notes:
 - Keep strategy comparison small and inspectable.
-

@@ -146,3 +146,15 @@ class ApiKeyMissingError(ConfigurationError):
             f"Missing API key: {key_name}. Set it with an environment variable instead of settings.yaml.",
             key_name,
         )
+
+
+class EvaluationDatasetError(PaperRAGError):
+    """Evaluation dataset loading or validation failed."""
+
+    def __init__(self, dataset_path: str, reason: str, row_number: int | None = None):
+        self.dataset_path = dataset_path
+        self.row_number = row_number
+        details = {"dataset_path": dataset_path}
+        if row_number is not None:
+            details["row_number"] = row_number
+        super().__init__(f"Evaluation dataset error: {reason}", details)
