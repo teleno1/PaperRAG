@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from app.core.processed_corpus import find_content_manifest
 from app.core.exceptions import IndexBuildError
 from app.core.paths import PathManager, get_paths
 from app.domain.models.runtime import BuildIndexResult
@@ -22,7 +23,7 @@ class BuildIndexUseCase:
 
     def execute(self, force: bool = False) -> BuildIndexResult:
         self._paths.ensure_dirs()
-        has_processed_corpus = any(self._paths.processed_dir.glob("*/content_list_v2.json"))
+        has_processed_corpus = any(find_content_manifest(item) is not None for item in self._paths.processed_dir.iterdir())
         if not has_processed_corpus:
             self._prepare_corpus.execute(force=force)
 

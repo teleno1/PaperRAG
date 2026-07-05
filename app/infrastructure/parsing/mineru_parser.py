@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from app.core.processed_corpus import find_content_manifest
 from app.core.paths import PathManager, get_paths
 from app.domain.models import ParsedDocument, ParsedDocumentUnit
 from app.infrastructure.parsing.mineru_client import MinerUClient
@@ -97,7 +98,9 @@ class MinerUParser:
     def parse(self, source_path: Path, *, document_id: str | None = None) -> ParsedDocument:
         output_dir = self._resolve_output_dir(source_path)
         self._mineru_client.parse_pdf(pdf_path=source_path, output_dir=output_dir)
-        content_path = output_dir / "content_list_v2.json"
+        content_path = find_content_manifest(output_dir)
+        if content_path is None:
+            raise FileNotFoundError(f"No MinerU content manifest found in {output_dir}")
         with content_path.open("r", encoding="utf-8") as file_obj:
             data = json.load(file_obj)
 

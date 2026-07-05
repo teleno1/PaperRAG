@@ -13,7 +13,7 @@ paths:
   outputs_dir: ./data/review_outputs
 
 models:
-  llm_model: deepseek-chat
+  llm_model: deepseek-v4-pro
   deepseek_base_url: https://api.deepseek.com/v1
   embedding_model: text-embedding-v4
   embedding_dimension: 1024

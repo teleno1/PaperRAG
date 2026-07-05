@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from app.core.processed_corpus import find_content_manifest
 from app.domain.models.adapters import chunk_to_document_chunk
 from app.domain.models.chunk import Chunk
 from app.infrastructure.chunking.chunk_builder import ChunkBuilder
@@ -29,8 +30,8 @@ class IndexBuilder:
         for paper_dir in sorted(processed_dir.iterdir()):
             if not paper_dir.is_dir():
                 continue
-            json_path = paper_dir / "content_list_v2.json"
-            if json_path.exists() and json_path.stat().st_size > 0:
+            json_path = find_content_manifest(paper_dir)
+            if json_path is not None:
                 paths.append(json_path)
         return paths
 

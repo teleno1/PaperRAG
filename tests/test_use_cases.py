@@ -1,4 +1,5 @@
 import json
+import time
 from pathlib import Path
 
 import pytest
@@ -6,6 +7,7 @@ import pytest
 from app.core.config import get_settings
 from app.core.exceptions import InsufficientPapersError
 from app.core.paths import PathManager
+from app.core.processed_corpus import find_content_manifest
 from app.domain.models.runtime import BuildIndexResult, ReviewRunResult
 from app.use_cases.build_index import BuildIndexUseCase
 from app.use_cases.generate_outline import GenerateOutlineUseCase
@@ -26,9 +28,12 @@ def _paths(tmp_path) -> PathManager:
 
 
 class FakeMinerUClient:
+    def __init__(self, manifest_name: str = "content_list_v2.json") -> None:
+        self.manifest_name = manifest_name
+
     def parse_pdf(self, pdf_path: Path, output_dir: Path) -> Path:
         output_dir.mkdir(parents=True, exist_ok=True)
-        (output_dir / "content_list_v2.json").write_text("[]", encoding="utf-8")
+        (output_dir / self.manifest_name).write_text("[]", encoding="utf-8")
         return output_dir
 
 
@@ -94,6 +99,18 @@ def test_prepare_corpus_use_case(tmp_path):
     assert result.successful == 1
 
 
+def test_prepare_corpus_use_case_accepts_prefixed_manifest_name(tmp_path):
+    paths = _paths(tmp_path)
+    paths.ensure_dirs()
+    (paths.papers_dir / "paper1.pdf").write_bytes(b"%PDF")
+    result = PrepareCorpusUseCase(
+        mineru_client=FakeMinerUClient(manifest_name="task-123_content_list_v2.json"),
+        paths=paths,
+    ).execute(force=False)
+    assert result.total_papers == 1
+    assert result.successful == 1
+
+
 def test_build_index_use_case(tmp_path):
     paths = _paths(tmp_path)
     paths.ensure_dirs()
@@ -103,6 +120,41 @@ def test_build_index_use_case(tmp_path):
     result = BuildIndexUseCase(index_builder=FakeIndexBuilder(), paths=paths).execute(force=True)
     assert result.total_vectors == 1
     assert result.index_path.exists()
+
+
+def test_build_index_use_case_detects_prefixed_manifest_name(tmp_path):
+    paths = _paths(tmp_path)
+    paths.ensure_dirs()
+    processed = paths.processed_dir / "paper1"
+    processed.mkdir(parents=True)
+    (processed / "task-123_content_list_v2.json").write_text("[]", encoding="utf-8")
+    result = BuildIndexUseCase(index_builder=FakeIndexBuilder(), paths=paths).execute(force=True)
+    assert result.total_vectors == 1
+    assert result.index_path.exists()
+
+
+def test_find_content_manifest_prefers_latest_prefixed_result(tmp_path):
+    output_dir = tmp_path / "paper1"
+    output_dir.mkdir(parents=True)
+    canonical = output_dir / "content_list_v2.json"
+    canonical.write_text("[]", encoding="utf-8")
+    time.sleep(0.01)
+    latest = output_dir / "task-123_content_list_v2.json"
+    latest.write_text("[]", encoding="utf-8")
+
+    assert find_content_manifest(output_dir) == latest
+
+
+def test_find_content_manifest_prefers_latest_prefixed_among_multiple_results(tmp_path):
+    output_dir = tmp_path / "paper1"
+    output_dir.mkdir(parents=True)
+    older = output_dir / "task-122_content_list_v2.json"
+    older.write_text("[]", encoding="utf-8")
+    time.sleep(0.01)
+    latest = output_dir / "task-123_content_list_v2.json"
+    latest.write_text("[]", encoding="utf-8")
+
+    assert find_content_manifest(output_dir) == latest
 
 
 def test_generate_outline_use_case(tmp_path):

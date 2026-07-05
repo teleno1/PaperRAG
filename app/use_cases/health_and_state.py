@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from app.core.config import get_settings
 from app.core.paths import PathManager, get_paths
+from app.core.processed_corpus import find_content_manifest
 from app.domain.models.runtime import HealthStatus, ProjectState
 from app.use_cases._shared import build_faiss_repository
 
@@ -17,7 +18,7 @@ class HealthAndStateUseCase:
             [
                 item
                 for item in self._paths.processed_dir.iterdir()
-                if item.is_dir() and (item / "content_list_v2.json").exists() and (item / "content_list_v2.json").stat().st_size > 0
+                if item.is_dir() and find_content_manifest(item) is not None
             ]
         ) if self._paths.processed_dir.exists() else 0
         outlines_count = len(list(self._paths.outlines_dir.glob("*/outline.json"))) if self._paths.outlines_dir.exists() else 0

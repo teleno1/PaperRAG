@@ -6,6 +6,7 @@ from uuid import uuid4
 from app.core.config import get_settings
 from app.core.exceptions import ApiKeyMissingError, InsufficientPapersError, NoPdfFoundError
 from app.core.paths import PathManager, get_paths
+from app.core.processed_corpus import find_content_manifest
 from app.infrastructure.retrieval.faiss_recall_service import FaissRecallService
 from app.infrastructure.vectorstore.faiss_repository import FaissRepository
 
@@ -38,8 +39,7 @@ def ensure_minimum_papers(paths: PathManager | None = None) -> int:
                 item
                 for item in path_manager.processed_dir.iterdir()
                 if item.is_dir()
-                and (item / "content_list_v2.json").exists()
-                and (item / "content_list_v2.json").stat().st_size > 0
+                and find_content_manifest(item) is not None
             ]
         )
         if path_manager.processed_dir.exists()

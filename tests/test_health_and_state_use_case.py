@@ -29,3 +29,15 @@ def test_health_state_prefers_actual_report_run_dir(tmp_path):
     state = HealthAndStateUseCase(paths=paths).get_state()
 
     assert state.latest_run_dir == str(report_run_dir)
+
+
+def test_health_state_counts_prefixed_mineru_manifest(tmp_path):
+    paths = _paths(tmp_path)
+    paths.ensure_dirs()
+    processed_dir = paths.processed_dir / "paper-001"
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    (processed_dir / "task-123_content_list_v2.json").write_text("[]", encoding="utf-8")
+
+    state = HealthAndStateUseCase(paths=paths).get_state()
+
+    assert state.processed_count == 1

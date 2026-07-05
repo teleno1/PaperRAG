@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from app.core.processed_corpus import find_content_manifest
 from app.core.exceptions import MineruParseError, NoPdfFoundError
 from app.core.paths import PathManager, get_paths
 from app.domain.models.runtime import PrepareCorpusResult
@@ -26,13 +27,13 @@ class PrepareCorpusUseCase:
         results: dict[str, bool] = {}
         for pdf_path in pdf_files:
             output_dir = self._paths.processed_dir / pdf_path.stem
-            content_path = output_dir / "content_list_v2.json"
-            if not force and content_path.exists() and content_path.stat().st_size > 0:
+            content_path = find_content_manifest(output_dir)
+            if not force and content_path is not None:
                 results[pdf_path.name] = True
                 continue
             try:
                 self._mineru.parse_pdf(pdf_path=pdf_path, output_dir=output_dir)
-                results[pdf_path.name] = content_path.exists() and content_path.stat().st_size > 0
+                results[pdf_path.name] = find_content_manifest(output_dir) is not None
             except Exception as exc:
                 results[pdf_path.name] = False
                 raise MineruParseError(str(pdf_path), str(exc)) from exc

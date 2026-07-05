@@ -9,7 +9,8 @@ from app.infrastructure.parsing import MarkdownParser, MinerUParser, ParserRegis
 
 
 class FakeMinerUClient:
-    def __init__(self) -> None:
+    def __init__(self, manifest_name: str = "content_list_v2.json") -> None:
+        self.manifest_name = manifest_name
         self.output_dirs: list[Path] = []
 
     def parse_pdf(self, pdf_path: Path, output_dir: Path) -> Path:
@@ -51,7 +52,7 @@ class FakeMinerUClient:
                 }
             ],
         ]
-        (output_dir / "content_list_v2.json").write_text(json.dumps(payload), encoding="utf-8")
+        (output_dir / self.manifest_name).write_text(json.dumps(payload), encoding="utf-8")
         return output_dir
 
 
@@ -89,6 +90,23 @@ def test_mineru_parser_defaults_to_processed_dir_layout(tmp_path) -> None:
 
     assert fake_client.output_dirs == [paths.processed_dir / "paper"]
     assert Path(parsed.metadata["mineru_output_dir"]) == paths.processed_dir / "paper"
+
+
+def test_mineru_parser_accepts_prefixed_manifest_name(tmp_path) -> None:
+    pdf_path = tmp_path / "paper.pdf"
+    pdf_path.write_bytes(b"%PDF")
+
+    parsed = MinerUParser(
+        mineru_client=FakeMinerUClient(manifest_name="task-123_content_list_v2.json"),
+        output_root=tmp_path / "processed",
+    ).parse(pdf_path)
+
+    assert parsed.document_id == "paper"
+    assert [unit.content for unit in parsed.units] == [
+        "First paragraph.",
+        "Second paragraph.",
+        "- Bullet item",
+    ]
 
 
 def test_non_pdf_registry_flow_does_not_require_mineru_key(monkeypatch, tmp_path) -> None:
