@@ -55,7 +55,8 @@ Retrieval metrics:
 - `recall_at_5`: whether any expected source appears in top 5.
 - `recall_at_10`: whether any expected source appears in top 10.
 - `mrr`: reciprocal rank of the first expected source.
-- `avg_retrieved_sources`: average number of retrieved chunks used.
+- `avg_retrieved_sources`: average number of unique retrieved source ids after
+  deterministic normalization/deduplication.
 
 Generation and citation metrics:
 

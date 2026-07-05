@@ -32,7 +32,7 @@ Notes:
 
 ## T4-02: Implement retrieval metrics
 
-Status: todo
+Status: done
 Phase: Phase 4
 Priority: high
 
@@ -53,6 +53,10 @@ Verification:
 
 Notes:
 - Keep metrics independent from LLM calls.
+- Added deterministic retrieval metric helpers for `Recall@5`, `Recall@10`, `MRR`, per-case retrieval counts, and aggregate summaries.
+- Duplicate retrieved ids are normalized away before top-k and rank calculations so the metrics stay deterministic across repeated hits.
+- Verification: `python -m pytest -q` -> `96 passed`.
+- Review: subagent reported no blocking findings; we added a duplicate-boundary regression test and clarified the `avg_retrieved_sources` metric wording in the evaluation plan.
 
 ## T4-03: Implement citation and output metrics
 
