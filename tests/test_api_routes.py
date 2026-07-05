@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 
 from app.api.main import app
 from app.domain.answer.models import AnswerResult, AnswerValidation
+from app.domain.eval import EvalRunMetrics, EvalRunResult, GenerationAggregateMetrics, RetrievalAggregateMetrics
 from app.domain.report.models import GeneratedReport, ReportResult, ReportSection
 from app.domain.retrieval.models import RetrievedSource
 from app.domain.models.runtime import ReviewRunResult
@@ -148,6 +149,53 @@ def test_report_route(monkeypatch):
     assert payload["report"]["sections"][0]["cited_source_ids"] == ["chunk-1"]
 
 
+def test_eval_route(monkeypatch):
+    from app.api.routes import eval as eval_route
+
+    class FakeUseCase:
+        def execute(self, dataset, top_k=None):
+            assert dataset == "data/eval_samples/eval_dataset.jsonl"
+            assert top_k == 5
+            return EvalRunResult(
+                run_id="eval-1",
+                run_dir="F:/tmp/eval-1",
+                dataset_path="data/eval_samples/eval_dataset.jsonl",
+                case_count=3,
+                failure_count=1,
+                metrics_path="F:/tmp/eval-1/metrics.json",
+                cases_path="F:/tmp/eval-1/cases.jsonl",
+                failures_path="F:/tmp/eval-1/failures.jsonl",
+                retrieval_debug_path="F:/tmp/eval-1/retrieval_debug.jsonl",
+                metrics=EvalRunMetrics(
+                    retrieval=RetrievalAggregateMetrics(
+                        recall_at_5=1.0,
+                        recall_at_10=1.0,
+                        mrr=0.8,
+                        avg_retrieved_sources=2.0,
+                        case_count=3,
+                    ),
+                    generation=GenerationAggregateMetrics(
+                        citation_hit_rate=0.9,
+                        unknown_citation_count=0,
+                        format_compliance_rate=1.0,
+                        no_source_assertion_rate=0.1,
+                        case_count=3,
+                    ),
+                    avg_latency_ms=12.5,
+                    p95_latency_ms=20.0,
+                    failure_rate=1 / 3,
+                ),
+            )
+
+    monkeypatch.setattr(eval_route, "RunEvalUseCase", FakeUseCase)
+    client = TestClient(app)
+    response = client.post("/eval/run", json={"dataset": "data/eval_samples/eval_dataset.jsonl", "top_k": 5})
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["run_id"] == "eval-1"
+    assert payload["metrics"]["generation"]["format_compliance_rate"] == 1.0
+
+
 def test_query_route_returns_error_response(monkeypatch):
     from app.api.routes import query as query_route
     from app.core.exceptions import PaperRAGError
@@ -177,4 +225,20 @@ def test_report_route_returns_error_response(monkeypatch):
     response = client.post("/report", json={"query": "Generate report"})
     assert response.status_code == 400
     assert response.json()["error"] == "report_run_failed"
+    assert response.json()["detail"] == "boom"
+
+
+def test_eval_route_returns_error_response(monkeypatch):
+    from app.api.routes import eval as eval_route
+    from app.core.exceptions import PaperRAGError
+
+    class FakeUseCase:
+        def execute(self, dataset, top_k=None):
+            raise PaperRAGError("boom")
+
+    monkeypatch.setattr(eval_route, "RunEvalUseCase", FakeUseCase)
+    client = TestClient(app)
+    response = client.post("/eval/run", json={"dataset": "data/eval_samples/eval_dataset.jsonl"})
+    assert response.status_code == 400
+    assert response.json()["error"] == "eval_run_failed"
     assert response.json()["detail"] == "boom"

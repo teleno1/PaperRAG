@@ -31,43 +31,13 @@ The project is not complete unless all of the following are true:
 - It can compare chunking, retrieval, and reranking strategies with metrics.
 - A fresh environment can reproduce the minimal demo from README commands.
 
-## Working Rules
-
-- Always read `AGENTS.md` before working on a task.
-- Use `docs/refactor-roadmap.md` for phase boundaries.
-- Use this file as the task index, then read only the current phase file under
-  `docs/tasks/`.
-- Execute exactly one task per Codex run unless the user explicitly says
-  otherwise.
-- Do not enter the next task automatically after finishing the current one.
-- Update the relevant phase task file when a task moves to `in_progress`,
-  `blocked`, or `done`.
-- If a task changes architecture, domain concepts, CLI/API surface, data flow,
-  or evaluation rules, update the corresponding docs:
-  - `docs/architecture.md`
-  - `docs/evaluation-plan.md`
-  - `docs/refactor-roadmap.md`
-- Run verification commands before marking a task `done`.
-- Do not commit API keys, generated indexes, parsed corpora, run outputs,
-  eval outputs, caches, or large local documents.
+For execution rules, see [AGENTS.md](AGENTS.md).
 
 ## Active Task
 
-Current: `T4-04`
+Current: `T4-05`
 
 Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
-
-## How To Ask Codex To Work
-
-Use this pattern:
-
-```text
-Please execute only TASKS.md task T0-01.
-Read docs/tasks/phase-0.md for the task details.
-Do not start any other task.
-Update the task status and notes when finished.
-Run the listed verification commands.
-```
 
 ## Phase Task Files
 
@@ -100,7 +70,7 @@ Run the listed verification commands.
 | T4-01 | done | [Phase 4](docs/tasks/phase-4.md#t4-01-add-eval-dataset-format-and-loader) |
 | T4-02 | done | [Phase 4](docs/tasks/phase-4.md#t4-02-implement-retrieval-metrics) |
 | T4-03 | done | [Phase 4](docs/tasks/phase-4.md#t4-03-implement-citation-and-output-metrics) |
-| T4-04 | todo | [Phase 4](docs/tasks/phase-4.md#t4-04-add-eval-cli-output-artifacts) |
+| T4-04 | done | [Phase 4](docs/tasks/phase-4.md#t4-04-add-eval-cli-api-and-output-artifacts) |
 | T4-05 | todo | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
 | T5-01 | todo | [Phase 5](docs/tasks/phase-5.md#t5-01-add-deployment-files) |
 | T5-02 | todo | [Phase 5](docs/tasks/phase-5.md#t5-02-complete-healthstate-and-run-visibility) |

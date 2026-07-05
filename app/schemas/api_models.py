@@ -146,6 +146,49 @@ class ReportRunResponse(BaseModel):
     elapsed_time: float
 
 
+class RetrievalMetricsResponse(BaseModel):
+    recall_at_5: float
+    recall_at_10: float
+    mrr: float
+    avg_retrieved_sources: float
+    case_count: int
+
+
+class GenerationMetricsResponse(BaseModel):
+    citation_hit_rate: float
+    unknown_citation_count: int
+    format_compliance_rate: float
+    no_source_assertion_rate: float
+    case_count: int
+
+
+class EvalMetricsResponse(BaseModel):
+    retrieval: RetrievalMetricsResponse
+    generation: GenerationMetricsResponse
+    avg_latency_ms: float
+    p95_latency_ms: float
+    failure_rate: float
+
+
+class EvalRunRequest(BaseModel):
+    dataset: str = Field(..., description="Path to the eval dataset JSONL file", min_length=1)
+    top_k: Optional[int] = Field(default=None, description="Optional retrieval depth override for every eval case")
+
+
+class EvalRunResponse(BaseModel):
+    run_id: str
+    run_dir: str
+    dataset_path: str
+    case_count: int
+    failure_count: int
+    metrics_path: str
+    cases_path: str
+    failures_path: str
+    retrieval_debug_path: str
+    metrics: EvalMetricsResponse
+    elapsed_time: float
+
+
 class StateResponse(BaseModel):
     papers_dir: str
     papers_count: int

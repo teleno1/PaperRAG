@@ -97,6 +97,12 @@ Future API:
 POST /eval/run
 ```
 
+Phase 4 eval generation should route through the report use case so the dataset
+`output_format` maps directly onto the existing `markdown`, `json`, and
+`bullet_summary` report contract.
+By default, eval runs should exercise the currently configured retrieval/index
+surface rather than swapping in a hidden sample-only corpus.
+
 Target output directory:
 
 ```text

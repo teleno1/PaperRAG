@@ -145,7 +145,8 @@ Allowed changes:
 - Add an eval CLI target: `python -m app.cli.main eval run`.
 - Add an eval API target: `POST /eval/run`.
 - Compute retrieval and generation reliability metrics.
-- Save metrics to `data/eval_outputs/<run_id>/metrics.json`.
+- Save artifacts to `data/eval_outputs/<run_id>/`, including `metrics.json`,
+  `cases.jsonl`, `failures.jsonl`, and `retrieval_debug.jsonl`.
 
 Do not:
 - Use LLM-only subjective judging as the only metric.

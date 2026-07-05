@@ -23,6 +23,7 @@ def test_config_default_values():
     assert settings.project.name == "PaperRAG"
     assert settings.paths.papers_dir == "./data/papers"
     assert settings.paths.outputs_dir == "./data/review_outputs"
+    assert settings.paths.eval_outputs_dir == "./data/eval_outputs"
     assert settings.pipeline.min_papers_for_review == 15
 
 
@@ -39,6 +40,7 @@ def test_config_yaml_values_take_effect(tmp_path, monkeypatch):
           database_dir: ./custom/database
           outlines_dir: ./custom/outlines
           outputs_dir: ./custom/outputs
+          eval_outputs_dir: ./custom/eval_outputs
         models:
           llm_model: demo-chat
           deepseek_base_url: https://example.com/v1
@@ -68,6 +70,7 @@ def test_config_yaml_values_take_effect(tmp_path, monkeypatch):
 
     assert settings.project.name == "DemoRAG"
     assert settings.paths.outputs_dir == "./custom/outputs"
+    assert settings.paths.eval_outputs_dir == "./custom/eval_outputs"
     assert settings.models.llm_model == "demo-chat"
     assert settings.models.deepseek_base_url == "https://example.com/v1"
     assert settings.models.embedding_model == "demo-embedding"
@@ -142,3 +145,4 @@ def test_paths_manager():
     assert isinstance(paths, PathManager)
     assert paths.papers_dir.name == "papers"
     assert paths.outputs_dir.name == "review_outputs"
+    assert paths.eval_outputs_dir.name == "eval_outputs"

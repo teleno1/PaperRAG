@@ -61,6 +61,11 @@ class PathManager:
         return self._resolve_path(self._settings.paths.outputs_dir)
 
     @property
+    def eval_outputs_dir(self) -> Path:
+        """评测输出目录。"""
+        return self._resolve_path(self._settings.paths.eval_outputs_dir)
+
+    @property
     def faiss_index_path(self) -> Path:
         """FAISS索引文件路径。"""
         return self.database_dir / "paper_index.faiss"
@@ -78,6 +83,7 @@ class PathManager:
             self.database_dir,
             self.outlines_dir,
             self.outputs_dir,
+            self.eval_outputs_dir,
         ]:
             path.mkdir(parents=True, exist_ok=True)
 
@@ -102,6 +108,10 @@ class PathManager:
             运行输出目录路径
         """
         return self.outputs_dir / run_id
+
+    def get_eval_output_dir(self, run_id: str) -> Path:
+        """获取评测运行输出目录。"""
+        return self.eval_outputs_dir / run_id
 
 
 # 全局实例

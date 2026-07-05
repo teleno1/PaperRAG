@@ -116,10 +116,12 @@ Use these names for new general RAG work:
   - Thin request/response translation only.
   - No complex business logic.
   - General Phase 3 surfaces include `POST /query` and `POST /report`, while old review routes stay as compatibility endpoints.
+  - Phase 4 adds `POST /eval/run` as a thin wrapper around the eval runner use case.
 - `cli`
   - Thin command parsing and output formatting.
   - Call use cases instead of duplicating logic.
   - General Phase 3 surfaces include `query run` and `report run`, while old review commands stay as compatibility commands.
+  - Phase 4 adds `eval run` for reproducible dataset-based evaluation artifacts.
 
 ## Compatibility Strategy
 

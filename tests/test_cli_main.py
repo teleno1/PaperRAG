@@ -2,6 +2,7 @@ import json
 from argparse import Namespace
 
 from app.domain.answer.models import AnswerResult, AnswerValidation
+from app.domain.eval import EvalRunMetrics, EvalRunResult, GenerationAggregateMetrics, RetrievalAggregateMetrics
 from app.domain.report.models import GeneratedReport, ReportResult, ReportSection
 from app.domain.retrieval.models import RetrievedSource
 
@@ -95,6 +96,53 @@ def test_cmd_report_run(monkeypatch, capsys):
     assert payload["output_format"] == "json"
 
 
+def test_cmd_eval_run(monkeypatch, capsys):
+    from app.cli import main as cli_main
+
+    class FakeUseCase:
+        def execute(self, dataset, top_k=None):
+            assert dataset == "data/eval_samples/eval_dataset.jsonl"
+            assert top_k == 5
+            return EvalRunResult(
+                run_id="eval-1",
+                run_dir="F:/tmp/eval-1",
+                dataset_path="data/eval_samples/eval_dataset.jsonl",
+                case_count=3,
+                failure_count=1,
+                metrics_path="F:/tmp/eval-1/metrics.json",
+                cases_path="F:/tmp/eval-1/cases.jsonl",
+                failures_path="F:/tmp/eval-1/failures.jsonl",
+                retrieval_debug_path="F:/tmp/eval-1/retrieval_debug.jsonl",
+                metrics=EvalRunMetrics(
+                    retrieval=RetrievalAggregateMetrics(
+                        recall_at_5=1.0,
+                        recall_at_10=1.0,
+                        mrr=0.8,
+                        avg_retrieved_sources=2.0,
+                        case_count=3,
+                    ),
+                    generation=GenerationAggregateMetrics(
+                        citation_hit_rate=0.9,
+                        unknown_citation_count=0,
+                        format_compliance_rate=1.0,
+                        no_source_assertion_rate=0.1,
+                        case_count=3,
+                    ),
+                    avg_latency_ms=12.5,
+                    p95_latency_ms=20.0,
+                    failure_rate=1 / 3,
+                ),
+            )
+
+    monkeypatch.setattr(cli_main, "RunEvalUseCase", FakeUseCase)
+    code = cli_main.cmd_eval_run(Namespace(dataset="data/eval_samples/eval_dataset.jsonl", top_k=5))
+
+    payload = json.loads(capsys.readouterr().out)
+    assert code == 0
+    assert payload["run_id"] == "eval-1"
+    assert payload["metrics"]["retrieval"]["recall_at_5"] == 1.0
+
+
 def test_query_parser_without_subcommand_prints_help(capsys):
     from app.cli.main import build_parser
 
@@ -105,6 +153,18 @@ def test_query_parser_without_subcommand_prints_help(capsys):
     output = capsys.readouterr().out
     assert code == 0
     assert "Run a cited answer query" in output
+
+
+def test_eval_parser_without_subcommand_prints_help(capsys):
+    from app.cli.main import build_parser
+
+    parser = build_parser()
+    args = parser.parse_args(["eval"])
+    code = args.func(args)
+
+    output = capsys.readouterr().out
+    assert code == 0
+    assert "Run evaluation over a dataset" in output
 
 
 def test_report_parser_without_subcommand_prints_help(capsys):

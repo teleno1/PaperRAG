@@ -15,6 +15,7 @@ from app.use_cases.build_index import BuildIndexUseCase
 from app.use_cases.generate_outline import GenerateOutlineUseCase
 from app.use_cases.health_and_state import HealthAndStateUseCase
 from app.use_cases.prepare_corpus import PrepareCorpusUseCase
+from app.use_cases.run_eval import RunEvalUseCase
 from app.use_cases.run_query import RunQueryUseCase
 from app.use_cases.run_report import RunReportUseCase
 from app.use_cases.run_review_from_outline import RunReviewFromOutlineUseCase
@@ -165,6 +166,22 @@ def cmd_report_run(args) -> int:
         return 1
 
 
+def cmd_eval_run(args) -> int:
+    try:
+        start_time = time.time()
+        result = RunEvalUseCase().execute(
+            dataset=args.dataset,
+            top_k=args.top_k,
+        )
+        payload = result.model_dump(mode="json")
+        payload["elapsed_time"] = time.time() - start_time
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+    except PaperRAGError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
 def cmd_state(args) -> int:
     state = HealthAndStateUseCase().get_state()
     print(
@@ -247,6 +264,14 @@ def build_parser() -> argparse.ArgumentParser:
     report_run_parser.add_argument("--format", choices=["markdown", "json", "bullet_summary"], default="markdown", help="Output format")
     report_run_parser.add_argument("--top-k", type=int, default=None, help="Optional retrieval depth override")
     report_run_parser.set_defaults(func=cmd_report_run)
+
+    eval_parser = subparsers.add_parser("eval", help="Evaluation operations")
+    eval_parser.set_defaults(func=lambda args, parser=eval_parser: _print_parser_help(parser))
+    eval_subparsers = eval_parser.add_subparsers(dest="eval_command")
+    eval_run_parser = eval_subparsers.add_parser("run", help="Run evaluation over a dataset")
+    eval_run_parser.add_argument("--dataset", required=True, help="Path to eval dataset JSONL")
+    eval_run_parser.add_argument("--top-k", type=int, default=None, help="Optional retrieval depth override")
+    eval_run_parser.set_defaults(func=cmd_eval_run)
 
     review_parser = subparsers.add_parser("review", help="Review operations (legacy compatibility)")
     review_parser.set_defaults(func=lambda args, parser=review_parser: _print_parser_help(parser))

@@ -88,9 +88,9 @@ Notes:
 - Verification: `python -m pytest -q` -> `102 passed`.
 - Review: subagent flagged schema-invalid JSON crashes and an unclear `citation_hit_rate` semantic; both were fixed or documented and re-verified with no blocking findings.
 
-## T4-04: Add eval CLI output artifacts
+## T4-04: Add eval CLI, API, and output artifacts
 
-Status: todo
+Status: done
 Phase: Phase 4
 Priority: high
 
@@ -99,11 +99,13 @@ Run evaluation from CLI and save reproducible artifacts.
 
 Allowed Changes:
 - Add `python -m app.cli.main eval run`.
-- Save `metrics.json`, `cases.jsonl`, and `failures.jsonl`.
+- Add `POST /eval/run`.
+- Save `metrics.json`, `cases.jsonl`, `failures.jsonl`, and `retrieval_debug.jsonl`.
 - Add tests using fake retrieval and generation.
 
 Acceptance:
 - CLI command accepts `--dataset`.
+- API route accepts dataset.
 - Eval output path is under `data/eval_outputs/<run_id>/`.
 - Metrics file is resume-friendly and deterministic for test fixtures.
 
@@ -114,6 +116,11 @@ Verification:
 Notes:
 - If sample dataset is not present yet, add a tiny one in this task or mark the
   manual eval command as blocked with reason.
+- Added `RunEvalUseCase`, eval result models, CLI `eval run`, and API `POST /eval/run`, with artifacts written under `data/eval_outputs/<run_id>/`.
+- Eval runs now use the currently configured retrieval/index path by default, while case report artifacts are redirected into `eval_outputs/<run_id>/case_outputs/` for reproducible inspection.
+- Retrieval metrics now use one ranked identifier per retrieved result, while citation metrics still validate against retrieved source ids; fixture tests pin deterministic latency/artifact content through an injected timer.
+- Verification: `python -m pytest -q` -> `109 passed`; `python -m app.cli.main eval run --dataset data/eval_samples/eval_dataset.jsonl` completed and wrote metrics/cases/failures/retrieval debug artifacts.
+- Review: subagent initially flagged metric-id inflation, hidden sample-corpus evaluation, nondeterministic fixture artifacts, and roadmap drift; all must-fix issues were addressed and a final re-review reported no blocking findings.
 
 ## T4-05: Add strategy comparison
 

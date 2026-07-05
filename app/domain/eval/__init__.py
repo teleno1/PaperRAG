@@ -2,6 +2,7 @@
 
 from app.domain.eval.loader import load_eval_dataset
 from app.domain.eval.models import EvalDataset, EvalDatasetRow
+from app.domain.eval.results import EvalCaseResult, EvalRunMetrics, EvalRunResult
 from app.domain.eval.generation_metrics import (
     GenerationAggregateMetrics,
     GenerationCaseMetrics,
@@ -24,6 +25,9 @@ from app.domain.eval.retrieval_metrics import (
 __all__ = [
     "EvalDataset",
     "EvalDatasetRow",
+    "EvalCaseResult",
+    "EvalRunMetrics",
+    "EvalRunResult",
     "GenerationAggregateMetrics",
     "GenerationCaseMetrics",
     "RetrievalAggregateMetrics",
