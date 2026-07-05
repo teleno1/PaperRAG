@@ -53,7 +53,7 @@ The project is not complete unless all of the following are true:
 
 ## Active Task
 
-Current: `T4-03`
+Current: `T4-04`
 
 Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
 
@@ -99,7 +99,7 @@ Run the listed verification commands.
 | T3-03 | done | [Phase 3](docs/tasks/phase-3.md#t3-03-add-cliapi-query-and-report-entrypoints) |
 | T4-01 | done | [Phase 4](docs/tasks/phase-4.md#t4-01-add-eval-dataset-format-and-loader) |
 | T4-02 | done | [Phase 4](docs/tasks/phase-4.md#t4-02-implement-retrieval-metrics) |
-| T4-03 | todo | [Phase 4](docs/tasks/phase-4.md#t4-03-implement-citation-and-output-metrics) |
+| T4-03 | done | [Phase 4](docs/tasks/phase-4.md#t4-03-implement-citation-and-output-metrics) |
 | T4-04 | todo | [Phase 4](docs/tasks/phase-4.md#t4-04-add-eval-cli-output-artifacts) |
 | T4-05 | todo | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
 | T5-01 | todo | [Phase 5](docs/tasks/phase-5.md#t5-01-add-deployment-files) |

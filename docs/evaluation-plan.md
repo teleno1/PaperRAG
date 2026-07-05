@@ -66,6 +66,15 @@ Generation and citation metrics:
 - `answer_point_coverage`: expected answer points covered by the output.
 - `format_compliance_rate`: outputs that match requested format.
 
+For Phase 4, citation and format checks should stay deterministic:
+
+- `citation_hit_rate` may credit ids that match expected sources even when
+  retrieval missed them; pair it with `unknown_citation_count` to surface
+  unsupported citations against the retrieved registry.
+- JSON compliance should use real JSON parsing plus report-shape checks.
+- Markdown and `bullet_summary` compliance should use simple structural checks.
+- `no_source_assertion_rate` should use a deterministic heuristic, not an LLM judge.
+
 Operational metrics:
 
 - `avg_latency_ms`.

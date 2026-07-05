@@ -60,7 +60,7 @@ Notes:
 
 ## T4-03: Implement citation and output metrics
 
-Status: todo
+Status: done
 Phase: Phase 4
 Priority: high
 
@@ -83,6 +83,10 @@ Verification:
 
 Notes:
 - Do not rely on LLM judge as the only validation mechanism.
+- Added deterministic generation metric helpers for `citation_hit_rate`, `unknown_citation_count`, `format_compliance_rate`, and `no_source_assertion_rate`, plus per-case and aggregate summaries.
+- JSON compliance now checks real JSON parsing and basic report payload shape; Markdown and `bullet_summary` use simple structural checks with citation markers.
+- Verification: `python -m pytest -q` -> `102 passed`.
+- Review: subagent flagged schema-invalid JSON crashes and an unclear `citation_hit_rate` semantic; both were fixed or documented and re-verified with no blocking findings.
 
 ## T4-04: Add eval CLI output artifacts
 
