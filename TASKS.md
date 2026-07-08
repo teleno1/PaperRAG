@@ -37,7 +37,7 @@ For execution rules, see [AGENTS.md](AGENTS.md).
 
 Current: `T5-01`
 
-Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
+Details: [docs/tasks/phase-5.md](docs/tasks/phase-5.md)
 
 ## Phase Task Files
 
@@ -48,7 +48,8 @@ Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
 | Phase 2 | [docs/tasks/phase-2.md](docs/tasks/phase-2.md) | General ingestion |
 | Phase 3 | [docs/tasks/phase-3.md](docs/tasks/phase-3.md) | Cited answers and reports |
 | Phase 4 | [docs/tasks/phase-4.md](docs/tasks/phase-4.md) | Evaluation and strategy comparison |
-| Phase 5 | [docs/tasks/phase-5.md](docs/tasks/phase-5.md) | Deployment and portfolio packaging |
+| Phase 5 | [docs/tasks/phase-5.md](docs/tasks/phase-5.md) | Evaluation hardening and final quality validation |
+| Phase 6 | [docs/tasks/phase-6.md](docs/tasks/phase-6.md) | Deployment and portfolio packaging |
 
 ## Status Overview
 
@@ -72,7 +73,11 @@ Details: [docs/tasks/phase-4.md](docs/tasks/phase-4.md)
 | T4-03 | done | [Phase 4](docs/tasks/phase-4.md#t4-03-implement-citation-and-output-metrics) |
 | T4-04 | done | [Phase 4](docs/tasks/phase-4.md#t4-04-add-eval-cli-api-and-output-artifacts) |
 | T4-05 | done | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
-| T5-01 | todo | [Phase 5](docs/tasks/phase-5.md#t5-01-add-deployment-files) |
-| T5-02 | todo | [Phase 5](docs/tasks/phase-5.md#t5-02-complete-healthstate-and-run-visibility) |
-| T5-03 | todo | [Phase 5](docs/tasks/phase-5.md#t5-03-update-readme-for-portfolio-presentation) |
-| T5-04 | todo | [Phase 5](docs/tasks/phase-5.md#t5-04-final-project-acceptance) |
+| T5-01 | todo | [Phase 5](docs/tasks/phase-5.md#t5-01-add-final-eval-dataset-plan-and-schema-refinements) |
+| T5-02 | todo | [Phase 5](docs/tasks/phase-5.md#t5-02-build-final-40-case-eval-dataset) |
+| T5-03 | todo | [Phase 5](docs/tasks/phase-5.md#t5-03-run-final-eval-analyze-failures-and-tighten-quality) |
+| T5-04 | todo | [Phase 5](docs/tasks/phase-5.md#t5-04-final-evaluation-acceptance) |
+| T6-01 | todo | [Phase 6](docs/tasks/phase-6.md#t6-01-add-deployment-files) |
+| T6-02 | todo | [Phase 6](docs/tasks/phase-6.md#t6-02-complete-healthstate-and-run-visibility) |
+| T6-03 | todo | [Phase 6](docs/tasks/phase-6.md#t6-03-update-readme-for-portfolio-presentation) |
+| T6-04 | todo | [Phase 6](docs/tasks/phase-6.md#t6-04-final-deployment-and-portfolio-acceptance) |

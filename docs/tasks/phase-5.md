@@ -1,112 +1,195 @@
-# Phase 5 Tasks: Deployment and Portfolio Packaging
+# Phase 5 Tasks: Evaluation Hardening and Final Quality Validation
 
-## T5-01: Add deployment files
-
-Status: todo
-Phase: Phase 5
-Priority: high
-
-Goal:
-Make the project runnable in a fresh environment.
-
-Allowed Changes:
-- Add Dockerfile.
-- Add docker-compose file.
-- Add `.env.example`.
-
-Acceptance:
-- Docker setup documents required environment variables.
-- Generated data remains mounted/ignored appropriately.
-- Tests still pass locally.
-
-Verification:
-- `python -m pytest -q`
-- `docker compose config`
-
-Notes:
-- Do not require real API keys for container config validation.
-
-## T5-02: Complete health/state and run visibility
-
-Status: todo
-Phase: Phase 5
-Priority: medium
-
-Goal:
-Expose enough runtime status for deployment and debugging.
-
-Allowed Changes:
-- Extend `/health` and `/state` if needed.
-- Add run/eval status inspection if needed.
-- Add tests for status responses.
-
-Acceptance:
-- API can report service health.
-- API or CLI can report index and eval/run artifact state.
-- Existing routes remain compatible.
-
-Verification:
-- `python -m pytest -q`
-- `python -m app.cli.main health`
-
-Notes:
-- Avoid adding persistent services unless necessary.
-
-## T5-03: Update README for portfolio presentation
+## T5-01: Add final eval dataset plan and schema refinements
 
 Status: todo
 Phase: Phase 5
 Priority: high
 
 Goal:
-Make the finished project understandable to recruiters and interviewers.
+Define the final evaluation dataset structure, coverage buckets, and any
+minimal schema support needed for the acceptance pass.
 
 Allowed Changes:
-- Add quickstart.
-- Add architecture overview.
-- Add eval results table.
-- Add one success trace and one failure analysis.
-- Add resume-oriented project summary.
+- Update `docs/evaluation-plan.md`.
+- Add minimal eval schema support needed for the final dataset, such as explicit
+  negative or abstention indicators if required.
+- Update loader, metric, or result-model tests that need to reflect the final
+  evaluation contract.
 
 Acceptance:
-- README distinguishes current capabilities from target roadmap only if any
-  tasks remain unfinished.
-- README shows commands for test, ingest, query/report, eval, and API startup.
-- README includes the final evaluation metrics.
+- The final dataset contract is specific enough to batch-author the dataset
+  without ad hoc decisions.
+- Negative or abstention evaluation semantics no longer depend on verbal
+  conventions.
+- The final corpus boundary is explicit:
+  - frozen in-repo snapshot
+  - `OpenAI` developer-document ecosystem only
+  - `12-18` source documents
+  - tracked under `data/eval_corpus/openai_devdocs/`
+  - accompanied by a tracked corpus manifest with source URL and snapshot
+    provenance
+  - document types limited to `guides`, `API reference`, and a small number of
+    `cookbook/examples`
+  - topical scope limited to `Responses`, `structured outputs`,
+    `function calling`, `embeddings`, and `vector-store` or file-search-adjacent
+    developer docs
+- The final dataset schema explicitly models answer expectation with
+  `full_answer`, `partial_answer`, and `abstain`.
+- The final dataset schema explicitly models question shape with:
+  - `single_hop`
+  - `multi_source_synthesis`
+  - `parameter_constraint`
+  - `boundary_comparison`
+  - `high_distraction_negative`
+- The final dataset schema explicitly models unsupported content boundaries so
+  `partial_answer` and `abstain` cases can be evaluated without guesswork.
+- Gold evidence stays at `source_id` granularity; this task must not introduce
+  sentence-level or span-level labeling requirements.
+- The final dataset authoring plan fixes the target distribution to `40` cases:
+  - `24` `full_answer`
+  - `8` `partial_answer`
+  - `8` `abstain`
+- The final dataset authoring plan fixes the output-format distribution to:
+  - `20` `markdown`
+  - `10` `json`
+  - `10` `bullet_summary`
+- The final dataset authoring plan also fixes the question-shape buckets:
+  - `12` single-hop fact, definition, or constraint lookup cases
+  - `10` multi-source or multi-section synthesis cases
+  - `8` parameter, limitation, or prerequisite cases
+  - `6` boundary or comparison cases
+  - `4` high-distraction explicit negative cases
 
 Verification:
 - `python -m pytest -q`
 
 Notes:
-- Do not exaggerate unfinished capabilities.
+- Do not create the full `30+` case dataset in this task.
+- Negative examples must come from naturally confusing or low-evidence material
+  inside the frozen corpus. Do not author artificial distractor documents.
+- `expected_sources` should remain meaningful even for `abstain` cases by
+  pointing to nearby or boundary-defining sources rather than being left empty.
 
-## T5-04: Final project acceptance
+## T5-02: Build final 40-case eval dataset
 
 Status: todo
 Phase: Phase 5
 Priority: high
 
 Goal:
-Verify the project meets the Definition of Done.
+Create the final tracked evaluation dataset and frozen corpus from the Phase 5
+OpenAI developer-doc snapshot contract.
 
 Allowed Changes:
-- Fix small integration/documentation gaps found during final acceptance.
-- Update final docs and README.
+- Add the final dataset at `data/eval_samples/final_eval_dataset.jsonl`.
+- Add the frozen source corpus under `data/eval_corpus/openai_devdocs/`.
+- Add a tracked corpus manifest describing provenance and inclusion boundaries.
+- Add dataset provenance or authorship notes needed for reproducibility.
 
 Acceptance:
-- Fresh environment can follow README to run tests and minimal demo.
-- Eval dataset has at least 30 questions.
+- The dataset contains exactly the planned `40` cases unless the phase task doc
+  and evaluation plan are explicitly updated first.
+- The dataset follows the `T5-01` answer-expectation contract:
+  - `24` `full_answer`
+  - `8` `partial_answer`
+  - `8` `abstain`
+- The dataset follows the `T5-01` question-shape buckets:
+  - `12` single-hop fact, definition, or constraint lookup cases
+  - `10` multi-source or multi-section synthesis cases
+  - `8` parameter, limitation, or prerequisite cases
+  - `6` boundary or comparison cases
+  - `4` high-distraction explicit negative cases
+- The dataset follows the `T5-01` output-format buckets:
+  - `20` `markdown`
+  - `10` `json`
+  - `10` `bullet_summary`
+- The dataset uses only the frozen final corpus defined in `T5-01`.
+- Low-evidence and abstention cases are grounded in naturally confusing corpus
+  slices, not hand-authored fake distractor documents.
+- The dataset uses the final schema contract:
+  - `answer_expectation` is required
+  - `question_shape` is required
+  - `unsupported_aspects` is required for `partial_answer` and `abstain`
+  - `expected_sources` is non-empty for every case
+- The dataset loads through the existing eval loader without manual conversion.
+
+Verification:
+- `python -m pytest -q`
+- `python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl`
+
+Notes:
+- Do not commit large public raw corpora; keep only small, public, reproducible
+  evaluation slices or fixtures.
+- Add provenance notes that explain where each frozen source document came from
+  and why it is in scope for the final corpus.
+- Prefer curated excerpts or snapshots over bulk page dumps so corpus review and
+  failure analysis stay human-auditable.
+- Author cases as realistic user requests rather than page-title trivia.
+
+## T5-03: Run final eval, analyze failures, and tighten quality
+
+Status: todo
+Phase: Phase 5
+Priority: high
+
+Goal:
+Run the final dataset end to end, analyze failures honestly, and close the last
+quality gaps needed for acceptance.
+
+Allowed Changes:
+- Make small retrieval, citation, format, or eval fixes needed to meet the
+  final metric bar.
+- Update evaluation docs with final metrics and failure-analysis summaries.
+
+Acceptance:
+- Final `metrics.json` is generated from the final dataset.
+- Failure cases are inspectable and explained.
+- Core metrics reach or are very close to the `T5-04` thresholds, and any
+  remaining gap is explicitly recorded.
+- Failure analysis distinguishes at least:
+  - retrieval miss
+  - citation or source-registry failure
+  - format-compliance failure
+  - unsupported assertion
+  - abstention or partial-answer behavior failure
+
+Verification:
+- `python -m pytest -q`
+- `python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl`
+- `python -m app.cli.main eval compare --dataset data/eval_samples/final_eval_dataset.jsonl --source-dir data/eval_corpus/openai_devdocs`
+
+Notes:
+- Limit changes to quality hardening; do not start deployment packaging here.
+
+## T5-04: Final evaluation acceptance
+
+Status: todo
+Phase: Phase 5
+Priority: high
+
+Goal:
+Verify that the project satisfies the evaluation and trustworthiness part of
+the Definition of Done.
+
+Allowed Changes:
+- Fix small evaluation or documentation gaps found during acceptance.
+- Update final evaluation docs.
+
+Acceptance:
+- The final dataset contains `40` cases following the `T5-01` and `T5-02`
+  contract.
 - Metrics satisfy `Recall@5 >= 80%`, `citation_hit_rate >= 90%`,
-  `unknown_citation_count = 0`, and format compliance `>= 90%`.
-- Strategy comparison exists for chunking, retrieval, and rerank.
-- Project summary is ready to place in the resume.
+  `unknown_citation_count = 0`, and `format_compliance_rate >= 90%`.
+- Strategy comparison artifacts exist for chunking, retrieval, and rerank.
+- At least one success trace and one failure-analysis artifact exist for later
+  README or portfolio use.
 
 Verification:
 - `python -m pytest -q`
-- README quickstart commands
-- Eval command against the final dataset
+- `python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl`
+- `python -m app.cli.main eval compare --dataset data/eval_samples/final_eval_dataset.jsonl --source-dir data/eval_corpus/openai_devdocs`
 
 Notes:
-- This is not a feature task. It is the acceptance pass before resume writing
-  and RAG JD投递.
-
+- This is the quality acceptance pass before deployment and portfolio
+  packaging in Phase 6.

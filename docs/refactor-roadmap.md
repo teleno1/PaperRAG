@@ -167,34 +167,90 @@ python -m pytest -q
 python -m app.cli.main eval run --dataset data/eval_samples/eval_dataset.jsonl
 ```
 
-## Phase 5: Deployment and Portfolio Packaging
+## Phase 5: Evaluation Hardening
 
 Goal:
-- Make the project easy to run, inspect, and discuss in interviews.
+- Turn the current small-sample eval surface into a final, credible quality bar.
 
 Allowed changes:
-- Add Dockerfile and docker-compose.
-- Add `.env.example`.
-- Add `/health`, `/state`, and metrics or run-history endpoints if missing.
-- Update README with architecture diagram, quickstart, eval results, and demo
-  commands.
-- Add lightweight sample data that is small enough for git.
+- Refine the eval dataset schema only where final evaluation needs it.
+- Build a final `40`-case eval dataset from a frozen, tracked, explicitly
+  reproducible corpus.
+- Freeze a narrow `OpenAI` developer-doc corpus under a tracked directory with a
+  provenance manifest.
+- Run final eval and strategy comparison against the final dataset.
+- Add failure analysis and metric reporting for the final acceptance pass.
+- Fix small retrieval, citation, format, or eval-contract gaps needed to reach
+  the final quality bar.
 
 Do not:
-- Commit local indexes, full corpora, or generated run outputs.
-- Add cloud-specific deployment unless the user asks for it.
-- Make setup depend on hidden local paths.
+- Add Docker, Compose, or `.env.example` in this phase.
+- Do deployment packaging or cloud-specific deployment.
+- Do broad interface churn across already completed phases.
+- Expand into a broad public-web benchmark crawl.
+- Add hand-authored distractor documents for negative testing.
 
 Completion standard:
-- A fresh user can run tests and start the API from documented commands.
-- Docker Compose starts the service and `/health` responds.
-- README clearly explains what the project proves for RAG/LLM application roles.
+- A final eval dataset exists and is reproducible.
+- The final corpus is a frozen, in-repo snapshot of `12-18` `OpenAI`
+  developer-doc pages or curated excerpts limited to `guides`, `API reference`,
+  and a small number of `cookbook/examples`.
+- The final dataset is fixed at `40` cases with explicit behavior buckets:
+  - `24` `full_answer`
+  - `8` `partial_answer`
+  - `8` `abstain`
+- The final dataset is fixed at these question-shape buckets:
+  - `12` single-hop fact, definition, or constraint lookup
+  - `10` multi-source or multi-section synthesis
+  - `8` parameter, limitation, or prerequisite
+  - `6` boundary or comparison
+  - `4` high-distraction explicit negative
+- The final dataset includes all three output formats with a non-trivial mix.
+- Metrics meet the Definition of Done targets:
+  `Recall@5 >= 80%`, `citation_hit_rate >= 90%`,
+  `unknown_citation_count = 0`, and `format_compliance_rate >= 90%`.
+- At least one successful trace and one failure analysis are available for later
+  README packaging.
 
 Verification:
 
 ```bash
 python -m pytest -q
+python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl
+python -m app.cli.main eval compare --dataset data/eval_samples/final_eval_dataset.jsonl --source-dir data/eval_corpus/openai_devdocs
+```
+
+## Phase 6: Deployment and Portfolio Packaging
+
+Goal:
+- Make the evaluated system easy to run, inspect, and discuss in interviews.
+
+Allowed changes:
+- Add Dockerfile and docker-compose.
+- Add `.env.example`.
+- Complete `/health`, `/state`, and run visibility surfaces needed for
+  deployment and debugging.
+- Update README with architecture, quickstart, eval results, demo commands, and
+  portfolio-oriented project summary.
+
+Do not:
+- Redefine the final evaluation targets from Phase 5.
+- Commit local indexes, full corpora, or generated run outputs.
+- Add cloud-specific deployment unless the user asks for it.
+
+Completion standard:
+- A fresh user can run tests and the minimal demo from documented commands.
+- Docker Compose starts the service and `/health` responds.
+- README clearly and accurately explains capabilities, evaluation results, and
+  current limits for RAG/LLM application roles.
+
+Verification:
+
+```bash
+python -m pytest -q
+docker compose config
 docker compose up --build
+README quickstart commands
 ```
 
 ## Phase Discipline

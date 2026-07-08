@@ -13,17 +13,96 @@ The system should be able to answer:
 - Did the requested output format hold?
 - How slow, expensive, and failure-prone was the run?
 
+## Phase 5 Final Eval Contract
+
+Phase 4 proved that the eval runner, metrics, and strategy-comparison surfaces
+work on small tracked fixtures. Phase 5 tightens that into a final,
+resume-quality evaluation asset with a frozen corpus, explicit negative
+protocol, and reproducible acceptance metrics.
+
+### Final Corpus Boundary
+
+The final evaluation corpus should be a small, frozen, in-repo snapshot:
+
+- Source ecosystem: `OpenAI` developer documentation only.
+- Scope: `12-18` source documents.
+- Tracked source directory target: `data/eval_corpus/openai_devdocs/`.
+- Tracked manifest target: `data/eval_corpus/openai_devdocs/manifest.json`.
+- Allowed document types:
+  - `guides`
+  - `API reference`
+  - a small number of `cookbook/examples`
+- Allowed topic surface:
+  - `Responses`
+  - `structured outputs`
+  - `function calling`
+  - `embeddings`
+  - `vector-store` or file-search-adjacent developer docs
+- Out of scope:
+  - pricing, marketing, blog, or newsroom pages
+  - broad product overviews not needed for the eval contract
+  - dynamic or unfrozen web lookups during acceptance
+  - hand-authored distractor documents
+  - full-site mirrors or bulk crawls that make provenance review impractical
+
+The purpose of this boundary is to keep the corpus narrow enough to annotate
+well, but realistic enough to surface true retrieval and grounding failures.
+
+Recommended document-type mix inside the `12-18` source-document budget:
+
+- `4-6` guides
+- `5-7` API reference pages
+- `2-4` cookbook or example pages
+
+Each frozen source document should be a curated snapshot or excerpt file rather
+than a raw site mirror. The corpus manifest should record, at minimum:
+
+- `doc_id`
+- original URL
+- snapshot date
+- included sections or excerpt notes
+- why the document is in scope for final evaluation
+
+### Final Dataset Shape
+
+The final Phase 5 dataset target is fixed at `40` cases:
+
+- `24` `full_answer`
+- `8` `partial_answer`
+- `8` `abstain`
+
+Output-format buckets should also be fixed:
+
+- `20` `markdown`
+- `10` `json`
+- `10` `bullet_summary`
+
+Question-shape buckets are also fixed:
+
+- `12` single-hop fact, definition, or constraint lookup cases
+- `10` multi-source or multi-section synthesis cases
+- `8` parameter, limitation, or prerequisite cases
+- `6` boundary or comparison cases
+- `4` high-distraction explicit negative cases
+
+These are two separate axes:
+
+- `answer_expectation` controls how the system should behave.
+- question-shape buckets control what kind of reasoning or retrieval challenge
+  the case presents.
+
 ## Target Dataset Format
 
 Future eval data should live in:
 
 ```text
-data/eval_samples/eval_dataset.jsonl
+data/eval_samples/final_eval_dataset.jsonl
 ```
 
-Phase 4 starts with a tiny tracked sample fixture at the same path to validate
-the loader and manual eval command. The final 30-case dataset is still future
-work.
+Phase 4 already established the loader and manual eval flow with a tiny tracked
+sample fixture. Phase 5 should add the final frozen corpus and a final dataset
+of `40` cases as separate tracked assets rather than overwriting the Phase 4
+sample fixture assumptions.
 
 Each line should be one JSON object:
 
@@ -31,8 +110,11 @@ Each line should be one JSON object:
 {
   "id": "qa-001",
   "query": "How does the system prevent unsupported citations?",
+  "answer_expectation": "full_answer",
+  "question_shape": "single_hop",
   "expected_sources": ["doc-architecture#validation", "doc-readme#citation"],
   "answer_points": ["source registry", "unknown source check", "citation validation"],
+  "unsupported_aspects": [],
   "output_format": "markdown",
   "tags": ["citation", "trust"]
 }
@@ -42,11 +124,78 @@ Field meanings:
 
 - `id`: stable case id.
 - `query`: user question or report instruction.
+- `answer_expectation`: expected response mode. Phase 5 should constrain this to
+  `full_answer`, `partial_answer`, or `abstain`.
+- `question_shape`: required case-shape bucket. Phase 5 should constrain this to
+  `single_hop`, `multi_source_synthesis`, `parameter_constraint`,
+  `boundary_comparison`, or `high_distraction_negative`.
 - `expected_sources`: source ids, document ids, or section anchors that should be
-  retrievable for the query.
-- `answer_points`: key facts or concepts that should appear in the answer.
+  retrievable for the query. For negative cases, these are the nearby or
+  boundary-defining sources a grounded refusal or partial answer should rely on.
+- `answer_points`: key facts or concepts that should appear in the answer. For
+  `abstain` cases, this should be an empty list.
+- `unsupported_aspects`: aspects that must not be hallucinated as supported.
+  For `partial_answer`, this must be non-empty. For `full_answer`, it should be
+  empty. For `abstain`, it should capture the requested information that the
+  corpus cannot support.
 - `output_format`: expected output type, such as `markdown`, `json`, or `bullet_summary`.
 - `tags`: optional grouping for analysis.
+
+Phase 5 should keep gold evidence at `source_id` granularity. The eval dataset
+must not require sentence-level or span-level annotation.
+
+Phase 5 schema-validation rules should include at least:
+
+- `expected_sources` should be non-empty for all final dataset cases.
+- `answer_points` should be non-empty for `full_answer` and `partial_answer`.
+- `answer_points` should be empty for `abstain`.
+- `unsupported_aspects` should be empty for `full_answer`.
+- `unsupported_aspects` should be non-empty for `partial_answer` and `abstain`.
+
+### Case Authoring Rules
+
+Phase 5 case authoring should follow these rules:
+
+- Write queries as plausible user requests, not as page-title lookups.
+- Keep each case grounded in `1-3` primary `expected_sources` whenever
+  possible; use more only when multi-source synthesis genuinely requires it.
+- Do not write cases about pricing, release timing, or fast-changing product
+  news.
+- Do not rely on hidden annotator knowledge that is absent from the frozen
+  corpus.
+- Prefer questions that test retrieval boundaries, citation grounding, or
+  format compliance over trivia that can be guessed from model priors.
+- For `abstain` and `partial_answer` cases, make the insufficiency legible from
+  nearby or boundary-defining corpus documents.
+
+### Negative Protocol
+
+Negative and low-evidence cases must be explicit in the dataset contract.
+
+- `full_answer`: the corpus contains enough evidence to answer the query
+  directly and support the expected answer points.
+- `abstain`: the corpus does not contain sufficient evidence for the requested
+  answer, and the correct behavior is to refuse or clearly state that the
+  information is unavailable in the corpus.
+- `partial_answer`: the corpus contains some relevant evidence but not enough to
+  support a complete answer. The correct behavior is to answer only the
+  supported portion and explicitly note what remains unsupported or unknown.
+
+Important nuance:
+
+- `abstain` does not mean the system should answer from nowhere.
+- `abstain` cases should still be attached to nearby or boundary-defining
+  `expected_sources` so retrieval and grounded refusal can be evaluated.
+- `partial_answer` cases should have both supported answer points and explicit
+  unsupported aspects so the evaluation can detect overclaiming.
+
+Important boundary:
+
+- Runtime system behavior must not depend on the gold labels.
+- `answer_expectation`, `expected_sources`, and other annotations are for
+  offline evaluation only.
+- Negative examples should come from naturally confusing or low-evidence slices
+  inside the frozen corpus, not from artificial distractor documents.
 
 ## Target Metrics
 
@@ -75,6 +224,22 @@ For Phase 4, citation and format checks should stay deterministic:
 - Markdown and `bullet_summary` compliance should use simple structural checks.
 - `no_source_assertion_rate` should use a deterministic heuristic, not an LLM judge.
 
+Phase 5 acceptance should emphasize:
+
+- `Recall@5 >= 80%`
+- `citation_hit_rate >= 90%`
+- `unknown_citation_count = 0`
+- `format_compliance_rate >= 90%`
+
+Phase 5 failure analysis should distinguish at least:
+
+- retrieval miss
+- citation or source-registry failure
+- format-compliance failure
+- unsupported assertion
+- abstention failure
+- partial-answer failure
+
 Operational metrics:
 
 - `avg_latency_ms`.
@@ -88,8 +253,8 @@ Operational metrics:
 Future CLI:
 
 ```bash
-python -m app.cli.main eval run --dataset data/eval_samples/eval_dataset.jsonl
-python -m app.cli.main eval compare --dataset data/eval_samples/eval_dataset.jsonl --source-dir data/samples/phase2_corpus
+python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl
+python -m app.cli.main eval compare --dataset data/eval_samples/final_eval_dataset.jsonl --source-dir data/eval_corpus/openai_devdocs
 ```
 
 Future API:
@@ -120,6 +285,10 @@ make debugging honest and repeatable.
 For small strategy studies, Phase 4 can reindex the tracked sample corpus under
 explicit chunking/rerank presets so comparisons stay reproducible and
 inspectable.
+
+For Phase 5, the final acceptance dataset should run on the frozen final corpus
+under `data/eval_corpus/openai_devdocs` rather than the Phase 2 sample
+fixtures.
 
 ## Testing Rules
 
