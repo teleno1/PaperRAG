@@ -168,6 +168,34 @@ def test_run_report_use_case_flags_unknown_source_ids(tmp_path):
     assert "chunk-9" not in rendered
 
 
+def test_run_report_use_case_keeps_empty_citations_when_model_omits_them(tmp_path):
+    from tests.test_use_cases import _paths
+
+    use_case = RunReportUseCase(
+        retrieval_service=FakeRetrievalService(),
+        llm_client=FakeJsonClient(
+            {
+                "title": "Availability Report",
+                "overview": "The provided sources do not document pricing.",
+                "sections": [
+                    {
+                        "title": "Pricing",
+                        "body": "The provided sources do not document pricing for this workflow.",
+                        "cited_source_ids": [],
+                    }
+                ],
+            }
+        ),
+        paths=_paths(tmp_path),
+    )
+
+    result = use_case.execute("Generate a portability report", output_format="bullet_summary", top_k=4, run_id="report-6")
+
+    assert result.report.sections[0].cited_source_ids == []
+    rendered = result.output_path.read_text(encoding="utf-8")
+    assert "[Sources:" not in rendered
+
+
 def test_run_report_use_case_strips_unknown_source_ids_from_json_output(tmp_path):
     from tests.test_use_cases import _paths
 
@@ -193,3 +221,25 @@ def test_run_report_use_case_strips_unknown_source_ids_from_json_output(tmp_path
 
     payload = json.loads(result.output_path.read_text(encoding="utf-8"))
     assert payload["sections"][0]["cited_source_ids"] == ["chunk-1"]
+
+
+def test_run_report_use_case_coerces_summary_details_payload(tmp_path):
+    from tests.test_use_cases import _paths
+
+    use_case = RunReportUseCase(
+        retrieval_service=FakeRetrievalService(),
+        llm_client=FakeJsonClient(
+            {
+                "summary": "The provided sources do not document pricing.",
+                "details": "The corpus covers ingestion and validation, but not pricing.",
+            }
+        ),
+        paths=_paths(tmp_path),
+    )
+
+    result = use_case.execute("Generate a portability report", output_format="json", top_k=4, run_id="report-7")
+
+    payload = json.loads(result.output_path.read_text(encoding="utf-8"))
+    assert payload["title"].startswith("Report:")
+    assert payload["overview"] == "The provided sources do not document pricing."
+    assert payload["sections"][0]["title"] == "Details"

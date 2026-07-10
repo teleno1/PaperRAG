@@ -238,6 +238,8 @@ Phase 5 acceptance should emphasize:
 - `citation_hit_rate >= 90%`
 - `unknown_citation_count = 0`
 - `format_compliance_rate >= 90%`
+- strategy comparison should reuse the same report-generation path as `eval run`
+  rather than a synthetic or extractive-only comparison reporter
 
 Phase 5 failure analysis should distinguish at least:
 
@@ -331,3 +333,95 @@ Evaluation summary
 
 Also include one successful trace and one failed case with the lesson learned.
 That makes the project look engineered instead of merely demoed.
+
+## Phase 5 Final Results
+
+Acceptance run executed on `2026-07-10`:
+
+- Command:
+  `python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl`
+- Run id: `20260710_190826_efc6c4`
+- Dataset: `40` cases on the frozen `data/eval_corpus/openai_devdocs/` corpus
+
+Final acceptance metrics:
+
+- `Recall@5`: `1.00`
+- `Recall@10`: `1.00`
+- `MRR`: `0.9625`
+- `citation_hit_rate`: `1.00`
+- `unknown_citation_count`: `0`
+- `format_compliance_rate`: `1.00`
+- `answer_point_coverage`: `0.7521`
+- `unsupported_aspect_violation_count`: `5`
+- `abstention_cue_rate`: `0.40`
+- `failure_rate`: `0.20`
+- `avg_latency_ms`: `22414.53`
+- `p95_latency_ms`: `39195.14`
+
+These meet the Phase 5 Definition of Done thresholds for retrieval, citation
+registry safety, and output-format compliance.
+
+### Successful Trace
+
+Representative success case: `qa-028`
+
+- Query asks for a partial answer about vector store file batches plus a clear
+  boundary note about whether the corpus documents a recommended polling
+  backoff schedule.
+- Retrieval found the expected `vector-stores-file-batches` evidence and nearby
+  boundary-defining support from `vector-stores-overview`,
+  `vector-stores-search`, and `file_search_responses`.
+- The output separated supported facts from unsupported details:
+  - supported: file batches add multiple files to a vector store and are a
+    store-population step
+  - unsupported: the corpus does not document a recommended polling backoff
+    schedule
+- Result: pass with `citation_hit_rate = 1.0`, `format_compliance = 1.0`,
+  `answer_point_coverage = 1.0`, `unsupported_aspect_violation_count = 0`, and
+  `abstention_cue_present = true`.
+
+### Failure Analysis
+
+Representative failure cluster: `qa-037` and `qa-038`
+
+- Both are `abstain` cases from the frozen high-distraction-negative bucket.
+- Retrieval succeeded and citation validation stayed clean.
+- The failures came from the model restating unsupported topics too directly in
+  the answer body, which the deterministic checker still counts as
+  `unsupported_assertion` even when the answer is mostly refusal-shaped.
+- Example lesson: refusals about out-of-scope topics still need tighter wording
+  so they do not read like the corpus is affirmatively making claims about that
+  unsupported topic.
+
+Remaining failures in the acceptance run are concentrated in:
+
+- multi-source `full_answer` cases that miss one required answer point
+- `partial_answer` or `abstain` cases where the output names the unsupported
+  topic too assertively
+
+## Phase 5 Strategy Comparison
+
+Comparison run executed on `2026-07-10`:
+
+- Command:
+  `python -m app.cli.main eval compare --dataset data/eval_samples/final_eval_dataset.jsonl --source-dir data/eval_corpus/openai_devdocs`
+- Run id: `20260710_192339_c86c53`
+
+This run reindexed the frozen corpus for each chunking / top-k / rerank preset
+while keeping the normal report-generation path in place.
+
+Headline comparison results:
+
+- Best failure rate: `0.325`
+  - `balanced_topk5_rerank_on`
+  - `fine_grained_topk3_rerank_on`
+- Best citation hit rate: `1.00` on several strategies
+- Lowest retrieval score in the matrix:
+  `fine_grained_topk5_rerank_on` at `Recall@5 = 0.975`
+
+Comparison takeaway:
+
+- reranking helped the balanced presets more consistently than simply lowering
+  or raising `top_k`
+- the production acceptance run on the current default stack still outperformed
+  every comparison preset on overall failure rate (`0.20` vs `0.325+`)

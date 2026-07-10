@@ -158,3 +158,4 @@ def test_build_strategy_report_use_case_applies_preset_and_disables_rerank(monke
     assert captured["chunk_builder"].overlap_sentences == 1
     assert captured["retrieval_service"]._enable_rerank is False
     assert captured["paths"].outputs_dir.name == "case_outputs"
+    assert captured["llm_client"] is None

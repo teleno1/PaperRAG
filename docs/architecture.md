@@ -96,6 +96,8 @@ Use these names for new general RAG work:
 - `Report`
   - Longer generated artifact with sections and citations.
   - Phase 3 report outputs are rendered locally into `markdown`, `json`, or `bullet_summary`.
+  - Citation validation can strip unknown ids from the rendered report, but the
+    system should not invent replacement citations after generation.
 - `EvaluationRun`
   - A reproducible run over an eval dataset with metrics and failed cases.
   - Phase 5 extends eval rows with `answer_expectation`,
@@ -131,6 +133,8 @@ Use these names for new general RAG work:
   - Phase 4 strategy comparison can layer on top as `eval compare`, reusing the eval/report flow with explicit preset-driven indexing.
   - Phase 5 keeps the CLI surface stable and enriches the saved eval
     artifacts with expectation-aware pass/fail labels for failure analysis.
+  - Phase 5 strategy comparison should keep the normal report-generation path
+    intact so strategy results stay comparable to `eval run`.
 
 ## Compatibility Strategy
 

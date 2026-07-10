@@ -29,12 +29,20 @@ def build_report_prompts(query: str, retrieved_sources: list[RetrievedSource]) -
         "Return exactly one JSON object with keys `title`, `overview`, and `sections`. "
         "Each section must include `title`, `body`, and `cited_source_ids`. "
         "`cited_source_ids` must contain only source ids from the provided sources. "
-        "If the sources are insufficient, say so clearly and keep citations conservative."
+        "Reuse source wording when it directly answers the request. "
+        "Every factual section must cite at least one source id. "
+        "If the sources are insufficient, say exactly `The provided sources do not document ...` "
+        "for the missing topic and cite the nearest boundary-defining source ids. "
+        "Do not invent unsupported details, defaults, prices, limits, or timelines."
     )
     prompt = (
         f"User request:\n{query}\n\n"
         "Retrieved sources JSON:\n"
         f"{_format_sources(retrieved_sources)}\n\n"
+        "Write a concise grounded report. Prefer 1-3 sections. "
+        "Mirror exact phrases from the sources when possible so the answer stays close to the corpus. "
+        "When the answer is partial, separate supported facts from unsupported facts. "
+        "When the answer is unavailable, state that the provided sources do not document it.\n\n"
         "Return a JSON object in this shape:\n"
         '{\n'
         '  "title": "report title",\n'

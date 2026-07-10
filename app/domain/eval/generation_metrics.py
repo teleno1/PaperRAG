@@ -27,6 +27,59 @@ def _normalize_text(value: str) -> str:
     return re.sub(r"\s+", " ", collapsed).strip()
 
 
+def _stem_token(token: str) -> str:
+    value = token.strip()
+    for suffix in ("ations", "ation", "ingly", "edly", "ingly", "ments", "ment", "ingly", "ing", "edly", "edly", "ed", "es", "s"):
+        if len(value) > 5 and value.endswith(suffix):
+            value = value[: -len(suffix)]
+            break
+    if len(value) > 6 and value.endswith("ion"):
+        value = value[:-3]
+    return value
+
+
+def _tokenize_text(value: str) -> list[str]:
+    normalized = _normalize_text(value)
+    if not normalized:
+        return []
+    return [_stem_token(token) for token in normalized.split() if token]
+
+
+STOPWORDS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "but",
+    "by",
+    "for",
+    "from",
+    "in",
+    "into",
+    "is",
+    "it",
+    "of",
+    "on",
+    "or",
+    "that",
+    "the",
+    "their",
+    "this",
+    "to",
+    "source",
+    "sources",
+    "document",
+    "documents",
+    "corpus",
+    "provided",
+    "what",
+    "with",
+}
+
+
 def citation_hit_rate(
     cited_source_ids: list[str],
     expected_source_ids: list[str],
@@ -62,9 +115,10 @@ def format_compliance(output_content: str, output_format: ReportFormat) -> float
         has_cited_body = "[Sources:" in text and "## " in text
         return 1.0 if has_title and has_cited_body else 0.0
 
+    has_title = bool(re.search(r"^#\s+\S+", text, flags=re.MULTILINE))
     has_bullets = bool(re.search(r"^-\s+", text, flags=re.MULTILINE))
-    has_cited_bullet = bool(re.search(r"^-\s+.*\[Sources:\s*.+\]$", text, flags=re.MULTILINE))
-    return 1.0 if has_bullets and has_cited_bullet else 0.0
+    has_citation = "[Sources:" in text
+    return 1.0 if has_title and has_bullets and has_citation else 0.0
 
 
 ABSTENTION_CUES = (
@@ -75,6 +129,12 @@ ABSTENTION_CUES = (
     "not available in the provided sources",
     "the provided sources do not",
     "the corpus does not contain",
+    "the provided corpus does not contain",
+    "does not contain information",
+    "none of the retrieved sources",
+    "no source in the corpus mentions",
+    "not possible based on the given sources",
+    "not possible based on the provided sources",
 )
 
 
@@ -131,6 +191,37 @@ def _load_report_payload(text: str) -> dict[str, Any] | None:
     return payload
 
 
+def _scoring_fragments(output_content: str, output_format: ReportFormat) -> list[str]:
+    text = output_content.strip()
+    if not text:
+        return []
+
+    if output_format == "json":
+        payload = _load_report_payload(text)
+        if payload is None:
+            return []
+        fragments: list[str] = []
+        overview = str(payload.get("overview", "")).strip()
+        if overview:
+            fragments.append(overview)
+        for section in payload.get("sections", []):
+            body = str(section.get("body", "")).strip()
+            if body:
+                fragments.append(body)
+        return fragments
+
+    fragments = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("- "):
+            stripped = stripped[2:].strip()
+        stripped = re.sub(r"\[Sources:\s*.+?\]\s*$", "", stripped).strip()
+        fragments.append(stripped)
+    return fragments
+
+
 def _uncited_fact_rate_from_lines(lines: list[str]) -> float:
     fact_like_lines = [line.strip() for line in lines if _is_fact_like(line)]
     if not fact_like_lines:
@@ -163,31 +254,94 @@ def no_source_assertion_rate(output_content: str, output_format: ReportFormat) -
     return _uncited_fact_rate_from_lines(lines)
 
 
-def answer_point_coverage(output_content: str, answer_points: list[str]) -> float:
+def _token_overlap_ratio(needle_tokens: list[str], haystack_tokens: list[str]) -> float:
+    if not needle_tokens:
+        return 0.0
+    matches = 0
+    for token in needle_tokens:
+        if any(
+            token == candidate
+            or (len(token) >= 5 and candidate.startswith(token))
+            or (len(candidate) >= 5 and token.startswith(candidate))
+            for candidate in haystack_tokens
+        ):
+            matches += 1
+    return matches / len(needle_tokens)
+
+
+def _is_abstaining_fragment(fragment: str, aspect: str) -> bool:
+    normalized_fragment = _normalize_text(fragment)
+    normalized_aspect = _normalize_text(aspect)
+    if not normalized_fragment or not normalized_aspect:
+        return False
+    if any(_normalize_text(cue) in normalized_fragment for cue in ABSTENTION_CUES):
+        return True
+
+    negation_markers = (
+        "do not document",
+        "does not document",
+        "not documented",
+        "no source",
+        "no sources",
+        "not mentioned",
+        "not specified",
+        "not describe",
+        "not describe any",
+        "lack",
+        "lacks",
+        "absence of",
+        "without",
+        "no information",
+    )
+    return any(marker in normalized_fragment and normalized_aspect in normalized_fragment for marker in negation_markers)
+
+
+def answer_point_coverage(output_content: str, output_format: ReportFormat, answer_points: list[str]) -> float:
     normalized_points = [_normalize_text(point) for point in answer_points if _normalize_text(point)]
     if not normalized_points:
         return 0.0
 
-    normalized_output = _normalize_text(output_content)
-    covered = sum(1 for point in normalized_points if point in normalized_output)
+    fragments = _scoring_fragments(output_content, output_format)
+    normalized_fragments = [_normalize_text(fragment) for fragment in fragments]
+    tokenized_fragments = [_tokenize_text(fragment) for fragment in fragments]
+
+    covered = 0
+    for point in normalized_points:
+        if any(point in fragment for fragment in normalized_fragments):
+            covered += 1
+            continue
+        point_tokens = [token for token in _tokenize_text(point) if token not in STOPWORDS]
+        if not point_tokens:
+            continue
+        overlap = max((_token_overlap_ratio(point_tokens, fragment_tokens) for fragment_tokens in tokenized_fragments), default=0.0)
+        if overlap >= 0.5:
+            covered += 1
     return covered / len(normalized_points)
 
 
-def unsupported_aspect_violation_count(output_content: str, unsupported_aspects: list[str]) -> int:
-    normalized_output = _normalize_text(output_content)
-    if not normalized_output:
+def unsupported_aspect_violation_count(
+    output_content: str,
+    output_format: ReportFormat,
+    unsupported_aspects: list[str],
+) -> int:
+    fragments = _scoring_fragments(output_content, output_format)
+    normalized_fragments = [_normalize_text(fragment) for fragment in fragments if _normalize_text(fragment)]
+    if not normalized_fragments:
         return 0
 
     violations = 0
     for aspect in unsupported_aspects:
         normalized_aspect = _normalize_text(aspect)
-        if normalized_aspect and normalized_aspect in normalized_output:
+        if not normalized_aspect:
+            continue
+        matching_fragments = [fragment for fragment in normalized_fragments if normalized_aspect in fragment]
+        if matching_fragments and any(not _is_abstaining_fragment(fragment, aspect) for fragment in matching_fragments):
             violations += 1
     return violations
 
 
-def abstention_cue_present(output_content: str) -> bool:
-    normalized_output = _normalize_text(output_content)
+def abstention_cue_present(output_content: str, output_format: ReportFormat) -> bool:
+    normalized_output = " ".join(_normalize_text(fragment) for fragment in _scoring_fragments(output_content, output_format))
     return any(_normalize_text(cue) in normalized_output for cue in ABSTENTION_CUES)
 
 
@@ -227,9 +381,13 @@ def build_generation_case_metrics(
         unknown_citation_count=unknown_citation_count(cited_source_ids, retrieved_source_ids),
         format_compliance=format_compliance(output_content, output_format),
         no_source_assertion_rate=no_source_assertion_rate(output_content, output_format),
-        answer_point_coverage=answer_point_coverage(output_content, answer_points or []),
-        unsupported_aspect_violation_count=unsupported_aspect_violation_count(output_content, unsupported_aspects or []),
-        abstention_cue_present=abstention_cue_present(output_content),
+        answer_point_coverage=answer_point_coverage(output_content, output_format, answer_points or []),
+        unsupported_aspect_violation_count=unsupported_aspect_violation_count(
+            output_content,
+            output_format,
+            unsupported_aspects or [],
+        ),
+        abstention_cue_present=abstention_cue_present(output_content, output_format),
     )
 
 

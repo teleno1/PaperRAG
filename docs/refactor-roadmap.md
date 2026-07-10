@@ -211,6 +211,8 @@ Completion standard:
   `unknown_citation_count = 0`, and `format_compliance_rate >= 90%`.
 - At least one successful trace and one failure analysis are available for later
   README packaging.
+- Strategy comparison still exercises the normal report-generation path while
+  varying chunking, top-k, and rerank settings.
 
 Verification:
 

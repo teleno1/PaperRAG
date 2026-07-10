@@ -37,6 +37,7 @@ def test_format_compliance_validates_json_markdown_and_bullet_summary() -> None:
     assert format_compliance("# Report\n\n## Coverage\nSupports TXT ingestion. [Sources: s1]", "markdown") == 1.0
     assert format_compliance("# Report\n\nNo citations here.", "markdown") == 0.0
     assert format_compliance("# Report\n\n- Coverage: Supports TXT ingestion. [Sources: s1]", "bullet_summary") == 1.0
+    assert format_compliance("# Report\n\n- Coverage: Supports TXT ingestion.\nStill covered. [Sources: s1]", "bullet_summary") == 1.0
     assert format_compliance("# Report\n\n- Coverage: Supports TXT ingestion.", "bullet_summary") == 0.0
 
 
@@ -70,9 +71,19 @@ def test_answer_point_coverage_and_unsupported_aspects_are_deterministic() -> No
         "Pricing is not documented in the provided sources. [Sources: s1]"
     )
 
-    assert answer_point_coverage(content, ["TXT ingestion", "chunk identifiers", "source validation"]) == 2 / 3
-    assert unsupported_aspect_violation_count(content, ["pricing", "model release date"]) == 1
-    assert abstention_cue_present(content) is True
+    assert answer_point_coverage(content, "markdown", ["TXT ingestion", "chunk identifiers", "source validation"]) == (2 / 3)
+    assert unsupported_aspect_violation_count(content, "markdown", ["pricing", "model release date"]) == 0
+    assert abstention_cue_present(content, "markdown") is True
+
+
+def test_unsupported_aspect_violation_ignores_negated_boundary_mentions() -> None:
+    content = (
+        "# Report\n\n"
+        "- Limits: The provided sources do not document account-level storage quotas for uploaded files. "
+        "[Sources: s1]"
+    )
+
+    assert unsupported_aspect_violation_count(content, "bullet_summary", ["account-level storage quota"]) == 0
 
 
 def test_aggregate_generation_metrics_is_deterministic() -> None:

@@ -35,7 +35,7 @@ For execution rules, see [AGENTS.md](AGENTS.md).
 
 ## Active Task
 
-Current: `T5-03`
+Current: `T5-04`
 
 Details: [docs/tasks/phase-5.md](docs/tasks/phase-5.md)
 
@@ -75,7 +75,7 @@ Details: [docs/tasks/phase-5.md](docs/tasks/phase-5.md)
 | T4-05 | done | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
 | T5-01 | done | [Phase 5](docs/tasks/phase-5.md#t5-01-add-final-eval-dataset-plan-and-schema-refinements) |
 | T5-02 | done | [Phase 5](docs/tasks/phase-5.md#t5-02-build-final-40-case-eval-dataset) |
-| T5-03 | todo | [Phase 5](docs/tasks/phase-5.md#t5-03-run-final-eval-analyze-failures-and-tighten-quality) |
+| T5-03 | done | [Phase 5](docs/tasks/phase-5.md#t5-03-run-final-eval-analyze-failures-and-tighten-quality) |
 | T5-04 | todo | [Phase 5](docs/tasks/phase-5.md#t5-04-final-evaluation-acceptance) |
 | T6-01 | todo | [Phase 6](docs/tasks/phase-6.md#t6-01-add-deployment-files) |
 | T6-02 | todo | [Phase 6](docs/tasks/phase-6.md#t6-02-complete-healthstate-and-run-visibility) |

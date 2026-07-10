@@ -21,6 +21,69 @@ def _output_filename(output_format: str) -> str:
     return "report.md"
 
 
+def _coerce_section_payload(section: object) -> dict | None:
+    if not isinstance(section, dict):
+        return None
+
+    title = str(section.get("title") or "Details").strip()
+    body = str(
+        section.get("body")
+        or section.get("detail")
+        or section.get("details")
+        or section.get("summary")
+        or ""
+    ).strip()
+    cited_source_ids = section.get("cited_source_ids", []) or []
+    if not isinstance(cited_source_ids, list):
+        cited_source_ids = []
+    return {
+        "title": title,
+        "body": body,
+        "cited_source_ids": [str(item).strip() for item in cited_source_ids if str(item).strip()],
+    }
+
+
+def _coerce_generated_report_payload(raw_payload: object, query: str) -> object:
+    if not isinstance(raw_payload, dict):
+        return raw_payload
+
+    if "title" in raw_payload and "sections" in raw_payload:
+        return raw_payload
+
+    summary = str(raw_payload.get("summary") or raw_payload.get("overview") or "").strip()
+    details = raw_payload.get("details")
+    sections: list[dict] = []
+
+    if isinstance(details, list):
+        for item in details:
+            section_payload = _coerce_section_payload(item)
+            if section_payload is not None:
+                sections.append(section_payload)
+    elif isinstance(details, dict):
+        section_payload = _coerce_section_payload(details)
+        if section_payload is not None:
+            sections.append(section_payload)
+    elif details is not None:
+        detail_text = str(details).strip()
+        if detail_text:
+            sections.append(
+                {
+                    "title": "Details",
+                    "body": detail_text,
+                    "cited_source_ids": [],
+                }
+            )
+
+    if summary or sections:
+        return {
+            "title": f"Report: {query[:80]}".strip(),
+            "overview": summary,
+            "sections": sections,
+        }
+
+    return raw_payload
+
+
 class RunReportUseCase:
     def __init__(
         self,
@@ -65,7 +128,7 @@ class RunReportUseCase:
                     temperature=get_settings().pipeline.temperature_chapter,
                     system_prompt=system_prompt,
                 )
-                report = GeneratedReport.model_validate(raw_payload)
+                report = GeneratedReport.model_validate(_coerce_generated_report_payload(raw_payload, request.query))
             except Exception as exc:
                 raise PaperRAGError(
                     "Report generation failed.",
