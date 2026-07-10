@@ -88,7 +88,7 @@ Notes:
 
 ## T5-02: Build final 40-case eval dataset
 
-Status: todo
+Status: done
 Phase: Phase 5
 Priority: high
 
@@ -141,6 +141,17 @@ Notes:
 - Prefer curated excerpts or snapshots over bulk page dumps so corpus review and
   failure analysis stay human-auditable.
 - Author cases as realistic user requests rather than page-title trivia.
+- Added a frozen tracked corpus under `data/eval_corpus/openai_devdocs/` with a
+  `manifest.json`, `14` curated Markdown source snapshots, and dataset
+  authorship notes for reproducibility.
+- Added `data/eval_samples/final_eval_dataset.jsonl` with exactly `40` rows and
+  tests that lock the answer-expectation, question-shape, and output-format
+  distributions plus manifest/source-id integrity.
+- Verification: `python -m pytest -q` -> `129 passed`.
+- Verification: `python -m app.cli.main eval run --dataset data/eval_samples/final_eval_dataset.jsonl`
+  completed after indexing the frozen corpus into the local `data/database/`
+  path, but the run failed all `40` cases because the current retrieval and
+  generation behavior has not yet been hardened for the final corpus.
 
 ## T5-03: Run final eval, analyze failures, and tighten quality
 

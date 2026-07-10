@@ -1,0 +1,142 @@
+{
+  "corpus_id": "openai_devdocs_phase5_final",
+  "title": "Phase 5 frozen OpenAI developer-doc evaluation corpus",
+  "snapshot_date": "2026-07-10",
+  "source_ecosystem": "OpenAI developer documentation",
+  "allowed_topics": [
+    "Responses",
+    "structured outputs",
+    "function calling",
+    "embeddings",
+    "vector stores",
+    "file search"
+  ],
+  "documents": [
+    {
+      "doc_id": "function-calling",
+      "title": "Function calling guide",
+      "source_url": "https://platform.openai.com/docs/guides/function-calling",
+      "snapshot_date": "2026-07-10",
+      "source_type": "guide",
+      "included_sections": ["purpose", "tool definitions", "runtime loop", "boundaries"],
+      "in_scope_reason": "Covers the core tool-calling contract used in final eval questions."
+    },
+    {
+      "doc_id": "structured-outputs",
+      "title": "Structured outputs guide",
+      "source_url": "https://platform.openai.com/docs/guides/structured-outputs",
+      "snapshot_date": "2026-07-10",
+      "source_type": "guide",
+      "included_sections": ["purpose", "schema guarantees", "relation to JSON mode", "boundaries"],
+      "in_scope_reason": "Provides deterministic schema-following behavior for final eval comparisons."
+    },
+    {
+      "doc_id": "embeddings",
+      "title": "Embeddings guide",
+      "source_url": "https://platform.openai.com/docs/guides/embeddings",
+      "snapshot_date": "2026-07-10",
+      "source_type": "guide",
+      "included_sections": ["use cases", "index/query workflow", "chunking guidance", "similarity search"],
+      "in_scope_reason": "Supports retrieval-oriented eval questions and corpus design explanations."
+    },
+    {
+      "doc_id": "tools-file-search",
+      "title": "File search guide",
+      "source_url": "https://platform.openai.com/docs/guides/tools-file-search",
+      "snapshot_date": "2026-07-10",
+      "source_type": "guide",
+      "included_sections": ["purpose", "setup flow", "tool boundaries", "grounded retrieval role"],
+      "in_scope_reason": "Defines the guide-level file-search workflow and scope boundaries."
+    },
+    {
+      "doc_id": "responses-overview",
+      "title": "Responses API reference overview",
+      "source_url": "https://platform.openai.com/docs/api-reference/responses",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["overview", "response object role", "tool-capable workflow"],
+      "in_scope_reason": "Anchors the modern API surface used across the final corpus."
+    },
+    {
+      "doc_id": "responses-create",
+      "title": "Responses create request excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/responses/create",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["required request fields", "instructions", "tools", "follow-up turns"],
+      "in_scope_reason": "Provides request-shape details for eval cases about generation and tool use."
+    },
+    {
+      "doc_id": "embeddings-api",
+      "title": "Embeddings API reference excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/embeddings",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["request fields", "returned vectors", "usage metadata"],
+      "in_scope_reason": "Covers the endpoint-level embedding contract separate from the guide."
+    },
+    {
+      "doc_id": "files-api",
+      "title": "Files API reference excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/files",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["upload and file ids", "file lifecycle", "attachment role"],
+      "in_scope_reason": "Supports file-management questions adjacent to vector stores and file search."
+    },
+    {
+      "doc_id": "vector-stores-overview",
+      "title": "Vector stores API overview excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/vector-stores",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["store purpose", "population paths", "lifecycle"],
+      "in_scope_reason": "Defines the resource-level role of vector stores in the corpus."
+    },
+    {
+      "doc_id": "vector-stores-search",
+      "title": "Vector stores search excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/vector-stores/search",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["search behavior", "ranked chunk output", "debugging role"],
+      "in_scope_reason": "Supports retrieval-specific eval questions without broadening the corpus."
+    },
+    {
+      "doc_id": "vector-stores-files",
+      "title": "Vector store files excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/vector-stores-files",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["attach file to store", "status tracking", "file ids"],
+      "in_scope_reason": "Covers per-file attachment semantics inside a vector store."
+    },
+    {
+      "doc_id": "vector-stores-file-batches",
+      "title": "Vector store file batches excerpt",
+      "source_url": "https://platform.openai.com/docs/api-reference/vector-stores-file-batches",
+      "snapshot_date": "2026-07-10",
+      "source_type": "api_reference",
+      "included_sections": ["batch creation", "status counts", "population workflow"],
+      "in_scope_reason": "Supports ingestion-at-scale questions inside the final corpus."
+    },
+    {
+      "doc_id": "responses_api_tool_orchestration",
+      "title": "Cookbook: Responses API tool orchestration",
+      "source_url": "https://cookbook.openai.com/examples/responses_api/responses_api_tool_orchestration",
+      "snapshot_date": "2026-07-10",
+      "source_type": "cookbook",
+      "included_sections": ["loop structure", "tool execution in client code", "multi-step orchestration"],
+      "in_scope_reason": "Provides example-driven evidence for multi-tool orchestration behavior."
+    },
+    {
+      "doc_id": "file_search_responses",
+      "title": "Cookbook: file search with Responses",
+      "source_url": "https://cookbook.openai.com/examples/file_search_responses",
+      "snapshot_date": "2026-07-10",
+      "source_type": "cookbook",
+      "included_sections": ["prepare files", "create vector store", "poll readiness", "query with file_search"],
+      "in_scope_reason": "Shows an end-to-end file-search workflow over prepared documents."
+    }
+  ]
+}
