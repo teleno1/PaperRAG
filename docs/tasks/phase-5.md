@@ -2,7 +2,7 @@
 
 ## T5-01: Add final eval dataset plan and schema refinements
 
-Status: todo
+Status: done
 Phase: Phase 5
 Priority: high
 
@@ -243,3 +243,13 @@ Verification:
 Notes:
 - This is the quality acceptance pass before deployment and portfolio
   packaging in Phase 6.
+- Final acceptance run: `20260710_190826_efc6c4`.
+- Acceptance thresholds met:
+  `Recall@5 = 1.00`, `citation_hit_rate = 1.00`,
+  `unknown_citation_count = 0`, `format_compliance_rate = 1.00`.
+- Strategy comparison artifacts written under run
+  `20260710_192339_c86c53`, with the lowest failure rate tied between
+  `balanced_topk5_rerank_on` and `fine_grained_topk3_rerank_on` at `0.325`.
+- `docs/evaluation-plan.md`, `docs/architecture.md`, and
+  `docs/refactor-roadmap.md` were updated with final metrics, a successful
+  trace, and a failure-analysis summary.
