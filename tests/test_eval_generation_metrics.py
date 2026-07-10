@@ -1,9 +1,12 @@
 from app.domain.eval.generation_metrics import (
     aggregate_generation_metrics,
+    answer_point_coverage,
+    abstention_cue_present,
     build_generation_case_metrics,
     citation_hit_rate,
     format_compliance,
     no_source_assertion_rate,
+    unsupported_aspect_violation_count,
     unknown_citation_count,
 )
 
@@ -58,6 +61,20 @@ def test_no_source_assertion_rate_is_deterministic_without_llm_judging() -> None
     assert no_source_assertion_rate('{"title":"Report","sections":[1]}', "json") == 1.0
 
 
+def test_answer_point_coverage_and_unsupported_aspects_are_deterministic() -> None:
+    content = (
+        "# Report\n\n"
+        "## Coverage\n"
+        "The system supports TXT ingestion and chunk identifiers. [Sources: s1]\n\n"
+        "## Limits\n"
+        "Pricing is not documented in the provided sources. [Sources: s1]"
+    )
+
+    assert answer_point_coverage(content, ["TXT ingestion", "chunk identifiers", "source validation"]) == 2 / 3
+    assert unsupported_aspect_violation_count(content, ["pricing", "model release date"]) == 1
+    assert abstention_cue_present(content) is True
+
+
 def test_aggregate_generation_metrics_is_deterministic() -> None:
     cases = [
         build_generation_case_metrics(
@@ -66,6 +83,8 @@ def test_aggregate_generation_metrics_is_deterministic() -> None:
             retrieved_source_ids=["s1", "s2"],
             output_content="# Report\n\n## Coverage\nThe system supports TXT ingestion. [Sources: s1]",
             output_format="markdown",
+            answer_points=["TXT ingestion"],
+            unsupported_aspects=[],
         ),
         build_generation_case_metrics(
             cited_source_ids=["s9"],
@@ -73,6 +92,8 @@ def test_aggregate_generation_metrics_is_deterministic() -> None:
             retrieved_source_ids=["s1", "s2"],
             output_content="# Report\n\n- Coverage: The system supports TXT ingestion.",
             output_format="bullet_summary",
+            answer_points=["TXT ingestion"],
+            unsupported_aspects=["pricing"],
         ),
     ]
 
@@ -83,3 +104,6 @@ def test_aggregate_generation_metrics_is_deterministic() -> None:
     assert metrics.unknown_citation_count == 1
     assert metrics.format_compliance_rate == 0.5
     assert metrics.no_source_assertion_rate == 0.5
+    assert metrics.answer_point_coverage == 1.0
+    assert metrics.unsupported_aspect_violation_count == 0
+    assert metrics.abstention_cue_rate == 0.0

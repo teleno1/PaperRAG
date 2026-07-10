@@ -10,6 +10,8 @@ This repository does not track local research corpora or generated runtime artif
   corpus for ingestion and indexing tests.
 - `data/eval_samples/` is the approved location for tiny tracked evaluation
   fixtures such as `eval_dataset.jsonl`.
+- `data/eval_corpus/openai_devdocs/` is the approved location for the frozen
+  Phase 5 final evaluation corpus snapshot and its tracked provenance manifest.
 
 ## Local-only files
 

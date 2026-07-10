@@ -13,6 +13,8 @@ from app.domain.eval import (
     EvalCaseResult,
     EvalRunMetrics,
     EvalRunResult,
+    GenerationCaseMetrics,
+    RetrievalCaseMetrics,
     aggregate_generation_metrics,
     aggregate_retrieval_metrics,
     build_generation_case_metrics,
@@ -83,12 +85,45 @@ class RunEvalUseCase:
         return RunReportUseCase(paths=self._build_case_paths(run_dir))
 
     @staticmethod
-    def _case_passed(case_result: EvalCaseResult) -> bool:
+    def _classify_failure_label(
+        *,
+        answer_expectation: str,
+        retrieval_metrics: RetrievalCaseMetrics,
+        generation_metrics: GenerationCaseMetrics,
+        error: str | None,
+    ) -> str | None:
+        if error is not None:
+            return "runtime_error"
+        if generation_metrics.unknown_citation_count > 0:
+            return "citation_registry_failure"
+        if generation_metrics.format_compliance < 1.0:
+            return "format_failure"
+        if generation_metrics.unsupported_aspect_violation_count > 0:
+            return "unsupported_assertion"
+        if answer_expectation == "full_answer":
+            if retrieval_metrics.recall_at_5 < 1.0:
+                return "retrieval_miss"
+            if generation_metrics.answer_point_coverage < 0.8:
+                return "full_answer_failure"
+            return None
+        if answer_expectation == "partial_answer":
+            if generation_metrics.answer_point_coverage <= 0.0 or not generation_metrics.abstention_cue_present:
+                return "partial_answer_failure"
+            return None
+        if not generation_metrics.abstention_cue_present:
+            return "abstention_failure"
+        return None
+
+    @classmethod
+    def _case_passed(cls, case_result: EvalCaseResult) -> bool:
         return (
-            case_result.error is None
-            and case_result.retrieval_metrics.recall_at_5 >= 1.0
-            and case_result.generation_metrics.unknown_citation_count == 0
-            and case_result.generation_metrics.format_compliance >= 1.0
+            cls._classify_failure_label(
+                answer_expectation=case_result.answer_expectation,
+                retrieval_metrics=case_result.retrieval_metrics,
+                generation_metrics=case_result.generation_metrics,
+                error=case_result.error,
+            )
+            is None
         )
 
     @staticmethod
@@ -120,12 +155,17 @@ class RunEvalUseCase:
             retrieved_source_ids=retrieved_source_ids,
             output_content=report_result.content,
             output_format=row.output_format,
+            answer_points=row.answer_points,
+            unsupported_aspects=row.unsupported_aspects,
         )
         return EvalCaseResult(
             case_id=row.id,
             query=row.query,
+            answer_expectation=row.answer_expectation,
+            question_shape=row.question_shape,
             expected_source_ids=row.expected_sources,
             answer_points=row.answer_points,
+            unsupported_aspects=row.unsupported_aspects,
             retrieved_source_ids=retrieved_source_ids,
             cited_source_ids=cited_source_ids,
             output_format=row.output_format,
@@ -148,12 +188,17 @@ class RunEvalUseCase:
             retrieved_source_ids=[],
             output_content="",
             output_format=row.output_format,
+            answer_points=row.answer_points,
+            unsupported_aspects=row.unsupported_aspects,
         )
         return EvalCaseResult(
             case_id=row.id,
             query=row.query,
+            answer_expectation=row.answer_expectation,
+            question_shape=row.question_shape,
             expected_source_ids=row.expected_sources,
             answer_points=row.answer_points,
+            unsupported_aspects=row.unsupported_aspects,
             retrieved_source_ids=[],
             cited_source_ids=[],
             output_format=row.output_format,
@@ -215,6 +260,12 @@ class RunEvalUseCase:
                 case_result = self._build_failure_result(row=row, latency_ms=latency_ms, error=str(exc))
 
             latencies.append(latency_ms)
+            case_result.failure_label = self._classify_failure_label(
+                answer_expectation=case_result.answer_expectation,
+                retrieval_metrics=case_result.retrieval_metrics,
+                generation_metrics=case_result.generation_metrics,
+                error=case_result.error,
+            )
             case_result.passed = self._case_passed(case_result)
             case_results.append(case_result)
             retrieval_debug_rows.append(

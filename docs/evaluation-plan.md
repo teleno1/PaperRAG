@@ -152,6 +152,10 @@ Phase 5 schema-validation rules should include at least:
 - `unsupported_aspects` should be empty for `full_answer`.
 - `unsupported_aspects` should be non-empty for `partial_answer` and `abstain`.
 
+Phase 5 implementation should enforce those rules in the loader and preserve
+the resulting fields into `cases.jsonl` and `failures.jsonl` so case-level
+failure analysis is explainable without reopening the dataset file by hand.
+
 ### Case Authoring Rules
 
 Phase 5 case authoring should follow these rules:
@@ -213,6 +217,10 @@ Generation and citation metrics:
 - `unknown_citation_count`: citations not present in retrieved source registry.
 - `no_source_assertion_rate`: fact-like claims without citations.
 - `answer_point_coverage`: expected answer points covered by the output.
+- `unsupported_aspect_violation_count`: unsupported aspects repeated or claimed
+  as supported in the output.
+- `abstention_cue_rate`: share of cases whose output contains an explicit
+  abstention cue such as "not documented" or "insufficient information".
 - `format_compliance_rate`: outputs that match requested format.
 
 For Phase 4, citation and format checks should stay deterministic:
@@ -239,6 +247,15 @@ Phase 5 failure analysis should distinguish at least:
 - unsupported assertion
 - abstention failure
 - partial-answer failure
+
+Recommended case-level failure labels:
+
+- `retrieval_miss`
+- `citation_registry_failure`
+- `format_failure`
+- `unsupported_assertion`
+- `abstention_failure`
+- `partial_answer_failure`
 
 Operational metrics:
 

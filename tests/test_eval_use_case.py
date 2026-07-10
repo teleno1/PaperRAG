@@ -116,21 +116,30 @@ def fake_dataset_loader(path):
                 id="case-1",
                 query="Success case",
                 expected_sources=["product_notes"],
-                answer_points=["traceability"],
+                answer_expectation="full_answer",
+                question_shape="single_hop",
+                answer_points=["traceable ids"],
+                unsupported_aspects=[],
                 output_format="markdown",
             ),
             EvalDatasetRow(
                 id="case-2",
                 query="Unknown citation case",
                 expected_sources=["retrieval_playbook"],
+                answer_expectation="partial_answer",
+                question_shape="parameter_constraint",
                 answer_points=["deterministic tests"],
+                unsupported_aspects=["pricing"],
                 output_format="bullet_summary",
             ),
             EvalDatasetRow(
                 id="case-3",
                 query="Runtime failure case",
                 expected_sources=["retrieval_playbook"],
-                answer_points=["failure handling"],
+                answer_expectation="abstain",
+                question_shape="high_distraction_negative",
+                answer_points=[],
+                unsupported_aspects=["pricing"],
                 output_format="json",
             ),
         ]
@@ -170,11 +179,18 @@ def test_run_eval_use_case_writes_artifacts(tmp_path):
     assert cases_rows[0]["retrieval_metrics"]["mrr"] == 1.0
     assert cases_rows[0]["retrieval_metrics"]["retrieved_source_count"] == 1
     assert cases_rows[0]["latency_ms"] == pytest.approx(10.0)
+    assert cases_rows[0]["passed"] is True
+    assert cases_rows[0]["failure_label"] is None
     assert cases_rows[1]["latency_ms"] == pytest.approx(30.0)
+    assert cases_rows[1]["passed"] is False
+    assert cases_rows[1]["failure_label"] == "citation_registry_failure"
     assert cases_rows[2]["latency_ms"] == pytest.approx(50.0)
+    assert cases_rows[2]["passed"] is False
+    assert cases_rows[2]["failure_label"] == "runtime_error"
 
     failures_rows = [json.loads(line) for line in result.failures_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     assert len(failures_rows) == 2
+    assert {row["failure_label"] for row in failures_rows} == {"citation_registry_failure", "runtime_error"}
 
     retrieval_debug_rows = [
         json.loads(line) for line in result.retrieval_debug_path.read_text(encoding="utf-8").splitlines() if line.strip()
@@ -220,3 +236,59 @@ def test_run_eval_use_case_wraps_setup_failures(tmp_path):
         use_case.execute("data/eval_samples/eval_dataset.jsonl", run_id="eval-run-2")
 
     assert "Evaluation setup failed." in str(exc_info.value)
+
+
+def test_run_eval_use_case_classifies_expectation_specific_failures() -> None:
+    retrieval_hit = RunEvalUseCase._classify_failure_label(
+        answer_expectation="full_answer",
+        retrieval_metrics=type("Retrieval", (), {"recall_at_5": 0.0})(),
+        generation_metrics=type(
+            "Generation",
+            (),
+            {
+                "unknown_citation_count": 0,
+                "format_compliance": 1.0,
+                "unsupported_aspect_violation_count": 0,
+                "answer_point_coverage": 1.0,
+                "abstention_cue_present": False,
+            },
+        )(),
+        error=None,
+    )
+    assert retrieval_hit == "retrieval_miss"
+
+    partial_failure = RunEvalUseCase._classify_failure_label(
+        answer_expectation="partial_answer",
+        retrieval_metrics=type("Retrieval", (), {"recall_at_5": 1.0})(),
+        generation_metrics=type(
+            "Generation",
+            (),
+            {
+                "unknown_citation_count": 0,
+                "format_compliance": 1.0,
+                "unsupported_aspect_violation_count": 0,
+                "answer_point_coverage": 0.5,
+                "abstention_cue_present": False,
+            },
+        )(),
+        error=None,
+    )
+    assert partial_failure == "partial_answer_failure"
+
+    abstain_failure = RunEvalUseCase._classify_failure_label(
+        answer_expectation="abstain",
+        retrieval_metrics=type("Retrieval", (), {"recall_at_5": 1.0})(),
+        generation_metrics=type(
+            "Generation",
+            (),
+            {
+                "unknown_citation_count": 0,
+                "format_compliance": 1.0,
+                "unsupported_aspect_violation_count": 0,
+                "answer_point_coverage": 0.0,
+                "abstention_cue_present": False,
+            },
+        )(),
+        error=None,
+    )
+    assert abstain_failure == "abstention_failure"

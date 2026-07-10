@@ -19,7 +19,10 @@ def test_eval_dataset_loader_reads_valid_jsonl(tmp_path: Path) -> None:
                         "id": "eval-001",
                         "query": "Summarize ingestion requirements.",
                         "expected_sources": ["product_notes"],
+                        "answer_expectation": "full_answer",
+                        "question_shape": "single_hop",
                         "answer_points": ["TXT ingestion should work without MinerU"],
+                        "unsupported_aspects": [],
                         "output_format": "markdown",
                         "tags": ["ingestion"],
                     },
@@ -30,7 +33,10 @@ def test_eval_dataset_loader_reads_valid_jsonl(tmp_path: Path) -> None:
                         "id": "eval-002",
                         "query": "Summarize chunk traceability.",
                         "expected_sources": ["retrieval_playbook"],
+                        "answer_expectation": "partial_answer",
+                        "question_shape": "boundary_comparison",
                         "answer_points": ["document identifiers", "chunk identifiers"],
+                        "unsupported_aspects": ["pdf parsing credential requirements for txt files"],
                         "output_format": "json",
                     },
                     ensure_ascii=False,
@@ -45,6 +51,7 @@ def test_eval_dataset_loader_reads_valid_jsonl(tmp_path: Path) -> None:
     assert len(dataset.rows) == 2
     assert dataset.rows[0].id == "eval-001"
     assert dataset.rows[0].tags == ["ingestion"]
+    assert dataset.rows[1].answer_expectation == "partial_answer"
     assert dataset.rows[1].output_format == "json"
 
 
@@ -129,6 +136,56 @@ def test_eval_dataset_loader_rejects_blank_required_values(tmp_path: Path) -> No
     assert "query: Value must not be blank" in message
     assert "expected_sources: List items must not be blank" in message
     assert "answer_points: List items must not be blank" in message
+
+
+def test_eval_dataset_loader_enforces_partial_answer_contract(tmp_path: Path) -> None:
+    dataset_path = tmp_path / "eval_dataset.jsonl"
+    dataset_path.write_text(
+        json.dumps(
+            {
+                "id": "eval-001",
+                "query": "What is supported?",
+                "expected_sources": ["product_notes"],
+                "answer_expectation": "partial_answer",
+                "question_shape": "parameter_constraint",
+                "answer_points": ["txt ingestion"],
+                "unsupported_aspects": [],
+                "output_format": "markdown",
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(EvaluationDatasetError) as exc_info:
+        load_eval_dataset(dataset_path)
+
+    assert "unsupported_aspects must not be empty for partial_answer" in str(exc_info.value)
+
+
+def test_eval_dataset_loader_enforces_abstain_contract(tmp_path: Path) -> None:
+    dataset_path = tmp_path / "eval_dataset.jsonl"
+    dataset_path.write_text(
+        json.dumps(
+            {
+                "id": "eval-001",
+                "query": "What pricing tier should I use?",
+                "expected_sources": ["product_notes"],
+                "answer_expectation": "abstain",
+                "question_shape": "high_distraction_negative",
+                "answer_points": ["pricing"],
+                "unsupported_aspects": ["pricing"],
+                "output_format": "markdown",
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(EvaluationDatasetError) as exc_info:
+        load_eval_dataset(dataset_path)
+
+    assert "answer_points must be empty for abstain" in str(exc_info.value)
 
 
 def test_tracked_eval_sample_dataset_is_loadable() -> None:

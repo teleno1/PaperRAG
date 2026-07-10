@@ -98,6 +98,10 @@ Use these names for new general RAG work:
   - Phase 3 report outputs are rendered locally into `markdown`, `json`, or `bullet_summary`.
 - `EvaluationRun`
   - A reproducible run over an eval dataset with metrics and failed cases.
+  - Phase 5 extends eval rows with `answer_expectation`,
+    `question_shape`, and `unsupported_aspects`, and extends generation
+    metrics with deterministic `answer_point_coverage`,
+    `unsupported_aspect_violation_count`, and `abstention_cue_rate`.
 
 ## Layering Rules
 
@@ -117,12 +121,16 @@ Use these names for new general RAG work:
   - No complex business logic.
   - General Phase 3 surfaces include `POST /query` and `POST /report`, while old review routes stay as compatibility endpoints.
   - Phase 4 adds `POST /eval/run` as a thin wrapper around the eval runner use case.
+  - Phase 5 keeps `POST /eval/run` stable while expanding the returned eval
+    metric payload with deterministic coverage and abstention fields.
 - `cli`
   - Thin command parsing and output formatting.
   - Call use cases instead of duplicating logic.
   - General Phase 3 surfaces include `query run` and `report run`, while old review commands stay as compatibility commands.
   - Phase 4 adds `eval run` for reproducible dataset-based evaluation artifacts.
   - Phase 4 strategy comparison can layer on top as `eval compare`, reusing the eval/report flow with explicit preset-driven indexing.
+  - Phase 5 keeps the CLI surface stable and enriches the saved eval
+    artifacts with expectation-aware pass/fail labels for failure analysis.
 
 ## Compatibility Strategy
 

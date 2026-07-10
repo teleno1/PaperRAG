@@ -35,7 +35,7 @@ For execution rules, see [AGENTS.md](AGENTS.md).
 
 ## Active Task
 
-Current: `T5-01`
+Current: `T5-02`
 
 Details: [docs/tasks/phase-5.md](docs/tasks/phase-5.md)
 
@@ -73,7 +73,7 @@ Details: [docs/tasks/phase-5.md](docs/tasks/phase-5.md)
 | T4-03 | done | [Phase 4](docs/tasks/phase-4.md#t4-03-implement-citation-and-output-metrics) |
 | T4-04 | done | [Phase 4](docs/tasks/phase-4.md#t4-04-add-eval-cli-api-and-output-artifacts) |
 | T4-05 | done | [Phase 4](docs/tasks/phase-4.md#t4-05-add-strategy-comparison) |
-| T5-01 | todo | [Phase 5](docs/tasks/phase-5.md#t5-01-add-final-eval-dataset-plan-and-schema-refinements) |
+| T5-01 | done | [Phase 5](docs/tasks/phase-5.md#t5-01-add-final-eval-dataset-plan-and-schema-refinements) |
 | T5-02 | todo | [Phase 5](docs/tasks/phase-5.md#t5-02-build-final-40-case-eval-dataset) |
 | T5-03 | todo | [Phase 5](docs/tasks/phase-5.md#t5-03-run-final-eval-analyze-failures-and-tighten-quality) |
 | T5-04 | todo | [Phase 5](docs/tasks/phase-5.md#t5-04-final-evaluation-acceptance) |

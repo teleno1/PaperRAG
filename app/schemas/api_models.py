@@ -159,6 +159,9 @@ class GenerationMetricsResponse(BaseModel):
     unknown_citation_count: int
     format_compliance_rate: float
     no_source_assertion_rate: float
+    answer_point_coverage: float
+    unsupported_aspect_violation_count: int
+    abstention_cue_rate: float
     case_count: int
 
 

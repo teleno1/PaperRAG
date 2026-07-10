@@ -21,6 +21,12 @@ def _normalize_ids(values: list[str]) -> list[str]:
     return normalized
 
 
+def _normalize_text(value: str) -> str:
+    lowered = value.lower()
+    collapsed = re.sub(r"[^a-z0-9]+", " ", lowered)
+    return re.sub(r"\s+", " ", collapsed).strip()
+
+
 def citation_hit_rate(
     cited_source_ids: list[str],
     expected_source_ids: list[str],
@@ -59,6 +65,17 @@ def format_compliance(output_content: str, output_format: ReportFormat) -> float
     has_bullets = bool(re.search(r"^-\s+", text, flags=re.MULTILINE))
     has_cited_bullet = bool(re.search(r"^-\s+.*\[Sources:\s*.+\]$", text, flags=re.MULTILINE))
     return 1.0 if has_bullets and has_cited_bullet else 0.0
+
+
+ABSTENTION_CUES = (
+    "not in the provided sources",
+    "not documented",
+    "cannot determine",
+    "insufficient information",
+    "not available in the provided sources",
+    "the provided sources do not",
+    "the corpus does not contain",
+)
 
 
 FACT_MARKERS = (
@@ -146,11 +163,42 @@ def no_source_assertion_rate(output_content: str, output_format: ReportFormat) -
     return _uncited_fact_rate_from_lines(lines)
 
 
+def answer_point_coverage(output_content: str, answer_points: list[str]) -> float:
+    normalized_points = [_normalize_text(point) for point in answer_points if _normalize_text(point)]
+    if not normalized_points:
+        return 0.0
+
+    normalized_output = _normalize_text(output_content)
+    covered = sum(1 for point in normalized_points if point in normalized_output)
+    return covered / len(normalized_points)
+
+
+def unsupported_aspect_violation_count(output_content: str, unsupported_aspects: list[str]) -> int:
+    normalized_output = _normalize_text(output_content)
+    if not normalized_output:
+        return 0
+
+    violations = 0
+    for aspect in unsupported_aspects:
+        normalized_aspect = _normalize_text(aspect)
+        if normalized_aspect and normalized_aspect in normalized_output:
+            violations += 1
+    return violations
+
+
+def abstention_cue_present(output_content: str) -> bool:
+    normalized_output = _normalize_text(output_content)
+    return any(_normalize_text(cue) in normalized_output for cue in ABSTENTION_CUES)
+
+
 class GenerationCaseMetrics(BaseModel):
     citation_hit_rate: float
     unknown_citation_count: int
     format_compliance: float
     no_source_assertion_rate: float
+    answer_point_coverage: float
+    unsupported_aspect_violation_count: int
+    abstention_cue_present: bool
 
 
 class GenerationAggregateMetrics(BaseModel):
@@ -158,6 +206,9 @@ class GenerationAggregateMetrics(BaseModel):
     unknown_citation_count: int
     format_compliance_rate: float
     no_source_assertion_rate: float
+    answer_point_coverage: float
+    unsupported_aspect_violation_count: int
+    abstention_cue_rate: float
     case_count: int
 
 
@@ -168,12 +219,17 @@ def build_generation_case_metrics(
     retrieved_source_ids: list[str],
     output_content: str,
     output_format: ReportFormat,
+    answer_points: list[str] | None = None,
+    unsupported_aspects: list[str] | None = None,
 ) -> GenerationCaseMetrics:
     return GenerationCaseMetrics(
         citation_hit_rate=citation_hit_rate(cited_source_ids, expected_source_ids, retrieved_source_ids),
         unknown_citation_count=unknown_citation_count(cited_source_ids, retrieved_source_ids),
         format_compliance=format_compliance(output_content, output_format),
         no_source_assertion_rate=no_source_assertion_rate(output_content, output_format),
+        answer_point_coverage=answer_point_coverage(output_content, answer_points or []),
+        unsupported_aspect_violation_count=unsupported_aspect_violation_count(output_content, unsupported_aspects or []),
+        abstention_cue_present=abstention_cue_present(output_content),
     )
 
 
@@ -184,6 +240,9 @@ def aggregate_generation_metrics(case_metrics: list[GenerationCaseMetrics]) -> G
             unknown_citation_count=0,
             format_compliance_rate=0.0,
             no_source_assertion_rate=0.0,
+            answer_point_coverage=0.0,
+            unsupported_aspect_violation_count=0,
+            abstention_cue_rate=0.0,
             case_count=0,
         )
 
@@ -193,5 +252,8 @@ def aggregate_generation_metrics(case_metrics: list[GenerationCaseMetrics]) -> G
         unknown_citation_count=sum(item.unknown_citation_count for item in case_metrics),
         format_compliance_rate=sum(item.format_compliance for item in case_metrics) / case_count,
         no_source_assertion_rate=sum(item.no_source_assertion_rate for item in case_metrics) / case_count,
+        answer_point_coverage=sum(item.answer_point_coverage for item in case_metrics) / case_count,
+        unsupported_aspect_violation_count=sum(item.unsupported_aspect_violation_count for item in case_metrics),
+        abstention_cue_rate=sum(1.0 for item in case_metrics if item.abstention_cue_present) / case_count,
         case_count=case_count,
     )

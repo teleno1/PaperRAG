@@ -5,15 +5,18 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from app.domain.eval.generation_metrics import GenerationAggregateMetrics, GenerationCaseMetrics
-from app.domain.eval.models import EvalOutputFormat
+from app.domain.eval.models import AnswerExpectation, EvalOutputFormat, QuestionShape
 from app.domain.eval.retrieval_metrics import RetrievalAggregateMetrics, RetrievalCaseMetrics
 
 
 class EvalCaseResult(BaseModel):
     case_id: str
     query: str
+    answer_expectation: AnswerExpectation = "full_answer"
+    question_shape: QuestionShape = "single_hop"
     expected_source_ids: list[str] = Field(default_factory=list)
     answer_points: list[str] = Field(default_factory=list)
+    unsupported_aspects: list[str] = Field(default_factory=list)
     retrieved_source_ids: list[str] = Field(default_factory=list)
     cited_source_ids: list[str] = Field(default_factory=list)
     output_format: EvalOutputFormat
@@ -21,6 +24,7 @@ class EvalCaseResult(BaseModel):
     output_path: str = ""
     latency_ms: float = 0.0
     passed: bool = False
+    failure_label: str | None = None
     error: str | None = None
     retrieval_metrics: RetrievalCaseMetrics
     generation_metrics: GenerationCaseMetrics

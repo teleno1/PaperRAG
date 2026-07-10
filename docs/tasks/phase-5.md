@@ -2,7 +2,7 @@
 
 ## T5-01: Add final eval dataset plan and schema refinements
 
-Status: todo
+Status: done
 Phase: Phase 5
 Priority: high
 
@@ -70,6 +70,21 @@ Notes:
   inside the frozen corpus. Do not author artificial distractor documents.
 - `expected_sources` should remain meaningful even for `abstain` cases by
   pointing to nearby or boundary-defining sources rather than being left empty.
+- Added Phase 5 eval-schema fields for `answer_expectation`,
+  `question_shape`, and `unsupported_aspects` with conditional validation that
+  keeps the Phase 4 sample fixture backward compatible while enforcing the
+  final contract for new rows.
+- Added deterministic grading helpers for `answer_point_coverage`,
+  `unsupported_aspect_violation_count`, and abstention cue detection, and
+  carried those metrics plus case-level `failure_label` into eval artifacts.
+- Updated `docs/evaluation-plan.md`, `docs/architecture.md`, and
+  `data/README.md` so the enforced Phase 5 contract, eval/API surface, and the
+  tracked `data/eval_corpus/openai_devdocs/` boundary are documented alongside
+  the code changes.
+- Verification: `python -m pytest -q` -> `126 passed`.
+- Review: subagent flagged missing branch-level pass/fail tests and a missing
+  architecture-doc update for the expanded eval/API surface; both were fixed
+  and re-verified with no remaining blocking findings from the standards pass.
 
 ## T5-02: Build final 40-case eval dataset
 
