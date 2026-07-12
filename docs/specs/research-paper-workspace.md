@@ -157,11 +157,15 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   retry, never overwrites current content or evidence, and cannot turn partial
   streamed output into Claims or citations.
 - Provide thin workspace-oriented API operations and progress/state surfaces.
-  Existing generic API and CLI commands remain compatibility surfaces until
-  deliberately adapted.
+  New browser contracts are versioned JSON endpoints under `/api/workspaces/...`
+  and `/api/operations/{id}`; they expose product state and evidence, never
+  filesystem paths or vector/provider internals. Existing generic API and CLI
+  commands remain compatibility surfaces until deliberately adapted.
 - The browser application calls workspace use cases through API contracts. It
   renders state and handles interactions but does not own parsing, retrieval,
-  provenance, or citation-validation business rules.
+  provenance, or citation-validation business rules. It is a React + TypeScript
+  single-page application, separately runnable for development and served as
+  compiled static assets by FastAPI in production.
 - Default to a guided workspace composition: show topic and paper selection at
   left, the approved outline and editable Literature Report at centre, and a
   persistent evidence panel at right. Citation markers attach to individual
@@ -169,10 +173,24 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   page/section where available, clean excerpt, Citation Revision, and visible
   evidence-readiness state. A content edit exposes pending-review resolution
   actions in place; the browser does not make a support decision itself.
-- Use local persistent storage appropriate to a single-user deployment. The
-  persistence technology, background-job mechanics, and frontend composition
-  remain decisions in the active Wayfinder tickets and must not be assumed by
-  this specification.
+- Use SQLite, through infrastructure repository adapters built on `sqlite3`, as
+  the authoritative store for workspace metadata, provenance, revisions,
+  citation state, and Workspace Operations. Keep PDFs, parsed artifacts, and
+  workspace/version-scoped FAISS indexes under one configurable local data
+  directory; do not add an ORM, database service, or cloud dependency.
+- Run imports, parsing, indexing, generation, and citation refresh through an
+  in-process durable Workspace Operation executor. Submission returns an
+  operation ID; the browser polls persisted phase/progress/error state and
+  retry actions. State-changing work is serialized per workspace and globally
+  bounded. Queued operations may be cancelled; running work is never forcibly
+  interrupted. A process restart marks unfinished work interrupted and
+  retryable, without accepting partial stream output as report content.
+- Package the first version as one native Python/FastAPI process and one
+  Uvicorn worker, serving the same-origin compiled frontend and API on
+  `127.0.0.1` by default. Docker/Compose, built-in authentication, public
+  exposure, multi-worker execution, replicas, and automated backup are outside
+  the first-version deployment boundary. Backup is a documented stopped-service
+  copy of the configured data directory.
 
 ## Testing Decisions
 
@@ -198,6 +216,11 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 - Add API-level tests for the workspace's user-visible state and error contract,
   including partial processing failure, unavailable public PDF, empty selected
   set, no retrieved support, and citation refresh that finds no valid evidence.
+- Add topology tests for SQLite-backed restart persistence, workspace-operation
+  serialization and queued cancellation, interrupted-operation recovery,
+  polling status contracts, and same-origin static-frontend/API delivery. Use
+  a single-worker test configuration; do not require a queue, database server,
+  Docker, or network service.
 - Add browser-level acceptance tests once the prototype decides the interaction.
   Cover the full workflow and the evidence side panel, including a claim with
   multiple citations and a pending-review claim after editing.
@@ -228,7 +251,7 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   is intentionally explicit about unresolved implementation choices so that
   they are decided through the active local Wayfinder tickets rather than hidden
   in implementation.
-- Open decisions currently include the report lifecycle and trust rules,
-  application topology, and final product acceptance scenarios.
+- The remaining open decision is final product acceptance scenarios and
+  demonstration evidence.
 - The local Wayfinder map replaces GitHub Issues for this effort because the
   repository's GitHub integration lacks permission to create issues.

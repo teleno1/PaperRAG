@@ -44,6 +44,25 @@ is read-only. An archived workspace can be restored; permanent deletion is a
 separate, explicit action.
 _Avoid_: treating removal of a paper as deletion of its workspace history
 
+**Workspace Operation**:
+A durable background operation within one Research Workspace, such as import,
+parsing, indexing, outline/report generation, or citation refresh. It has an
+opaque ID, persisted progress and phase, and one of `queued`, `running`,
+`succeeded`, `failed`, `interrupted`, or `cancelled` states. Only a queued
+operation may be cancelled; a running operation is allowed to finish or fail
+rather than being forcefully interrupted. A service restart changes an
+unfinished operation to `interrupted`; the user may retry it, and it must never
+be represented as completed.
+State-changing operations within the same Research Workspace execute serially;
+the deployment applies a small global concurrency limit across workspaces. A
+batch import may use controlled internal parallelism while remaining one
+Workspace Operation. Its user-visible history records phase timestamps,
+completed and total work, the current paper or section when applicable, and a
+safe error category with a retry action; it never exposes secrets, raw prompts,
+or complete paper content.
+_Avoid_: making a browser request wait for a long operation or losing its state
+on a server restart
+
 **Persistent Identifier**:
 An immutable, opaque internal identifier assigned to each persisted workspace,
 paper record, document version, report revision, Claim, Claim Citation,

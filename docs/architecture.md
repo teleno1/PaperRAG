@@ -11,7 +11,7 @@ are retained as [legacy material](legacy/README.md).
 topic
   -> upload papers / discover Candidate Papers
   -> user selects papers for a Research Workspace
-  -> parse PDFs while retaining source locations
+  -> durable Workspace Operations parse PDFs while retaining source locations
   -> chunks + embeddings + workspace index
   -> editable report outline
   -> cited Literature Report
@@ -64,8 +64,11 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   a Research Paper is a specialised Document.
 - `LiteratureReport` and `ReportOutline`: user-editable, topic-oriented output.
 - `ClaimCitation`: one report claim linked to one or more source chunks.
-- `CitationReviewState`: verified or pending review. Substantive claim edits
-  invalidate the verified status without deleting evidence history.
+- `CitationReviewState`: verified, pending review, user-confirmed, removed, or
+  evidence-unavailable. Substantive Claim edits invalidate verified status
+  without deleting evidence history.
+- `WorkspaceOperation`: durable import, parsing, indexing, generation, or
+  refresh work with persisted progress and retryable terminal state.
 
 ## Architectural Boundaries
 
@@ -75,13 +78,35 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   approval, generation, citation refresh, and report export.
 - **Infrastructure** implements MinerU-compatible parsing, source-location
   extraction, embeddings, FAISS, LLM calls, open-paper discovery adapters, and
-  local persistence. External services remain injectable for tests.
-- **API** exposes thin workspace-oriented operations and progress/state
-  reporting. Existing generic routes remain compatibility endpoints until
-  product tickets replace or adapt them.
-- **Web application** is the primary first-version surface. It presents the
-  workspace workflow, report editor, evidence side panel, and citation-review
-  state; it must not reproduce business logic already owned by use cases.
+  local persistence. SQLite accessed through `sqlite3` repository adapters is
+  authoritative for workspace state, revisions, citations, and operations;
+  managed local files hold PDFs, parsed artifacts, and workspace/version-scoped
+  FAISS indexes. External services remain injectable for tests.
+- **API** exposes versioned workspace-oriented JSON endpoints under
+  `/api/workspaces/...` plus operation state at `/api/operations/{id}`. It
+  never exposes filesystem paths, vector-store internals, or provider details.
+  Existing generic routes remain compatibility endpoints until product tickets
+  replace or adapt them.
+- **Web application** is a React + TypeScript single-page application. It
+  presents the workspace workflow, report editor, evidence side panel, and
+  citation-review state, and polls active operations; it must not reproduce
+  business logic already owned by use cases. In production FastAPI serves its
+  compiled static assets; development may run the frontend separately.
+- **Operation executor** is an in-process durable runner. It serializes
+  state-changing work per workspace, has a small global concurrency cap, and
+  persists phase, progress, safe errors, and retry actions. A restart marks
+  running work interrupted; queued work may be cancelled, but running work is
+  not forcefully interrupted.
+
+## Deployment Boundary
+
+The first version runs as one native Python process with exactly one Uvicorn
+worker. It serves FastAPI, the static web application, and the in-process
+executor from a configurable local data directory, and binds to `127.0.0.1` by
+default. It has no account system or built-in remote access control, so public
+exposure and horizontal replicas are out of scope. Docker/Compose are optional
+future packaging, not runtime requirements. A stopped-service copy of the data
+directory is the documented backup and migration method.
 
 ## Provenance Requirements
 
@@ -95,8 +120,8 @@ evidence without guessing:
 - page and/or section location when parsing provides it
 - source excerpt and retrieval/generation provenance
 
-The PDF-location and workspace/provenance contracts remain open planning work;
-see the [Wayfinder map](wayfinder/research-paper-workspace.md).
+The PDF-location, workspace/provenance, lifecycle, and topology contracts are
+recorded in the closed tickets on the [Wayfinder map](wayfinder/research-paper-workspace.md).
 
 ## Compatibility and Legacy
 

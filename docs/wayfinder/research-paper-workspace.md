@@ -49,14 +49,16 @@ trace each cited claim to one or more paper chunks in the web interface.
   - Require approved outlines, explicit ready-subset generation, immutable
   report/citation history, visible trust summaries, and user-controlled
   recovery rather than silent evidence changes.
+- [Single-user application topology](research-paper-workspace/closed/06-application-topology.md)
+  - Use a React browser workspace over same-origin FastAPI APIs, SQLite plus
+  managed local files, and a single-process durable operation executor.
 
 ## Frontier
 
-- [Choose the single-user application topology](research-paper-workspace/06-application-topology.md)
+- [Define product acceptance and demonstration evidence](research-paper-workspace/07-product-acceptance.md)
 
 ## Not yet specified
 
-- The frontend/backend composition and single-user deployment boundary.
 - The product acceptance scenarios, demonstration corpus, and non-regression
   evaluation after the end-to-end workflow is specified.
 - The migration sequence from the generic-RAG refactor roadmap to this product
