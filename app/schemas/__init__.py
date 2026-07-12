@@ -26,6 +26,11 @@ from app.schemas.api_models import (
     ReviewRunResponse,
     ReportSectionResponse,
     StateResponse,
+    ResearchPaperResponse,
+    ResearchWorkspaceResponse,
+    WorkspaceCreateRequest,
+    WorkspaceOperationResponse,
+    WorkspaceUploadResponse,
 )
 
 __all__ = [
@@ -54,4 +59,9 @@ __all__ = [
     "ReviewRunRequest",
     "ReviewRunResponse",
     "StateResponse",
+    "ResearchPaperResponse",
+    "ResearchWorkspaceResponse",
+    "WorkspaceCreateRequest",
+    "WorkspaceOperationResponse",
+    "WorkspaceUploadResponse",
 ]

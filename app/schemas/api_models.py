@@ -210,3 +210,65 @@ class ErrorResponse(BaseModel):
     error: str
     detail: Optional[str] = None
     error_type: Optional[str] = None
+
+
+class WorkspaceCreateRequest(BaseModel):
+    topic: str = Field(..., min_length=2, description="Research topic")
+    report_language: Literal["zh", "en"] = Field(default="zh", description="Literature Report language")
+
+
+class WorkspaceOperationResponse(BaseModel):
+    id: str
+    workspace_id: str
+    paper_id: Optional[str] = None
+    operation_type: str
+    status: Literal["queued", "running", "succeeded", "failed", "interrupted", "cancelled"]
+    phase: str
+    error_category: Optional[str] = None
+    error_message: Optional[str] = None
+    retry_action: Optional[str] = None
+    completed_work: int = 0
+    total_work: int = 1
+    started_at: Optional[str] = None
+    finished_at: Optional[str] = None
+
+
+class ResearchPaperResponse(BaseModel):
+    id: str
+    workspace_id: str
+    title: str
+    source_kind: Literal["upload", "discovery"]
+    original_filename: str
+    selected: bool
+    evidence_readiness: Literal[
+        "awaiting_authorised_file",
+        "importing",
+        "parsing",
+        "indexing",
+        "ready",
+        "failed",
+        "unavailable",
+    ]
+    evidence_eligible: bool
+    active_document_version_id: Optional[str] = None
+    authors: list[str] = Field(default_factory=list)
+    year: str = ""
+    venue: str = ""
+    failure_phase: Optional[str] = None
+    failure_message: Optional[str] = None
+    retryable: bool = False
+
+
+class ResearchWorkspaceResponse(BaseModel):
+    id: str
+    topic: str
+    report_language: Literal["zh", "en"]
+    state: Literal["setup", "active", "archived"]
+    created_at: str
+    updated_at: str
+    papers: list[ResearchPaperResponse] = Field(default_factory=list)
+
+
+class WorkspaceUploadResponse(BaseModel):
+    paper: ResearchPaperResponse
+    operation: WorkspaceOperationResponse

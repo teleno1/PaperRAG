@@ -62,6 +62,12 @@ trace each cited claim to one or more paper chunks in the web interface.
 No open planning tickets. The implementation route and acceptance contract are
 ready for the local delivery tickets in `.scratch/research-paper-workspace/issues/`.
 
+## Delivery status
+
+- [01 — Create a Research Workspace and Select Uploaded Papers](../../.scratch/research-paper-workspace/issues/01-create-workspace-upload-select-papers.md)
+  is complete. The next delivery frontier is 02 (open-paper discovery) and 03
+  (outline generation), which are now unblocked by 01.
+
 ## Not yet specified
 
 - The migration sequence from the generic-RAG refactor roadmap to this product

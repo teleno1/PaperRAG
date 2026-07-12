@@ -158,3 +158,43 @@ class EvaluationDatasetError(PaperRAGError):
         if row_number is not None:
             details["row_number"] = row_number
         super().__init__(f"Evaluation dataset error: {reason}", details)
+
+
+class WorkspaceNotFoundError(PaperRAGError):
+    """A workspace or workspace operation does not exist."""
+
+    def __init__(self, workspace_id: str):
+        self.workspace_id = workspace_id
+        super().__init__(f"Research Workspace not found: {workspace_id}")
+
+
+class WorkspaceOperationNotFoundError(PaperRAGError):
+    """A workspace operation does not exist."""
+
+    def __init__(self, operation_id: str):
+        self.operation_id = operation_id
+        super().__init__(f"Workspace Operation not found: {operation_id}")
+
+
+class PaperNotFoundError(PaperRAGError):
+    """A paper is not part of the requested workspace."""
+
+    def __init__(self, workspace_id: str, paper_id: str):
+        self.workspace_id = workspace_id
+        self.paper_id = paper_id
+        super().__init__(f"Research Paper not found in workspace: {paper_id}")
+
+
+class WorkspaceArchivedError(PaperRAGError):
+    """An archived workspace cannot be changed."""
+
+    def __init__(self, workspace_id: str):
+        self.workspace_id = workspace_id
+        super().__init__(f"Research Workspace is archived: {workspace_id}")
+
+
+class InvalidPaperUploadError(PaperRAGError):
+    """An upload cannot become a Research Paper."""
+
+    def __init__(self, reason: str):
+        super().__init__(reason)

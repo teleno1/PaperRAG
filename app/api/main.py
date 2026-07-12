@@ -8,7 +8,7 @@ from typing import AsyncGenerator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import eval, health, index, outline, parse, pipeline, query, report, review
+from app.api.routes import eval, health, index, outline, parse, pipeline, query, report, review, workspaces
 from app.core.config import get_settings
 from app.core.logging import setup_logging
 
@@ -43,3 +43,4 @@ app.include_router(query.router, tags=["query"])
 app.include_router(report.router, tags=["report"])
 app.include_router(eval.router, tags=["eval"])
 app.include_router(review.router, prefix="/review", tags=["review"])
+app.include_router(workspaces.router, prefix="/api", tags=["workspaces"])

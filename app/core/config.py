@@ -42,6 +42,7 @@ class PathsConfig(StrictConfigModel):
     outlines_dir: str = "./data/outlines"
     outputs_dir: str = "./data/review_outputs"
     eval_outputs_dir: str = "./data/eval_outputs"
+    workspace_dir: str = "./data/workspaces"
 
 
 class ModelsConfig(StrictConfigModel):

@@ -66,6 +66,11 @@ class PathManager:
         return self._resolve_path(self._settings.paths.eval_outputs_dir)
 
     @property
+    def workspace_dir(self) -> Path:
+        """Durable Research Workspace metadata and managed files."""
+        return self._resolve_path(self._settings.paths.workspace_dir)
+
+    @property
     def faiss_index_path(self) -> Path:
         """FAISS索引文件路径。"""
         return self.database_dir / "paper_index.faiss"
@@ -84,6 +89,7 @@ class PathManager:
             self.outlines_dir,
             self.outputs_dir,
             self.eval_outputs_dir,
+            self.workspace_dir,
         ]:
             path.mkdir(parents=True, exist_ok=True)
 
