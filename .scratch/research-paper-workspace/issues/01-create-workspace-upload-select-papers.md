@@ -13,6 +13,8 @@ topology.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder references above):** None.
+
 - [ ] A user can create and revisit a single-user workspace with topic and
   Report Language.
 - [ ] A user can upload an authorised PDF, see readiness or a recoverable

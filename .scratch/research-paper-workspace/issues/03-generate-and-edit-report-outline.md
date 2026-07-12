@@ -11,6 +11,8 @@ rules; 01 — Create a Research Workspace and Select Uploaded Papers.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder reference above):** 01.
+
 - [ ] Outline generation uses only evidence eligible in the current Research
   Workspace.
 - [ ] The user can add, remove, rename, and reorder outline sections before

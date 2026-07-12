@@ -115,6 +115,24 @@ downloadable PDFs; a restricted paper remains metadata and an external link
 until the user supplies an authorised file.
 _Avoid_: scraping or importing paywalled full text
 
+**Demonstration Corpus**:
+A fixed set of ten open-access Research Papers used to demonstrate and manually
+accept the product workflow: three RAG foundation/retrieval-method papers,
+three evidence-attribution or citation-mechanism papers, two evaluation or
+factual-consistency papers, and two limitation, comparison, or failure-mode
+papers. Its first topic is RAG evidence attribution and citation reliability;
+the source papers may be English while the demonstration Literature Report is
+Chinese. The repository retains only a manifest of stable identifiers,
+versioned public-PDF locations, checksums, and licence/provenance information,
+never the papers or their derived artifacts. A separate controlled acceptance
+fixture, rather than a deliberately broken public URL, creates unready or
+failed paper states for repeatable recovery demonstrations.
+A real demonstration preflight must validate all ten papers and fails rather
+than silently substituting a smaller set; CI uses only offline controlled
+collaborators. Demonstration preparation always uses an explicitly selected,
+empty, isolated data directory and must never clear a user's normal workspace.
+_Avoid_: treating the legacy generic-evaluation corpus as product evidence
+
 **Literature Report**:
 An editable, topic-oriented report generated from a Research Workspace. Each
 supported claim can link to one or more cited source chunks. A saved report

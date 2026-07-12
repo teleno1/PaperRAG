@@ -11,6 +11,8 @@ Report Outline.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder references above):** 03.
+
 - [ ] Report generation uses the current workspace topic, Report Language,
   approved outline, and only Selected Papers.
 - [ ] Each supported report claim can retain one or more validated Claim

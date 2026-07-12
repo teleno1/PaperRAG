@@ -52,17 +52,21 @@ trace each cited claim to one or more paper chunks in the web interface.
 - [Single-user application topology](research-paper-workspace/closed/06-application-topology.md)
   - Use a React browser workspace over same-origin FastAPI APIs, SQLite plus
   managed local files, and a single-process durable operation executor.
+- [Product acceptance and demonstration evidence](research-paper-workspace/closed/07-product-acceptance.md)
+  - Validate traceability and citation-review behavior with offline acceptance
+  tests and a separate 10-paper OA portfolio demonstration, never generic-RAG
+  performance claims.
 
 ## Frontier
 
-- [Define product acceptance and demonstration evidence](research-paper-workspace/07-product-acceptance.md)
+No open planning tickets. The implementation route and acceptance contract are
+ready for the local delivery tickets in `.scratch/research-paper-workspace/issues/`.
 
 ## Not yet specified
 
-- The product acceptance scenarios, demonstration corpus, and non-regression
-  evaluation after the end-to-end workflow is specified.
 - The migration sequence from the generic-RAG refactor roadmap to this product
-  roadmap.
+  roadmap is a follow-on compatibility concern, not a blocker for workspace
+  implementation.
 
 ## Out of scope
 

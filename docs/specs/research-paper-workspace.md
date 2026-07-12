@@ -228,10 +228,23 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   state tests as regression coverage. The legacy generic-evaluation fixtures
   may continue as low-level regression assets but do not serve as the product's
   primary acceptance evidence.
-- Define a compact, reproducible demo workspace and end-to-end acceptance
-  scenarios after the active discovery and PDF-anchor decisions are resolved.
-  Success should show visible traceability and review-state behavior, not claim
-  enterprise validity from a tiny benchmark.
+- Product acceptance uses four deterministic browser scenarios: cited report
+  generation, multi-source evidence inspection, Claim-edit review/refresh, and
+  partial-readiness or removed-evidence handling with transparent Markdown
+  export. All visible citations must resolve to same-workspace, same-version
+  SourceAnchors; ineligible evidence may not remain verified; substantive edits
+  must enter pending review; and persisted workspace/report/citation/operation
+  state must survive browser reload and service restart.
+- Keep automated acceptance offline with controlled parser, discovery,
+  retrieval, and LLM collaborators. The separate manual portfolio demonstration
+  uses a frozen 10-paper open-access RAG-attribution manifest and an isolated
+  data directory. Its preflight validates every versioned PDF, URL, hash, and
+  provenance record; it fails rather than silently using fewer papers. The
+  resulting Chinese report selects all 10 papers, contains at least eight cited
+  Claims across at least six papers, has at least two multi-source Claims, and
+  visibly demonstrates one evidence gap or controlled exception. These gates
+  demonstrate workflow and provenance, not enterprise performance or answer
+  accuracy from a small corpus.
 
 ## Out of Scope
 
@@ -251,7 +264,7 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   is intentionally explicit about unresolved implementation choices so that
   they are decided through the active local Wayfinder tickets rather than hidden
   in implementation.
-- The remaining open decision is final product acceptance scenarios and
-  demonstration evidence.
+- Wayfinder planning is complete. The local delivery tickets are the source of
+  truth for implementation order and verification.
 - The local Wayfinder map replaces GitHub Issues for this effort because the
   repository's GitHub integration lacks permission to create issues.

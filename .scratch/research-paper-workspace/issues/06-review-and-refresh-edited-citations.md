@@ -10,6 +10,8 @@ Evidence and Multiple Sources.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder reference above):** 04, 05.
+
 - [ ] A substantive edit never leaves the affected Claim Citation displayed as
   verified.
 - [ ] The browser exposes keep, remove, and refresh actions with an explicit

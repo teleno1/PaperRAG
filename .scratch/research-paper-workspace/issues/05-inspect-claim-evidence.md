@@ -11,6 +11,8 @@ Editable Cited Literature Report.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder references above):** 04.
+
 - [ ] A report claim can visibly reference one or multiple Source Chunks.
 - [ ] Selecting its Claim Citation shows paper identity, source provenance,
   excerpt, and page and/or section information when available.

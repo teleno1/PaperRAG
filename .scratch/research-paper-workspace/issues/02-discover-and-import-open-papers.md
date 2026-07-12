@@ -10,6 +10,8 @@ adapters; 01 — Create a Research Workspace and Select Uploaded Papers.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder reference above):** 01.
+
 - [ ] A topic search returns Candidate Papers with enough provenance and
   metadata for the user to decide whether to select them.
 - [ ] The system imports only publicly available PDFs automatically and records

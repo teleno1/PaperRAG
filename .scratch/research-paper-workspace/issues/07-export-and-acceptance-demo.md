@@ -12,11 +12,14 @@ and Refresh Citations after Editing.
 
 **Status:** ready-for-agent
 
+**Active blockers (supersedes the historical Wayfinder reference above):** 02, 03, 05, 06.
+
 - [ ] Markdown export preserves report content, Claim Citation references, and
   unresolved or pending-review status without representing them as verified.
-- [ ] A compact, reproducible demo workspace exercises upload or discovery,
-  Selected Paper evidence gating, outline approval, cited report generation,
-  evidence inspection, and citation review.
+- [ ] A reproducible, isolated 10-paper OA demo workspace exercises upload or
+  discovery, Selected Paper evidence gating, outline approval, cited report
+  generation, evidence inspection, and citation review. Its preflight fails
+  rather than silently using fewer papers.
 - [ ] End-to-end tests and user-visible run state make failures inspectable.
 - [ ] Documentation explains what the demo proves and does not claim that a
   small corpus demonstrates enterprise-scale quality.
