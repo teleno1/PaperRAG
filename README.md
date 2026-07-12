@@ -81,8 +81,7 @@ outputs remain local; see [data/README.md](data/README.md).
 ```text
 app/                 current Python application foundation
 docs/wayfinder/      active local product-planning map and decision tickets
-docs/legacy/         superseded general-RAG plans and their index
-docs/tasks/          historical phase task cards
+docs/legacy/         superseded general-RAG plans, task cards, and their index
 data/                minimal fixtures and local runtime directories
 tests/               current automated tests
 ```

@@ -14,7 +14,7 @@ They are not the active product plan. The active direction is the
 - [General-RAG refactor roadmap](../refactor-roadmap.md)
 - [Legacy task archive](../../TASKS.md)
 - [Generic-RAG evaluation plan](../evaluation-plan.md)
-- [Phase task cards](../tasks/)
+- [Phase task cards](tasks/)
 - [Phase-5/6 split ADR](../adr/0001-phase-5-phase-6-split.md)
 - [Final evaluation corpus ADR](../adr/0002-final-eval-corpus-contract.md)
 

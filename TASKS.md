@@ -21,16 +21,16 @@ success.
 
 | Phase | File | Historical purpose |
 |---|---|---|
-| Phase 0 | [docs/tasks/phase-0.md](docs/tasks/phase-0.md) | Repository slimming and context setup |
-| Phase 1 | [docs/tasks/phase-1.md](docs/tasks/phase-1.md) | Document-centric domain models |
-| Phase 2 | [docs/tasks/phase-2.md](docs/tasks/phase-2.md) | General ingestion |
-| Phase 3 | [docs/tasks/phase-3.md](docs/tasks/phase-3.md) | Cited answers and reports |
-| Phase 4 | [docs/tasks/phase-4.md](docs/tasks/phase-4.md) | Evaluation and strategy comparison |
-| Phase 5 | [docs/tasks/phase-5.md](docs/tasks/phase-5.md) | Evaluation hardening and final validation |
-| Phase 6 | [docs/tasks/phase-6.md](docs/tasks/phase-6.md) | Superseded deployment/portfolio packaging plan |
+| Phase 0 | [docs/legacy/tasks/phase-0.md](docs/legacy/tasks/phase-0.md) | Repository slimming and context setup |
+| Phase 1 | [docs/legacy/tasks/phase-1.md](docs/legacy/tasks/phase-1.md) | Document-centric domain models |
+| Phase 2 | [docs/legacy/tasks/phase-2.md](docs/legacy/tasks/phase-2.md) | General ingestion |
+| Phase 3 | [docs/legacy/tasks/phase-3.md](docs/legacy/tasks/phase-3.md) | Cited answers and reports |
+| Phase 4 | [docs/legacy/tasks/phase-4.md](docs/legacy/tasks/phase-4.md) | Evaluation and strategy comparison |
+| Phase 5 | [docs/legacy/tasks/phase-5.md](docs/legacy/tasks/phase-5.md) | Evaluation hardening and final validation |
+| Phase 6 | [docs/legacy/tasks/phase-6.md](docs/legacy/tasks/phase-6.md) | Superseded deployment/portfolio packaging plan |
 
 ## Archived Status
 
 Phases 0–5 and their listed tasks were completed under the previous goal.
 Phase 6 tasks were not started and are superseded rather than pending. Their
-details remain in `docs/tasks/phase-6.md` for historical reference only.
+details remain in `docs/legacy/tasks/phase-6.md` for historical reference only.
