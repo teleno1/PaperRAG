@@ -70,6 +70,11 @@ review states, and what becomes invalid after paper or report changes.
   marked out of sync with the current outline. Regeneration uses the current
   approved outline to create a new Report Revision; prior reports remain
   editable, exportable, and traceable.
+- **2026-07-12 — version-replacement state (superseded detail):** The later
+  report-lifecycle decision refines the prior pending-review treatment: when a
+  cited Document Version leaves the active evidence boundary, the current Claim
+  Citation is `evidence_unavailable` until the user refreshes it. Historical
+  SourceAnchor snapshots remain inspectable.
 
 ## Resolution
 
@@ -108,8 +113,9 @@ does not claim the changed text remains supported. The user may confirm after
 inspecting evidence, remove it, or refresh it. Only a refresh that validates
 sources retrieved from the active workspace's ready Selected Papers can restore
 `verified`. Removing evidence, replacing its active document version, or
-otherwise leaving the active evidence boundary prevents it from being
-`verified`; historical report and citation snapshots remain inspectable.
+otherwise leaving the active evidence boundary makes it
+`evidence_unavailable` and prevents it from being `verified`; historical report
+and citation snapshots remain inspectable.
 
 ### Invariants
 

@@ -43,17 +43,19 @@ trace each cited claim to one or more paper chunks in the web interface.
     ready Selected Paper's active Document Version may be new evidence.
 - [Report editor and evidence-trace interaction](research-paper-workspace/closed/02-evidence-trace-prototype.md)
   - Use the guided-workspace layout: paper boundary at left, editable report
-    and approved outline at centre, and a persistent claim-evidence panel at
-    right.
+  and approved outline at centre, and a persistent claim-evidence panel at
+  right.
+- [Report lifecycle and trust rules](research-paper-workspace/closed/05-report-lifecycle-and-trust-rules.md)
+  - Require approved outlines, explicit ready-subset generation, immutable
+  report/citation history, visible trust summaries, and user-controlled
+  recovery rather than silent evidence changes.
 
 ## Frontier
 
-- [Specify the report lifecycle and trust rules](research-paper-workspace/05-report-lifecycle-and-trust-rules.md)
 - [Choose the single-user application topology](research-paper-workspace/06-application-topology.md)
 
 ## Not yet specified
 
-- The precise generation, citation-refresh, and failure-recovery contract.
 - The frontend/backend composition and single-user deployment boundary.
 - The product acceptance scenarios, demonstration corpus, and non-regression
   evaluation after the end-to-end workflow is specified.

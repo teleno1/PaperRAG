@@ -21,6 +21,9 @@ _Avoid_: treating every Document as a Research Paper
 An immutable imported or uploaded artifact of a Document, including the parsed
 and chunked evidence derived from it. Reprocessing or replacing a paper creates
 a new Document Version; it does not rewrite the provenance of a prior version.
+Existing Claim Citations to the predecessor remain inspectable as historical
+evidence but become evidence-unavailable for the current report; they require
+an explicit refresh rather than automatic remapping to the replacement.
 _Avoid_: resolving a historical Claim Citation against whichever copy of a
 paper is currently indexed
 
@@ -77,6 +80,15 @@ unavailable. Only ready evidence may be used for new retrieval, generation, or
 Claim Citations; failures retain a phase and retry action.
 _Avoid_: treating paper selection or a partially processed file as evidence
 
+**Evidence Coverage**:
+The explicit set of ready Selected Papers used for one report-generation or
+citation-refresh operation, together with the selected papers excluded because
+they were not ready and the reason for each exclusion. When the selected set is
+mixed, the user must deliberately choose to generate from the ready subset;
+later readiness does not silently alter an existing report.
+_Avoid_: presenting a report based on a partial ready subset as if every
+Selected Paper had contributed
+
 **Paper Discovery**:
 Topic-based retrieval of Candidate Paper metadata and links from open academic
 indexes. The first product version automatically imports only publicly
@@ -88,6 +100,10 @@ _Avoid_: scraping or importing paywalled full text
 An editable, topic-oriented report generated from a Research Workspace. Each
 supported claim can link to one or more cited source chunks. A saved report
 revision is immutable; the current draft may become a new revision.
+Generation may produce supported parts while marking a requested part with an
+explicit evidence-gap note when the selected ready papers contain insufficient
+support; it must not invent an uncited factual conclusion. No Literature Report
+body can be generated when the workspace has no ready evidence.
 _Avoid_: Answer when the intended output is a multi-source research artifact
 
 **Report Language**:
@@ -105,27 +121,68 @@ outline does not invalidate a report generated from an earlier Outline Revision;
 that report remains traceable but is out of sync with the current outline.
 _Avoid_: treating a one-shot long-form generation as the reporting workflow
 
+**Outline Status**:
+The current approval state of a Report Outline: draft while it is being created
+or edited, and approved only after the user explicitly approves that exact
+Outline Revision. A Literature Report may be generated only from an approved
+outline; editing an approved outline returns the new current revision to draft
+and leaves earlier reports traceable but out of sync.
+_Avoid_: implicitly treating an edited outline as approved
+
 **Report Revision**:
 An immutable saved version of a Report Outline or Literature Report. Prior
 revisions retain their claim and provenance history, but only the current
 revision may be used for new retrieval or citation refresh; any saved report
 revision may still be inspected, exported, or used as the basis for a new
-revision.
+revision. Regeneration creates a separate new report draft; it becomes current
+only when the user explicitly selects it, so it never overwrites the prior
+current report.
 _Avoid_: treating browser edits or a regenerated report as if they overwrite
 the provenance of earlier report content
+
+**Report Draft**:
+The current editable, automatically persisted working copy of a Literature
+Report. Browser refresh must retain it, but it becomes an immutable Report
+Revision only when the user explicitly saves a version. Generation,
+regeneration, and export operate from persisted report content, never from an
+unsaved browser-only state.
+_Avoid_: losing ordinary editing work or treating every keystroke as a version
+
+**Report Operation Attempt**:
+A recorded attempt to generate an outline, generate or regenerate a Literature
+Report, or refresh a Claim Citation. It captures the relevant persisted input
+snapshot, including the Outline Revision and Evidence Coverage where relevant.
+A failed attempt reports its phase and permits retry with the same inputs, but
+does not overwrite current content or evidence; incomplete streamed output is
+not a Report Draft or a Claim Citation.
+_Avoid_: treating a failed or partially streamed operation as saved report
+content
+
+**Report Trust Summary**:
+The report-level user-visible summary of its Evidence Coverage, the count of
+each Citation Review State, and any evidence-gap notes. A report with evidence
+gaps, pending-review citations, or evidence-unavailable citations is marked as
+needing attention; otherwise it is ready to export. This product-facing
+summary does not use the legacy offline-evaluation labels.
+_Avoid_: presenting a partial or unresolved report as unqualifiedly complete
 
 **Claim Citation**:
 A user-visible, one-to-many provenance link from a supported sentence or report
 bullet to the Source Chunks that support it. Selecting it reveals the paper
 title, page or section location, and source excerpt in a side panel. Its
 evidence is retained as immutable Citation Revisions rather than overwritten
-when refreshed.
+when refreshed. A refresh searches only ready, active Selected Papers in the
+same Research Workspace and records its resulting Evidence Coverage; it may
+therefore use newly selected or newly ready papers, but never another
+workspace's evidence.
 _Avoid_: one citation for an entire report paragraph by default
 
 **Citation Revision**:
 An immutable evidence snapshot for a Claim Citation, including its Source
 Chunks and SourceAnchors. A successful refresh creates a successor revision;
-the previous revision remains traceable as superseded.
+the previous revision remains traceable as superseded. A refresh that finds no
+valid support creates no successor and leaves the current Claim Citation pending
+review with an explicit no-support result.
 _Avoid_: replacing historical evidence in place
 
 **Claim**:
@@ -139,10 +196,14 @@ claim without an explicit identity decision
 **Citation Review State**:
 The trust status of a Claim Citation. A generated citation is verified against
 its retrieved evidence. A presentation-only edit preserves that state; a
-substantive claim edit makes it pending review. A user may confirm it after
-reviewing the evidence, remove it, or refresh it; only successful refresh can
-restore verified. Evidence that leaves the active workspace boundary is
-unavailable and cannot be verified.
+substantive claim edit makes it pending review. A substantive edit is any
+change to the Claim's visible text after whitespace normalization; formatting,
+layout, and citation-marker-only changes are presentation-only. A user may
+confirm it after reviewing the evidence, which makes it user-confirmed rather
+than verified, remove it, or refresh it; only successful refresh can restore
+verified. If any Source Chunk in a current Citation Revision leaves the active
+workspace boundary, the entire Claim Citation is evidence-unavailable and
+cannot be verified, even when it also contains other still-active chunks.
 _Avoid_: showing an unchanged citation as verified after its claim changes
 
 **Chunk**:

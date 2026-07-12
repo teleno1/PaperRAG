@@ -108,7 +108,11 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   version.
 - Generate the Report Outline separately from the Literature Report. The report
   generator consumes the approved current outline, workspace topic, Report
-  Language, and only workspace-scoped retrieved sources.
+  Language, and only workspace-scoped retrieved sources. A draft outline needs
+  explicit user approval before body generation. If Selected Papers have mixed
+  readiness, generation requires the user's explicit choice to use the ready
+  subset and records the included and excluded papers as Evidence Coverage;
+  no report body is generated without ready evidence.
 - Represent the report as structured content containing stable claim identity
   and one-to-many Claim Citations, then render it into the browser editor and
   Markdown. Do not use a flat generated string as the authoritative report
@@ -118,12 +122,22 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   refresh adds a successor instead of rewriting prior evidence.
 - Keep source-ID validation as a hard guard: generation and refresh may only
   retain citations present in the retrieved source registry for that operation.
+- Treat missing support as a visible evidence gap, not an uncited factual
+  conclusion: generation may complete supported outline sections while marking
+  an unsupported section as needing more evidence. A report displays a Report
+  Trust Summary with Evidence Coverage, citation-state counts, and gap notes;
+  gaps, pending review, and evidence-unavailable citations mark it as needing
+  attention without blocking Markdown export.
 - Detect substantive changes to a cited claim at the report-edit boundary.
   Presentation-only edits preserve its Citation Review State; any change to
-  claim content moves it from verified to pending review. The user can confirm,
-  remove, or refresh the citation, but only successful workspace-scoped refresh
-  restores verified. A citation whose paper was removed or whose Document
-  Version was replaced is evidence-unavailable and cannot be verified.
+  normalized visible Claim text moves all attached citations to pending review.
+  The user can confirm (which becomes user-confirmed), remove, or refresh the
+  citation, but only successful workspace-scoped refresh restores verified. A
+  refresh records its Evidence Coverage, creates a successor Citation Revision
+  only on valid support, and otherwise leaves the citation pending review with
+  a no-support result. A citation whose paper was removed or whose Document
+  Version was replaced is evidence-unavailable and cannot be verified, even
+  when its old revision contains other active sources.
 - A Selected Paper is eligible for new evidence only while it is active and its
   current Document Version is ready. Track readiness as
   awaiting-authorised-file, importing, parsing, indexing, ready, failed, or
@@ -136,6 +150,12 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   leaves it traceable but out of sync rather than invalidating its citations.
   Earlier saved report revisions remain exportable and can seed a new revision,
   but are not used for new retrieval or citation refresh.
+- Persist the current Report Draft automatically across browser refreshes; only
+  an explicit save creates an immutable Report Revision. Regeneration creates
+  a separate persisted draft which the user must select before it becomes
+  current. Failed generation or refresh records a phase and input snapshot for
+  retry, never overwrites current content or evidence, and cannot turn partial
+  streamed output into Claims or citations.
 - Provide thin workspace-oriented API operations and progress/state surfaces.
   Existing generic API and CLI commands remain compatibility surfaces until
   deliberately adapted.
@@ -171,6 +191,10 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 - Add report-editing tests that distinguish non-substantive presentation edits
   from substantive claim edits, and verify the resulting Citation Review State
   and available resolution actions.
+- Add lifecycle tests for explicit ready-subset generation and Evidence
+  Coverage, outline approval/out-of-sync reports, non-destructive regeneration,
+  no-support evidence gaps, failed-operation retry, source/version removal,
+  report trust summaries, and Markdown export of unresolved citation states.
 - Add API-level tests for the workspace's user-visible state and error contract,
   including partial processing failure, unavailable public PDF, empty selected
   set, no retrieved support, and citation refresh that finds no valid evidence.
