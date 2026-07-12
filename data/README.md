@@ -1,5 +1,10 @@
 # Data Directory Policy
 
+> The frozen OpenAI developer-document corpus and generic evaluation fixtures
+> below belong to the legacy general-RAG refactor. They remain tracked test and
+> regression assets, not the product corpus for the research-paper workspace.
+> See [docs/legacy/README.md](../docs/legacy/README.md).
+
 This repository does not track local research corpora or generated runtime artifacts.
 
 ## Source-controlled files

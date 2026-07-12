@@ -1,4 +1,14 @@
-# Evaluation Plan
+# Legacy: Generic-RAG Evaluation Plan
+
+> **Historical evaluation asset.** This plan and its recorded results evaluate
+> the former generic-RAG direction on a small frozen OpenAI developer-document
+> corpus. They demonstrate reusable retrieval and citation-validation work, but
+> do not establish real-world or enterprise-scale product quality.
+>
+> The research-paper workspace will define product acceptance around selected
+> papers, claim-level traceability, citation-review states, and an end-to-end
+> user workflow through its [active Wayfinder map](wayfinder/research-paper-workspace.md).
+> This document remains unchanged below as an auditable historical record.
 
 The project should prove reliability with objective evaluation, not only with a
 working demo. This document defines the target eval surface for the refactor.

@@ -1,162 +1,114 @@
-# PaperRAG Architecture Notes
+# PaperRAG Architecture
 
-This document records the current architecture and the intended target
-architecture. It is meant to help future agents avoid accidental rewrites.
+This document describes the active target architecture for PaperRAG: a
+single-user research-paper workspace that produces editable, claim-traceable
+literature reports. The historical generic-RAG architecture and evaluation plan
+are retained as [legacy material](legacy/README.md).
 
-## Current System Shape
+## Product Flow
 
-Current flow:
+```text
+topic
+  -> upload papers / discover Candidate Papers
+  -> user selects papers for a Research Workspace
+  -> parse PDFs while retaining source locations
+  -> chunks + embeddings + workspace index
+  -> editable report outline
+  -> cited Literature Report
+  -> claim citation opens source paper excerpt(s)
+  -> user edit marks affected citation pending review
+  -> keep, remove, or refresh citation
+```
+
+## Current Foundation
+
+The repository already contains a Python backend with these reusable pieces:
 
 ```text
 PDF papers
   -> MinerU parsing
-  -> content_list_v2.json
-  -> ChunkBuilder
+  -> normalized/chunk metadata
   -> DashScope embeddings
-  -> FAISS index + metadata.json
+  -> FAISS index + metadata
   -> retrieval/rerank
-  -> outline generation
-  -> chapter drafts
-  -> final review export
-  -> citation validation
+  -> outline/review or report generation
+  -> source and citation validation
 ```
 
-Current package structure:
+`app/` remains layered as follows:
 
 ```text
-app/
-  api/              FastAPI app and routes
-  cli/              argparse CLI entrypoint
-  core/             config, paths, logging, exceptions
-  domain/           business models and pipeline rules
-  infrastructure/   external services: LLMs, parsing, vector store, exporters
-  schemas/          API request/response models
-  use_cases/        application-level orchestration
-tests/              unit and integration-style tests with fakes
-configs/            non-secret YAML settings and env examples
-data/               currently contains local corpora and generated artifacts
+api/              FastAPI routes and request/response translation
+cli/              compatibility command-line surface
+core/             config, paths, logging, and exceptions
+domain/           pure product models and rules
+infrastructure/   parsers, LLMs, vector store, exporters, external adapters
+schemas/          API schemas
+use_cases/        workflow orchestration
 ```
 
-## Reusable Modules
+The existing PDF parser, chunker, FAISS persistence, retrieval service, LLM
+clients, outline/report flow, and source validation are foundation—not the
+finished workspace product.
 
-Keep and evolve these unless a roadmap phase explicitly replaces them:
+## Active Domain Model
 
-- `app/core`
-  - Config loading already supports YAML plus environment overrides.
-  - Secrets are intentionally kept out of YAML.
-- `app/api` and `app/cli`
-  - These are valuable portfolio surfaces and should remain first-class.
-- `app/infrastructure/llm`
-  - Existing DeepSeek/DashScope clients can back general RAG.
-  - Network calls should stay mockable in tests.
-- `app/infrastructure/vectorstore`
-  - FAISS persistence and metadata handling are reusable.
-  - `IndexBuilder` can now index either legacy MinerU JSON outputs or a tiny
-    parser-driven TXT/Markdown source corpus for tests.
-- `app/infrastructure/chunking`
-  - Chunk sizing, overlap, and section-aware splitting are useful.
-- `app/domain/validation`
-  - Citation/source validation should become a general trust layer.
+The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
 
-## Current Coupling Points
+- `ResearchWorkspace`: one user-owned topic, selected papers, processing state,
+  report versions, and provenance records.
+- `CandidatePaper`: a discovery result that is not evidence until selected.
+- `SelectedPaper`: an uploaded or user-approved paper eligible for parsing,
+  indexing, retrieval, and citation.
+- `Document` / `DocumentChunk`: the underlying ingestion and retrieval models;
+  a Research Paper is a specialised Document.
+- `LiteratureReport` and `ReportOutline`: user-editable, topic-oriented output.
+- `ClaimCitation`: one report claim linked to one or more source chunks.
+- `CitationReviewState`: verified or pending review. Substantive claim edits
+  invalidate the verified status without deleting evidence history.
 
-These concepts are too paper/review-specific and should be reduced gradually:
+## Architectural Boundaries
 
-- `paper_id`, `PaperMetadata`, `papers_dir`, `processed_papers`.
-- `title`, `authors`, `year`, `venue` as required metadata.
-- `review`, `outline`, `chapter`, `final_pass`, `abstract`, `summary_outlook`.
-- `content_list_v2.json` as the only processed input.
-- MinerU as the only ingestion path.
-- Generated `data/` artifacts tracked as if they were source files.
+- **Domain** owns workspace, paper-selection, report, citation, and review-state
+  rules; it has no FastAPI, filesystem, or HTTP dependency.
+- **Use cases** orchestrate discovery, upload/import, parsing/indexing, outline
+  approval, generation, citation refresh, and report export.
+- **Infrastructure** implements MinerU-compatible parsing, source-location
+  extraction, embeddings, FAISS, LLM calls, open-paper discovery adapters, and
+  local persistence. External services remain injectable for tests.
+- **API** exposes thin workspace-oriented operations and progress/state
+  reporting. Existing generic routes remain compatibility endpoints until
+  product tickets replace or adapt them.
+- **Web application** is the primary first-version surface. It presents the
+  workspace workflow, report editor, evidence side panel, and citation-review
+  state; it must not reproduce business logic already owned by use cases.
 
-Do not remove these in one broad pass. Add general abstractions first, then
-adapt the old pipeline or retire it phase by phase.
+## Provenance Requirements
 
-## Target Concepts
+Every Claim Citation must preserve enough metadata to let a user inspect the
+evidence without guessing:
 
-Use these names for new general RAG work:
+- workspace and report version
+- claim identifier and citation-review state
+- selected-paper identifier, title, and source URL or upload record
+- document and chunk identifiers
+- page and/or section location when parsing provides it
+- source excerpt and retrieval/generation provenance
 
-- `Document`
-  - A user-provided source file or text object.
-  - Has `document_id`, `source_path`, `source_type`, `title`, optional metadata.
-- `DocumentChunk`
-  - Searchable text span derived from a document.
-  - Has `chunk_id`, `document_id`, `section`, `content`, token estimate, metadata.
-- `ParsedDocument` / `ParsedDocumentUnit`
-  - Normalized parser output before chunking.
-  - Units preserve raw content plus optional section/page metadata across PDF,
-    TXT, and Markdown ingestion.
-- `Source`
-  - A retrieved chunk exposed to generation and citation validation.
-  - Has stable `source_id`, chunk metadata, score, and original content.
-- `Query`
-  - User intent plus retrieval/generation options.
-- `Answer`
-  - Cited response with source ids and optional structured output.
-- `Report`
-  - Longer generated artifact with sections and citations.
-  - Phase 3 report outputs are rendered locally into `markdown`, `json`, or `bullet_summary`.
-  - Citation validation can strip unknown ids from the rendered report, but the
-    system should not invent replacement citations after generation.
-- `EvaluationRun`
-  - A reproducible run over an eval dataset with metrics and failed cases.
-  - Phase 5 extends eval rows with `answer_expectation`,
-    `question_shape`, and `unsupported_aspects`, and extends generation
-    metrics with deterministic `answer_point_coverage`,
-    `unsupported_aspect_violation_count`, and `abstention_cue_rate`.
+The PDF-location and workspace/provenance contracts remain open planning work;
+see the [Wayfinder map](wayfinder/research-paper-workspace.md).
 
-## Layering Rules
+## Compatibility and Legacy
 
-- `domain`
-  - Pure business models and rules.
-  - No FastAPI imports.
-  - No direct filesystem, HTTP, or API-key access.
-- `use_cases`
-  - Orchestrates domain and infrastructure.
-  - Owns high-level workflows such as ingest, index, answer, report, eval.
-  - The new general query flow is `retrieve -> structured cited answer -> cited-source validation`.
-- `infrastructure`
-  - Implements parsers, embedding clients, rerankers, vector stores, exporters.
-  - External services must be injectable or replaceable in tests.
-- `api`
-  - Thin request/response translation only.
-  - No complex business logic.
-  - General Phase 3 surfaces include `POST /query` and `POST /report`, while old review routes stay as compatibility endpoints.
-  - Phase 4 adds `POST /eval/run` as a thin wrapper around the eval runner use case.
-  - Phase 5 keeps `POST /eval/run` stable while expanding the returned eval
-    metric payload with deterministic coverage and abstention fields.
-- `cli`
-  - Thin command parsing and output formatting.
-  - Call use cases instead of duplicating logic.
-  - General Phase 3 surfaces include `query run` and `report run`, while old review commands stay as compatibility commands.
-  - Phase 4 adds `eval run` for reproducible dataset-based evaluation artifacts.
-  - Phase 4 strategy comparison can layer on top as `eval compare`, reusing the eval/report flow with explicit preset-driven indexing.
-  - Phase 5 keeps the CLI surface stable and enriches the saved eval
-    artifacts with expectation-aware pass/fail labels for failure analysis.
-  - Phase 5 strategy comparison should keep the normal report-generation path
-    intact so strategy results stay comparable to `eval run`.
+`paper_id`, `content_list_v2.json`, review/outline/chapter packages, generic
+query/report endpoints, and the OpenAI developer-doc evaluation corpus are
+retained where useful. They must not be deleted through broad mechanical
+renames. The former general-RAG phase plan does not define new work; see
+[docs/legacy/README.md](legacy/README.md).
 
-## Compatibility Strategy
+## First-Version Non-goals
 
-- Prefer adapters over immediate deletion.
-- Keep old review routes/commands until replacement query/report flows are
-  tested and documented.
-- Metadata can temporarily include both `document_id` and `paper_id`.
-- Tests should lock behavior before and after each migration step.
-
-## Desired End-State Flow
-
-```text
-Markdown/TXT/PDF documents
-  -> parser interface
-  -> ParsedDocument / ParsedDocumentUnit
-  -> DocumentChunk
-  -> embeddings
-  -> vector index
-  -> retrieval + rerank
-  -> structured cited answer/report
-  -> retrieved-source id validation
-  -> citation validation
-  -> eval metrics
-  -> deployable API/CLI
-```
+- account systems, collaboration, and shared workspaces
+- scraping or auto-importing paywalled full text
+- PDF/Word report export
+- presenting a small generic evaluation corpus as enterprise validation

@@ -1,45 +1,54 @@
 # PaperRAG
 
-PaperRAG is being refactored from an academic paper review prototype into a
-general, trustworthy knowledge-base RAG system.
+PaperRAG is a single-user research-paper workspace for individual researchers
+and graduate students. A user defines a topic, uploads papers or discovers
+open-access candidates, selects the evidence set, and produces an editable
+literature report whose claims can be traced to the supporting paper chunks.
+
+## Product Direction
+
+```text
+topic
+  -> upload papers / discover open-access candidates
+  -> user selects the evidence set
+  -> parse, chunk, and index selected papers
+  -> editable outline
+  -> cited literature report
+  -> click a claim to inspect one or more source excerpts
+  -> edit, review, and refresh citations
+```
+
+The first version is deliberately bounded:
+
+- one local or single-deployment user; no accounts or collaboration
+- online discovery returns candidates; only selected papers are evidence
+- only public PDFs are automatically imported; users may upload authorised PDFs
+- Chinese or English report language, selected per workspace
+- browser-based editing with Markdown export
+- a substantive edit to a cited claim marks that citation **pending review**
 
 ## Current Status
 
-This repository is still in progress.
+The repository contains a reusable Python/FastAPI/RAG foundation from the
+previous refactor: PDF parsing through MinerU, chunking, FAISS retrieval,
+outline/report generation, source validation, CLI commands, and API routes.
+It does **not yet** provide the research-workspace UI, paper discovery,
+selected-paper workflow, claim-level evidence panel, or citation-review state
+described above.
 
-What works today:
+The current product-planning source of truth is the local
+[research-paper workspace map](docs/wayfinder/research-paper-workspace.md).
+It records open decisions before implementation starts.
 
-- Verified test baseline: `python -m pytest -q` with 35 passing tests.
-- Current product shape: `PDF papers -> MinerU parse -> chunks -> FAISS index -> outline -> review`.
-- Existing entrypoints remain available through the CLI and FastAPI app.
+## Legacy Refactor Materials
 
-What is not finished yet:
+The earlier goal—turning PaperRAG into a general knowledge-base RAG system—is
+no longer the active product direction. Its phase plan, generic-RAG task index,
+and OpenAI developer-document evaluation are preserved as historical and
+technical reference in [docs/legacy/README.md](docs/legacy/README.md). They do
+not define the current backlog or definition of done.
 
-- General first-class ingestion for `TXT` and `Markdown`.
-- General cited question-answering and report generation outputs.
-- Eval dataset, retrieval metrics, citation metrics, and strategy comparison.
-- Final reproducible portfolio/demo packaging.
-
-If any of the unfinished items above matter for your use case, treat the project
-as a refactor in progress rather than a completed general RAG system.
-
-## Target Product
-
-The refactor target is a portfolio-grade RAG system that can:
-
-- ingest `PDF`, `TXT`, and `Markdown` documents
-- run `clean -> chunk -> embed -> index -> retrieve -> generate`
-- produce cited answers or reports in formats such as Markdown and JSON
-- trace citations back to `document_id` and `chunk_id`
-- evaluate retrieval and output quality with reproducible metrics
-
-The active task list and roadmap define the real finish line:
-
-- [AGENTS.md](AGENTS.md)
-- [TASKS.md](TASKS.md)
-- [docs/refactor-roadmap.md](docs/refactor-roadmap.md)
-
-## Setup
+## Existing Local Foundation
 
 Install the package:
 
@@ -47,108 +56,33 @@ Install the package:
 pip install -e .
 ```
 
-Sensitive keys must stay in environment variables, not in
-`configs/settings.yaml`.
-
-PowerShell:
+Secrets belong in environment variables, never in `configs/settings.yaml`:
 
 ```powershell
 $env:DEEPSEEK_API_KEY="..."
 $env:DASHSCOPE_API_KEY="..."
-
-# Required only for PDF parsing with MinerU
-$env:MINERU_API_KEY="..."
+$env:MINERU_API_KEY="..." # only for the current PDF parsing path
 ```
 
-Bash:
-
-```bash
-export DEEPSEEK_API_KEY="..."
-export DASHSCOPE_API_KEY="..."
-
-# Required only for PDF parsing with MinerU
-export MINERU_API_KEY="..."
-```
-
-Non-secret configuration lives in `configs/settings.yaml`.
-
-## Verification
-
-Current baseline verification:
+Run the existing test baseline and health checks:
 
 ```bash
 python -m pytest -q
-```
-
-Useful health checks for the current CLI surface:
-
-```bash
 python -m app.cli.main health
 python -m app.cli.main state
 ```
 
-## Current CLI Surface
-
-These commands reflect the current paper-review-oriented workflow, not the final
-general RAG interface:
-
-```bash
-python -m app.cli.main corpus prepare
-python -m app.cli.main index build
-python -m app.cli.main outline generate --topic "..."
-python -m app.cli.main review run --topic "..."
-python -m app.cli.main review run-from-outline --outline data/outlines/.../outline.json
-python -m app.cli.main state
-python -m app.cli.main health
-```
-
-Current review outputs are written under:
-
-```text
-data/review_outputs/<run_id>/
-```
-
-## Current API Surface
-
-Start the API:
-
-```bash
-uvicorn app.api.main:app --reload
-```
-
-Current routes:
-
-- `POST /corpus/prepare`
-- `POST /index/build`
-- `POST /outline/generate`
-- `POST /review/run`
-- `POST /review/run-from-outline`
-- `GET /state`
-- `GET /health`
-
-These routes are also part of the refactor and should not be read as the final
-general RAG API contract.
-
-## Data Policy
-
-Tracked sample data is intentionally minimal during the refactor.
-
-- Put your own local PDFs in `data/papers/` when running the current pipeline.
-- Generated indexes, parsed outputs, outlines, and run artifacts stay local.
-- The source-controlled data policy is documented in [data/README.md](data/README.md).
+The existing CLI and FastAPI endpoints are compatibility/foundation surfaces,
+not the future workspace UI contract. Generated indexes, parsed papers, and run
+outputs remain local; see [data/README.md](data/README.md).
 
 ## Repository Layout
 
 ```text
-app/
-  api/
-  cli/
-  core/
-  domain/
-  infrastructure/
-  schemas/
-  use_cases/
-docs/
-data/
-tests/
+app/                 current Python application foundation
+docs/wayfinder/      active local product-planning map and decision tickets
+docs/legacy/         superseded general-RAG plans and their index
+docs/tasks/          historical phase task cards
+data/                minimal fixtures and local runtime directories
+tests/               current automated tests
 ```

@@ -1,4 +1,12 @@
-# PaperRAG Refactor Roadmap
+# Legacy: General-RAG Refactor Roadmap
+
+> **Superseded product plan.** This roadmap describes the former goal of
+> turning PaperRAG into a general knowledge-base RAG system. It is retained for
+> historical context and compatibility decisions only. Do not execute its
+> phases or use its acceptance criteria for new work.
+>
+> The active direction is the [research-paper workspace Wayfinder map](wayfinder/research-paper-workspace.md).
+> See the [legacy-material index](legacy/README.md) for the archive policy.
 
 This roadmap exists to keep the refactor incremental. Future agents should work
 on one phase at a time and stop after verification. Do not jump ahead unless the
