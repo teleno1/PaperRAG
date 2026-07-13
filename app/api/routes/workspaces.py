@@ -69,7 +69,10 @@ def _paper_response(paper: ResearchPaper) -> ResearchPaperResponse:
     )
 
 
-def _workspace_response(workspace: ResearchWorkspace) -> ResearchWorkspaceResponse:
+def _workspace_response(
+    workspace: ResearchWorkspace,
+    operations: list[WorkspaceOperation] | None = None,
+) -> ResearchWorkspaceResponse:
     return ResearchWorkspaceResponse(
         id=workspace.id,
         topic=workspace.topic,
@@ -78,6 +81,7 @@ def _workspace_response(workspace: ResearchWorkspace) -> ResearchWorkspaceRespon
         created_at=workspace.created_at,
         updated_at=workspace.updated_at,
         papers=[_paper_response(paper) for paper in workspace.papers],
+        operations=[_operation_response(operation) for operation in (operations or [])],
     )
 
 
@@ -144,7 +148,11 @@ def create_workspace(request: WorkspaceCreateRequest) -> ResearchWorkspaceRespon
 
 @router.get("/workspaces", response_model=list[ResearchWorkspaceResponse])
 def list_workspaces() -> list[ResearchWorkspaceResponse]:
-    return [_workspace_response(workspace) for workspace in get_workspace_service().list_workspaces()]
+    service = get_workspace_service()
+    return [
+        _workspace_response(workspace, service.list_operations(workspace.id))
+        for workspace in service.list_workspaces()
+    ]
 
 
 @router.get(
@@ -154,7 +162,9 @@ def list_workspaces() -> list[ResearchWorkspaceResponse]:
 )
 def get_workspace(workspace_id: str) -> ResearchWorkspaceResponse:
     try:
-        return _workspace_response(get_workspace_service().get_workspace(workspace_id))
+        service = get_workspace_service()
+        workspace = service.get_workspace(workspace_id)
+        return _workspace_response(workspace, service.list_operations(workspace_id))
     except PaperRAGError as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")
@@ -303,6 +313,22 @@ def select_paper(workspace_id: str, paper_id: str) -> ResearchPaperResponse:
 def get_operation(operation_id: str) -> WorkspaceOperationResponse:
     try:
         return _operation_response(get_workspace_service().get_operation(operation_id))
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.get(
+    "/workspaces/{workspace_id}/operations",
+    response_model=list[WorkspaceOperationResponse],
+    responses={"404": {"model": ErrorResponse}},
+)
+def list_workspace_operations(workspace_id: str) -> list[WorkspaceOperationResponse]:
+    try:
+        return [
+            _operation_response(operation)
+            for operation in get_workspace_service().list_operations(workspace_id)
+        ]
     except PaperRAGError as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")

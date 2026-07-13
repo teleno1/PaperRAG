@@ -819,6 +819,18 @@ class WorkspaceRepository:
             ).fetchone()
             return self._operation(row) if row else None
 
+    def list_operations(self, workspace_id: str) -> list[WorkspaceOperation]:
+        with self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT * FROM workspace_operations
+                WHERE workspace_id = ?
+                ORDER BY created_at DESC, id DESC
+                """,
+                (workspace_id,),
+            ).fetchall()
+            return [self._operation(row) for row in rows]
+
     @staticmethod
     def _operation(row: sqlite3.Row) -> WorkspaceOperation:
         return WorkspaceOperation(

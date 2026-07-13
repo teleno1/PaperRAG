@@ -279,6 +279,7 @@ class ResearchWorkspaceResponse(BaseModel):
     created_at: str
     updated_at: str
     papers: list[ResearchPaperResponse] = Field(default_factory=list)
+    operations: list[WorkspaceOperationResponse] = Field(default_factory=list)
 
 
 class WorkspaceUploadResponse(BaseModel):

@@ -588,3 +588,7 @@ class ResearchWorkspaceService:
         if operation is None:
             raise WorkspaceOperationNotFoundError(operation_id)
         return operation
+
+    def list_operations(self, workspace_id: str) -> list[WorkspaceOperation]:
+        self.get_workspace(workspace_id)
+        return self._repository.list_operations(workspace_id)

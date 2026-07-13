@@ -54,8 +54,10 @@ finished workspace product.
 The first workspace delivery slices now provide SQLite-backed Research
 Workspace and Research Paper records, managed per-workspace paper files,
 parser-backed readiness state, candidate discovery/import provenance, bounded
-public-PDF verification, and versioned workspace API routes for creating,
-revisiting, discovering, selecting, importing, and removing papers. Later
+public-PDF verification, durable operation history, and versioned workspace API
+routes for creating, revisiting, discovering, selecting, importing, and removing
+papers. Ticket 03 adds the React + TypeScript preparation SPA, same-origin
+compiled asset delivery, and the browser flow over this boundary. Later
 delivery slices add outline/report workflow and claim-level provenance on top
 of this boundary.
 
@@ -91,15 +93,16 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   managed local files hold PDFs, parsed artifacts, and workspace/version-scoped
   FAISS indexes. External services remain injectable for tests.
 - **API** exposes versioned workspace-oriented JSON endpoints under
-  `/api/workspaces/...` plus operation state at `/api/operations/{id}`. It
-  never exposes filesystem paths, vector-store internals, or provider details.
-  Existing generic routes remain compatibility endpoints until product tickets
-  replace or adapt them.
+  `/api/workspaces/...` plus operation state at `/api/operations/{id}` and
+  workspace operation history. It never exposes filesystem paths, vector-store
+  internals, or provider details. Existing generic routes remain compatibility
+  endpoints until product tickets replace or adapt them.
 - **Web application** is a React + TypeScript single-page application. It
-  presents the workspace workflow, report editor, evidence side panel, and
-  citation-review state, and polls active operations; it must not reproduce
-  business logic already owned by use cases. In production FastAPI serves its
-  compiled static assets; development may run the frontend separately.
+  currently presents the preparation workspace flow and will add the report
+  editor, evidence side panel, and citation-review state in later tickets. It
+  polls active operations and must not reproduce business logic already owned by
+  use cases. In production FastAPI serves its compiled static assets; Vite's
+  development server proxies `/api` to FastAPI.
 - **Operation executor** is an in-process durable runner. It serializes
   state-changing work per workspace, has a small global concurrency cap, and
   persists phase, progress, safe errors, and retry actions. A restart marks
