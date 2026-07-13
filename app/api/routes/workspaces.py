@@ -69,11 +69,13 @@ def _paper_response(paper: ResearchPaper) -> ResearchPaperResponse:
         source_updated_at=paper.source_updated_at,
         source_url=paper.source_url,
         pdf_url=paper.pdf_url,
+        pdf_urls=paper.pdf_urls,
         is_open_access=paper.is_open_access,
         license=paper.license,
         source_links=paper.source_links,
         discovery_query=paper.discovery_query,
         discovered_at=paper.discovered_at,
+        dismissed=paper.dismissed,
     )
 
 
@@ -310,6 +312,21 @@ def approve_workspace_outline(
 
 
 @router.post(
+    "/workspaces/{workspace_id}/outline/revisions/{revision_id}/restore",
+    response_model=ReportOutlineResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def restore_workspace_outline_revision(workspace_id: str, revision_id: str) -> ReportOutlineResponse:
+    try:
+        return _outline_response(
+            get_workspace_service().restore_outline_revision(workspace_id, revision_id)
+        )
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
     "/workspaces/{workspace_id}/papers/discover",
     response_model=WorkspaceDiscoveryResponse,
     responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
@@ -327,6 +344,7 @@ def discover_papers(
             per_page=request.per_page,
         )
         return WorkspaceDiscoveryResponse(
+            provider=result.provider,
             query=result.query,
             status=result.status,
             candidates=[_paper_response(paper) for paper in result.candidates],
@@ -336,6 +354,8 @@ def discover_papers(
             next_page=result.next_page,
             error_message=result.error_message,
             retryable=result.retryable,
+            retry_after_seconds=result.retry_after_seconds,
+            next_action=result.next_action,
         )
     except (PaperRAGError, ValueError) as exc:
         return _error_response(exc)
@@ -426,6 +446,32 @@ def retry_paper(
 def remove_paper(workspace_id: str, paper_id: str) -> ResearchPaperResponse:
     try:
         return _paper_response(get_workspace_service().remove_paper(workspace_id, paper_id))
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/workspaces/{workspace_id}/papers/{paper_id}/dismiss",
+    response_model=ResearchPaperResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def dismiss_candidate_paper(workspace_id: str, paper_id: str) -> ResearchPaperResponse:
+    try:
+        return _paper_response(get_workspace_service().dismiss_paper(workspace_id, paper_id))
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/workspaces/{workspace_id}/papers/{paper_id}/restore",
+    response_model=ResearchPaperResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def restore_candidate_paper(workspace_id: str, paper_id: str) -> ResearchPaperResponse:
+    try:
+        return _paper_response(get_workspace_service().restore_dismissed_paper(workspace_id, paper_id))
     except PaperRAGError as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")

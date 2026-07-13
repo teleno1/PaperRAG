@@ -72,8 +72,11 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
   is complete.
 - [04 Generate, Edit, and Approve a Report Outline](../../.scratch/research-paper-workspace/issues/04-generate-edit-approve-report-outline.md)
   is complete.
+- [04A Stabilize Workspace UX and Paper Discovery](../../.scratch/research-paper-workspace/issues/04a-stabilize-workspace-ux-and-discovery.md)
+  is complete and is the stabilization checkpoint for the browser workspace.
 - [05 Generate and Edit a Cited Literature Report](../../.scratch/research-paper-workspace/issues/05-generate-edit-cited-literature-report.md)
-  is the next delivery frontier and can start immediately.
+  is paused until 04A browser acceptance is complete; do not start it in this
+  checkpoint.
 - [06 Inspect Claim Evidence and Multiple Sources](../../.scratch/research-paper-workspace/issues/06-inspect-claim-evidence-and-multiple-sources.md)
   is blocked by 05.
 - [07 Review and Refresh Edited Claim Citations](../../.scratch/research-paper-workspace/issues/07-review-refresh-edited-claim-citations.md)

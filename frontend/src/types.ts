@@ -54,11 +54,13 @@ export interface ResearchPaper {
   source_updated_at: string | null;
   source_url: string | null;
   pdf_url: string | null;
+  pdf_urls: string[];
   is_open_access: boolean | null;
   license: string | null;
   source_links: string[];
   discovery_query: string | null;
   discovered_at: string | null;
+  dismissed: boolean;
 }
 
 export interface ResearchWorkspace {
@@ -94,6 +96,7 @@ export interface ReportOutline {
 }
 
 export interface DiscoveryResponse {
+  provider: "openalex" | "arxiv";
   query: string;
   status: "succeeded" | "empty" | "retryable_error" | "failed";
   candidates: ResearchPaper[];
@@ -103,6 +106,8 @@ export interface DiscoveryResponse {
   next_page: number | null;
   error_message: string | null;
   retryable: boolean;
+  retry_after_seconds: number | null;
+  next_action: string | null;
 }
 
 export interface UploadResponse {

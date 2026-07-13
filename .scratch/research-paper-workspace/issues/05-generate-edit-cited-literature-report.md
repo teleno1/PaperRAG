@@ -7,7 +7,11 @@ Claim Citations rather than flattening evidence into untraceable text.
 
 **Blocked by:** 04 — Generate, Edit, and Approve a Report Outline.
 
-**Status:** ready-for-agent
+**Status:** paused pending 04A acceptance
+
+**Stabilization dependency:** 04A must be browser-accepted before this ticket
+resumes. Its Candidate Paper, outline-history, layout, and discovery recovery
+flows are prerequisites for the Literature Report workflow.
 
 - [ ] Generation uses the current workspace topic, Report Language, approved
   outline, and only ready Selected Papers, while recording its Evidence

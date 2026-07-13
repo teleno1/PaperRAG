@@ -28,11 +28,13 @@ function paper(overrides: Record<string, unknown> = {}) {
     source_updated_at: null,
     source_url: "https://example.test/paper",
     pdf_url: null,
+    pdf_urls: [],
     is_open_access: false,
     license: null,
     source_links: ["https://example.test/paper"],
     discovery_query: "traceable evidence",
     discovered_at: "2026-07-13T00:00:00Z",
+    dismissed: false,
     ...overrides,
   };
 }
@@ -81,6 +83,7 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
       discovered = true;
       await route.fulfill({
         json: {
+          provider: "openalex",
           query: "traceable evidence",
           status: "succeeded",
           candidates: [currentPaper],
@@ -90,6 +93,8 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
           next_page: null,
           error_message: null,
           retryable: false,
+          retry_after_seconds: null,
+          next_action: null,
         },
       });
       return;
@@ -167,8 +172,27 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
       await route.fulfill({ json: currentOutline });
       return;
     }
+    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}/outline/revisions`) {
+      await route.fulfill({ json: [currentOutline, { ...currentOutline, id: "outline-history-1", revision_number: 1, status: "approved", title: "Earlier approved outline" }] });
+      return;
+    }
+    if (request.method() === "POST" && path.startsWith(`/api/workspaces/${workspaceId}/outline/revisions/`) && path.endsWith("/restore")) {
+      currentOutline = { ...currentOutline, id: "outline-restored", revision_number: 3, status: "draft", title: "Earlier approved outline" };
+      await route.fulfill({ json: currentOutline });
+      return;
+    }
     if (request.method() === "DELETE" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}`) {
       currentPaper = paper({ selected: false, evidence_readiness: uploaded ? "ready" : "unavailable", evidence_eligible: false });
+      await route.fulfill({ json: currentPaper });
+      return;
+    }
+    if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}/dismiss`) {
+      currentPaper = paper({ selected: false, dismissed: true });
+      await route.fulfill({ json: currentPaper });
+      return;
+    }
+    if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}/restore`) {
+      currentPaper = paper({ selected: false, dismissed: false });
       await route.fulfill({ json: currentPaper });
       return;
     }
@@ -184,12 +208,22 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
   await page.getByTestId("workspace-create").click();
   await expect(page.getByTestId("workspace-select")).toHaveValue(workspaceId);
 
+  const desktopPanelStyles = await page.locator(".panel").evaluateAll((panels) => panels.map((panel) => {
+    const style = getComputedStyle(panel);
+    return { overflowY: style.overflowY, scrollbarGutter: style.scrollbarGutter, maxHeight: style.maxHeight };
+  }));
+  expect(desktopPanelStyles).toHaveLength(3);
+  expect(desktopPanelStyles).toEqual(expect.arrayContaining([
+    expect.objectContaining({ overflowY: "auto", scrollbarGutter: "stable" }),
+  ]));
+  await expect(page.locator(".panel-heading").first()).toHaveCSS("position", "sticky");
+
   await page.getByTestId("discovery-query").fill("traceable evidence");
   await page.getByTestId("discovery-submit").click();
   await expect(page.getByTestId("paper-candidate")).toBeVisible();
 
   await page.getByTestId(`import-paper-${candidateId}`).click();
-  await expect(page.getByTestId(`authorised-upload-${candidateId}`)).toBeVisible();
+  await expect(page.getByTestId(`authorised-upload-${candidateId}`)).toBeAttached();
   await page.getByTestId(`authorised-upload-${candidateId}`).setInputFiles({
     name: "authorised-paper.pdf",
     mimeType: "application/pdf",
@@ -203,14 +237,41 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
   await page.getByTestId("outline-add-section").click();
   await page.getByTestId("outline-save").click();
   await page.getByTestId("outline-approve").click();
-  await expect(page.getByTestId("outline-status")).toContainText("Approved");
+  await expect(page.getByTestId("outline-status")).toContainText("已审批");
   await page.getByTestId("outline-research-question").fill("An edited approved question");
   await page.getByTestId("outline-save").click();
-  await expect(page.getByTestId("outline-status")).toContainText("Draft");
+  await expect(page.getByTestId("outline-status")).toContainText("草稿");
+  await page.getByTestId("outline-history").click();
+  await expect(page.getByTestId("outline-history-panel")).toBeVisible();
+  await page.getByRole("button", { name: "恢复为新草稿" }).click();
+  await expect(page.getByTestId("outline-status")).toContainText("草稿");
   await page.reload();
-  await expect(page.getByTestId("outline-status")).toContainText("Draft");
+  await expect(page.getByTestId("outline-status")).toContainText("草稿");
   await expect(page.getByTestId("operation-status")).toContainText("已完成");
 
   await page.getByTestId(`remove-paper-${candidateId}`).click();
   await expect(page.getByTestId("paper-candidate")).toBeVisible();
+  await page.getByTestId(`dismiss-paper-${candidateId}`).click();
+  await expect(page.getByTestId("paper-candidate")).toHaveCount(0);
+  await page.getByTestId(`restore-paper-${candidateId}`).click();
+  await expect(page.getByTestId("paper-candidate")).toBeVisible();
+
+  currentPaper = paper({
+    selected: true,
+    evidence_readiness: "failed",
+    retryable: true,
+    failure_message: "All public PDF sources failed: The selected public URL did not return a PDF.",
+  });
+  await page.reload();
+  await expect(page.getByTestId("paper-selected")).toContainText("所有公开 PDF 来源均失败");
+  await expect(page.getByTestId(`authorised-upload-${candidateId}`)).toBeAttached();
+
+  await page.setViewportSize({ width: 640, height: 800 });
+  const mobilePanelStyles = await page.locator(".panel").evaluateAll((panels) => panels.map((panel) => {
+    const style = getComputedStyle(panel);
+    return { overflowY: style.overflowY, maxHeight: style.maxHeight };
+  }));
+  expect(mobilePanelStyles).toEqual(expect.arrayContaining([
+    expect.objectContaining({ overflowY: "visible", maxHeight: "none" }),
+  ]));
 });

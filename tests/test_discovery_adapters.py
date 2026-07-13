@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -82,6 +85,79 @@ def test_openalex_rate_limit_is_a_retryable_provider_error() -> None:
 
     assert error.value.category == "provider_rate_limited"
     assert error.value.retryable is True
+    assert error.value.next_action == "configure_openalex_api_key"
+
+
+def test_openalex_rate_limit_exposes_retry_after_header() -> None:
+    with pytest.raises(DiscoveryProviderError) as error:
+        OpenAlexProvider(
+            api_key="server-only",
+            requester=lambda *_args, **_kwargs: FakeResponse(
+                status_code=429,
+                headers={"Retry-After": "37"},
+            ),
+            retry_attempts=2,
+            min_interval=0,
+        ).search("evidence")
+
+    assert error.value.retry_after_seconds == 37
+    assert error.value.next_action == "retry_after_reset"
+
+
+def test_openalex_auth_failure_requests_key_without_echoing_credentials() -> None:
+    with pytest.raises(DiscoveryProviderError) as error:
+        OpenAlexProvider(
+            requester=lambda *_args, **_kwargs: FakeResponse(status_code=403),
+            api_key="server-only-secret",
+            retry_attempts=0,
+        ).search("evidence")
+
+    assert error.value.category == "provider_auth_required"
+    assert error.value.next_action == "configure_openalex_api_key"
+    assert "server-only-secret" not in str(error.value)
+
+
+def test_openalex_honours_key_uses_per_page_caches_and_maps_multiple_pdf_locations() -> None:
+    calls = []
+
+    def request(url, **kwargs):
+        calls.append((url, kwargs))
+        return FakeResponse(
+            payload={
+                "meta": {"count": 1},
+                "results": [
+                    {
+                        "id": "https://openalex.org/W456",
+                        "title": "Cached paper",
+                        "authorships": [],
+                        "locations": [
+                            {"pdf_url": "https://repository.example/first.pdf"},
+                            {"pdf_url": "https://repository.example/second.pdf"},
+                        ],
+                        "best_oa_location": {"pdf_url": "https://repository.example/first.pdf"},
+                        "open_access": {"is_oa": True},
+                    }
+                ],
+            }
+        )
+
+    provider = OpenAlexProvider(
+        api_key="server-only",
+        requester=request,
+        min_interval=0,
+        cache_ttl=600,
+    )
+    first = provider.search("evidence", per_page=5)
+    second = provider.search("evidence", per_page=5)
+
+    assert first.candidates[0].pdf_urls == [
+        "https://repository.example/first.pdf",
+        "https://repository.example/second.pdf",
+    ]
+    assert second.candidates[0].provider_id == "W456"
+    assert len(calls) == 1
+    assert calls[0][1]["params"]["api_key"] == "server-only"
+    assert calls[0][1]["params"]["per_page"] == 5
 
 
 def test_openalex_retries_transient_failures_with_bounded_backoff() -> None:
@@ -96,11 +172,65 @@ def test_openalex_retries_transient_failures_with_bounded_backoff() -> None:
     page = OpenAlexProvider(
         requester=lambda *_args, **_kwargs: next(responses),
         retry_delay=0.25,
+        min_interval=0,
         sleeper=delays.append,
     ).search("evidence")
 
     assert page.candidates == []
     assert delays == [0.25]
+
+
+def test_openalex_minimum_interval_applies_between_transient_retries() -> None:
+    now = [0.0]
+    request_times: list[float] = []
+    responses = iter(
+        [
+            FakeResponse(status_code=503),
+            FakeResponse(payload={"meta": {"count": 0}, "results": []}),
+        ]
+    )
+
+    def request(*_args, **_kwargs):
+        request_times.append(now[0])
+        return next(responses)
+
+    def sleep(delay: float) -> None:
+        now[0] += delay
+
+    OpenAlexProvider(
+        requester=request,
+        retry_delay=0.25,
+        min_interval=1.0,
+        clock=lambda: now[0],
+        sleeper=sleep,
+    ).search("evidence")
+
+    assert request_times[1] - request_times[0] >= 1.0
+
+
+def test_openalex_coalesces_concurrent_identical_searches() -> None:
+    calls = 0
+    started = threading.Event()
+    release = threading.Event()
+
+    def request(*_args, **_kwargs):
+        nonlocal calls
+        calls += 1
+        started.set()
+        release.wait(timeout=2)
+        return FakeResponse(payload={"meta": {"count": 0}, "results": []})
+
+    provider = OpenAlexProvider(requester=request, min_interval=0)
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        first = executor.submit(provider.search, "evidence")
+        assert started.wait(timeout=2)
+        second = executor.submit(provider.search, "evidence")
+        time.sleep(0.05)
+        release.set()
+        first.result(timeout=2)
+        second.result(timeout=2)
+
+    assert calls == 1
 
 
 def test_arxiv_adapter_maps_public_pdf_link_without_claiming_a_license() -> None:
@@ -178,3 +308,14 @@ def test_pdf_downloader_records_final_url_and_content_hash(tmp_path: Path) -> No
     assert result.final_url == result.requested_url
     assert result.content_sha256 == "18a44e4002150c81914ba84bad719bc41fed145fd948ca072289ba35e2bb7141"
     assert (tmp_path / "paper.pdf").read_bytes() == body
+
+
+def test_pdf_downloader_accepts_pdf_signature_without_content_type(tmp_path: Path) -> None:
+    downloader = RequestsPdfDownloader(
+        requester=lambda *_args, **_kwargs: FakeResponse(body=b"%PDF-without-content-type")
+    )
+
+    result = downloader.download("https://example.test/paper", tmp_path / "paper.pdf")
+
+    assert result.content_sha256
+    assert (tmp_path / "paper.pdf").read_bytes().startswith(b"%PDF-")

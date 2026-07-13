@@ -10,13 +10,30 @@ import type {
 interface ApiErrorPayload {
   detail?: string;
   error?: string;
+  next_action?: string | null;
+}
+
+export class ApiRequestError extends Error {
+  readonly code: string | null;
+  readonly nextAction: string | null;
+
+  constructor(message: string, code: string | null = null, nextAction: string | null = null) {
+    super(message);
+    this.name = "ApiRequestError";
+    this.code = code;
+    this.nextAction = nextAction;
+  }
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, init);
   if (!response.ok) {
     const payload = (await response.json().catch(() => ({}))) as ApiErrorPayload;
-    throw new Error(payload.detail || payload.error || `请求失败（${response.status}）`);
+    throw new ApiRequestError(
+      payload.detail || payload.error || `请求失败（${response.status}）`,
+      payload.error || null,
+      payload.next_action || null,
+    );
   }
   return (await response.json()) as T;
 }
@@ -61,6 +78,14 @@ export function selectPaper(workspaceId: string, paperId: string): Promise<void>
 
 export function removePaper(workspaceId: string, paperId: string): Promise<void> {
   return request(`/api/workspaces/${workspaceId}/papers/${paperId}`, { method: "DELETE" });
+}
+
+export function dismissPaper(workspaceId: string, paperId: string): Promise<ResearchWorkspace["papers"][number]> {
+  return request(`/api/workspaces/${workspaceId}/papers/${paperId}/dismiss`, { method: "POST" });
+}
+
+export function restorePaper(workspaceId: string, paperId: string): Promise<ResearchWorkspace["papers"][number]> {
+  return request(`/api/workspaces/${workspaceId}/papers/${paperId}/restore`, { method: "POST" });
 }
 
 export function retryPaper(workspaceId: string, paperId: string): Promise<UploadResponse> {
@@ -114,6 +139,16 @@ export function approveOutline(workspaceId: string, revisionId: string): Promise
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ revision_id: revisionId }),
+  });
+}
+
+export function listOutlineRevisions(workspaceId: string): Promise<ReportOutline[]> {
+  return request<ReportOutline[]>(`/api/workspaces/${workspaceId}/outline/revisions`);
+}
+
+export function restoreOutlineRevision(workspaceId: string, revisionId: string): Promise<ReportOutline> {
+  return request<ReportOutline>(`/api/workspaces/${workspaceId}/outline/revisions/${revisionId}/restore`, {
+    method: "POST",
   });
 }
 

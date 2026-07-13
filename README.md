@@ -36,9 +36,12 @@ The first research-workspace delivery slices now add durable workspace
 creation, authorised PDF upload, open-paper candidate discovery, guarded public
 PDF import, selected-paper evidence gating, readiness/failure state, a React +
 TypeScript preparation UI, same-origin static delivery, and versioned workspace
-API routes, and an editable/approvable Report Outline. Cited report generation,
-claim-level evidence inspection, and citation-review state remain later delivery
-slices.
+API routes, and an editable/approvable Report Outline. The 04A stabilization
+slice adds independent desktop panel scrolling, Chinese workspace copy,
+Candidate Paper dismissal/restoration, outline history restoration, and
+recoverable OpenAlex/PDF discovery. Cited report generation, claim-level
+evidence inspection, and citation-review state remain later delivery slices;
+05 is paused until this stabilization has been accepted.
 
 The current product-planning source of truth is the local
 [research-paper workspace map](docs/wayfinder/research-paper-workspace.md).
@@ -68,6 +71,13 @@ $env:DASHSCOPE_API_KEY="..."
 $env:MINERU_API_KEY="..." # only for the current PDF parsing path
 $env:OPENALEX_API_KEY="..." # optional server-side discovery quota key
 ```
+
+OpenAlex discovery never stores this key in the repository. The server uses it
+only for API requests, caches repeated searches in process, exposes a reset
+window after a 429 response, and lets the user switch manually to arXiv. Public
+PDF import tries the ordered OpenAlex locations and accepts a response only
+when its first bytes are `%PDF-`; a restricted paper remains a candidate until
+the user uploads an authorised PDF.
 
 Run the existing test baseline and health checks:
 

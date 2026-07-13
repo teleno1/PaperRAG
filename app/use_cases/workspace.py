@@ -52,12 +52,14 @@ class UploadPaperResult:
         source_path: Path,
         document_version_id: str,
         download_url: str | None = None,
+        download_urls: list[str] | None = None,
     ) -> None:
         self.paper = paper
         self.operation = operation
         self.source_path = source_path
         self.document_version_id = document_version_id
-        self.download_url = download_url
+        self.download_urls = list(dict.fromkeys(download_urls or ([download_url] if download_url else [])))
+        self.download_url = self.download_urls[0] if self.download_urls else None
         self.download_result: PdfDownloadResult | None = None
 
 
@@ -152,11 +154,17 @@ class ResearchWorkspaceService:
                 status="retryable_error" if exc.retryable else "failed",
                 provider=provider,
                 query=normalized_query,
-                candidates=[paper for paper in workspace.papers if paper.source_kind == "discovery"],
+                candidates=[
+                    paper
+                    for paper in workspace.papers
+                    if paper.source_kind == "discovery" and not paper.dismissed
+                ],
                 page=page,
                 per_page=per_page,
                 error_message=str(exc),
                 retryable=exc.retryable,
+                retry_after_seconds=exc.retry_after_seconds,
+                next_action=exc.next_action,
             )
         candidates: list[ResearchPaper] = []
         seen_ids: set[str] = set()
@@ -169,6 +177,8 @@ class ResearchWorkspaceService:
                 discovery_query=normalized_query,
                 timestamp=self._timestamp(),
             )
+            if paper.dismissed:
+                continue
             if paper.id not in seen_ids:
                 candidates.append(paper)
                 seen_ids.add(paper.id)
@@ -183,6 +193,8 @@ class ResearchWorkspaceService:
             per_page=result.per_page,
             total_count=result.total_count,
             next_page=result.next_page,
+            retry_after_seconds=getattr(result, "retry_after_seconds", None),
+            next_action=getattr(result, "next_action", None),
         )
 
     def _validate_upload(self, workspace_id: str, filename: str, content: bytes) -> tuple[ResearchWorkspace, str]:
@@ -317,8 +329,24 @@ class ResearchWorkspaceService:
                 timestamp=self._timestamp(),
                 retry_action=None,
             )
-            if result.download_url:
-                result.download_result = self._pdf_downloader.download(result.download_url, source_path)
+            if result.download_urls:
+                errors: list[PdfDownloadError] = []
+                downloaded = False
+                for download_url in result.download_urls:
+                    try:
+                        result.download_result = self._pdf_downloader.download(download_url, source_path)
+                        downloaded = True
+                        break
+                    except PdfDownloadError as exc:
+                        errors.append(exc)
+                if not downloaded:
+                    last_error = errors[-1] if errors else PdfDownloadError(
+                        "download_failed", "No public PDF source was available."
+                    )
+                    raise PdfDownloadError(
+                        last_error.category,
+                        f"All public PDF sources failed: {last_error}",
+                    ) from last_error
             current_phase = "parsing"
             self._repository.update_operation(
                 operation_id=operation.id,
@@ -450,7 +478,7 @@ class ResearchWorkspaceService:
             raise InvalidPaperUploadError(
                 "This discovered paper is already ready for evidence; use replace=true to create a new document version."
             )
-        can_auto_import = paper.pdf_url and (paper.is_open_access is True or paper.provider == "arxiv")
+        can_auto_import = paper.pdf_urls and (paper.is_open_access is True or paper.provider == "arxiv")
         if not can_auto_import:
             updated = self._repository.mark_paper_awaiting_authorised_file(
                 workspace_id=workspace_id,
@@ -494,6 +522,7 @@ class ResearchWorkspaceService:
             source_path=source_path,
             document_version_id=document_version_id,
             download_url=paper.pdf_url,
+            download_urls=paper.pdf_urls,
         )
 
     def import_discovered_paper(
@@ -556,6 +585,7 @@ class ResearchWorkspaceService:
             source_path=source_path,
             document_version_id=document_version_id,
             download_url=paper.pdf_url if paper.source_kind == "discovery" else None,
+            download_urls=paper.pdf_urls if paper.source_kind == "discovery" else None,
         )
 
     def retry_paper(self, workspace_id: str, paper_id: str) -> UploadPaperResult:
@@ -583,6 +613,44 @@ class ResearchWorkspaceService:
 
     def select_paper(self, workspace_id: str, paper_id: str) -> ResearchPaper:
         return self._set_paper_selection(workspace_id, paper_id, selected=True)
+
+    def dismiss_paper(self, workspace_id: str, paper_id: str) -> ResearchPaper:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        paper = next((item for item in workspace.papers if item.id == paper_id), None)
+        if paper is None:
+            raise PaperNotFoundError(workspace_id, paper_id)
+        if paper.source_kind != "discovery" or paper.selected:
+            raise InvalidPaperUploadError("Only an unselected Candidate Paper can be dismissed.")
+        updated = self._repository.set_paper_dismissed(
+            workspace_id=workspace_id,
+            paper_id=paper_id,
+            dismissed=True,
+            timestamp=self._timestamp(),
+        )
+        if updated is None:
+            raise PaperNotFoundError(workspace_id, paper_id)
+        return updated
+
+    def restore_dismissed_paper(self, workspace_id: str, paper_id: str) -> ResearchPaper:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        paper = next((item for item in workspace.papers if item.id == paper_id), None)
+        if paper is None:
+            raise PaperNotFoundError(workspace_id, paper_id)
+        if paper.source_kind != "discovery" or paper.selected:
+            raise InvalidPaperUploadError("Only an unselected Candidate Paper can be restored.")
+        updated = self._repository.set_paper_dismissed(
+            workspace_id=workspace_id,
+            paper_id=paper_id,
+            dismissed=False,
+            timestamp=self._timestamp(),
+        )
+        if updated is None:
+            raise PaperNotFoundError(workspace_id, paper_id)
+        return updated
 
     def evidence_papers(self, workspace_id: str) -> list[ResearchPaper]:
         return [paper for paper in self.get_workspace(workspace_id).papers if paper.evidence_eligible]
@@ -615,6 +683,24 @@ class ResearchWorkspaceService:
         self.get_workspace(workspace_id)
         return self._repository.list_outline_revisions(workspace_id)
 
+    def restore_outline_revision(self, workspace_id: str, revision_id: str) -> ReportOutline:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        source = self._repository.get_outline_revision(workspace_id, revision_id)
+        if source is None:
+            raise OutlineNotFoundError(workspace_id)
+        return self._repository.create_outline_revision(
+            outline_id=uuid.uuid4().hex,
+            workspace_id=workspace_id,
+            status="draft",
+            title=source.title,
+            research_question=source.research_question,
+            sections=source.sections,
+            evidence_paper_ids=source.evidence_paper_ids,
+            timestamp=self._timestamp(),
+        )
+
     def _default_outline(self, workspace: ResearchWorkspace, evidence_paper_ids: list[str]) -> tuple[str, str, list[OutlineSection]]:
         if workspace.report_language == "en":
             title = f"Literature review outline: {workspace.topic}"
@@ -638,11 +724,11 @@ class ResearchWorkspaceService:
             )
             sections = [
                 OutlineSection("research-question", "研究问题与范围", "明确研究问题、核心概念和本次综述的边界。"),
-                OutlineSection("methods-findings", "方法与主要发现", "概括 Selected Papers 支持的方法、数据和主要发现。"),
+                OutlineSection("methods-findings", "方法与主要发现", "概括已选论文支持的方法、数据和主要发现。"),
                 OutlineSection("comparison", "研究比较", "比较不同研究的假设、数据、方法和结论。"),
                 OutlineSection("limitations-gaps", "局限与研究缺口", "指出当前证据能够支持的范围、局限和仍待回答的问题。"),
                 OutlineSection("conclusion", "结论", "在不添加无依据事实的前提下回答研究问题并综合主要结论。"),
-                OutlineSection("references", "参考文献", "列出本次批准大纲所使用的 Selected Papers。"),
+                OutlineSection("references", "参考文献", "列出本次批准大纲所使用的已选论文。"),
             ]
         return title, research_question, sections
 

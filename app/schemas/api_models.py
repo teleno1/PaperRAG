@@ -302,11 +302,13 @@ class ResearchPaperResponse(BaseModel):
     source_updated_at: Optional[str] = None
     source_url: Optional[str] = None
     pdf_url: Optional[str] = None
+    pdf_urls: list[str] = Field(default_factory=list)
     is_open_access: Optional[bool] = None
     license: Optional[str] = None
     source_links: list[str] = Field(default_factory=list)
     discovery_query: Optional[str] = None
     discovered_at: Optional[str] = None
+    dismissed: bool = False
 
 
 class ResearchWorkspaceResponse(BaseModel):
@@ -334,6 +336,7 @@ class WorkspaceDiscoveryRequest(BaseModel):
 
 
 class WorkspaceDiscoveryResponse(BaseModel):
+    provider: Literal["openalex", "arxiv"]
     query: str
     status: Literal["succeeded", "empty", "retryable_error", "failed"]
     candidates: list[ResearchPaperResponse] = Field(default_factory=list)
@@ -343,3 +346,5 @@ class WorkspaceDiscoveryResponse(BaseModel):
     next_page: Optional[int] = None
     error_message: Optional[str] = None
     retryable: bool = False
+    retry_after_seconds: Optional[int] = None
+    next_action: Optional[str] = None

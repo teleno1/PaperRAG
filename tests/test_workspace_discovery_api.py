@@ -92,7 +92,7 @@ def test_workspace_discovery_api_returns_candidate_then_polls_import(tmp_path: P
     assert "storage_path" not in candidate
     assert "provider" not in candidate
     assert "provider_id" not in candidate
-    assert "provider" not in discovered.json()
+    assert discovered.json()["provider"] == "openalex"
 
     imported = client.post(
         f"/api/workspaces/{workspace['id']}/papers/{candidate['id']}/import",

@@ -59,6 +59,7 @@ class DiscoveryCandidate:
     arxiv_id: str | None = None
     source_url: str | None = None
     pdf_url: str | None = None
+    pdf_urls: list[str] = field(default_factory=list)
     is_open_access: bool | None = None
     license: str | None = None
     source_links: list[str] = field(default_factory=list)
@@ -70,7 +71,12 @@ class DiscoveryCandidate:
         self.doi = normalize_doi(self.doi)
         self.arxiv_id = re.sub(r"v\d+$", "", self.arxiv_id.strip()) if self.arxiv_id else None
         links = [link.strip() for link in self.source_links if link and link.strip()]
-        for link in (self.source_url, self.pdf_url):
+        pdf_urls = [link.strip() for link in self.pdf_urls if link and link.strip()]
+        if self.pdf_url and self.pdf_url.strip() and self.pdf_url.strip() not in pdf_urls:
+            pdf_urls.insert(0, self.pdf_url.strip())
+        self.pdf_urls = list(dict.fromkeys(pdf_urls))
+        self.pdf_url = self.pdf_urls[0] if self.pdf_urls else None
+        for link in (self.source_url, *self.pdf_urls):
             if link and link.strip() and link.strip() not in links:
                 links.append(link.strip())
         self.source_links = links
@@ -99,6 +105,8 @@ class DiscoveryResult:
     next_page: int | None = None
     error_message: str | None = None
     retryable: bool = False
+    retry_after_seconds: int | None = None
+    next_action: str | None = None
 
 
 @dataclass(slots=True)
@@ -146,6 +154,7 @@ class ResearchPaper:
     abstract: str = ""
     source_url: str | None = None
     pdf_url: str | None = None
+    pdf_urls: list[str] = field(default_factory=list)
     is_open_access: bool | None = None
     license: str | None = None
     source_links: list[str] = field(default_factory=list)
@@ -153,6 +162,7 @@ class ResearchPaper:
     discovered_at: str | None = None
     published_at: str | None = None
     source_updated_at: str | None = None
+    dismissed_at: str | None = None
 
     def __post_init__(self) -> None:
         self.id = _required(self.id, "paper_id")
@@ -167,6 +177,11 @@ class ResearchPaper:
         if self.arxiv_id:
             self.arxiv_id = re.sub(r"v\d+$", "", self.arxiv_id.strip()) or None
         self.source_links = [link.strip() for link in self.source_links if link and link.strip()]
+        pdf_urls = [link.strip() for link in self.pdf_urls if link and link.strip()]
+        if self.pdf_url and self.pdf_url.strip() and self.pdf_url.strip() not in pdf_urls:
+            pdf_urls.insert(0, self.pdf_url.strip())
+        self.pdf_urls = list(dict.fromkeys(pdf_urls))
+        self.pdf_url = self.pdf_urls[0] if self.pdf_urls else None
         if self.evidence_readiness == "ready" and not self.active_document_version_id:
             raise ValueError("ready paper must have an active document version")
 
@@ -186,6 +201,10 @@ class ResearchPaper:
         if self.evidence_readiness == "failed" and self.retryable:
             return "retry_import"
         return None
+
+    @property
+    def dismissed(self) -> bool:
+        return bool(self.dismissed_at)
 
 
 @dataclass(slots=True)

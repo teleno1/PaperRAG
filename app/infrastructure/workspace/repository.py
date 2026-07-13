@@ -48,11 +48,13 @@ CREATE TABLE IF NOT EXISTS papers (
     abstract TEXT NOT NULL DEFAULT '',
     source_url TEXT,
     pdf_url TEXT,
+    pdf_urls_json TEXT NOT NULL DEFAULT '[]',
     is_open_access INTEGER,
     license TEXT,
     source_links_json TEXT NOT NULL DEFAULT '[]',
     discovery_query TEXT,
     discovered_at TEXT,
+    dismissed_at TEXT,
     published_at TEXT,
     source_updated_at TEXT,
     created_at TEXT NOT NULL,
@@ -124,6 +126,9 @@ class WorkspaceRepository:
             connection.executescript(SCHEMA)
             self._migrate_paper_columns(connection)
             self._migrate_document_version_columns(connection)
+            connection.execute(
+                "CREATE INDEX IF NOT EXISTS idx_papers_dismissed ON papers(workspace_id, dismissed_at)"
+            )
 
     def _connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.database_path)
@@ -142,11 +147,13 @@ class WorkspaceRepository:
             "abstract": "TEXT NOT NULL DEFAULT ''",
             "source_url": "TEXT",
             "pdf_url": "TEXT",
+            "pdf_urls_json": "TEXT NOT NULL DEFAULT '[]'",
             "is_open_access": "INTEGER",
             "license": "TEXT",
             "source_links_json": "TEXT NOT NULL DEFAULT '[]'",
             "discovery_query": "TEXT",
             "discovered_at": "TEXT",
+            "dismissed_at": "TEXT",
             "published_at": "TEXT",
             "source_updated_at": "TEXT",
         }
@@ -191,6 +198,7 @@ class WorkspaceRepository:
             abstract=row["abstract"],
             source_url=row["source_url"],
             pdf_url=row["pdf_url"],
+            pdf_urls=json.loads(row["pdf_urls_json"] or "[]"),
             is_open_access=None if row["is_open_access"] is None else bool(row["is_open_access"]),
             license=row["license"],
             source_links=json.loads(row["source_links_json"] or "[]"),
@@ -198,6 +206,7 @@ class WorkspaceRepository:
             discovered_at=row["discovered_at"],
             published_at=row["published_at"],
             source_updated_at=row["source_updated_at"],
+            dismissed_at=row["dismissed_at"],
         )
 
     def _workspace_with_connection(self, connection: sqlite3.Connection, workspace_id: str) -> ResearchWorkspace | None:
@@ -287,6 +296,14 @@ class WorkspaceRepository:
                 LIMIT 1
                 """,
                 (workspace_id,),
+            ).fetchone()
+            return self._outline(row) if row else None
+
+    def get_outline_revision(self, workspace_id: str, revision_id: str) -> ReportOutline | None:
+        with self._connect() as connection:
+            row = connection.execute(
+                "SELECT * FROM outline_revisions WHERE workspace_id = ? AND id = ?",
+                (workspace_id, revision_id),
             ).fetchone()
             return self._outline(row) if row else None
 
@@ -442,13 +459,14 @@ class WorkspaceRepository:
                     """
                     INSERT INTO papers (
                         id, workspace_id, title, source_kind, original_filename, storage_path,
-                        selected, evidence_readiness, active_document_version_id, authors_json,
-                        year, venue, failure_phase, failure_message, retryable,
-                        provider, provider_id, doi, arxiv_id, abstract, source_url, pdf_url,
-                        is_open_access, license, source_links_json, discovery_query, discovered_at,
+                    selected, evidence_readiness, active_document_version_id, authors_json,
+                    year, venue, failure_phase, failure_message, retryable,
+                    provider, provider_id, doi, arxiv_id, abstract, source_url, pdf_url,
+                        pdf_urls_json, is_open_access, license, source_links_json, discovery_query, discovered_at,
+                        dismissed_at,
                         published_at, source_updated_at, created_at, updated_at
                     ) VALUES (?, ?, ?, 'discovery', ?, '', 0, 'unavailable', NULL, ?, ?, ?, NULL, NULL, 0,
-                              ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                              ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?, ?)
                     """,
                     (
                         paper_id,
@@ -465,6 +483,7 @@ class WorkspaceRepository:
                         candidate.abstract,
                         candidate.source_url,
                         candidate.pdf_url,
+                        json.dumps(candidate.pdf_urls, ensure_ascii=False),
                         None if candidate.is_open_access is None else int(candidate.is_open_access),
                         candidate.license,
                         json.dumps(candidate.source_links, ensure_ascii=False),
@@ -483,6 +502,11 @@ class WorkspaceRepository:
                 for link in candidate.source_links:
                     if link not in merged_links:
                         merged_links.append(link)
+                previous_pdf_urls = json.loads(existing["pdf_urls_json"] or "[]")
+                merged_pdf_urls = list(previous_pdf_urls)
+                for link in candidate.pdf_urls:
+                    if link not in merged_pdf_urls:
+                        merged_pdf_urls.append(link)
                 connection.execute(
                     """
                     UPDATE papers
@@ -490,7 +514,7 @@ class WorkspaceRepository:
                         provider = COALESCE(provider, ?), provider_id = COALESCE(provider_id, ?),
                         doi = COALESCE(doi, ?), arxiv_id = COALESCE(arxiv_id, ?),
                         abstract = CASE WHEN ? <> '' THEN ? ELSE abstract END,
-                        source_url = COALESCE(source_url, ?), pdf_url = COALESCE(pdf_url, ?),
+                        source_url = COALESCE(source_url, ?), pdf_url = COALESCE(pdf_url, ?), pdf_urls_json = ?,
                         is_open_access = COALESCE(is_open_access, ?), license = COALESCE(license, ?),
                         source_links_json = ?, discovery_query = ?, discovered_at = ?,
                         published_at = COALESCE(?, published_at), source_updated_at = COALESCE(?, source_updated_at),
@@ -510,6 +534,7 @@ class WorkspaceRepository:
                         candidate.abstract,
                         candidate.source_url,
                         candidate.pdf_url,
+                        json.dumps(merged_pdf_urls, ensure_ascii=False),
                         None if candidate.is_open_access is None else int(candidate.is_open_access),
                         candidate.license,
                         json.dumps(merged_links, ensure_ascii=False),
@@ -787,8 +812,36 @@ class WorkspaceRepository:
     def set_paper_selected(self, *, workspace_id: str, paper_id: str, selected: bool, timestamp: str) -> ResearchPaper | None:
         with self._connect() as connection:
             connection.execute(
-                "UPDATE papers SET selected = ?, updated_at = ? WHERE id = ? AND workspace_id = ?",
-                (int(selected), timestamp, paper_id, workspace_id),
+                """
+                UPDATE papers
+                SET selected = ?, dismissed_at = CASE WHEN ? = 1 THEN NULL ELSE dismissed_at END,
+                    updated_at = ?
+                WHERE id = ? AND workspace_id = ?
+                """,
+                (int(selected), int(selected), timestamp, paper_id, workspace_id),
+            )
+            connection.execute("UPDATE workspaces SET updated_at = ? WHERE id = ?", (timestamp, workspace_id))
+            row = connection.execute(
+                "SELECT * FROM papers WHERE id = ? AND workspace_id = ?", (paper_id, workspace_id)
+            ).fetchone()
+            return self._paper(row) if row else None
+
+    def set_paper_dismissed(
+        self,
+        *,
+        workspace_id: str,
+        paper_id: str,
+        dismissed: bool,
+        timestamp: str,
+    ) -> ResearchPaper | None:
+        with self._connect() as connection:
+            connection.execute(
+                """
+                UPDATE papers
+                SET dismissed_at = ?, updated_at = ?
+                WHERE id = ? AND workspace_id = ? AND source_kind = 'discovery' AND selected = 0
+                """,
+                (timestamp if dismissed else None, timestamp, paper_id, workspace_id),
             )
             connection.execute("UPDATE workspaces SET updated_at = ? WHERE id = ?", (timestamp, workspace_id))
             row = connection.execute(

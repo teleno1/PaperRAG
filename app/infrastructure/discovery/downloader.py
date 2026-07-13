@@ -55,6 +55,10 @@ class RequestsPdfDownloader:
                 stream=True,
                 timeout=self._timeout,
                 allow_redirects=True,
+                headers={
+                    "Accept": "application/pdf, application/octet-stream;q=0.9, */*;q=0.1",
+                    "User-Agent": "PaperRAG/0.1 (research workspace PDF importer)",
+                },
             )
         except requests.RequestException as exc:
             raise PdfDownloadError("download_unavailable", "The public PDF could not be downloaded; retry later.") from exc
@@ -63,19 +67,26 @@ class RequestsPdfDownloader:
         status_code = getattr(response, "status_code", 0)
         if status_code < 200 or status_code >= 300:
             raise PdfDownloadError("download_failed", "The public PDF URL did not return a successful response.")
-        content_type = str(getattr(response, "headers", {}).get("content-type", "")).split(";", 1)[0].strip().lower()
-        if content_type != "application/pdf":
-            raise PdfDownloadError("not_a_pdf", "The selected public URL did not return a PDF.")
-
         destination.parent.mkdir(parents=True, exist_ok=True)
         temporary = destination.with_suffix(destination.suffix + ".part")
         total = 0
         digest = hashlib.sha256()
+        prefix = bytearray()
+        content_type = str(getattr(response, "headers", {}).get("content-type", "")).split(";", 1)[0].strip().lower()
         try:
             with temporary.open("wb") as file_obj:
                 for chunk in response.iter_content(chunk_size=64 * 1024):
                     if not chunk:
                         continue
+                    if len(prefix) < 5:
+                        prefix.extend(chunk[: 5 - len(prefix)])
+                        if len(prefix) >= 5 and not bytes(prefix).startswith(b"%PDF-"):
+                            message = (
+                                "The selected public URL did not return a valid PDF."
+                                if content_type == "application/pdf"
+                                else "The selected public URL did not return a PDF."
+                            )
+                            raise PdfDownloadError("not_a_pdf", message)
                     total += len(chunk)
                     if total > self._max_bytes:
                         raise PdfDownloadError("pdf_too_large", "The selected PDF exceeds the workspace import limit.")
