@@ -1,6 +1,9 @@
 # Triage Labels
 
-The skills speak in terms of five canonical triage roles. This file maps those roles to the actual label strings used in this repo's issue tracker.
+The active tracker is local Markdown because GitHub issue write access is not
+available. Use a delivery ticket's `Status` and `Active blockers` fields, and a
+Wayfinder ticket's frontmatter, for current state. The mapping below is retained
+only for a future migration back to writable GitHub Issues.
 
 | Label in mattpocock/skills | Label in our tracker | Meaning                                  |
 | -------------------------- | -------------------- | ---------------------------------------- |

@@ -76,7 +76,7 @@ a general trustworthy RAG system.
 
 Allowed Changes:
 - Update README project description, current status, and roadmap summary.
-- Link to `AGENTS.md`, `TASKS.md`, and docs.
+- Link to `AGENTS.md`, `docs/legacy/TASKS.md`, and docs.
 
 Acceptance:
 - README states the target product clearly.

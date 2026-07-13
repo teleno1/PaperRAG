@@ -7,7 +7,7 @@
 >
 > The research-paper workspace will define product acceptance around selected
 > papers, claim-level traceability, citation-review states, and an end-to-end
-> user workflow through its [active Wayfinder map](wayfinder/research-paper-workspace.md).
+> user workflow through its [active Wayfinder map](../wayfinder/research-paper-workspace.md).
 > This document remains unchanged below as an auditable historical record.
 
 The project should prove reliability with objective evaluation, not only with a

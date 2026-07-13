@@ -11,7 +11,7 @@ Define the final evaluation dataset structure, coverage buckets, and any
 minimal schema support needed for the acceptance pass.
 
 Allowed Changes:
-- Update `docs/evaluation-plan.md`.
+- Update `docs/legacy/evaluation-plan.md`.
 - Add minimal eval schema support needed for the final dataset, such as explicit
   negative or abstention indicators if required.
 - Update loader, metric, or result-model tests that need to reflect the final
@@ -77,7 +77,7 @@ Notes:
 - Added deterministic grading helpers for `answer_point_coverage`,
   `unsupported_aspect_violation_count`, and abstention cue detection, and
   carried those metrics plus case-level `failure_label` into eval artifacts.
-- Updated `docs/evaluation-plan.md`, `docs/architecture.md`, and
+- Updated `docs/legacy/evaluation-plan.md`, `docs/architecture.md`, and
   `data/README.md` so the enforced Phase 5 contract, eval/API surface, and the
   tracked `data/eval_corpus/openai_devdocs/` boundary are documented alongside
   the code changes.
@@ -250,6 +250,6 @@ Notes:
 - Strategy comparison artifacts written under run
   `20260710_192339_c86c53`, with the lowest failure rate tied between
   `balanced_topk5_rerank_on` and `fine_grained_topk3_rerank_on` at `0.325`.
-- `docs/evaluation-plan.md`, `docs/architecture.md`, and
-  `docs/refactor-roadmap.md` were updated with final metrics, a successful
+- `docs/legacy/evaluation-plan.md`, `docs/architecture.md`, and
+  `docs/legacy/refactor-roadmap.md` were updated with final metrics, a successful
   trace, and a failure-analysis summary.
