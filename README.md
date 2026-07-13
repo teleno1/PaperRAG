@@ -36,8 +36,9 @@ The first research-workspace delivery slices now add durable workspace
 creation, authorised PDF upload, open-paper candidate discovery, guarded public
 PDF import, selected-paper evidence gating, readiness/failure state, a React +
 TypeScript preparation UI, same-origin static delivery, and versioned workspace
-API routes. The outline/report workflow, claim-level evidence panel, and
-citation-review state remain later delivery slices.
+API routes, and an editable/approvable Report Outline. Cited report generation,
+claim-level evidence inspection, and citation-review state remain later delivery
+slices.
 
 The current product-planning source of truth is the local
 [research-paper workspace map](docs/wayfinder/research-paper-workspace.md).

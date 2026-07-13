@@ -3,11 +3,15 @@ import { createRoot } from "react-dom/client";
 import {
   createWorkspace,
   discoverPapers,
+  generateOutline,
   getWorkspace,
   importPaper,
   listWorkspaces,
   removePaper,
+  retryOperation,
   retryPaper,
+  saveOutline,
+  approveOutline,
   selectPaper,
   uploadPaper,
 } from "./api";
@@ -16,6 +20,7 @@ import type {
   EvidenceReadiness,
   ResearchPaper,
   ResearchWorkspace,
+  ReportOutline,
   ReportLanguage,
   WorkspaceOperation,
 } from "./types";
@@ -38,6 +43,8 @@ const operationLabels: Record<string, string> = {
   retry_paper_import: "重试论文处理",
 };
 
+operationLabels.generate_outline = "Generate report outline";
+
 function App() {
   const [workspaces, setWorkspaces] = useState<ResearchWorkspace[]>([]);
   const [workspaceId, setWorkspaceId] = useState("");
@@ -54,6 +61,7 @@ function App() {
   const [provider, setProvider] = useState<"openalex" | "arxiv">("openalex");
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [candidateFiles, setCandidateFiles] = useState<Record<string, File | null>>({});
+  const [outlineDraft, setOutlineDraft] = useState<ReportOutline | null>(null);
 
   const refreshWorkspaces = useCallback(async () => {
     const result = await listWorkspaces();
@@ -71,6 +79,25 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const outline = workspace?.outline;
+    if (!outline) {
+      setOutlineDraft(null);
+      return;
+    }
+    setOutlineDraft((current) => {
+      if (
+        current &&
+        current.id === outline.id &&
+        current.updated_at === outline.updated_at &&
+        current.status === outline.status
+      ) {
+        return current;
+      }
+      return { ...outline, sections: outline.sections.map((section) => ({ ...section })) };
+    });
+  }, [workspace?.id, workspace?.outline?.id, workspace?.outline?.status, workspace?.outline?.updated_at]);
+
+  useEffect(() => {
     void refreshWorkspaces().catch((reason: unknown) => setError(errorMessage(reason)));
   }, [refreshWorkspaces]);
 
@@ -84,6 +111,11 @@ function App() {
 
   const hasActiveOperation = Boolean(
     workspace?.operations.some((operation) => operation.status === "queued" || operation.status === "running"),
+  );
+  const outlineGenerating = Boolean(
+    workspace?.operations.some(
+      (operation) => operation.operation_type === "generate_outline" && (operation.status === "queued" || operation.status === "running"),
+    ),
   );
 
   useEffect(() => {
@@ -194,6 +226,68 @@ function App() {
       const result = await retryPaper(workspace.id, paper.id);
       addOperation(result.operation);
       setNotice("已创建新的处理尝试，旧的失败记录仍会保留。 ");
+    });
+  }
+
+  async function handleGenerateOutline() {
+    if (!workspace) return;
+    await runAction("generate-outline", async () => {
+      const operation = await generateOutline(workspace.id);
+      addOperation(operation);
+      setNotice("Outline draft generated. Edit the sections, then approve it before report generation.");
+    });
+  }
+
+  async function handleRetryOutline(operation: WorkspaceOperation) {
+    if (!workspace) return;
+    await runAction(`retry-${operation.id}`, async () => {
+      const retry = await retryOperation(operation.id);
+      addOperation(retry);
+      setNotice("Outline generation was queued again.");
+    });
+  }
+
+  async function handleSaveOutline() {
+    if (!workspace || !outlineDraft) return;
+    await runAction("save-outline", async () => {
+      await saveOutline(workspace.id, outlineDraft);
+      setNotice("Outline changes saved. The approved revision remains in history.");
+    });
+  }
+
+  async function handleApproveOutline() {
+    if (!workspace || !outlineDraft) return;
+    await runAction("approve-outline", async () => {
+      await approveOutline(workspace.id, outlineDraft.id);
+      setNotice("The current outline revision is approved for report generation.");
+    });
+  }
+
+  function updateOutlineDraft(update: (outline: ReportOutline) => ReportOutline) {
+    setOutlineDraft((current) => (current ? update(current) : current));
+  }
+
+  function addOutlineSection() {
+    updateOutlineDraft((current) => ({
+      ...current,
+      sections: [
+        ...current.sections,
+        {
+          id: `section-${Date.now()}`,
+          title: current.status === "approved" ? "New section" : "新章节",
+          description: "",
+        },
+      ],
+    }));
+  }
+
+  function moveOutlineSection(index: number, offset: -1 | 1) {
+    updateOutlineDraft((current) => {
+      const target = index + offset;
+      if (target < 0 || target >= current.sections.length) return current;
+      const sections = [...current.sections];
+      [sections[index], sections[target]] = [sections[target], sections[index]];
+      return { ...current, sections };
     });
   }
 
@@ -313,6 +407,19 @@ function App() {
                   <p>Candidate Papers 只提供元数据。只有 Selected Paper 且 Evidence Readiness 为“证据就绪”的论文，才会进入后续检索、生成和引用。</p>
                 </div>
               </div>
+
+              <OutlineEditor
+                outline={outlineDraft}
+                readyCount={readyCount}
+                generating={outlineGenerating}
+                busyKey={busyKey}
+                onGenerate={() => void handleGenerateOutline()}
+                onSave={() => void handleSaveOutline()}
+                onApprove={() => void handleApproveOutline()}
+                onChange={updateOutlineDraft}
+                onAddSection={addOutlineSection}
+                onMoveSection={moveOutlineSection}
+              />
             </>
           )}
           {notice && <p className="notice-message">{notice}</p>}
@@ -323,7 +430,7 @@ function App() {
           <PanelHeading eyebrow="03 / DURABLE ACTIVITY" title="处理状态" />
           <p className="muted">这些状态来自持久化 Workspace Operations。刷新页面后仍会保留。</p>
           <section className="activity-list" aria-live="polite">
-            {workspace?.operations.length ? workspace.operations.map((operation) => <OperationCard key={operation.id} operation={operation} papers={workspace.papers} onRetry={(paper) => void handleRetry(paper)} busyKey={busyKey} />) : <EmptyState text="上传或导入论文后，操作记录会出现在这里。" />}
+            {workspace?.operations.length ? workspace.operations.map((operation) => <OperationCard key={operation.id} operation={operation} papers={workspace.papers} onRetry={(paper) => void handleRetry(paper)} onRetryOutline={(item) => void handleRetryOutline(item)} busyKey={busyKey} />) : <EmptyState text="上传或导入论文后，操作记录会出现在这里。" />}
           </section>
           <div className="new-workspace-block">
             <SectionLabel label="另建一个工作区" detail="单用户部署" />
@@ -340,6 +447,138 @@ function App() {
           </div>
         </aside>
       </main>
+    </div>
+  );
+}
+
+function OutlineEditor({
+  outline,
+  readyCount,
+  generating,
+  busyKey,
+  onGenerate,
+  onSave,
+  onApprove,
+  onChange,
+  onAddSection,
+  onMoveSection,
+}: {
+  outline: ReportOutline | null;
+  readyCount: number;
+  generating: boolean;
+  busyKey: string | null;
+  onGenerate: () => void;
+  onSave: () => void;
+  onApprove: () => void;
+  onChange: (update: (outline: ReportOutline) => ReportOutline) => void;
+  onAddSection: () => void;
+  onMoveSection: (index: number, offset: -1 | 1) => void;
+}) {
+  if (!outline) {
+    return (
+      <div className="outline-editor card-block" data-testid="outline-editor">
+        <SectionLabel label="Report Outline" detail="先批准结构，再生成报告" />
+        <p className="helper-text">
+          {readyCount > 0
+            ? "当前已有可用证据，可以生成默认大纲。"
+            : "还没有可用证据；请先选择并处理至少一篇 Selected Paper，直到状态为 ready。"}
+        </p>
+        <button
+          data-testid="outline-generate"
+          type="button"
+          onClick={onGenerate}
+          disabled={readyCount === 0 || generating || busyKey === "generate-outline"}
+        >
+          {busyKey === "generate-outline" ? "Generating…" : "Generate outline"}
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="outline-editor card-block" data-testid="outline-editor">
+      <div className="outline-heading">
+        <SectionLabel label="Report Outline" detail={`Revision ${outline.revision_number}`} />
+        <span className={`badge badge-${outline.status}`} data-testid="outline-status">
+          {outline.status === "approved" ? "Approved" : "Draft"}
+        </span>
+      </div>
+      <label className="outline-field">
+        Title
+        <input
+          data-testid="outline-title"
+          value={outline.title}
+          onChange={(event) => onChange((current) => ({ ...current, title: event.target.value }))}
+        />
+      </label>
+      <label className="outline-field">
+        Research question
+        <textarea
+          data-testid="outline-research-question"
+          rows={3}
+          value={outline.research_question}
+          onChange={(event) => onChange((current) => ({ ...current, research_question: event.target.value }))}
+        />
+      </label>
+      <div className="outline-section-list">
+        {outline.sections.map((section, index) => (
+          <article className="outline-section" data-testid="outline-section" key={section.id}>
+            <div className="outline-section-toolbar">
+              <span>{index + 1}</span>
+              <button type="button" aria-label="Move section up" onClick={() => onMoveSection(index, -1)} disabled={index === 0}>
+                ↑
+              </button>
+              <button type="button" aria-label="Move section down" onClick={() => onMoveSection(index, 1)} disabled={index === outline.sections.length - 1}>
+                ↓
+              </button>
+              <button
+                type="button"
+                className="button-quiet"
+                onClick={() => onChange((current) => ({ ...current, sections: current.sections.filter((item) => item.id !== section.id) }))}
+                disabled={outline.sections.length <= 1}
+              >
+                Remove
+              </button>
+            </div>
+            <input
+              data-testid={`outline-section-title-${section.id}`}
+              value={section.title}
+              aria-label={`Section ${index + 1} title`}
+              onChange={(event) => onChange((current) => ({
+                ...current,
+                sections: current.sections.map((item) => item.id === section.id ? { ...item, title: event.target.value } : item),
+              }))}
+            />
+            <textarea
+              value={section.description}
+              aria-label={`Section ${index + 1} description`}
+              rows={2}
+              onChange={(event) => onChange((current) => ({
+                ...current,
+                sections: current.sections.map((item) => item.id === section.id ? { ...item, description: event.target.value } : item),
+              }))}
+            />
+          </article>
+        ))}
+      </div>
+      <div className="outline-actions">
+        <button type="button" className="button-quiet" data-testid="outline-add-section" onClick={onAddSection}>
+          Add section
+        </button>
+        <button type="button" data-testid="outline-save" onClick={onSave} disabled={busyKey === "save-outline"}>
+          {busyKey === "save-outline" ? "Saving…" : "Save draft"}
+        </button>
+        {outline.status === "draft" && (
+          <button type="button" data-testid="outline-approve" onClick={onApprove} disabled={busyKey === "approve-outline"}>
+            {busyKey === "approve-outline" ? "Approving…" : "Approve revision"}
+          </button>
+        )}
+      </div>
+      <p className="helper-text">
+        {outline.status === "approved"
+          ? "This revision is immutable. Saving an edit creates a new draft revision."
+          : "Edit, reorder, add, or remove sections before approving this revision."}
+      </p>
     </div>
   );
 }
@@ -460,7 +699,7 @@ function PaperCard({
   );
 }
 
-function OperationCard({ operation, papers, onRetry, busyKey }: { operation: WorkspaceOperation; papers: ResearchPaper[]; onRetry: (paper: ResearchPaper) => void; busyKey: string | null }) {
+function OperationCard({ operation, papers, onRetry, onRetryOutline, busyKey }: { operation: WorkspaceOperation; papers: ResearchPaper[]; onRetry: (paper: ResearchPaper) => void; onRetryOutline: (operation: WorkspaceOperation) => void; busyKey: string | null }) {
   const paper = papers.find((item) => item.id === operation.paper_id);
   const percent = operation.total_work ? Math.round((operation.completed_work / operation.total_work) * 100) : 0;
   const active = operation.status === "queued" || operation.status === "running";
@@ -474,6 +713,7 @@ function OperationCard({ operation, papers, onRetry, busyKey }: { operation: Wor
       <div className="progress-track"><span style={{ width: `${active ? Math.max(percent, operation.phase === "importing" ? 10 : 35) : percent}%` }} /></div>
       <div className="operation-meta"><span>{operation.phase}</span><span>{operation.completed_work}/{operation.total_work}</span></div>
       {operation.error_message && <p className="operation-error">{operation.error_message}</p>}
+      {(operation.retry_action || operation.status === "failed" || operation.status === "interrupted") && operation.operation_type === "generate_outline" && <button className="button-warning full-width" type="button" onClick={() => onRetryOutline(operation)} disabled={busyKey === `retry-${operation.id}`}>Retry outline generation</button>}
       {(operation.retry_action || operation.status === "failed" || operation.status === "interrupted") && paper && <button className="button-warning full-width" type="button" onClick={() => onRetry(paper)} disabled={busyKey === `retry-${paper.id}`}>恢复此操作</button>}
     </article>
   );

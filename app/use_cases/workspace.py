@@ -10,7 +10,10 @@ from pathlib import Path
 from typing import Mapping
 
 from app.core.exceptions import (
+    InvalidOutlineError,
     InvalidPaperUploadError,
+    OutlineNotFoundError,
+    OutlineUnavailableError,
     PaperNotFoundError,
     WorkspaceArchivedError,
     WorkspaceNotFoundError,
@@ -18,6 +21,7 @@ from app.core.exceptions import (
 )
 from app.core.config import get_settings
 from app.core.paths import PathManager, get_paths
+from app.domain.outline import OutlineSection, ReportOutline
 from app.domain.workspace import (
     DiscoveryResult,
     ResearchPaper,
@@ -58,7 +62,7 @@ class UploadPaperResult:
 
 
 class ResearchWorkspaceService:
-    """Application seam for workspace creation and authorised paper upload."""
+    """Application seam for workspace preparation and outline lifecycle."""
 
     def __init__(
         self,
@@ -592,3 +596,210 @@ class ResearchWorkspaceService:
     def list_operations(self, workspace_id: str) -> list[WorkspaceOperation]:
         self.get_workspace(workspace_id)
         return self._repository.list_operations(workspace_id)
+
+    def retry_operation(self, operation_id: str) -> WorkspaceOperation:
+        operation = self.get_operation(operation_id)
+        if operation.operation_type != "generate_outline":
+            raise InvalidOutlineError("Only failed Report Outline generation operations can be retried here.")
+        if operation.status not in {"failed", "interrupted"}:
+            raise InvalidOutlineError("Only failed or interrupted Report Outline operations can be retried.")
+        retry = self.start_outline_generation(operation.workspace_id)
+        self.enqueue_outline_generation(retry)
+        return retry
+
+    def get_outline(self, workspace_id: str) -> ReportOutline | None:
+        self.get_workspace(workspace_id)
+        return self._repository.get_current_outline(workspace_id)
+
+    def list_outline_revisions(self, workspace_id: str) -> list[ReportOutline]:
+        self.get_workspace(workspace_id)
+        return self._repository.list_outline_revisions(workspace_id)
+
+    def _default_outline(self, workspace: ResearchWorkspace, evidence_paper_ids: list[str]) -> tuple[str, str, list[OutlineSection]]:
+        if workspace.report_language == "en":
+            title = f"Literature review outline: {workspace.topic}"
+            research_question = (
+                f"Which methods and findings define research on {workspace.topic}, "
+                "and where do the studies differ or leave evidence gaps?"
+            )
+            sections = [
+                OutlineSection("research-question", "Research question and scope", "Define the question, concepts, and boundaries of this review."),
+                OutlineSection("methods-findings", "Methods and findings", "Summarise the methods and main findings supported by the selected papers."),
+                OutlineSection("comparison", "Comparison across studies", "Compare assumptions, data, methods, and findings across the evidence set."),
+                OutlineSection("limitations-gaps", "Limitations and research gaps", "Identify limitations and open questions that the current evidence does not resolve."),
+                OutlineSection("conclusion", "Conclusion", "Synthesize the answer to the research question without adding unsupported claims."),
+                OutlineSection("references", "References", "List the selected papers used by the approved outline."),
+            ]
+        else:
+            title = f"{workspace.topic}：文献综述大纲"
+            research_question = (
+                f"围绕“{workspace.topic}”，现有研究采用了哪些方法、得到什么发现，"
+                "不同研究之间有何差异，还存在哪些证据缺口？"
+            )
+            sections = [
+                OutlineSection("research-question", "研究问题与范围", "明确研究问题、核心概念和本次综述的边界。"),
+                OutlineSection("methods-findings", "方法与主要发现", "概括 Selected Papers 支持的方法、数据和主要发现。"),
+                OutlineSection("comparison", "研究比较", "比较不同研究的假设、数据、方法和结论。"),
+                OutlineSection("limitations-gaps", "局限与研究缺口", "指出当前证据能够支持的范围、局限和仍待回答的问题。"),
+                OutlineSection("conclusion", "结论", "在不添加无依据事实的前提下回答研究问题并综合主要结论。"),
+                OutlineSection("references", "参考文献", "列出本次批准大纲所使用的 Selected Papers。"),
+            ]
+        return title, research_question, sections
+
+    def start_outline_generation(self, workspace_id: str) -> WorkspaceOperation:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        evidence_paper_ids = [paper.id for paper in workspace.papers if paper.evidence_eligible]
+        if not evidence_paper_ids:
+            raise OutlineUnavailableError(
+                workspace_id,
+                "select and process at least one Selected Paper until Evidence Readiness is ready",
+            )
+
+        return self._repository.create_operation(
+            operation_id=uuid.uuid4().hex,
+            workspace_id=workspace_id,
+            paper_id=None,
+            operation_type="generate_outline",
+            phase="generating",
+            timestamp=self._timestamp(),
+        )
+
+    def enqueue_outline_generation(self, operation: WorkspaceOperation) -> None:
+        self._executor.submit(self.process_outline_generation, operation.id, operation.workspace_id)
+
+    def process_outline_generation(self, operation_id: str, workspace_id: str) -> ReportOutline:
+        operation = self.get_operation(operation_id)
+        try:
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="running",
+                phase="generating",
+                timestamp=self._timestamp(),
+                retry_action=None,
+            )
+            workspace = self.get_workspace(workspace_id)
+            evidence_paper_ids = [paper.id for paper in workspace.papers if paper.evidence_eligible]
+            if not evidence_paper_ids:
+                raise OutlineUnavailableError(
+                    workspace_id,
+                    "select and process at least one Selected Paper until Evidence Readiness is ready",
+                )
+            title, research_question, sections = self._default_outline(workspace, evidence_paper_ids)
+            outline = self._repository.create_outline_revision(
+                outline_id=uuid.uuid4().hex,
+                workspace_id=workspace_id,
+                status="draft",
+                title=title,
+                research_question=research_question,
+                sections=sections,
+                evidence_paper_ids=evidence_paper_ids,
+                timestamp=self._timestamp(),
+            )
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="succeeded",
+                phase="draft_ready",
+                timestamp=self._timestamp(),
+                completed_work=1,
+                total_work=1,
+                retry_action=None,
+            )
+            return outline
+        except Exception as exc:
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="failed",
+                phase="generating",
+                timestamp=self._timestamp(),
+                error_category="outline_generation_failed",
+                error_message="Report Outline generation failed. Retry after checking the selected evidence.",
+                retry_action="retry",
+            )
+            if isinstance(exc, (InvalidOutlineError, OutlineUnavailableError)):
+                raise
+            raise InvalidOutlineError("Report Outline generation failed. Retry after checking the selected evidence.") from exc
+
+    def generate_outline(self, workspace_id: str) -> ReportOutline:
+        """Synchronous application seam retained for use-case tests and callers."""
+
+        operation = self.start_outline_generation(workspace_id)
+        return self.process_outline_generation(operation.id, workspace_id)
+
+    def save_outline(
+        self,
+        workspace_id: str,
+        *,
+        title: str,
+        research_question: str,
+        sections: list[OutlineSection],
+        revision_id: str | None = None,
+    ) -> ReportOutline:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        current = self._repository.get_current_outline(workspace_id)
+        if current is None:
+            raise OutlineNotFoundError(workspace_id)
+        if revision_id and revision_id != current.id:
+            raise InvalidOutlineError("Only the current Report Outline revision can be edited.")
+        try:
+            candidate = ReportOutline(
+                id=current.id,
+                workspace_id=workspace_id,
+                revision_number=current.revision_number,
+                status="draft",
+                title=title,
+                research_question=research_question,
+                sections=sections,
+                evidence_paper_ids=current.evidence_paper_ids,
+                created_at=current.created_at,
+                updated_at=current.updated_at,
+            )
+        except ValueError as exc:
+            raise InvalidOutlineError(str(exc)) from exc
+
+        if current.status == "draft":
+            updated = self._repository.update_draft_outline(
+                outline_id=current.id,
+                workspace_id=workspace_id,
+                title=candidate.title,
+                research_question=candidate.research_question,
+                sections=candidate.sections,
+                timestamp=self._timestamp(),
+            )
+        else:
+            updated = self._repository.create_outline_revision(
+                outline_id=uuid.uuid4().hex,
+                workspace_id=workspace_id,
+                status="draft",
+                title=candidate.title,
+                research_question=candidate.research_question,
+                sections=candidate.sections,
+                evidence_paper_ids=current.evidence_paper_ids,
+                timestamp=self._timestamp(),
+            )
+        if updated is None:
+            raise InvalidOutlineError("The current Report Outline could not be saved.")
+        return updated
+
+    def approve_outline(self, workspace_id: str, *, revision_id: str) -> ReportOutline:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        current = self._repository.get_current_outline(workspace_id)
+        if current is None:
+            raise OutlineNotFoundError(workspace_id)
+        if revision_id != current.id:
+            raise InvalidOutlineError("Only the current Report Outline revision can be approved.")
+        if current.status == "approved":
+            return current
+        approved = self._repository.approve_outline(
+            outline_id=current.id,
+            workspace_id=workspace_id,
+            timestamp=self._timestamp(),
+        )
+        if approved is None or approved.status != "approved":
+            raise InvalidOutlineError("The current Report Outline could not be approved.")
+        return approved

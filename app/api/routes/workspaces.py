@@ -6,16 +6,24 @@ from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import JSONResponse
 
 from app.core.exceptions import (
+    InvalidOutlineError,
     InvalidPaperUploadError,
+    OutlineNotFoundError,
+    OutlineUnavailableError,
     PaperNotFoundError,
     PaperRAGError,
     WorkspaceArchivedError,
     WorkspaceNotFoundError,
     WorkspaceOperationNotFoundError,
 )
+from app.domain.outline import OutlineSection, ReportOutline
 from app.domain.workspace import ResearchPaper, ResearchWorkspace, WorkspaceOperation
 from app.schemas import (
     ErrorResponse,
+    OutlineApproveRequest,
+    OutlineSaveRequest,
+    OutlineSectionResponse,
+    ReportOutlineResponse,
     ResearchPaperResponse,
     ResearchWorkspaceResponse,
     WorkspaceCreateRequest,
@@ -72,6 +80,7 @@ def _paper_response(paper: ResearchPaper) -> ResearchPaperResponse:
 def _workspace_response(
     workspace: ResearchWorkspace,
     operations: list[WorkspaceOperation] | None = None,
+    outline: ReportOutline | None = None,
 ) -> ResearchWorkspaceResponse:
     return ResearchWorkspaceResponse(
         id=workspace.id,
@@ -82,6 +91,26 @@ def _workspace_response(
         updated_at=workspace.updated_at,
         papers=[_paper_response(paper) for paper in workspace.papers],
         operations=[_operation_response(operation) for operation in (operations or [])],
+        outline=_outline_response(outline) if outline else None,
+    )
+
+
+def _outline_response(outline: ReportOutline) -> ReportOutlineResponse:
+    return ReportOutlineResponse(
+        id=outline.id,
+        workspace_id=outline.workspace_id,
+        revision_number=outline.revision_number,
+        status=outline.status,
+        title=outline.title,
+        research_question=outline.research_question,
+        sections=[
+            OutlineSectionResponse(id=section.id, title=section.title, description=section.description)
+            for section in outline.sections
+        ],
+        evidence_paper_ids=outline.evidence_paper_ids,
+        created_at=outline.created_at,
+        updated_at=outline.updated_at,
+        approved_at=outline.approved_at,
     )
 
 
@@ -118,12 +147,26 @@ def _error_response(exc: PaperRAGError | ValueError) -> JSONResponse:
     elif isinstance(exc, WorkspaceArchivedError):
         error = "workspace_archived"
         status_code = 400
+    elif isinstance(exc, OutlineNotFoundError):
+        error = "outline_not_found"
+        status_code = 404
+    elif isinstance(exc, OutlineUnavailableError):
+        error = "outline_unavailable"
+        status_code = 400
+    elif isinstance(exc, InvalidOutlineError):
+        error = "invalid_outline"
+        status_code = 400
     else:
         error = "workspace_request_failed"
         status_code = 400
     return JSONResponse(
         status_code=status_code,
-        content={"error": error, "detail": str(exc), "error_type": type(exc).__name__},
+        content={
+            "error": error,
+            "detail": str(exc),
+            "error_type": type(exc).__name__,
+            "next_action": getattr(exc, "next_action", None),
+        },
     )
 
 
@@ -150,7 +193,7 @@ def create_workspace(request: WorkspaceCreateRequest) -> ResearchWorkspaceRespon
 def list_workspaces() -> list[ResearchWorkspaceResponse]:
     service = get_workspace_service()
     return [
-        _workspace_response(workspace, service.list_operations(workspace.id))
+        _workspace_response(workspace, service.list_operations(workspace.id), service.get_outline(workspace.id))
         for workspace in service.list_workspaces()
     ]
 
@@ -164,7 +207,103 @@ def get_workspace(workspace_id: str) -> ResearchWorkspaceResponse:
     try:
         service = get_workspace_service()
         workspace = service.get_workspace(workspace_id)
-        return _workspace_response(workspace, service.list_operations(workspace_id))
+        return _workspace_response(
+            workspace,
+            service.list_operations(workspace_id),
+            service.get_outline(workspace_id),
+        )
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.get(
+    "/workspaces/{workspace_id}/outline",
+    response_model=ReportOutlineResponse,
+    responses={"404": {"model": ErrorResponse}},
+)
+def get_workspace_outline(workspace_id: str) -> ReportOutlineResponse:
+    try:
+        outline = get_workspace_service().get_outline(workspace_id)
+        if outline is None:
+            raise OutlineNotFoundError(workspace_id)
+        return _outline_response(outline)
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.get(
+    "/workspaces/{workspace_id}/outline/revisions",
+    response_model=list[ReportOutlineResponse],
+    responses={"404": {"model": ErrorResponse}},
+)
+def list_workspace_outline_revisions(workspace_id: str) -> list[ReportOutlineResponse]:
+    try:
+        return [_outline_response(outline) for outline in get_workspace_service().list_outline_revisions(workspace_id)]
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/workspaces/{workspace_id}/outline/generate",
+    response_model=WorkspaceOperationResponse,
+    status_code=202,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def generate_workspace_outline(workspace_id: str) -> WorkspaceOperationResponse:
+    try:
+        service = get_workspace_service()
+        operation = service.start_outline_generation(workspace_id)
+        service.enqueue_outline_generation(operation)
+        return _operation_response(operation)
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.put(
+    "/workspaces/{workspace_id}/outline",
+    response_model=ReportOutlineResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def save_workspace_outline(workspace_id: str, request: OutlineSaveRequest) -> ReportOutlineResponse:
+    try:
+        sections = [
+            OutlineSection(id=section.id, title=section.title, description=section.description)
+            for section in request.sections
+        ]
+        return _outline_response(
+            get_workspace_service().save_outline(
+                workspace_id,
+                title=request.title,
+                research_question=request.research_question,
+                sections=sections,
+                revision_id=request.revision_id,
+            )
+        )
+    except (PaperRAGError, ValueError) as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/workspaces/{workspace_id}/outline/approve",
+    response_model=ReportOutlineResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def approve_workspace_outline(
+    workspace_id: str,
+    request: OutlineApproveRequest,
+) -> ReportOutlineResponse:
+    try:
+        return _outline_response(
+            get_workspace_service().approve_outline(
+                workspace_id,
+                revision_id=request.revision_id,
+            )
+        )
     except PaperRAGError as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")
@@ -313,6 +452,20 @@ def select_paper(workspace_id: str, paper_id: str) -> ResearchPaperResponse:
 def get_operation(operation_id: str) -> WorkspaceOperationResponse:
     try:
         return _operation_response(get_workspace_service().get_operation(operation_id))
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/operations/{operation_id}/retry",
+    response_model=WorkspaceOperationResponse,
+    status_code=202,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def retry_operation(operation_id: str) -> WorkspaceOperationResponse:
+    try:
+        return _operation_response(get_workspace_service().retry_operation(operation_id))
     except PaperRAGError as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")

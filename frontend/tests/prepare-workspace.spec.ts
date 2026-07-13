@@ -37,7 +37,7 @@ function paper(overrides: Record<string, unknown> = {}) {
   };
 }
 
-function workspace(papers: ReturnType<typeof paper>[], operations: unknown[] = []) {
+function workspace(papers: ReturnType<typeof paper>[], operations: unknown[] = [], outline: unknown = null) {
   return {
     id: workspaceId,
     topic: "Traceable research evidence",
@@ -47,6 +47,7 @@ function workspace(papers: ReturnType<typeof paper>[], operations: unknown[] = [
     updated_at: "2026-07-13T00:00:00Z",
     papers,
     operations,
+    outline,
   };
 }
 
@@ -56,6 +57,7 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
   let uploaded = false;
   let currentPaper = paper();
   let currentOperation = null as Record<string, unknown> | null;
+  let currentOutline = null as Record<string, unknown> | null;
 
   await page.route("**/api/**", async (route) => {
     const request = route.request();
@@ -63,7 +65,7 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
     const path = url.pathname;
 
     if (request.method() === "GET" && path === "/api/workspaces") {
-      await route.fulfill({ json: created ? [workspace([currentPaper], currentOperation ? [currentOperation] : [])] : [] });
+      await route.fulfill({ json: created ? [workspace([currentPaper], currentOperation ? [currentOperation] : [], currentOutline)] : [] });
       return;
     }
     if (request.method() === "POST" && path === "/api/workspaces") {
@@ -72,7 +74,7 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
       return;
     }
     if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}`) {
-      await route.fulfill({ json: workspace(discovered ? [currentPaper] : [], currentOperation ? [currentOperation] : []) });
+      await route.fulfill({ json: workspace(discovered ? [currentPaper] : [], currentOperation ? [currentOperation] : [], currentOutline) });
       return;
     }
     if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/papers/discover`) {
@@ -118,6 +120,53 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
       await route.fulfill({ status: 202, json: { paper: currentPaper, operation: currentOperation } });
       return;
     }
+    if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/outline/generate`) {
+      currentOutline = {
+        id: "outline-1",
+        workspace_id: workspaceId,
+        revision_number: 1,
+        status: "draft",
+        title: "Traceable research evidence review",
+        research_question: "How can research evidence remain traceable?",
+        sections: [
+          { id: "research-question", title: "Research question and scope", description: "Scope" },
+          { id: "methods-findings", title: "Methods and findings", description: "Findings" },
+        ],
+        evidence_paper_ids: [candidateId],
+        created_at: "2026-07-13T00:00:00Z",
+        updated_at: "2026-07-13T00:00:00Z",
+        approved_at: null,
+      };
+      currentOperation = {
+        id: "outline-operation-1",
+        workspace_id: workspaceId,
+        paper_id: null,
+        operation_type: "generate_outline",
+        status: "succeeded",
+        phase: "draft_ready",
+        error_category: null,
+        error_message: null,
+        retry_action: null,
+        completed_work: 1,
+        total_work: 1,
+        started_at: "2026-07-13T00:00:00Z",
+        finished_at: "2026-07-13T00:00:01Z",
+      };
+      await route.fulfill({ status: 202, json: currentOperation });
+      return;
+    }
+    if (request.method() === "PUT" && path === `/api/workspaces/${workspaceId}/outline`) {
+      const body = JSON.parse(request.postData() || "{}");
+      const approvedEdit = currentOutline?.status === "approved";
+      currentOutline = { ...currentOutline, ...body, id: approvedEdit ? "outline-2" : "outline-1", status: "draft", revision_number: approvedEdit ? 2 : 1, updated_at: "2026-07-13T00:00:01Z" };
+      await route.fulfill({ json: currentOutline });
+      return;
+    }
+    if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/outline/approve`) {
+      currentOutline = { ...currentOutline, status: "approved", approved_at: "2026-07-13T00:00:02Z" };
+      await route.fulfill({ json: currentOutline });
+      return;
+    }
     if (request.method() === "DELETE" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}`) {
       currentPaper = paper({ selected: false, evidence_readiness: uploaded ? "ready" : "unavailable", evidence_eligible: false });
       await route.fulfill({ json: currentPaper });
@@ -148,6 +197,18 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
   });
   await page.getByRole("button", { name: "上传授权文件" }).click();
   await expect(page.getByTestId("paper-evidence-eligible")).toBeVisible();
+  await page.getByTestId("outline-generate").click();
+  await expect(page.getByTestId("outline-research-question")).toHaveValue("How can research evidence remain traceable?");
+  await page.getByTestId("outline-research-question").fill("How can selected evidence remain traceable?");
+  await page.getByTestId("outline-add-section").click();
+  await page.getByTestId("outline-save").click();
+  await page.getByTestId("outline-approve").click();
+  await expect(page.getByTestId("outline-status")).toContainText("Approved");
+  await page.getByTestId("outline-research-question").fill("An edited approved question");
+  await page.getByTestId("outline-save").click();
+  await expect(page.getByTestId("outline-status")).toContainText("Draft");
+  await page.reload();
+  await expect(page.getByTestId("outline-status")).toContainText("Draft");
   await expect(page.getByTestId("operation-status")).toContainText("已完成");
 
   await page.getByTestId(`remove-paper-${candidateId}`).click();

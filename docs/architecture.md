@@ -57,9 +57,10 @@ parser-backed readiness state, candidate discovery/import provenance, bounded
 public-PDF verification, durable operation history, and versioned workspace API
 routes for creating, revisiting, discovering, selecting, importing, and removing
 papers. Ticket 03 adds the React + TypeScript preparation SPA, same-origin
-compiled asset delivery, and the browser flow over this boundary. Later
-delivery slices add outline/report workflow and claim-level provenance on top
-of this boundary.
+compiled asset delivery, and the browser flow over this boundary. Ticket 04
+adds workspace-scoped Report Outline revisions, ready-evidence gating, draft
+editing, explicit approval, and immutable approved-history persistence. Cited
+report generation and claim-level provenance build on this boundary next.
 
 ## Active Domain Model
 
@@ -98,8 +99,9 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   internals, or provider details. Existing generic routes remain compatibility
   endpoints until product tickets replace or adapt them.
 - **Web application** is a React + TypeScript single-page application. It
-  currently presents the preparation workspace flow and will add the report
-  editor, evidence side panel, and citation-review state in later tickets. It
+  currently presents the preparation workspace and editable Report Outline; it
+  will add the report editor, evidence side panel, and citation-review state in
+  later tickets. It
   polls active operations and must not reproduce business logic already owned by
   use cases. In production FastAPI serves its compiled static assets; Vite's
   development server proxies `/api` to FastAPI.

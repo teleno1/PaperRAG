@@ -12,6 +12,7 @@ from app.domain.workspace import (
     WorkspaceOperation,
     normalize_doi,
 )
+from app.domain.outline import OutlineSection, ReportOutline
 
 
 SCHEMA = """
@@ -92,8 +93,24 @@ CREATE TABLE IF NOT EXISTS workspace_operations (
     updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS outline_revisions (
+    id TEXT PRIMARY KEY,
+    workspace_id TEXT NOT NULL REFERENCES workspaces(id),
+    revision_number INTEGER NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('draft', 'approved')),
+    title TEXT NOT NULL,
+    research_question TEXT NOT NULL,
+    sections_json TEXT NOT NULL,
+    evidence_paper_ids_json TEXT NOT NULL DEFAULT '[]',
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    approved_at TEXT,
+    UNIQUE(workspace_id, revision_number)
+);
+
 CREATE INDEX IF NOT EXISTS idx_papers_workspace ON papers(workspace_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_operations_workspace ON workspace_operations(workspace_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_outline_revisions_workspace ON outline_revisions(workspace_id, revision_number);
 """
 
 
@@ -242,6 +259,148 @@ class WorkspaceRepository:
     def get_workspace(self, workspace_id: str) -> ResearchWorkspace | None:
         with self._connect() as connection:
             return self._workspace_with_connection(connection, workspace_id)
+
+    @staticmethod
+    def _outline(row: sqlite3.Row) -> ReportOutline:
+        sections = [OutlineSection(**section) for section in json.loads(row["sections_json"])]
+        return ReportOutline(
+            id=row["id"],
+            workspace_id=row["workspace_id"],
+            revision_number=row["revision_number"],
+            status=row["status"],
+            title=row["title"],
+            research_question=row["research_question"],
+            sections=sections,
+            evidence_paper_ids=json.loads(row["evidence_paper_ids_json"] or "[]"),
+            created_at=row["created_at"],
+            updated_at=row["updated_at"],
+            approved_at=row["approved_at"],
+        )
+
+    def get_current_outline(self, workspace_id: str) -> ReportOutline | None:
+        with self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT * FROM outline_revisions
+                WHERE workspace_id = ?
+                ORDER BY revision_number DESC
+                LIMIT 1
+                """,
+                (workspace_id,),
+            ).fetchone()
+            return self._outline(row) if row else None
+
+    def list_outline_revisions(self, workspace_id: str) -> list[ReportOutline]:
+        with self._connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT * FROM outline_revisions
+                WHERE workspace_id = ?
+                ORDER BY revision_number DESC, id DESC
+                """,
+                (workspace_id,),
+            ).fetchall()
+            return [self._outline(row) for row in rows]
+
+    def create_outline_revision(
+        self,
+        *,
+        outline_id: str,
+        workspace_id: str,
+        status: str,
+        title: str,
+        research_question: str,
+        sections: list[OutlineSection],
+        evidence_paper_ids: list[str],
+        timestamp: str,
+    ) -> ReportOutline:
+        with self._connect() as connection:
+            previous = connection.execute(
+                "SELECT COALESCE(MAX(revision_number), 0) AS revision_number FROM outline_revisions WHERE workspace_id = ?",
+                (workspace_id,),
+            ).fetchone()
+            revision_number = int(previous["revision_number"]) + 1
+            connection.execute(
+                """
+                INSERT INTO outline_revisions (
+                    id, workspace_id, revision_number, status, title, research_question,
+                    sections_json, evidence_paper_ids_json, created_at, updated_at, approved_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    outline_id,
+                    workspace_id,
+                    revision_number,
+                    status,
+                    title,
+                    research_question,
+                    json.dumps(
+                        [{"id": section.id, "title": section.title, "description": section.description} for section in sections],
+                        ensure_ascii=False,
+                    ),
+                    json.dumps(evidence_paper_ids, ensure_ascii=False),
+                    timestamp,
+                    timestamp,
+                    timestamp if status == "approved" else None,
+                ),
+            )
+            row = connection.execute(
+                "SELECT * FROM outline_revisions WHERE id = ?", (outline_id,)
+            ).fetchone()
+            if row is None:
+                raise RuntimeError("outline revision could not be persisted")
+            return self._outline(row)
+
+    def update_draft_outline(
+        self,
+        *,
+        outline_id: str,
+        workspace_id: str,
+        title: str,
+        research_question: str,
+        sections: list[OutlineSection],
+        timestamp: str,
+    ) -> ReportOutline | None:
+        with self._connect() as connection:
+            connection.execute(
+                """
+                UPDATE outline_revisions
+                SET title = ?, research_question = ?, sections_json = ?, updated_at = ?
+                WHERE id = ? AND workspace_id = ? AND status = 'draft'
+                """,
+                (
+                    title,
+                    research_question,
+                    json.dumps(
+                        [{"id": section.id, "title": section.title, "description": section.description} for section in sections],
+                        ensure_ascii=False,
+                    ),
+                    timestamp,
+                    outline_id,
+                    workspace_id,
+                ),
+            )
+            row = connection.execute(
+                "SELECT * FROM outline_revisions WHERE id = ? AND workspace_id = ?",
+                (outline_id, workspace_id),
+            ).fetchone()
+            return self._outline(row) if row else None
+
+    def approve_outline(self, *, outline_id: str, workspace_id: str, timestamp: str) -> ReportOutline | None:
+        with self._connect() as connection:
+            connection.execute(
+                """
+                UPDATE outline_revisions
+                SET status = 'approved', approved_at = ?, updated_at = ?
+                WHERE id = ? AND workspace_id = ? AND status = 'draft'
+                """,
+                (timestamp, timestamp, outline_id, workspace_id),
+            )
+            row = connection.execute(
+                "SELECT * FROM outline_revisions WHERE id = ? AND workspace_id = ?",
+                (outline_id, workspace_id),
+            ).fetchone()
+            return self._outline(row) if row else None
 
     def upsert_discovered_paper(
         self,
@@ -725,7 +884,7 @@ class WorkspaceRepository:
         *,
         operation_id: str,
         workspace_id: str,
-        paper_id: str,
+        paper_id: str | None,
         operation_type: str,
         phase: str,
         timestamp: str,

@@ -1,6 +1,7 @@
 import type {
   DiscoveryResponse,
   ResearchWorkspace,
+  ReportOutline,
   ReportLanguage,
   UploadResponse,
   WorkspaceOperation,
@@ -84,4 +85,40 @@ export async function uploadPaper(
 
 export function getOperation(operationId: string): Promise<WorkspaceOperation> {
   return request<WorkspaceOperation>(`/api/operations/${operationId}`);
+}
+
+export function generateOutline(workspaceId: string): Promise<WorkspaceOperation> {
+  return request<WorkspaceOperation>(`/api/workspaces/${workspaceId}/outline/generate`, {
+    method: "POST",
+  });
+}
+
+export function saveOutline(
+  workspaceId: string,
+  outline: Pick<ReportOutline, "id" | "title" | "research_question" | "sections">,
+): Promise<ReportOutline> {
+  return request<ReportOutline>(`/api/workspaces/${workspaceId}/outline`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      revision_id: outline.id,
+      title: outline.title,
+      research_question: outline.research_question,
+      sections: outline.sections,
+    }),
+  });
+}
+
+export function approveOutline(workspaceId: string, revisionId: string): Promise<ReportOutline> {
+  return request<ReportOutline>(`/api/workspaces/${workspaceId}/outline/approve`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ revision_id: revisionId }),
+  });
+}
+
+export function retryOperation(operationId: string): Promise<WorkspaceOperation> {
+  return request<WorkspaceOperation>(`/api/operations/${operationId}/retry`, {
+    method: "POST",
+  });
 }

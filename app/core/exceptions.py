@@ -193,6 +193,33 @@ class WorkspaceArchivedError(PaperRAGError):
         super().__init__(f"Research Workspace is archived: {workspace_id}")
 
 
+class OutlineNotFoundError(PaperRAGError):
+    """A workspace does not have a current Report Outline."""
+
+    def __init__(self, workspace_id: str):
+        self.workspace_id = workspace_id
+        super().__init__(f"Report Outline not found for workspace: {workspace_id}")
+
+
+class OutlineUnavailableError(PaperRAGError):
+    """An outline cannot be generated from the current evidence boundary."""
+
+    def __init__(self, workspace_id: str, next_action: str):
+        self.workspace_id = workspace_id
+        self.next_action = next_action
+        super().__init__(
+            "A Report Outline needs at least one ready Selected Paper. "
+            f"Next action: {next_action}"
+        )
+
+
+class InvalidOutlineError(PaperRAGError):
+    """An outline revision cannot be saved or approved."""
+
+    def __init__(self, reason: str):
+        super().__init__(reason)
+
+
 class InvalidPaperUploadError(PaperRAGError):
     """An upload cannot become a Research Paper."""
 

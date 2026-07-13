@@ -210,6 +210,44 @@ class ErrorResponse(BaseModel):
     error: str
     detail: Optional[str] = None
     error_type: Optional[str] = None
+    next_action: Optional[str] = None
+
+
+class OutlineSectionRequest(BaseModel):
+    id: str = Field(..., min_length=1)
+    title: str = Field(..., min_length=1)
+    description: str = ""
+
+
+class OutlineSectionResponse(BaseModel):
+    id: str
+    title: str
+    description: str = ""
+
+
+class ReportOutlineResponse(BaseModel):
+    id: str
+    workspace_id: str
+    revision_number: int
+    status: Literal["draft", "approved"]
+    title: str
+    research_question: str
+    sections: list[OutlineSectionResponse] = Field(default_factory=list)
+    evidence_paper_ids: list[str] = Field(default_factory=list)
+    created_at: str
+    updated_at: str
+    approved_at: Optional[str] = None
+
+
+class OutlineSaveRequest(BaseModel):
+    revision_id: Optional[str] = None
+    title: str = Field(..., min_length=1)
+    research_question: str = Field(..., min_length=1)
+    sections: list[OutlineSectionRequest] = Field(..., min_length=1)
+
+
+class OutlineApproveRequest(BaseModel):
+    revision_id: str = Field(..., min_length=1)
 
 
 class WorkspaceCreateRequest(BaseModel):
@@ -280,6 +318,7 @@ class ResearchWorkspaceResponse(BaseModel):
     updated_at: str
     papers: list[ResearchPaperResponse] = Field(default_factory=list)
     operations: list[WorkspaceOperationResponse] = Field(default_factory=list)
+    outline: Optional[ReportOutlineResponse] = None
 
 
 class WorkspaceUploadResponse(BaseModel):

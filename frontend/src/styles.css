@@ -111,6 +111,18 @@ section { margin-top: 22px; }
 .create-form { display: grid; gap: 15px; }
 .create-form label { display: grid; gap: 7px; color: #dbe9df; font-size: .78rem; font-weight: 700; }
 .create-form button { margin-top: 4px; }
+.outline-editor { margin-top: 18px; }
+.outline-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.outline-field { display: grid; gap: 6px; margin-top: 12px; color: var(--muted); font-size: .72rem; font-weight: 700; }
+.outline-field input, .outline-field textarea, .outline-section input, .outline-section textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; color: var(--ink); background: rgba(255, 255, 255, .05); resize: vertical; }
+.outline-section-list { display: grid; gap: 9px; margin-top: 14px; }
+.outline-section { display: grid; gap: 7px; padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255, 255, 255, .025); }
+.outline-section-toolbar { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: .7rem; }
+.outline-section-toolbar span { min-width: 18px; color: var(--accent); font-weight: 800; }
+.outline-section-toolbar button { padding: 3px 7px; }
+.outline-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+.badge-draft { color: var(--accent); border-color: rgba(226, 173, 99, .45); }
+.badge-approved { color: var(--success); border-color: rgba(142, 213, 168, .45); }
 
 @media (max-width: 1120px) {
   .workspace-layout { grid-template-columns: minmax(280px, 1fr) minmax(340px, 1.25fr); }

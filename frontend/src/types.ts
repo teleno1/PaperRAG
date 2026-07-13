@@ -70,6 +70,27 @@ export interface ResearchWorkspace {
   updated_at: string;
   papers: ResearchPaper[];
   operations: WorkspaceOperation[];
+  outline: ReportOutline | null;
+}
+
+export interface OutlineSection {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface ReportOutline {
+  id: string;
+  workspace_id: string;
+  revision_number: number;
+  status: "draft" | "approved";
+  title: string;
+  research_question: string;
+  sections: OutlineSection[];
+  evidence_paper_ids: string[];
+  created_at: string;
+  updated_at: string;
+  approved_at: string | null;
 }
 
 export interface DiscoveryResponse {
