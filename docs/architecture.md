@@ -51,12 +51,13 @@ The existing PDF parser, chunker, FAISS persistence, retrieval service, LLM
 clients, outline/report flow, and source validation are foundation—not the
 finished workspace product.
 
-The first workspace delivery slice now provides SQLite-backed Research
-Workspace and Research Paper records, managed per-workspace upload files,
-parser-backed readiness state, and versioned workspace API routes for creating,
-revisiting, selecting, and removing uploaded papers. Later delivery slices add
-discovery, outline/report workflow, and claim-level provenance on top of this
-boundary.
+The first workspace delivery slices now provide SQLite-backed Research
+Workspace and Research Paper records, managed per-workspace paper files,
+parser-backed readiness state, candidate discovery/import provenance, bounded
+public-PDF verification, and versioned workspace API routes for creating,
+revisiting, discovering, selecting, importing, and removing papers. Later
+delivery slices add outline/report workflow and claim-level provenance on top
+of this boundary.
 
 ## Active Domain Model
 

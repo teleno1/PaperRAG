@@ -65,8 +65,10 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
 ## Delivery status
 
 - [01 — Create a Research Workspace and Select Uploaded Papers](../../.scratch/research-paper-workspace/issues/01-create-workspace-upload-select-papers.md)
-  is complete. The next delivery frontier is 02 (open-paper discovery) and 03
-  (outline generation), which are now unblocked by 01.
+  is complete.
+- [02 Discover and Import Open Research Papers](../../.scratch/research-paper-workspace/issues/02-discover-and-import-open-papers.md)
+  is complete. The next delivery frontier is 03 (outline generation), which is
+  now unblocked by 01 and 02.
 
 ## Not yet specified
 

@@ -257,6 +257,18 @@ class ResearchPaperResponse(BaseModel):
     failure_phase: Optional[str] = None
     failure_message: Optional[str] = None
     retryable: bool = False
+    next_action: Optional[str] = None
+    doi: Optional[str] = None
+    abstract: str = ""
+    published_at: Optional[str] = None
+    source_updated_at: Optional[str] = None
+    source_url: Optional[str] = None
+    pdf_url: Optional[str] = None
+    is_open_access: Optional[bool] = None
+    license: Optional[str] = None
+    source_links: list[str] = Field(default_factory=list)
+    discovery_query: Optional[str] = None
+    discovered_at: Optional[str] = None
 
 
 class ResearchWorkspaceResponse(BaseModel):
@@ -271,4 +283,23 @@ class ResearchWorkspaceResponse(BaseModel):
 
 class WorkspaceUploadResponse(BaseModel):
     paper: ResearchPaperResponse
-    operation: WorkspaceOperationResponse
+    operation: Optional[WorkspaceOperationResponse] = None
+
+
+class WorkspaceDiscoveryRequest(BaseModel):
+    query: Optional[str] = Field(default=None, min_length=2, description="Topic search query")
+    provider: Literal["openalex", "arxiv"] = Field(default="openalex", description="Discovery provider")
+    page: int = Field(default=1, ge=1)
+    per_page: int = Field(default=10, ge=1, le=50)
+
+
+class WorkspaceDiscoveryResponse(BaseModel):
+    query: str
+    status: Literal["succeeded", "empty", "retryable_error", "failed"]
+    candidates: list[ResearchPaperResponse] = Field(default_factory=list)
+    page: int = 1
+    per_page: int = 10
+    total_count: Optional[int] = None
+    next_page: Optional[int] = None
+    error_message: Optional[str] = None
+    retryable: bool = False

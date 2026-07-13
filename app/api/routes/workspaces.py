@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import JSONResponse
 
 from app.core.exceptions import (
@@ -19,6 +19,8 @@ from app.schemas import (
     ResearchPaperResponse,
     ResearchWorkspaceResponse,
     WorkspaceCreateRequest,
+    WorkspaceDiscoveryRequest,
+    WorkspaceDiscoveryResponse,
     WorkspaceOperationResponse,
     WorkspaceUploadResponse,
 )
@@ -52,6 +54,18 @@ def _paper_response(paper: ResearchPaper) -> ResearchPaperResponse:
         failure_phase=paper.failure_phase,
         failure_message=paper.failure_message,
         retryable=paper.retryable,
+        next_action=paper.next_action,
+        doi=paper.doi,
+        abstract=paper.abstract,
+        published_at=paper.published_at,
+        source_updated_at=paper.source_updated_at,
+        source_url=paper.source_url,
+        pdf_url=paper.pdf_url,
+        is_open_access=paper.is_open_access,
+        license=paper.license,
+        source_links=paper.source_links,
+        discovery_query=paper.discovery_query,
+        discovered_at=paper.discovered_at,
     )
 
 
@@ -147,6 +161,39 @@ def get_workspace(workspace_id: str) -> ResearchWorkspaceResponse:
 
 
 @router.post(
+    "/workspaces/{workspace_id}/papers/discover",
+    response_model=WorkspaceDiscoveryResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def discover_papers(
+    workspace_id: str,
+    request: WorkspaceDiscoveryRequest,
+) -> WorkspaceDiscoveryResponse:
+    try:
+        result = get_workspace_service().discover_papers(
+            workspace_id,
+            query=request.query,
+            provider=request.provider,
+            page=request.page,
+            per_page=request.per_page,
+        )
+        return WorkspaceDiscoveryResponse(
+            query=result.query,
+            status=result.status,
+            candidates=[_paper_response(paper) for paper in result.candidates],
+            page=result.page,
+            per_page=result.per_page,
+            total_count=result.total_count,
+            next_page=result.next_page,
+            error_message=result.error_message,
+            retryable=result.retryable,
+        )
+    except (PaperRAGError, ValueError) as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
     "/workspaces/{workspace_id}/papers/upload",
     response_model=WorkspaceUploadResponse,
     status_code=202,
@@ -155,6 +202,7 @@ def get_workspace(workspace_id: str) -> ResearchWorkspaceResponse:
 async def upload_paper(
     workspace_id: str,
     file: UploadFile = File(...),
+    candidate_id: str | None = Form(default=None),
 ) -> WorkspaceUploadResponse:
     try:
         service = get_workspace_service()
@@ -162,6 +210,7 @@ async def upload_paper(
             workspace_id,
             filename=file.filename or "",
             content=await file.read(),
+            candidate_id=candidate_id,
         )
         service.enqueue_paper(result)
         return WorkspaceUploadResponse(
@@ -169,6 +218,30 @@ async def upload_paper(
             operation=_operation_response(result.operation),
         )
     except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/workspaces/{workspace_id}/papers/{paper_id}/import",
+    response_model=WorkspaceUploadResponse,
+    status_code=202,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def import_discovered_paper(
+    workspace_id: str,
+    paper_id: str,
+    replace: bool = False,
+) -> WorkspaceUploadResponse:
+    try:
+        service = get_workspace_service()
+        result = service.start_import_discovered_paper(workspace_id, paper_id, replace=replace)
+        service.enqueue_paper(result)
+        return WorkspaceUploadResponse(
+            paper=_paper_response(result.paper),
+            operation=_operation_response(result.operation) if result.operation else None,
+        )
+    except (PaperRAGError, ValueError) as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")
 

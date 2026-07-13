@@ -32,11 +32,12 @@ The first version is deliberately bounded:
 The repository contains a reusable Python/FastAPI/RAG foundation from the
 previous refactor: PDF parsing through MinerU, chunking, FAISS retrieval,
 outline/report generation, source validation, CLI commands, and API routes.
-The first research-workspace delivery slice now adds durable workspace
-creation, authorised PDF upload, selected-paper evidence gating,
-readiness/failure state, and versioned workspace API routes. The browser UI,
-paper discovery, claim-level evidence panel, and citation-review state remain
-later delivery slices.
+The first research-workspace delivery slices now add durable workspace
+creation, authorised PDF upload, open-paper candidate discovery, guarded public
+PDF import, selected-paper evidence gating, readiness/failure state, and
+versioned workspace API routes. The browser UI, outline/report workflow,
+claim-level evidence panel, and citation-review state remain later delivery
+slices.
 
 The current product-planning source of truth is the local
 [research-paper workspace map](docs/wayfinder/research-paper-workspace.md).
@@ -64,6 +65,7 @@ Secrets belong in environment variables, never in `configs/settings.yaml`:
 $env:DEEPSEEK_API_KEY="..."
 $env:DASHSCOPE_API_KEY="..."
 $env:MINERU_API_KEY="..." # only for the current PDF parsing path
+$env:OPENALEX_API_KEY="..." # optional server-side discovery quota key
 ```
 
 Run the existing test baseline and health checks:

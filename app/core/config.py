@@ -20,6 +20,7 @@ FORBIDDEN_YAML_MODEL_KEYS = {
     "dashscope_api_key": "DASHSCOPE_API_KEY",
     "mineru_api_key": "MINERU_API_KEY",
     "openai_api_key": "OPENAI_API_KEY",
+    "openalex_api_key": "OPENALEX_API_KEY",
 }
 
 
@@ -58,6 +59,7 @@ class ModelsConfig(StrictConfigModel):
     deepseek_api_key: Optional[str] = Field(default=None, exclude=True)
     dashscope_api_key: Optional[str] = Field(default=None, exclude=True)
     mineru_api_key: Optional[str] = Field(default=None, exclude=True)
+    openalex_api_key: Optional[str] = Field(default=None, exclude=True)
 
 
 class PipelineConfig(StrictConfigModel):
@@ -161,6 +163,9 @@ def _merge_env_to_settings(settings_obj: Settings) -> Settings:
 
     if os.getenv("MINERU_API_KEY"):
         settings_obj.models.mineru_api_key = os.getenv("MINERU_API_KEY")
+
+    if os.getenv("OPENALEX_API_KEY"):
+        settings_obj.models.openalex_api_key = os.getenv("OPENALEX_API_KEY")
 
     if os.getenv("BODY_CHAPTER_MAX_WORKERS"):
         settings_obj.pipeline.max_workers = int(
