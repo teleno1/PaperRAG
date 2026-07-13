@@ -67,8 +67,19 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
 - [01 — Create a Research Workspace and Select Uploaded Papers](../../.scratch/research-paper-workspace/issues/01-create-workspace-upload-select-papers.md)
   is complete.
 - [02 Discover and Import Open Research Papers](../../.scratch/research-paper-workspace/issues/02-discover-and-import-open-papers.md)
-  is complete. The next delivery frontier is 03 (outline generation), which is
-  now unblocked by 01 and 02.
+  is complete.
+- [03 Prepare a Research Workspace in the Browser](../../.scratch/research-paper-workspace/issues/03-prepare-workspace-in-browser.md)
+  is the next delivery frontier and can start immediately.
+- [04 Generate, Edit, and Approve a Report Outline](../../.scratch/research-paper-workspace/issues/04-generate-edit-approve-report-outline.md)
+  is blocked by 03.
+- [05 Generate and Edit a Cited Literature Report](../../.scratch/research-paper-workspace/issues/05-generate-edit-cited-literature-report.md)
+  is blocked by 04.
+- [06 Inspect Claim Evidence and Multiple Sources](../../.scratch/research-paper-workspace/issues/06-inspect-claim-evidence-and-multiple-sources.md)
+  is blocked by 05.
+- [07 Review and Refresh Edited Claim Citations](../../.scratch/research-paper-workspace/issues/07-review-refresh-edited-claim-citations.md)
+  is blocked by 06.
+- [08 Export Markdown and Demonstrate the Product Workflow](../../.scratch/research-paper-workspace/issues/08-export-and-acceptance-demo.md)
+  is blocked by 07.
 
 ## Not yet specified
 
