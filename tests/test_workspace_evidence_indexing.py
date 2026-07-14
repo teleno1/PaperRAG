@@ -136,6 +136,13 @@ def test_removed_ready_paper_is_not_left_in_workspace_index(tmp_path: Path) -> N
     removed = service.remove_paper(workspace.id, result.paper.id)
 
     assert removed.evidence_eligible is False
+    rebuild_operations = [
+        operation
+        for operation in service.list_operations(workspace.id)
+        if operation.operation_type == "rebuild_evidence_index"
+    ]
+    assert len(rebuild_operations) == 1
+    assert rebuild_operations[0].status == "succeeded"
     repository = index_repository(service, workspace.id, tmp_path / "workspace-files")
     assert repository.count() == 0
     assert repository.metadata == []

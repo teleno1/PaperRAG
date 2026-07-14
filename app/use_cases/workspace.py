@@ -541,6 +541,64 @@ class ResearchWorkspaceService:
         repository.save(vectors, metadata)
         return len(metadata)
 
+    def _start_workspace_index_rebuild(self, workspace_id: str, paper_id: str) -> WorkspaceOperation:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        return self._repository.create_operation(
+            operation_id=uuid.uuid4().hex,
+            workspace_id=workspace_id,
+            paper_id=paper_id,
+            operation_type="rebuild_evidence_index",
+            phase="indexing",
+            timestamp=self._timestamp(),
+            input_snapshot={"paper_id": paper_id},
+        )
+
+    def process_workspace_index_rebuild(self, operation_id: str, workspace_id: str) -> WorkspaceOperation:
+        operation = self.get_operation(operation_id)
+        try:
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="running",
+                phase="indexing",
+                timestamp=self._timestamp(),
+                retry_action=None,
+            )
+            indexed_work = self._rebuild_workspace_index(
+                workspace_id,
+                progress_callback=(
+                    lambda completed, total: self._repository.update_operation(
+                        operation_id=operation.id,
+                        status="running",
+                        phase="indexing",
+                        timestamp=self._timestamp(),
+                        completed_work=completed,
+                        total_work=total,
+                        retry_action=None,
+                    )
+                ),
+            )
+            return self._repository.update_operation(
+                operation_id=operation.id,
+                status="succeeded",
+                phase="index_ready",
+                timestamp=self._timestamp(),
+                completed_work=indexed_work,
+                total_work=indexed_work,
+                retry_action=None,
+            ) or operation
+        except Exception:
+            return self._repository.update_operation(
+                operation_id=operation.id,
+                status="failed",
+                phase="indexing",
+                timestamp=self._timestamp(),
+                error_category="evidence_indexing_failed",
+                error_message="Evidence indexing failed. Check the embedding provider configuration or availability, then retry.",
+                retry_action="retry",
+            ) or operation
+
     def process_paper(self, result: UploadPaperResult) -> UploadPaperResult:
         paper = result.paper
         operation = result.operation
@@ -902,10 +960,10 @@ class ResearchWorkspaceService:
         )
         if updated is None:
             raise PaperNotFoundError(workspace_id, paper_id)
-        if self._embedding_client is not None:
-            try:
-                self._rebuild_workspace_index(workspace_id)
-            except Exception as exc:
+        if self._embedding_client is not None and (paper.evidence_eligible or updated.evidence_eligible):
+            operation = self._start_workspace_index_rebuild(workspace_id, paper_id)
+            processed_operation = self.process_workspace_index_rebuild(operation.id, workspace_id)
+            if processed_operation.status != "succeeded":
                 # Keep the selection boundary and the physical index aligned.
                 self._repository.set_paper_selected(
                     workspace_id=workspace_id,
@@ -915,7 +973,7 @@ class ResearchWorkspaceService:
                 )
                 raise InvalidPaperUploadError(
                     "The workspace evidence index could not be updated. Retry after checking the embedding provider."
-                ) from exc
+                )
         return updated
 
     def remove_paper(self, workspace_id: str, paper_id: str) -> ResearchPaper:
@@ -977,6 +1035,10 @@ class ResearchWorkspaceService:
 
     def retry_operation(self, operation_id: str) -> WorkspaceOperation:
         operation = self.get_operation(operation_id)
+        if operation.operation_type == "rebuild_evidence_index":
+            retry = self._start_workspace_index_rebuild(operation.workspace_id, operation.paper_id or "")
+            self._executor.submit(self.process_workspace_index_rebuild, retry.id, retry.workspace_id)
+            return retry
         if operation.operation_type not in {"generate_outline", "generate_report"}:
             raise InvalidOutlineError("Only failed Report Outline or Literature Report operations can be retried here.")
         if operation.status not in {"failed", "interrupted"}:
