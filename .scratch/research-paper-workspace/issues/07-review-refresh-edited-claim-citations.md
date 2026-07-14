@@ -9,6 +9,15 @@ ready Selected Papers, and sees the resulting Citation Review State.
 
 **Status:** ready-for-agent
 
+**Deferred UX constraint:** This ticket delivers only the smallest usable
+browser interface needed to complete its user task. Except for accessibility or
+legibility fixes, it must not redesign the workspace information architecture,
+global navigation, three-panel layout, visual system, or shared component
+styling. Keep feature behaviour in independent components and separate from
+API, persistence, and domain state so a later accepted prototype can change
+presentation safely; browser acceptance must use semantic selectors rather than
+CSS structure.
+
 - [ ] A substantive edit never leaves an affected Claim Citation displayed as
   verified; presentation-only changes preserve its Citation Review State.
 - [ ] The browser exposes keep, remove, and refresh actions with explicit,

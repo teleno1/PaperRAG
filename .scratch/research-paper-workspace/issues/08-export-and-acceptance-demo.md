@@ -9,6 +9,15 @@ repeatable, isolated demonstration of the complete browser workspace workflow.
 
 **Status:** ready-for-agent
 
+**Deferred UX constraint:** This ticket delivers only the smallest usable
+browser interface needed to complete its user task. Except for accessibility or
+legibility fixes, it must not redesign the workspace information architecture,
+global navigation, three-panel layout, visual system, or shared component
+styling. Keep feature behaviour in independent components and separate from
+API, persistence, and domain state so a later accepted prototype can change
+presentation safely; browser acceptance must use semantic selectors rather than
+CSS structure.
+
 - [ ] Markdown export preserves report content and Claim Citation references
   without representing unresolved or pending-review citations as verified.
 - [ ] A reproducible, isolated 10-paper open-access demonstration workspace

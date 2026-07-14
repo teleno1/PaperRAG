@@ -7,11 +7,16 @@ Claim Citations rather than flattening evidence into untraceable text.
 
 **Blocked by:** 04 — Generate, Edit, and Approve a Report Outline.
 
-**Status:** paused pending 04A acceptance
+**Status:** ready-for-agent
 
-**Stabilization dependency:** 04A must be browser-accepted before this ticket
-resumes. Its Candidate Paper, outline-history, layout, and discovery recovery
-flows are prerequisites for the Literature Report workflow.
+**Deferred UX constraint:** This ticket delivers only the smallest usable
+browser interface needed to complete its user task. Except for accessibility or
+legibility fixes, it must not redesign the workspace information architecture,
+global navigation, three-panel layout, visual system, or shared component
+styling. Keep feature behaviour in independent components and separate from
+API, persistence, and domain state so a later accepted prototype can change
+presentation safely; browser acceptance must use semantic selectors rather than
+CSS structure.
 
 - [ ] Generation uses the current workspace topic, Report Language, approved
   outline, and only ready Selected Papers, while recording its Evidence

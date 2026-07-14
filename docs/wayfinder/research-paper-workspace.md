@@ -75,14 +75,18 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
 - [04A Stabilize Workspace UX and Paper Discovery](../../.scratch/research-paper-workspace/issues/04a-stabilize-workspace-ux-and-discovery.md)
   is complete and is the stabilization checkpoint for the browser workspace.
 - [05 Generate and Edit a Cited Literature Report](../../.scratch/research-paper-workspace/issues/05-generate-edit-cited-literature-report.md)
-  is paused until 04A browser acceptance is complete; do not start it in this
-  checkpoint.
+  is the next delivery frontier. It and tickets 06–08 use a minimal functional
+  interface while final workspace UX is deliberately deferred.
 - [06 Inspect Claim Evidence and Multiple Sources](../../.scratch/research-paper-workspace/issues/06-inspect-claim-evidence-and-multiple-sources.md)
   is blocked by 05.
 - [07 Review and Refresh Edited Claim Citations](../../.scratch/research-paper-workspace/issues/07-review-refresh-edited-claim-citations.md)
   is blocked by 06.
 - [08 Export Markdown and Demonstrate the Product Workflow](../../.scratch/research-paper-workspace/issues/08-export-and-acceptance-demo.md)
   is blocked by 07.
+- [09 Prototype the Final Research Workspace Experience](../../.scratch/research-paper-workspace/issues/09-prototype-final-research-workspace-experience.md)
+  is blocked by 08 and is a disposable prototype decision ticket.
+- [10 Implement the Accepted Research Workspace Prototype](../../.scratch/research-paper-workspace/issues/10-implement-accepted-workspace-prototype.md)
+  is blocked by 09 and reconnects the accepted prototype to the real product.
 
 ## Not yet specified
 

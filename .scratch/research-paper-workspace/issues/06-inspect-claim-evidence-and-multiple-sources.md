@@ -9,6 +9,15 @@ location, and Citation Review State.
 
 **Status:** ready-for-agent
 
+**Deferred UX constraint:** This ticket delivers only the smallest usable
+browser interface needed to complete its user task. Except for accessibility or
+legibility fixes, it must not redesign the workspace information architecture,
+global navigation, three-panel layout, visual system, or shared component
+styling. Keep feature behaviour in independent components and separate from
+API, persistence, and domain state so a later accepted prototype can change
+presentation safely; browser acceptance must use semantic selectors rather than
+CSS structure.
+
 - [ ] A report Claim visibly references one or multiple Source Chunks, including
   support from more than one Research Paper.
 - [ ] Selecting a Claim Citation reveals paper identity, version provenance,
