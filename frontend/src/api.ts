@@ -2,6 +2,7 @@ import type {
   DiscoveryResponse,
   ResearchWorkspace,
   ReportOutline,
+  LiteratureReport,
   ReportLanguage,
   UploadResponse,
   WorkspaceOperation,
@@ -149,6 +150,22 @@ export function listOutlineRevisions(workspaceId: string): Promise<ReportOutline
 export function restoreOutlineRevision(workspaceId: string, revisionId: string): Promise<ReportOutline> {
   return request<ReportOutline>(`/api/workspaces/${workspaceId}/outline/revisions/${revisionId}/restore`, {
     method: "POST",
+  });
+}
+
+export function generateReport(workspaceId: string, useReadySubset = false): Promise<WorkspaceOperation> {
+  return request<WorkspaceOperation>(`/api/workspaces/${workspaceId}/report/generate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ use_ready_subset: useReadySubset }),
+  });
+}
+
+export function saveReportDraft(workspaceId: string, report: LiteratureReport): Promise<LiteratureReport> {
+  return request<LiteratureReport>(`/api/workspaces/${workspaceId}/report`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(report),
   });
 }
 

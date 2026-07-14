@@ -75,7 +75,7 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
 - [04A Stabilize Workspace UX and Paper Discovery](../../.scratch/research-paper-workspace/issues/04a-stabilize-workspace-ux-and-discovery.md)
   is complete and is the stabilization checkpoint for the browser workspace.
 - [05 Generate and Edit a Cited Literature Report](../../.scratch/research-paper-workspace/issues/05-generate-edit-cited-literature-report.md)
-  is the next delivery frontier. It and tickets 06–08 use a minimal functional
+  is complete. Tickets 06–08 use a minimal functional
   interface while final workspace UX is deliberately deferred.
 - [06 Inspect Claim Evidence and Multiple Sources](../../.scratch/research-paper-workspace/issues/06-inspect-claim-evidence-and-multiple-sources.md)
   is blocked by 05.

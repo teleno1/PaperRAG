@@ -241,6 +241,7 @@ class WorkspaceOperation:
     total_work: int = 1
     started_at: str | None = None
     finished_at: str | None = None
+    input_snapshot: dict | None = None
 
     def __post_init__(self) -> None:
         self.id = _required(self.id, "operation_id")

@@ -13,6 +13,7 @@ from app.domain.workspace import (
     normalize_doi,
 )
 from app.domain.outline import OutlineSection, ReportOutline
+from app.domain.literature_report import LiteratureReport
 
 
 SCHEMA = """
@@ -91,6 +92,7 @@ CREATE TABLE IF NOT EXISTS workspace_operations (
     total_work INTEGER NOT NULL DEFAULT 1,
     started_at TEXT,
     finished_at TEXT,
+    input_snapshot_json TEXT,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
 );
@@ -110,6 +112,15 @@ CREATE TABLE IF NOT EXISTS outline_revisions (
     UNIQUE(workspace_id, revision_number)
 );
 
+CREATE TABLE IF NOT EXISTS report_drafts (
+    id TEXT PRIMARY KEY,
+    workspace_id TEXT NOT NULL UNIQUE REFERENCES workspaces(id),
+    outline_revision_id TEXT NOT NULL REFERENCES outline_revisions(id),
+    report_json TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_papers_workspace ON papers(workspace_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_operations_workspace ON workspace_operations(workspace_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_outline_revisions_workspace ON outline_revisions(workspace_id, revision_number);
@@ -126,6 +137,7 @@ class WorkspaceRepository:
             connection.executescript(SCHEMA)
             self._migrate_paper_columns(connection)
             self._migrate_document_version_columns(connection)
+            self._migrate_operation_columns(connection)
             connection.execute(
                 "CREATE INDEX IF NOT EXISTS idx_papers_dismissed ON papers(workspace_id, dismissed_at)"
             )
@@ -173,6 +185,12 @@ class WorkspaceRepository:
         for name, definition in additions.items():
             if name not in columns:
                 connection.execute(f"ALTER TABLE document_versions ADD COLUMN {name} {definition}")
+
+    @staticmethod
+    def _migrate_operation_columns(connection: sqlite3.Connection) -> None:
+        columns = {row["name"] for row in connection.execute("PRAGMA table_info(workspace_operations)").fetchall()}
+        if "input_snapshot_json" not in columns:
+            connection.execute("ALTER TABLE workspace_operations ADD COLUMN input_snapshot_json TEXT")
 
     @staticmethod
     def _paper(row: sqlite3.Row) -> ResearchPaper:
@@ -318,6 +336,50 @@ class WorkspaceRepository:
                 (workspace_id,),
             ).fetchall()
             return [self._outline(row) for row in rows]
+
+    @staticmethod
+    def _report(row: sqlite3.Row) -> LiteratureReport:
+        return LiteratureReport.from_dict(json.loads(row["report_json"]))
+
+    def get_report_draft(self, workspace_id: str) -> LiteratureReport | None:
+        with self._connect() as connection:
+            row = connection.execute(
+                "SELECT * FROM report_drafts WHERE workspace_id = ?",
+                (workspace_id,),
+            ).fetchone()
+            return self._report(row) if row else None
+
+    def save_report_draft(self, *, report: LiteratureReport, timestamp: str) -> LiteratureReport:
+        payload = json.dumps(report.to_dict(), ensure_ascii=False)
+        with self._connect() as connection:
+            existing = connection.execute(
+                "SELECT created_at FROM report_drafts WHERE workspace_id = ?",
+                (report.workspace_id,),
+            ).fetchone()
+            created_at = existing["created_at"] if existing else (report.created_at or timestamp)
+            connection.execute(
+                """
+                INSERT INTO report_drafts (id, workspace_id, outline_revision_id, report_json, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(workspace_id) DO UPDATE SET
+                    id = excluded.id,
+                    outline_revision_id = excluded.outline_revision_id,
+                    report_json = excluded.report_json,
+                    updated_at = excluded.updated_at
+                """,
+                (report.id, report.workspace_id, report.outline_revision_id, payload, created_at, timestamp),
+            )
+            connection.execute(
+                "UPDATE workspaces SET updated_at = ? WHERE id = ?",
+                (timestamp, report.workspace_id),
+            )
+            row = connection.execute(
+                "SELECT * FROM report_drafts WHERE workspace_id = ?",
+                (report.workspace_id,),
+            ).fetchone()
+            if row is None:
+                raise RuntimeError("report draft could not be persisted")
+            return self._report(row)
 
     def create_outline_revision(
         self,
@@ -941,6 +1003,7 @@ class WorkspaceRepository:
         operation_type: str,
         phase: str,
         timestamp: str,
+        input_snapshot: dict | None = None,
     ) -> WorkspaceOperation:
         operation = WorkspaceOperation(
             id=operation_id,
@@ -956,8 +1019,8 @@ class WorkspaceRepository:
                 INSERT INTO workspace_operations (
                     id, workspace_id, paper_id, operation_type, status, phase,
                     error_category, error_message, retry_action, completed_work, total_work,
-                    started_at, finished_at, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    started_at, finished_at, input_snapshot_json, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     operation.id,
@@ -973,6 +1036,7 @@ class WorkspaceRepository:
                     1,
                     None,
                     None,
+                    json.dumps(input_snapshot, ensure_ascii=False) if input_snapshot is not None else None,
                     timestamp,
                     timestamp,
                 ),
@@ -1059,4 +1123,5 @@ class WorkspaceRepository:
             total_work=row["total_work"],
             started_at=row["started_at"],
             finished_at=row["finished_at"],
+            input_snapshot=json.loads(row["input_snapshot_json"]) if row["input_snapshot_json"] else None,
         )

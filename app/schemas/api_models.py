@@ -250,6 +250,112 @@ class OutlineApproveRequest(BaseModel):
     revision_id: str = Field(..., min_length=1)
 
 
+class SourceChunkResponse(BaseModel):
+    id: str
+    workspace_id: str
+    paper_id: str
+    document_version_id: str
+    chunk_id: str
+    title: str
+    excerpt: str
+    section: str = ""
+    authors: list[str] = Field(default_factory=list)
+    year: str = ""
+    venue: str = ""
+    page_start: Optional[int] = None
+    page_end: Optional[int] = None
+
+
+class ClaimCitationResponse(BaseModel):
+    id: str
+    claim_id: str
+    source_chunk_ids: list[str] = Field(default_factory=list)
+    review_state: Literal["verified", "pending_review", "user_confirmed", "evidence_unavailable"] = "verified"
+
+
+class ReportClaimResponse(BaseModel):
+    id: str
+    section_id: str
+    text: str
+    claim_type: Literal["supported", "evidence_gap"] = "supported"
+    citations: list[ClaimCitationResponse] = Field(default_factory=list)
+
+
+class LiteratureReportSectionResponse(BaseModel):
+    id: str
+    title: str
+    claims: list[ReportClaimResponse] = Field(default_factory=list)
+
+
+class EvidenceExclusionResponse(BaseModel):
+    paper_id: str
+    reason: str
+
+
+class EvidenceCoverageResponse(BaseModel):
+    selected_paper_ids: list[str] = Field(default_factory=list)
+    included_paper_ids: list[str] = Field(default_factory=list)
+    excluded_papers: list[EvidenceExclusionResponse] = Field(default_factory=list)
+    used_ready_subset: bool = False
+
+
+class LiteratureReportResponse(BaseModel):
+    id: str
+    workspace_id: str
+    outline_revision_id: str
+    title: str
+    language: Literal["zh", "en"]
+    overview: str = ""
+    sections: list[LiteratureReportSectionResponse] = Field(default_factory=list)
+    source_chunks: list[SourceChunkResponse] = Field(default_factory=list)
+    evidence_coverage: EvidenceCoverageResponse
+    gap_notes: list[str] = Field(default_factory=list)
+    status: Literal["ready", "needs_attention"]
+    created_at: str
+    updated_at: str
+
+
+class ReportGenerateRequest(BaseModel):
+    use_ready_subset: bool = Field(default=False, description="Explicitly allow generation from the ready Selected Paper subset")
+
+
+class ClaimCitationSaveRequest(BaseModel):
+    id: str = Field(..., min_length=1)
+    claim_id: str = Field(..., min_length=1)
+    source_chunk_ids: list[str] = Field(..., min_length=1)
+    review_state: Literal["verified", "pending_review", "user_confirmed", "evidence_unavailable"] = "verified"
+
+
+class ReportClaimSaveRequest(BaseModel):
+    id: str = Field(..., min_length=1)
+    section_id: str = Field(..., min_length=1)
+    text: str = Field(..., min_length=1)
+    claim_type: Literal["supported", "evidence_gap"] = "supported"
+    citations: list[ClaimCitationSaveRequest] = Field(default_factory=list)
+
+
+class LiteratureReportSectionSaveRequest(BaseModel):
+    id: str = Field(..., min_length=1)
+    title: str = Field(..., min_length=1)
+    claims: list[ReportClaimSaveRequest] = Field(default_factory=list)
+
+
+class LiteratureReportSaveRequest(BaseModel):
+    id: str = Field(..., min_length=1)
+    workspace_id: str = Field(..., min_length=1)
+    outline_revision_id: str = Field(..., min_length=1)
+    title: str = Field(..., min_length=1)
+    language: Literal["zh", "en"]
+    overview: str = ""
+    sections: list[LiteratureReportSectionSaveRequest] = Field(..., min_length=1)
+    source_chunks: list[SourceChunkResponse] = Field(default_factory=list)
+    evidence_coverage: EvidenceCoverageResponse
+    gap_notes: list[str] = Field(default_factory=list)
+    status: Literal["ready", "needs_attention"] = "ready"
+    created_at: str = ""
+    updated_at: str = ""
+
+
 class WorkspaceCreateRequest(BaseModel):
     topic: str = Field(..., min_length=2, description="Research topic")
     report_language: Literal["zh", "en"] = Field(default="zh", description="Literature Report language")
@@ -321,6 +427,7 @@ class ResearchWorkspaceResponse(BaseModel):
     papers: list[ResearchPaperResponse] = Field(default_factory=list)
     operations: list[WorkspaceOperationResponse] = Field(default_factory=list)
     outline: Optional[ReportOutlineResponse] = None
+    report: Optional[LiteratureReportResponse] = None
 
 
 class WorkspaceUploadResponse(BaseModel):

@@ -73,6 +73,7 @@ export interface ResearchWorkspace {
   papers: ResearchPaper[];
   operations: WorkspaceOperation[];
   outline: ReportOutline | null;
+  report: LiteratureReport | null;
 }
 
 export interface OutlineSection {
@@ -93,6 +94,66 @@ export interface ReportOutline {
   created_at: string;
   updated_at: string;
   approved_at: string | null;
+}
+
+export interface SourceChunk {
+  id: string;
+  workspace_id: string;
+  paper_id: string;
+  document_version_id: string;
+  chunk_id: string;
+  title: string;
+  excerpt: string;
+  section: string;
+  authors: string[];
+  year: string;
+  venue: string;
+  page_start: number | null;
+  page_end: number | null;
+}
+
+export interface ClaimCitation {
+  id: string;
+  claim_id: string;
+  source_chunk_ids: string[];
+  review_state: "verified" | "pending_review" | "user_confirmed" | "evidence_unavailable";
+}
+
+export interface ReportClaim {
+  id: string;
+  section_id: string;
+  text: string;
+  claim_type: "supported" | "evidence_gap";
+  citations: ClaimCitation[];
+}
+
+export interface LiteratureReportSection {
+  id: string;
+  title: string;
+  claims: ReportClaim[];
+}
+
+export interface EvidenceCoverage {
+  selected_paper_ids: string[];
+  included_paper_ids: string[];
+  excluded_papers: Array<{ paper_id: string; reason: string }>;
+  used_ready_subset: boolean;
+}
+
+export interface LiteratureReport {
+  id: string;
+  workspace_id: string;
+  outline_revision_id: string;
+  title: string;
+  language: ReportLanguage;
+  overview: string;
+  sections: LiteratureReportSection[];
+  source_chunks: SourceChunk[];
+  evidence_coverage: EvidenceCoverage;
+  gap_notes: string[];
+  status: "ready" | "needs_attention";
+  created_at: string;
+  updated_at: string;
 }
 
 export interface DiscoveryResponse {

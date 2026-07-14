@@ -7,7 +7,11 @@ Claim Citations rather than flattening evidence into untraceable text.
 
 **Blocked by:** 04 — Generate, Edit, and Approve a Report Outline.
 
-**Status:** ready-for-agent
+**Status:** complete
+
+**Resolved:** 2026-07-14
+
+**Claimed by:** Codex
 
 **Deferred UX constraint:** This ticket delivers only the smallest usable
 browser interface needed to complete its user task. Except for accessibility or
@@ -18,14 +22,34 @@ API, persistence, and domain state so a later accepted prototype can change
 presentation safely; browser acceptance must use semantic selectors rather than
 CSS structure.
 
-- [ ] Generation uses the current workspace topic, Report Language, approved
+- [x] Generation uses the current workspace topic, Report Language, approved
   outline, and only ready Selected Papers, while recording its Evidence
   Coverage.
-- [ ] Each supported report Claim retains one or more validated Claim Citations
+- [x] Each supported report Claim retains one or more validated Claim Citations
   with stable identity across persisted report data, API responses, and the
   browser editor.
-- [ ] A researcher can make ordinary browser edits to an automatically persisted
+- [x] A researcher can make ordinary browser edits to an automatically persisted
   Report Draft without losing report structure or source history.
-- [ ] Missing retrieval support and generation failure appear as explicit
+- [x] Missing retrieval support and generation failure appear as explicit
   Evidence Gap or recoverable report states, never as fabricated cited content;
   the end-to-end flow has browser-level acceptance coverage.
+
+## Delivery notes
+
+- Added workspace-scoped Literature Report, Claim, Claim Citation, Source Chunk,
+  and Evidence Coverage models with stable IDs and explicit evidence-gap state.
+- Added SQLite-backed report drafts and durable `generate_report` operations,
+  including a ready-subset input snapshot, safe failure state, and retry path.
+- Added scoped chunk retrieval from the active Document Version of ready
+  Selected Papers; generated citations are filtered against that source registry.
+- Added report generation, draft read/save, and workspace-embedded API responses,
+  plus a minimal browser editor with evidence coverage, gap notes, citation
+  markers, and debounced automatic persistence.
+
+## Verification
+
+- `python -m pytest -q` — 181 passed, 4 warnings.
+- `python -m compileall -q app` — passed.
+- `npm.cmd run build` from `frontend/` — passed.
+- `npm.cmd exec playwright test` from `frontend/` — 2 browser scenarios passed
+  in the available Chrome runtime.

@@ -220,6 +220,21 @@ class InvalidOutlineError(PaperRAGError):
         super().__init__(reason)
 
 
+class ReportUnavailableError(PaperRAGError):
+    """A Literature Report cannot be generated or saved from current state."""
+
+    def __init__(self, reason: str, next_action: str | None = None):
+        self.next_action = next_action
+        super().__init__(reason)
+
+
+class InvalidReportError(PaperRAGError):
+    """A Literature Report draft does not satisfy its workspace contract."""
+
+    def __init__(self, reason: str):
+        super().__init__(reason)
+
+
 class InvalidPaperUploadError(PaperRAGError):
     """An upload cannot become a Research Paper."""
 

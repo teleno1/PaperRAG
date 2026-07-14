@@ -7,16 +7,26 @@ from fastapi.responses import JSONResponse
 
 from app.core.exceptions import (
     InvalidOutlineError,
+    InvalidReportError,
     InvalidPaperUploadError,
     OutlineNotFoundError,
     OutlineUnavailableError,
     PaperNotFoundError,
     PaperRAGError,
+    ReportUnavailableError,
     WorkspaceArchivedError,
     WorkspaceNotFoundError,
     WorkspaceOperationNotFoundError,
 )
 from app.domain.outline import OutlineSection, ReportOutline
+from app.domain.literature_report import (
+    ClaimCitation,
+    EvidenceCoverage,
+    LiteratureReport,
+    LiteratureReportSection,
+    ReportClaim,
+    SourceChunk,
+)
 from app.domain.workspace import ResearchPaper, ResearchWorkspace, WorkspaceOperation
 from app.schemas import (
     ErrorResponse,
@@ -24,6 +34,17 @@ from app.schemas import (
     OutlineSaveRequest,
     OutlineSectionResponse,
     ReportOutlineResponse,
+    ClaimCitationSaveRequest,
+    LiteratureReportResponse,
+    LiteratureReportSaveRequest,
+    ReportClaimSaveRequest,
+    ReportGenerateRequest,
+    LiteratureReportSectionResponse,
+    ReportClaimResponse,
+    ClaimCitationResponse,
+    SourceChunkResponse,
+    EvidenceCoverageResponse,
+    EvidenceExclusionResponse,
     ResearchPaperResponse,
     ResearchWorkspaceResponse,
     WorkspaceCreateRequest,
@@ -83,6 +104,7 @@ def _workspace_response(
     workspace: ResearchWorkspace,
     operations: list[WorkspaceOperation] | None = None,
     outline: ReportOutline | None = None,
+    report: LiteratureReport | None = None,
 ) -> ResearchWorkspaceResponse:
     return ResearchWorkspaceResponse(
         id=workspace.id,
@@ -94,6 +116,7 @@ def _workspace_response(
         papers=[_paper_response(paper) for paper in workspace.papers],
         operations=[_operation_response(operation) for operation in (operations or [])],
         outline=_outline_response(outline) if outline else None,
+        report=_report_response(report) if report else None,
     )
 
 
@@ -134,6 +157,100 @@ def _operation_response(operation: WorkspaceOperation) -> WorkspaceOperationResp
     )
 
 
+def _report_response(report: LiteratureReport) -> LiteratureReportResponse:
+    return LiteratureReportResponse(
+        id=report.id,
+        workspace_id=report.workspace_id,
+        outline_revision_id=report.outline_revision_id,
+        title=report.title,
+        language=report.language,
+        overview=report.overview,
+        sections=[
+            LiteratureReportSectionResponse(
+                id=section.id,
+                title=section.title,
+                claims=[
+                    ReportClaimResponse(
+                        id=claim.id,
+                        section_id=claim.section_id,
+                        text=claim.text,
+                        claim_type=claim.claim_type,
+                        citations=[
+                            ClaimCitationResponse(
+                                id=citation.id,
+                                claim_id=citation.claim_id,
+                                source_chunk_ids=citation.source_chunk_ids,
+                                review_state=citation.review_state,
+                            )
+                            for citation in claim.citations
+                        ],
+                    )
+                    for claim in section.claims
+                ],
+            )
+            for section in report.sections
+        ],
+        source_chunks=[SourceChunkResponse(**source.to_dict()) for source in report.source_chunks],
+        evidence_coverage=EvidenceCoverageResponse(
+            selected_paper_ids=report.evidence_coverage.selected_paper_ids,
+            included_paper_ids=report.evidence_coverage.included_paper_ids,
+            excluded_papers=[EvidenceExclusionResponse(**item) for item in report.evidence_coverage.excluded_papers],
+            used_ready_subset=report.evidence_coverage.used_ready_subset,
+        ),
+        gap_notes=report.gap_notes,
+        status=report.status,
+        created_at=report.created_at,
+        updated_at=report.updated_at,
+    )
+
+
+def _report_from_request(request: LiteratureReportSaveRequest) -> LiteratureReport:
+    return LiteratureReport(
+        id=request.id,
+        workspace_id=request.workspace_id,
+        outline_revision_id=request.outline_revision_id,
+        title=request.title,
+        language=request.language,
+        overview=request.overview,
+        sections=[
+            LiteratureReportSection(
+                id=section.id,
+                title=section.title,
+                claims=[
+                    ReportClaim(
+                        id=claim.id,
+                        section_id=claim.section_id,
+                        text=claim.text,
+                        claim_type=claim.claim_type,
+                        citations=[
+                            ClaimCitation(
+                                id=citation.id,
+                                claim_id=citation.claim_id,
+                                source_chunk_ids=citation.source_chunk_ids,
+                                review_state=citation.review_state,
+                            )
+                            for citation in claim.citations
+                        ],
+                    )
+                    for claim in section.claims
+                ],
+            )
+            for section in request.sections
+        ],
+        source_chunks=[SourceChunk.from_dict(source.model_dump()) for source in request.source_chunks],
+        evidence_coverage=EvidenceCoverage(
+            selected_paper_ids=request.evidence_coverage.selected_paper_ids,
+            included_paper_ids=request.evidence_coverage.included_paper_ids,
+            excluded_papers=[item.model_dump() for item in request.evidence_coverage.excluded_papers],
+            used_ready_subset=request.evidence_coverage.used_ready_subset,
+        ),
+        gap_notes=request.gap_notes,
+        status=request.status,
+        created_at=request.created_at,
+        updated_at=request.updated_at,
+    )
+
+
 def _error_response(exc: PaperRAGError | ValueError) -> JSONResponse:
     if isinstance(exc, (WorkspaceNotFoundError, PaperNotFoundError, WorkspaceOperationNotFoundError)):
         if isinstance(exc, WorkspaceNotFoundError):
@@ -157,6 +274,12 @@ def _error_response(exc: PaperRAGError | ValueError) -> JSONResponse:
         status_code = 400
     elif isinstance(exc, InvalidOutlineError):
         error = "invalid_outline"
+        status_code = 400
+    elif isinstance(exc, ReportUnavailableError):
+        error = "report_unavailable"
+        status_code = 400
+    elif isinstance(exc, InvalidReportError):
+        error = "invalid_report"
         status_code = 400
     else:
         error = "workspace_request_failed"
@@ -195,7 +318,12 @@ def create_workspace(request: WorkspaceCreateRequest) -> ResearchWorkspaceRespon
 def list_workspaces() -> list[ResearchWorkspaceResponse]:
     service = get_workspace_service()
     return [
-        _workspace_response(workspace, service.list_operations(workspace.id), service.get_outline(workspace.id))
+        _workspace_response(
+            workspace,
+            service.list_operations(workspace.id),
+            service.get_outline(workspace.id),
+            service.get_report_draft(workspace.id),
+        )
         for workspace in service.list_workspaces()
     ]
 
@@ -213,6 +341,7 @@ def get_workspace(workspace_id: str) -> ResearchWorkspaceResponse:
             workspace,
             service.list_operations(workspace_id),
             service.get_outline(workspace_id),
+            service.get_report_draft(workspace_id),
         )
     except PaperRAGError as exc:
         return _error_response(exc)
@@ -307,6 +436,62 @@ def approve_workspace_outline(
             )
         )
     except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.get(
+    "/workspaces/{workspace_id}/report",
+    response_model=LiteratureReportResponse,
+    responses={"404": {"model": ErrorResponse}},
+)
+def get_workspace_report(workspace_id: str) -> LiteratureReportResponse:
+    try:
+        report = get_workspace_service().get_report_draft(workspace_id)
+        if report is None:
+            raise ReportUnavailableError("There is no generated Literature Report draft yet.", "generate a Literature Report")
+        return _report_response(report)
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.post(
+    "/workspaces/{workspace_id}/report/generate",
+    response_model=WorkspaceOperationResponse,
+    status_code=202,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def generate_workspace_report(
+    workspace_id: str,
+    request: ReportGenerateRequest = ReportGenerateRequest(),
+) -> WorkspaceOperationResponse:
+    try:
+        service = get_workspace_service()
+        operation = service.start_report_generation(
+            workspace_id,
+            use_ready_subset=request.use_ready_subset,
+        )
+        service.enqueue_report_generation(operation)
+        return _operation_response(operation)
+    except (PaperRAGError, ValueError) as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.put(
+    "/workspaces/{workspace_id}/report",
+    response_model=LiteratureReportResponse,
+    responses={"400": {"model": ErrorResponse}, "404": {"model": ErrorResponse}},
+)
+def save_workspace_report(
+    workspace_id: str,
+    request: LiteratureReportSaveRequest,
+) -> LiteratureReportResponse:
+    try:
+        report = _report_from_request(request)
+        return _report_response(get_workspace_service().save_report_draft(workspace_id, report))
+    except (PaperRAGError, ValueError) as exc:
         return _error_response(exc)
     raise AssertionError("unreachable")
 

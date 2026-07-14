@@ -14,6 +14,8 @@ from app.core.exceptions import (
     InvalidPaperUploadError,
     OutlineNotFoundError,
     OutlineUnavailableError,
+    ReportUnavailableError,
+    InvalidReportError,
     PaperNotFoundError,
     WorkspaceArchivedError,
     WorkspaceNotFoundError,
@@ -22,6 +24,7 @@ from app.core.exceptions import (
 from app.core.config import get_settings
 from app.core.paths import PathManager, get_paths
 from app.domain.outline import OutlineSection, ReportOutline
+from app.domain.literature_report import EvidenceCoverage, LiteratureReport
 from app.domain.workspace import (
     DiscoveryResult,
     ResearchPaper,
@@ -41,6 +44,12 @@ from app.infrastructure.discovery import (
 )
 from app.infrastructure.parsing import MinerUParser, ParserRegistry
 from app.infrastructure.workspace.repository import WorkspaceRepository
+from app.use_cases.workspace_report import (
+    GroundedWorkspaceReportGenerator,
+    WorkspaceEvidenceRetriever,
+    WorkspaceReportGenerator,
+    normalize_generated_sections,
+)
 
 
 class UploadPaperResult:
@@ -75,6 +84,8 @@ class ResearchWorkspaceService:
         storage_root: Path,
         discovery_providers: Mapping[str, PaperDiscoveryProvider] | None = None,
         pdf_downloader: PdfDownloader | None = None,
+        report_generator: WorkspaceReportGenerator | None = None,
+        evidence_retriever: WorkspaceEvidenceRetriever | None = None,
     ) -> None:
         self._repository = repository
         self._storage_root = storage_root
@@ -82,6 +93,11 @@ class ResearchWorkspaceService:
         self._chunk_builder = chunk_builder or ChunkBuilder()
         self._discovery_providers = dict(discovery_providers or {"openalex": OpenAlexProvider()})
         self._pdf_downloader = pdf_downloader or RequestsPdfDownloader()
+        self._report_generator = report_generator or GroundedWorkspaceReportGenerator()
+        self._evidence_retriever = evidence_retriever or WorkspaceEvidenceRetriever(
+            repository=repository,
+            storage_root=storage_root,
+        )
         self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="paperrag-workspace")
         self._repository.interrupt_unfinished_operations(timestamp=self._timestamp())
 
@@ -667,13 +683,226 @@ class ResearchWorkspaceService:
 
     def retry_operation(self, operation_id: str) -> WorkspaceOperation:
         operation = self.get_operation(operation_id)
-        if operation.operation_type != "generate_outline":
-            raise InvalidOutlineError("Only failed Report Outline generation operations can be retried here.")
+        if operation.operation_type not in {"generate_outline", "generate_report"}:
+            raise InvalidOutlineError("Only failed Report Outline or Literature Report operations can be retried here.")
         if operation.status not in {"failed", "interrupted"}:
-            raise InvalidOutlineError("Only failed or interrupted Report Outline operations can be retried.")
-        retry = self.start_outline_generation(operation.workspace_id)
-        self.enqueue_outline_generation(retry)
+            raise InvalidOutlineError("Only failed or interrupted workspace report operations can be retried.")
+        if operation.operation_type == "generate_outline":
+            retry = self.start_outline_generation(operation.workspace_id)
+            self.enqueue_outline_generation(retry)
+        else:
+            retry = self.start_report_generation(
+                operation.workspace_id,
+                use_ready_subset=bool((operation.input_snapshot or {}).get("used_ready_subset", False)),
+            )
+            self.enqueue_report_generation(retry)
         return retry
+
+    def get_report_draft(self, workspace_id: str) -> LiteratureReport | None:
+        self.get_workspace(workspace_id)
+        return self._repository.get_report_draft(workspace_id)
+
+    def _report_evidence_snapshot(
+        self,
+        workspace: ResearchWorkspace,
+        *,
+        use_ready_subset: bool,
+    ) -> EvidenceCoverage:
+        selected = [paper for paper in workspace.papers if paper.selected]
+        included = [paper for paper in selected if paper.evidence_eligible]
+        excluded = [
+            {"paper_id": paper.id, "reason": paper.evidence_readiness}
+            for paper in selected
+            if not paper.evidence_eligible
+        ]
+        if not included:
+            raise ReportUnavailableError(
+                "A Literature Report needs at least one ready Selected Paper.",
+                "select and process at least one Selected Paper until Evidence Readiness is ready",
+            )
+        if excluded and not use_ready_subset:
+            raise ReportUnavailableError(
+                "Generation has mixed readiness; confirm the ready subset before generating.",
+                "confirm_ready_subset",
+            )
+        return EvidenceCoverage(
+            selected_paper_ids=[paper.id for paper in selected],
+            included_paper_ids=[paper.id for paper in included],
+            excluded_papers=excluded,
+            used_ready_subset=bool(excluded),
+        )
+
+    def start_report_generation(
+        self,
+        workspace_id: str,
+        *,
+        use_ready_subset: bool = False,
+    ) -> WorkspaceOperation:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        outline = self._repository.get_current_outline(workspace_id)
+        if outline is None:
+            raise ReportUnavailableError(
+                "A Literature Report requires a current Report Outline.",
+                "generate and approve a Report Outline",
+            )
+        if outline.status != "approved":
+            raise ReportUnavailableError(
+                "A Literature Report can only be generated from an approved Report Outline.",
+                "approve the current Report Outline",
+            )
+        coverage = self._report_evidence_snapshot(workspace, use_ready_subset=use_ready_subset)
+        snapshot = {
+            "outline_revision_id": outline.id,
+            "selected_paper_ids": coverage.selected_paper_ids,
+            "included_paper_ids": coverage.included_paper_ids,
+            "excluded_papers": coverage.excluded_papers,
+            "used_ready_subset": coverage.used_ready_subset,
+        }
+        return self._repository.create_operation(
+            operation_id=uuid.uuid4().hex,
+            workspace_id=workspace_id,
+            paper_id=None,
+            operation_type="generate_report",
+            phase="generating",
+            timestamp=self._timestamp(),
+            input_snapshot=snapshot,
+        )
+
+    def enqueue_report_generation(self, operation: WorkspaceOperation) -> None:
+        self._executor.submit(self.process_report_generation, operation.id, operation.workspace_id)
+
+    def process_report_generation(self, operation_id: str, workspace_id: str) -> LiteratureReport:
+        operation = self.get_operation(operation_id)
+        try:
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="running",
+                phase="generating",
+                timestamp=self._timestamp(),
+                retry_action=None,
+            )
+            workspace = self.get_workspace(workspace_id)
+            snapshot = operation.input_snapshot or {}
+            outline_id = str(snapshot.get("outline_revision_id") or "")
+            outline = self._repository.get_outline_revision(workspace_id, outline_id)
+            if outline is None or outline.status != "approved":
+                raise ReportUnavailableError("The approved Report Outline used by this operation is no longer available.", "approve a current Report Outline")
+            included_ids = list(snapshot.get("included_paper_ids", []))
+            papers = [
+                paper
+                for paper in workspace.papers
+                if paper.id in included_ids and paper.evidence_eligible
+            ]
+            if len(papers) != len(included_ids):
+                raise ReportUnavailableError(
+                    "The ready evidence snapshot changed before report generation completed.",
+                    "review paper readiness and retry report generation",
+                )
+            coverage = EvidenceCoverage(
+                selected_paper_ids=list(snapshot.get("selected_paper_ids", [])),
+                included_paper_ids=included_ids,
+                excluded_papers=list(snapshot.get("excluded_papers", [])),
+                used_ready_subset=bool(snapshot.get("used_ready_subset", False)),
+            )
+            query = " ".join(
+                [
+                    workspace.topic,
+                    outline.research_question,
+                    *(f"{section.title} {section.description}" for section in outline.sections),
+                ]
+            )
+            sources = self._evidence_retriever.search(papers=papers, query=query, top_k=24)
+            raw_payload = self._report_generator.generate(
+                topic=workspace.topic,
+                report_language=workspace.report_language,
+                outline=outline,
+                sources=sources,
+            )
+            if not isinstance(raw_payload, dict):
+                raise ValueError("report generator returned a non-object payload")
+            sections, gap_notes = normalize_generated_sections(
+                raw_payload=raw_payload,
+                outline=outline,
+                allowed_sources=sources,
+                report_language=workspace.report_language,
+            )
+            now = self._timestamp()
+            report = LiteratureReport(
+                id=uuid.uuid4().hex,
+                workspace_id=workspace_id,
+                outline_revision_id=outline.id,
+                title=str(raw_payload.get("title") or outline.title),
+                language=workspace.report_language,
+                overview=str(raw_payload.get("overview") or outline.research_question),
+                sections=sections,
+                evidence_coverage=coverage,
+                source_chunks=sources,
+                gap_notes=gap_notes,
+                created_at=now,
+                updated_at=now,
+            )
+            saved = self._repository.save_report_draft(report=report, timestamp=now)
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="succeeded",
+                phase="draft_ready",
+                timestamp=self._timestamp(),
+                completed_work=1,
+                total_work=1,
+                retry_action=None,
+            )
+            return saved
+        except Exception as exc:
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="failed",
+                phase="generating",
+                timestamp=self._timestamp(),
+                error_category="report_generation_failed",
+                error_message="Literature Report generation failed. Retry after checking the approved outline and ready evidence.",
+                retry_action="retry",
+            )
+            if isinstance(exc, ReportUnavailableError):
+                raise
+            raise ReportUnavailableError(
+                "Literature Report generation failed. Retry after checking the approved outline and ready evidence.",
+                "retry_report_generation",
+            ) from exc
+
+    def generate_report(
+        self,
+        workspace_id: str,
+        *,
+        use_ready_subset: bool = False,
+    ) -> LiteratureReport:
+        operation = self.start_report_generation(workspace_id, use_ready_subset=use_ready_subset)
+        return self.process_report_generation(operation.id, workspace_id)
+
+    def save_report_draft(self, workspace_id: str, report: LiteratureReport) -> LiteratureReport:
+        workspace = self.get_workspace(workspace_id)
+        if workspace.state == "archived":
+            raise WorkspaceArchivedError(workspace_id)
+        current = self._repository.get_report_draft(workspace_id)
+        if current is None:
+            raise ReportUnavailableError("There is no generated Literature Report draft to edit.", "generate a Literature Report")
+        if report.workspace_id != workspace_id or report.id != current.id:
+            raise InvalidReportError("Only the current workspace Literature Report draft can be edited.")
+        report.source_chunks = current.source_chunks
+        report.evidence_coverage = current.evidence_coverage
+        report.outline_revision_id = current.outline_revision_id
+        allowed_source_ids = {source.id for source in current.source_chunks}
+        submitted_source_ids = {
+            source_id
+            for citation in report.citations
+            for source_id in citation.source_chunk_ids
+        }
+        if not submitted_source_ids.issubset(allowed_source_ids):
+            raise InvalidReportError("Claim Citations must reference Source Chunks from this report's evidence snapshot.")
+        report.created_at = current.created_at
+        report.updated_at = self._timestamp()
+        return self._repository.save_report_draft(report=report, timestamp=report.updated_at)
 
     def get_outline(self, workspace_id: str) -> ReportOutline | None:
         self.get_workspace(workspace_id)

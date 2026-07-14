@@ -60,7 +60,10 @@ papers. Ticket 03 adds the React + TypeScript preparation SPA, same-origin
 compiled asset delivery, and the browser flow over this boundary. Ticket 04
 adds workspace-scoped Report Outline revisions, ready-evidence gating, draft
 editing, explicit approval, and immutable approved-history persistence. Cited
-report generation and claim-level provenance build on this boundary next.
+report generation and claim-level provenance now build on this boundary through
+workspace-scoped Literature Report drafts, Claim Citations, Source Chunks, and
+ready-evidence coverage snapshots. The report editor remains a small functional
+surface until the later accepted workspace prototype.
 
 ## Active Domain Model
 
@@ -99,9 +102,9 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   internals, or provider details. Existing generic routes remain compatibility
   endpoints until product tickets replace or adapt them.
 - **Web application** is a React + TypeScript single-page application. It
-  currently presents the preparation workspace and editable Report Outline; it
-  will add the report editor, evidence side panel, and citation-review state in
-  later tickets. It
+  presents the preparation workspace, editable Report Outline, and the minimal
+  Literature Report editor; the evidence side panel and citation-review state
+  remain later-ticket work. It
   polls active operations and must not reproduce business logic already owned by
   use cases. In production FastAPI serves its compiled static assets; Vite's
   development server proxies `/api` to FastAPI.

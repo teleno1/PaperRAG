@@ -117,6 +117,18 @@ section { margin-top: 22px; }
 .create-form label { display: grid; gap: 7px; color: #dbe9df; font-size: .78rem; font-weight: 700; }
 .create-form button { margin-top: 4px; }
 .outline-editor { margin-top: 18px; }
+.report-editor { margin-top: 18px; }
+.report-trust-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0; color: var(--muted); font-size: .76rem; }
+.report-trust-summary strong { color: var(--ink); }
+.report-section { padding: 12px 0; border-top: 1px solid var(--line); }
+.report-section h3 { margin: 0 0 8px; font-size: .92rem; }
+.report-claim { display: grid; gap: 6px; margin: 10px 0; }
+.report-claim textarea { min-height: 80px; }
+.report-claim-gap { padding-left: 10px; border-left: 3px solid var(--accent); }
+.citation-marker { color: var(--muted); font-size: .7rem; }
+.citation-gap, .report-gap-notes { color: #f2c786; }
+.report-gap-notes { padding: 10px 12px; border: 1px solid rgba(226, 173, 99, .35); border-radius: 8px; background: rgba(226, 173, 99, .08); font-size: .76rem; }
+.report-gap-notes p { margin: 5px 0 0; line-height: 1.5; }
 .outline-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
 .outline-heading-actions { display: flex; align-items: center; gap: 8px; }
 .outline-field { display: grid; gap: 6px; margin-top: 12px; color: var(--muted); font-size: .72rem; font-weight: 700; }
