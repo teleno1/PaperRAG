@@ -69,6 +69,7 @@ class SourceChunk:
     venue: str = ""
     page_start: int | None = None
     page_end: int | None = None
+    source_anchor: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         self.id = _text(self.id, "source_chunk_id")
@@ -96,6 +97,7 @@ class SourceChunk:
             "venue": self.venue,
             "page_start": self.page_start,
             "page_end": self.page_end,
+            "source_anchor": self.source_anchor,
         }
 
     @classmethod

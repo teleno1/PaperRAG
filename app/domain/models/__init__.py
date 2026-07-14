@@ -12,6 +12,7 @@ from app.domain.models.document import (
     ParsedDocumentUnit,
     Source,
 )
+from app.domain.models.chunk import Chunk, SourceAnchor
 from app.domain.models.runtime import (
     BuildIndexResult,
     HealthStatus,
@@ -22,6 +23,7 @@ from app.domain.models.runtime import (
 
 __all__ = [
     "BuildIndexResult",
+    "Chunk",
     "DocumentChunk",
     "DocumentMetadata",
     "HealthStatus",
@@ -31,6 +33,7 @@ __all__ = [
     "ProjectState",
     "ReviewRunResult",
     "Source",
+    "SourceAnchor",
     "chunk_to_document_chunk",
     "paper_metadata_to_document_metadata",
     "paper_metadata_to_source",

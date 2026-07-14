@@ -264,6 +264,7 @@ class SourceChunkResponse(BaseModel):
     venue: str = ""
     page_start: Optional[int] = None
     page_end: Optional[int] = None
+    source_anchor: Optional[dict] = None
 
 
 class ClaimCitationResponse(BaseModel):

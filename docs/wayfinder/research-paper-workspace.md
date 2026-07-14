@@ -80,9 +80,10 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
   completion is only the cited-report structural shell; tickets 05A through 05D below define
   the real vector-RAG workflow now required before ticket 06.
 - [05A Index Ready Selected Paper Evidence](../../.scratch/research-paper-workspace/issues/05a-index-ready-selected-paper-evidence.md)
-  is the current delivery frontier and has no open blocker.
+  is complete. It delivers provenance-aware chunks, real provider embeddings,
+  workspace-isolated FAISS indexes, and retryable indexing state.
 - [05B Generate an Evidence-Driven Report Outline](../../.scratch/research-paper-workspace/issues/05b-generate-evidence-driven-report-outline.md)
-  is blocked by 05A.
+  is the current delivery frontier and is unblocked by 05A.
 - [05C Generate Verified Body Chapters](../../.scratch/research-paper-workspace/issues/05c-generate-verified-body-chapters.md)
   is blocked by 05B.
 - [05D Publish a Complete Evidence-Driven Literature Report](../../.scratch/research-paper-workspace/issues/05d-publish-complete-evidence-driven-literature-report.md)

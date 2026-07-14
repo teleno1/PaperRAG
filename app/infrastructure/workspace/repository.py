@@ -837,6 +837,41 @@ class WorkspaceRepository:
                 return None
             return self._paper(row)
 
+    def mark_paper_processing_phase(
+        self,
+        *,
+        workspace_id: str,
+        paper_id: str,
+        document_version_id: str,
+        phase: str,
+        timestamp: str,
+    ) -> ResearchPaper | None:
+        if phase not in {"importing", "parsing", "indexing"}:
+            raise ValueError(f"unsupported paper processing phase: {phase}")
+        with self._connect() as connection:
+            connection.execute(
+                """
+                UPDATE papers
+                SET evidence_readiness = ?, failure_phase = NULL, failure_message = NULL,
+                    retryable = 0, updated_at = ?
+                WHERE id = ? AND workspace_id = ?
+                """,
+                (phase, timestamp, paper_id, workspace_id),
+            )
+            connection.execute(
+                """
+                UPDATE document_versions
+                SET status = ?, failure_phase = NULL, failure_message = NULL
+                WHERE id = ? AND workspace_id = ? AND paper_id = ?
+                """,
+                (phase, document_version_id, workspace_id, paper_id),
+            )
+            connection.execute("UPDATE workspaces SET updated_at = ? WHERE id = ?", (timestamp, workspace_id))
+            row = connection.execute(
+                "SELECT * FROM papers WHERE id = ? AND workspace_id = ?", (paper_id, workspace_id)
+            ).fetchone()
+            return self._paper(row) if row else None
+
     def mark_paper_failed(
         self,
         *,

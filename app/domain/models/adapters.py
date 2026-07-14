@@ -111,6 +111,21 @@ def chunk_to_document_chunk(
     resolved_document_id = _resolve_document_id(document_id, paper_id)
     if chunk_id is None and chunk_index is None:
         raise ValueError("chunk_id or chunk_index is required")
+    metadata = _legacy_metadata(
+        title=chunk.title,
+        authors=chunk.authors,
+        year=chunk.year,
+        venue=chunk.venue,
+        extra_metadata=extra_metadata,
+        paper_id=paper_id or resolved_document_id,
+    )
+    if chunk.source_anchor is not None:
+        metadata["source_anchor"] = chunk.source_anchor.to_dict()
+        metadata["document_version_id"] = chunk.source_anchor.document_version_id
+        metadata["page_start"] = chunk.source_anchor.page_start
+        metadata["page_end"] = chunk.source_anchor.page_end
+        metadata["character_start"] = chunk.source_anchor.character_start
+        metadata["character_end"] = chunk.source_anchor.character_end
     return DocumentChunk(
         chunk_id=chunk_id or _default_chunk_id(resolved_document_id, chunk_index),
         document_id=resolved_document_id,
@@ -118,12 +133,5 @@ def chunk_to_document_chunk(
         source_type=source_type,
         section=chunk.section or "UNKNOWN",
         content=chunk.content,
-        metadata=_legacy_metadata(
-            title=chunk.title,
-            authors=chunk.authors,
-            year=chunk.year,
-            venue=chunk.venue,
-            extra_metadata=extra_metadata,
-            paper_id=paper_id or resolved_document_id,
-        ),
+        metadata=metadata,
     )

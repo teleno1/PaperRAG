@@ -190,7 +190,7 @@ def _report_response(report: LiteratureReport) -> LiteratureReportResponse:
             )
             for section in report.sections
         ],
-        source_chunks=[SourceChunkResponse(**source.to_dict()) for source in report.source_chunks],
+        source_chunks=[_source_chunk_response(source) for source in report.source_chunks],
         evidence_coverage=EvidenceCoverageResponse(
             selected_paper_ids=report.evidence_coverage.selected_paper_ids,
             included_paper_ids=report.evidence_coverage.included_paper_ids,
@@ -202,6 +202,30 @@ def _report_response(report: LiteratureReport) -> LiteratureReportResponse:
         created_at=report.created_at,
         updated_at=report.updated_at,
     )
+
+
+def _source_chunk_response(source: SourceChunk) -> SourceChunkResponse:
+    payload = source.to_dict()
+    anchor = payload.get("source_anchor")
+    if isinstance(anchor, dict):
+        # SourceAnchor keeps the original path for internal provenance, but
+        # workspace APIs never expose local filesystem or provider internals.
+        payload["source_anchor"] = {
+            key: anchor[key]
+            for key in (
+                "document_version_id",
+                "page_start",
+                "page_end",
+                "character_start",
+                "character_end",
+                "section",
+                "excerpt",
+                "parser_version",
+                "chunking_version",
+            )
+            if key in anchor
+        }
+    return SourceChunkResponse(**payload)
 
 
 def _report_from_request(request: LiteratureReportSaveRequest) -> LiteratureReport:

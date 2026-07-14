@@ -65,6 +65,15 @@ workspace-scoped Literature Report drafts, Claim Citations, Source Chunks, and
 ready-evidence coverage snapshots. The report editor remains a small functional
 surface until the later accepted workspace prototype.
 
+05A completes the real evidence boundary: every processed version writes
+provenance-aware `chunks.json`, and only ready Selected Papers contribute to a
+workspace-specific `evidence.faiss` plus metadata pair. The validated pair is
+replaced after Alibaba Cloud `text-embedding-v4` succeeds; provider or
+configuration failure leaves the paper failed and retryable. Workspace
+retrieval filters by the current selected paper and active Document Version,
+so a removed or replaced version cannot become new evidence while an older
+index is being rebuilt.
+
 ## Active Domain Model
 
 The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
@@ -113,6 +122,10 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   persists phase, progress, safe errors, and retry actions. A restart marks
   running work interrupted; queued work may be cancelled, but running work is
   not forcefully interrupted.
+- **Evidence index** is a managed local-file boundary below a workspace. Its
+  metadata carries workspace, paper, Document Version, Chunk, and serialized
+  `SourceAnchor` identities. The production workspace seam receives a real
+  embedding collaborator; deterministic collaborators are test-only.
 
 ## Deployment Boundary
 
@@ -134,6 +147,8 @@ evidence without guessing:
 - selected-paper identifier, title, and source URL or upload record
 - document and chunk identifiers
 - page and/or section location when parsing provides it
+- versioned `SourceAnchor` metadata, including the clean excerpt and parser /
+  chunking versions
 - source excerpt and retrieval/generation provenance
 
 The PDF-location, workspace/provenance, lifecycle, and topology contracts are

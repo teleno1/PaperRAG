@@ -5,7 +5,7 @@ and approve a real evidence-driven Report Outline rather than a fixed template.
 The browser shows the resulting chapters and their retrieval intent before any
 Literature Report body is generated.
 
-**Blocked by:** 05A — Index Ready Selected Paper Evidence.
+**Blocked by:** None — 05A Index Ready Selected Paper Evidence is complete.
 
 **Status:** ready-for-agent
 
@@ -35,4 +35,3 @@ CSS structure.
   constraints, IDs, revisions, planning-evidence and model/prompt snapshots.
   Tests use controlled collaborators, and closure includes a real-provider
   manual outline-generation acceptance run.
-

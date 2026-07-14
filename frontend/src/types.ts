@@ -110,6 +110,7 @@ export interface SourceChunk {
   venue: string;
   page_start: number | null;
   page_end: number | null;
+  source_anchor?: Record<string, unknown> | null;
 }
 
 export interface ClaimCitation {

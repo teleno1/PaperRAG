@@ -47,6 +47,13 @@ The current product-planning source of truth is the local
 [research-paper workspace map](docs/wayfinder/research-paper-workspace.md).
 It records open decisions before implementation starts.
 
+The 05A delivery now indexes ready Selected Paper versions with the configured
+Alibaba Cloud `text-embedding-v4` provider in workspace-isolated FAISS files.
+Indexing progress and safe retryable failures are persisted as Workspace
+Operations; missing provider configuration never becomes a synthetic or
+lexical production index. The next delivery slice is evidence-driven outline
+generation (05B).
+
 ## Legacy Refactor Materials
 
 The earlier goal—turning PaperRAG into a general knowledge-base RAG system—is

@@ -7,7 +7,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Mapping
+from typing import Callable, Mapping
 
 from app.core.exceptions import (
     InvalidOutlineError,
@@ -31,6 +31,7 @@ from app.domain.workspace import (
     ResearchWorkspace,
     WorkspaceOperation,
 )
+from app.domain.models.chunk import Chunk, SourceAnchor
 from app.infrastructure.chunking import ChunkBuilder
 from app.infrastructure.discovery import (
     ArxivProvider,
@@ -43,6 +44,9 @@ from app.infrastructure.discovery import (
     RequestsPdfDownloader,
 )
 from app.infrastructure.parsing import MinerUParser, ParserRegistry
+from app.infrastructure.llm.clients import DashScopeEmbeddingClient
+from app.infrastructure.vectorstore.faiss_repository import FaissRepository
+from app.infrastructure.vectorstore.index_builder import IndexBuilder, WorkspaceIndexEntry
 from app.infrastructure.workspace.repository import WorkspaceRepository
 from app.use_cases.workspace_report import (
     GroundedWorkspaceReportGenerator,
@@ -86,6 +90,7 @@ class ResearchWorkspaceService:
         pdf_downloader: PdfDownloader | None = None,
         report_generator: WorkspaceReportGenerator | None = None,
         evidence_retriever: WorkspaceEvidenceRetriever | None = None,
+        embedding_client: DashScopeEmbeddingClient | None = None,
     ) -> None:
         self._repository = repository
         self._storage_root = storage_root
@@ -94,9 +99,14 @@ class ResearchWorkspaceService:
         self._discovery_providers = dict(discovery_providers or {"openalex": OpenAlexProvider()})
         self._pdf_downloader = pdf_downloader or RequestsPdfDownloader()
         self._report_generator = report_generator or GroundedWorkspaceReportGenerator()
+        # Direct construction remains a deterministic compatibility seam for the
+        # pre-05A tests. Production construction through from_paths always
+        # supplies the real provider client; it never substitutes local vectors.
+        self._embedding_client = embedding_client
         self._evidence_retriever = evidence_retriever or WorkspaceEvidenceRetriever(
             repository=repository,
             storage_root=storage_root,
+            embedding_client=embedding_client,
         )
         self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="paperrag-workspace")
         self._repository.interrupt_unfinished_operations(timestamp=self._timestamp())
@@ -110,6 +120,7 @@ class ResearchWorkspaceService:
             repository=WorkspaceRepository(resolved_paths.workspace_dir / "workspace.sqlite3"),
             storage_root=storage_root,
             parser_registry=ParserRegistry([MinerUParser(paths=resolved_paths)]),
+            embedding_client=DashScopeEmbeddingClient(settings),
             discovery_providers={
                 "openalex": OpenAlexProvider(api_key=settings.models.openalex_api_key),
                 "arxiv": ArxivProvider(),
@@ -325,6 +336,211 @@ class ResearchWorkspaceService:
         if result.operation is not None:
             self._executor.submit(self.process_paper, result)
 
+    @staticmethod
+    def _clean_chunk_excerpt(chunk: Chunk) -> str:
+        if chunk.excerpt.strip():
+            return chunk.excerpt.strip()
+        content = chunk.content.strip()
+        lines = content.splitlines()
+        if len(lines) >= 3 and lines[0].startswith("[Title:") and lines[1].startswith("[Section:"):
+            return " ".join(lines[2:]).strip()
+        return content
+
+    def _ensure_chunk_anchors(
+        self,
+        *,
+        chunks: list[Chunk],
+        document_version_id: str,
+        source_path: Path,
+        parser: str,
+        parser_version: str | None = None,
+    ) -> list[Chunk]:
+        for chunk in chunks:
+            if chunk.source_anchor is None:
+                excerpt = self._clean_chunk_excerpt(chunk)
+                chunk.excerpt = excerpt
+                chunk.source_anchor = SourceAnchor(
+                    document_version_id=document_version_id,
+                    source_path=str(source_path),
+                    section=chunk.section,
+                    excerpt=excerpt,
+                    page_start=chunk.page_start,
+                    page_end=chunk.page_end,
+                    character_start=chunk.character_start,
+                    character_end=chunk.character_end,
+                    parser=parser,
+                    parser_version=parser_version,
+                )
+            else:
+                chunk.excerpt = chunk.source_anchor.excerpt
+                chunk.page_start = chunk.source_anchor.page_start
+                chunk.page_end = chunk.source_anchor.page_end
+                chunk.character_start = chunk.source_anchor.character_start
+                chunk.character_end = chunk.source_anchor.character_end
+        return chunks
+
+    @staticmethod
+    def _serialize_chunk(chunk: Chunk, *, chunk_id: str, document_version_id: str) -> dict:
+        return {
+            "chunk_id": chunk_id,
+            "document_version_id": document_version_id,
+            "section": chunk.section,
+            "content": chunk.content,
+            "excerpt": chunk.excerpt,
+            "title": chunk.title,
+            "authors": chunk.authors,
+            "year": chunk.year,
+            "venue": chunk.venue,
+            "page_start": chunk.page_start,
+            "page_end": chunk.page_end,
+            "character_start": chunk.character_start,
+            "character_end": chunk.character_end,
+            "source_anchor": chunk.source_anchor.to_dict() if chunk.source_anchor else None,
+        }
+
+    def _load_workspace_chunks(self, paper: ResearchPaper) -> list[Chunk]:
+        storage_path = self._repository.get_paper_storage_path(
+            workspace_id=paper.workspace_id,
+            paper_id=paper.id,
+        )
+        if not storage_path or not paper.active_document_version_id:
+            return []
+        safe_storage_path = Path(storage_path).resolve()
+        try:
+            safe_storage_path.relative_to(self._storage_root.resolve())
+        except ValueError:
+            return []
+        chunks_path = safe_storage_path.parent / "chunks.json"
+        if not chunks_path.is_file():
+            return []
+        raw_chunks = json.loads(chunks_path.read_text(encoding="utf-8"))
+        chunks: list[Chunk] = []
+        for raw in raw_chunks if isinstance(raw_chunks, list) else []:
+            if not isinstance(raw, dict):
+                continue
+            if str(raw.get("document_version_id") or "") != paper.active_document_version_id:
+                continue
+            anchor_payload = raw.get("source_anchor")
+            anchor = SourceAnchor.from_dict(anchor_payload) if isinstance(anchor_payload, dict) else None
+            if anchor is not None and anchor.document_version_id != paper.active_document_version_id:
+                raise ValueError("chunk anchor belongs to a different document version")
+            chunk = Chunk(
+                content=str(raw.get("content") or "").strip(),
+                excerpt=str(raw.get("excerpt") or "").strip(),
+                section=str(raw.get("section") or "UNKNOWN"),
+                title=str(raw.get("title") or paper.title),
+                authors=list(raw.get("authors") or paper.authors),
+                year=str(raw.get("year") or paper.year),
+                venue=str(raw.get("venue") or paper.venue),
+                page_start=raw.get("page_start"),
+                page_end=raw.get("page_end"),
+                character_start=raw.get("character_start"),
+                character_end=raw.get("character_end"),
+                source_anchor=anchor,
+            )
+            chunks.append(
+                self._ensure_chunk_anchors(
+                    chunks=[chunk],
+                    document_version_id=paper.active_document_version_id,
+                    source_path=safe_storage_path,
+                    parser="workspace-artifact",
+                )[0]
+            )
+        return chunks
+
+    def _workspace_index_entries(
+        self,
+        workspace_id: str,
+        *,
+        pending_paper: ResearchPaper | None = None,
+        pending_chunks: list[Chunk] | None = None,
+        pending_source_path: Path | None = None,
+        pending_document_version_id: str | None = None,
+    ) -> list[WorkspaceIndexEntry]:
+        workspace = self.get_workspace(workspace_id)
+        entries: list[WorkspaceIndexEntry] = []
+        for paper in workspace.papers:
+            if pending_paper is not None and paper.id == pending_paper.id:
+                continue
+            if not paper.evidence_eligible:
+                continue
+            storage_path = self._repository.get_paper_storage_path(
+                workspace_id=workspace_id,
+                paper_id=paper.id,
+            )
+            chunks = self._load_workspace_chunks(paper)
+            if not storage_path or not chunks or not paper.active_document_version_id:
+                raise ValueError("ready paper is missing its indexed chunk artifact")
+            entries.append(
+                WorkspaceIndexEntry(
+                    workspace_id=workspace_id,
+                    paper_id=paper.id,
+                    document_version_id=paper.active_document_version_id,
+                    source_path=storage_path,
+                    chunks=chunks,
+                )
+            )
+        if pending_paper is not None and pending_chunks:
+            if not pending_source_path or not pending_document_version_id:
+                raise ValueError("pending index entry is missing its document version")
+            entries.append(
+                WorkspaceIndexEntry(
+                    workspace_id=workspace_id,
+                    paper_id=pending_paper.id,
+                    document_version_id=pending_document_version_id,
+                    source_path=str(pending_source_path),
+                    chunks=pending_chunks,
+                )
+            )
+        return entries
+
+    def _rebuild_workspace_index(
+        self,
+        workspace_id: str,
+        *,
+        pending_paper: ResearchPaper | None = None,
+        pending_chunks: list[Chunk] | None = None,
+        pending_source_path: Path | None = None,
+        pending_document_version_id: str | None = None,
+        progress_callback: Callable[[int, int], None] | None = None,
+    ) -> int:
+        if self._embedding_client is None:
+            return 0
+        entries = self._workspace_index_entries(
+            workspace_id,
+            pending_paper=pending_paper,
+            pending_chunks=pending_chunks,
+            pending_source_path=pending_source_path,
+            pending_document_version_id=pending_document_version_id,
+        )
+        repository = FaissRepository(
+            index_path=self._storage_root / workspace_id / "index" / "evidence.faiss",
+            metadata_path=self._storage_root / workspace_id / "index" / "metadata.json",
+            embed_dim=get_settings().models.embedding_dimension or 1024,
+        )
+        if not entries:
+            repository.clear()
+            return 0
+        index_builder = IndexBuilder(
+            embedding_client=self._embedding_client,
+            expected_embedding_dimension=get_settings().models.embedding_dimension,
+        )
+        total_work = sum(len(entry.chunks) for entry in entries)
+        if progress_callback is not None:
+            progress_callback(0, total_work)
+        vectors, metadata = index_builder.build_workspace(
+            entries,
+            progress_callback=(
+                (lambda completed: progress_callback(completed, total_work))
+                if progress_callback is not None
+                else None
+            ),
+        )
+        if not vectors or len(vectors) != len(metadata):
+            raise ValueError("workspace evidence index contains no complete vectors")
+        repository.save(vectors, metadata)
+        return len(metadata)
+
     def process_paper(self, result: UploadPaperResult) -> UploadPaperResult:
         paper = result.paper
         operation = result.operation
@@ -364,6 +580,13 @@ class ResearchWorkspaceService:
                         f"All public PDF sources failed: {last_error}",
                     ) from last_error
             current_phase = "parsing"
+            self._repository.mark_paper_processing_phase(
+                workspace_id=workspace_id,
+                paper_id=paper_id,
+                document_version_id=document_version_id,
+                phase=current_phase,
+                timestamp=self._timestamp(),
+            )
             self._repository.update_operation(
                 operation_id=operation.id,
                 status="running",
@@ -381,6 +604,13 @@ class ResearchWorkspaceService:
                 encoding="utf-8",
             )
             current_phase = "indexing"
+            self._repository.mark_paper_processing_phase(
+                workspace_id=workspace_id,
+                paper_id=paper_id,
+                document_version_id=document_version_id,
+                phase=current_phase,
+                timestamp=self._timestamp(),
+            )
             self._repository.update_operation(
                 operation_id=operation.id,
                 status="running",
@@ -391,25 +621,67 @@ class ResearchWorkspaceService:
             chunks = self._chunk_builder.build_chunks_from_parsed_document(parsed)
             if not chunks:
                 raise ValueError("the chunker returned no paper chunks")
+            chunks = self._ensure_chunk_anchors(
+                chunks=chunks,
+                document_version_id=document_version_id,
+                source_path=source_path,
+                parser=str(parsed.metadata.get("parser") or parsed.source_type),
+                parser_version=(
+                    str(parsed.metadata["parser_version"])
+                    if parsed.metadata.get("parser_version") is not None
+                    else None
+                ),
+            )
             (version_artifact_dir / "chunks.json").write_text(
                 json.dumps(
                     [
-                        {
-                            "chunk_id": f"{document_version_id}__chunk_{index:04d}",
-                            "document_version_id": document_version_id,
-                            "section": chunk.section,
-                            "content": chunk.content,
-                            "title": chunk.title,
-                            "authors": chunk.authors,
-                            "year": chunk.year,
-                            "venue": chunk.venue,
-                        }
+                        self._serialize_chunk(
+                            chunk,
+                            chunk_id=f"{document_version_id}__chunk_{index:04d}",
+                            document_version_id=document_version_id,
+                        )
                         for index, chunk in enumerate(chunks)
                     ],
                     ensure_ascii=False,
                     indent=2,
                 ),
                 encoding="utf-8",
+            )
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="running",
+                phase=current_phase,
+                timestamp=self._timestamp(),
+                completed_work=0,
+                total_work=len(chunks),
+                retry_action=None,
+            )
+            indexed_work = self._rebuild_workspace_index(
+                workspace_id,
+                pending_paper=paper,
+                pending_chunks=chunks,
+                pending_source_path=source_path,
+                pending_document_version_id=document_version_id,
+                progress_callback=(
+                    lambda completed, total: self._repository.update_operation(
+                        operation_id=operation.id,
+                        status="running",
+                        phase=current_phase,
+                        timestamp=self._timestamp(),
+                        completed_work=completed,
+                        total_work=total,
+                        retry_action=None,
+                    )
+                ),
+            )
+            self._repository.update_operation(
+                operation_id=operation.id,
+                status="running",
+                phase=current_phase,
+                timestamp=self._timestamp(),
+                completed_work=indexed_work or len(chunks),
+                total_work=indexed_work or len(chunks),
+                retry_action=None,
             )
             paper = self._repository.mark_paper_ready(
                 workspace_id=workspace_id,
@@ -426,8 +698,8 @@ class ResearchWorkspaceService:
                 status="succeeded",
                 phase="ready",
                 timestamp=self._timestamp(),
-                completed_work=1,
-                total_work=1,
+                completed_work=indexed_work or len(chunks),
+                total_work=indexed_work or len(chunks),
                 retry_action=None,
             )
         except PdfDownloadError as exc:
@@ -450,7 +722,15 @@ class ResearchWorkspaceService:
                 retry_action="retry",
             )
         except Exception:
-            safe_message = "PDF parsing failed. Retry the import or provide another authorised PDF."
+            if current_phase == "indexing" and self._embedding_client is not None:
+                safe_message = "Evidence indexing failed. Check the embedding provider configuration or availability, then retry."
+                error_category = "evidence_indexing_failed"
+            elif current_phase == "parsing":
+                safe_message = "PDF parsing failed. Retry the import or provide another authorised PDF."
+                error_category = "paper_parsing_failed"
+            else:
+                safe_message = "Paper import failed. Retry the import or provide another authorised PDF."
+                error_category = "paper_import_failed"
             paper = self._repository.mark_paper_failed(
                 workspace_id=workspace_id,
                 paper_id=paper_id,
@@ -464,7 +744,7 @@ class ResearchWorkspaceService:
                 status="failed",
                 phase=current_phase,
                 timestamp=self._timestamp(),
-                error_category="paper_processing_failed",
+                error_category=error_category,
                 error_message=safe_message,
                 retry_action="retry",
             )
@@ -622,6 +902,20 @@ class ResearchWorkspaceService:
         )
         if updated is None:
             raise PaperNotFoundError(workspace_id, paper_id)
+        if self._embedding_client is not None:
+            try:
+                self._rebuild_workspace_index(workspace_id)
+            except Exception as exc:
+                # Keep the selection boundary and the physical index aligned.
+                self._repository.set_paper_selected(
+                    workspace_id=workspace_id,
+                    paper_id=paper_id,
+                    selected=paper.selected,
+                    timestamp=self._timestamp(),
+                )
+                raise InvalidPaperUploadError(
+                    "The workspace evidence index could not be updated. Retry after checking the embedding provider."
+                ) from exc
         return updated
 
     def remove_paper(self, workspace_id: str, paper_id: str) -> ResearchPaper:

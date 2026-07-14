@@ -290,6 +290,7 @@ class FaissRecallService(RetrievalService):
                 content=str(item.get("content", "") or ""),
                 paper_score=item.get("paper_score"),
                 chunk_score=item.get("chunk_score"),
+                source_anchor=item.get("source_anchor"),
             )
             for item in final_chunks
         ]

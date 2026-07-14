@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, List, Literal, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -60,6 +60,7 @@ class RetrievedSource(BaseModel):
     content: str
     paper_score: Optional[float] = None
     chunk_score: Optional[float] = None
+    source_anchor: Optional[Dict[str, Any]] = None
 
 
 class SectionSourceFile(BaseModel):

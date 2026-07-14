@@ -28,6 +28,9 @@ Keep these paths out of git:
 - `data/outlines/` for generated outlines.
 - `data/review_outputs/` for review and report runs.
 - `data/eval_outputs/` for evaluation artifacts.
+- `data/workspaces/` for SQLite workspace state, uploaded PDFs, parsed/chunked
+  versions, and workspace-isolated FAISS evidence indexes. These files are
+  runtime artifacts and must remain untracked.
 
 If you need to run the current paper-review pipeline locally, place your own PDFs in
 `data/papers/` and let the application regenerate the downstream artifacts.

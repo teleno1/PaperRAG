@@ -14,6 +14,9 @@ from app.domain.literature_report import (
 )
 from app.domain.outline import ReportOutline
 from app.domain.workspace import ResearchPaper
+from app.infrastructure.retrieval.faiss_recall_service import FaissRecallService
+from app.infrastructure.vectorstore.faiss_repository import FaissRepository
+from app.infrastructure.llm.clients import DashScopeEmbeddingClient
 
 
 class WorkspaceReportGenerator(Protocol):
@@ -31,9 +34,16 @@ class WorkspaceReportGenerator(Protocol):
 class WorkspaceEvidenceRetriever:
     """Read only the active version chunks belonging to ready selected papers."""
 
-    def __init__(self, *, repository, storage_root: Path) -> None:
+    def __init__(
+        self,
+        *,
+        repository,
+        storage_root: Path,
+        embedding_client: DashScopeEmbeddingClient | None = None,
+    ) -> None:
         self._repository = repository
         self._storage_root = storage_root
+        self._embedding_client = embedding_client
 
     @staticmethod
     def _tokens(text: str) -> set[str]:
@@ -77,16 +87,60 @@ class WorkspaceEvidenceRetriever:
                     document_version_id=document_version_id,
                     chunk_id=chunk_id,
                     title=str(raw.get("title") or paper.title),
-                    excerpt=content[:1600],
+                    excerpt=str(raw.get("excerpt") or content)[:1600],
                     section=str(raw.get("section") or ""),
                     authors=list(raw.get("authors") or paper.authors),
                     year=str(raw.get("year") or paper.year),
                     venue=str(raw.get("venue") or paper.venue),
+                    page_start=raw.get("page_start"),
+                    page_end=raw.get("page_end"),
+                    source_anchor=raw.get("source_anchor"),
                 )
             )
         return sources
 
     def search(self, *, papers: list[ResearchPaper], query: str, top_k: int = 16) -> list[SourceChunk]:
+        if self._embedding_client is not None:
+            if not papers:
+                return []
+            workspace_id = papers[0].workspace_id
+            vector_repository = FaissRepository(
+                index_path=self._storage_root / workspace_id / "index" / "evidence.faiss",
+                metadata_path=self._storage_root / workspace_id / "index" / "metadata.json",
+            )
+            vector_retriever = FaissRecallService(
+                repository=vector_repository,
+                embedding_client=self._embedding_client,
+                enable_rerank=False,
+            )
+            ready_by_paper = {paper.id: paper for paper in papers if paper.evidence_eligible}
+            if not ready_by_paper:
+                return []
+            sources: list[SourceChunk] = []
+            for item in vector_retriever.search(query, top_k=top_k):
+                paper = ready_by_paper.get(item.paper_id)
+                if paper is None or item.document_id != paper.active_document_version_id:
+                    continue
+                anchor = item.source_anchor or {}
+                sources.append(
+                    SourceChunk(
+                        id=item.chunk_id,
+                        workspace_id=workspace_id,
+                        paper_id=item.paper_id,
+                        document_version_id=item.document_id,
+                        chunk_id=item.chunk_id,
+                        title=item.title or paper.title,
+                        excerpt=str(anchor.get("excerpt") or item.content)[:1600],
+                        section=item.section,
+                        authors=item.authors or paper.authors,
+                        year=item.year or paper.year,
+                        venue=item.venue or paper.venue,
+                        page_start=anchor.get("page_start"),
+                        page_end=anchor.get("page_end"),
+                        source_anchor=anchor or None,
+                    )
+                )
+            return sources
         query_tokens = self._tokens(query)
         scored: list[tuple[int, int, SourceChunk]] = []
         order = 0
