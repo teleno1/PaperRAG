@@ -18,13 +18,16 @@ API, persistence, and domain state so a later accepted prototype can change
 presentation safely; browser acceptance must use semantic selectors rather than
 CSS structure.
 
-- [ ] Markdown export preserves report content and Claim Citation references
-  without representing unresolved or pending-review citations as verified.
+- [ ] Markdown export preserves first-appearance `[n]` Claim Citation
+  references, evidence gaps and unresolved states truthfully, and renders the
+  deterministic cited/consulted reference list without representing pending
+  citations as verified.
 - [ ] A reproducible, isolated 10-paper open-access demonstration workspace
   exercises paper preparation, Selected Paper evidence gating, outline approval,
   cited-report generation, multi-source evidence inspection, and citation
   review; its preflight fails rather than silently using fewer papers.
 - [ ] End-to-end tests and user-visible operation state make failures
-  inspectable, while automated tests use controlled offline collaborators.
+  inspectable, while automated tests use controlled offline collaborators and
+  each real-RAG delivery ticket has its required real-provider manual evidence.
 - [ ] Documentation states what the demonstration proves and explicitly does
   not claim enterprise-scale quality from a small corpus.

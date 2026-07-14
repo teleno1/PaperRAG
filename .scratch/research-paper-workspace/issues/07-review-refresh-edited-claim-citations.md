@@ -22,8 +22,9 @@ CSS structure.
   verified; presentation-only changes preserve its Citation Review State.
 - [ ] The browser exposes keep, remove, and refresh actions with explicit,
   persisted resulting states and Citation Revision history.
-- [ ] Refresh cannot attach a Source Chunk outside the current workspace's ready
-  Selected Papers or preserve an unknown source identifier.
+- [ ] Refresh uses the workspace-scoped vector index and support validation; it
+  cannot attach a Source Chunk outside the current workspace's ready Selected
+  Papers or preserve an unknown source identifier.
 - [ ] Refresh with no supporting evidence ends in a clear pending or unresolved
   state rather than inventing a citation, with complete persistence, API, and
   browser-level acceptance coverage.

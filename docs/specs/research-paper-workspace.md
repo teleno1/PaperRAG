@@ -76,8 +76,103 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 28. As a researcher, I want the workspace to preserve report and citation provenance across browser refreshes, so that a long-running literature task is not an ephemeral demo.
 29. As a portfolio reviewer, I want to see a coherent end-to-end workflow with visible evidence tracing, so that the project demonstrates product judgment rather than only benchmark metrics.
 30. As a maintainer, I want external paper discovery, parsing, retrieval, and LLM generation to be replaceable in tests, so that product behavior can be verified without paid APIs or network access.
+31. As a researcher, I want a Selected Paper to become ready only after its current Document Version has been parsed, chunked, embedded, and indexed in my Research Workspace, so that report generation uses real paper evidence.
+32. As a researcher, I want every Chunk used for retrieval to retain its paper, version, section, page range, character range, and clean excerpt, so that every Claim Citation can lead me back to a useful location.
+33. As a researcher, I want the system to generate my Report Outline from representative evidence across my ready Selected Papers, so that the structure is informed by the papers rather than a fixed template.
+34. As a researcher, I want an outline to contain ordered chapters and sections with objectives, expected claims, and retrieval queries, so that I can inspect and edit the plan that will drive generation.
+35. As a researcher, I want the outline to have an abstract, body chapters, conclusion-and-outlook, and references as distinct roles, so that sections which do not require retrieval are never treated as ordinary evidence-generation tasks.
+36. As a researcher, I want each body chapter to retrieve evidence from its sections' queries before it writes, so that the report is grounded at a useful writing unit without losing the detail of section-level intent.
+37. As a researcher, I want body chapters without dependencies to generate concurrently, so that long reports do not unnecessarily wait chapter by chapter.
+38. As a researcher, I want every generated factual Claim to name one or more retrieved Chunks, so that the system cannot attach an arbitrary or whole-report citation after writing.
+39. As a researcher, I want an independent support check for every generated Claim, so that a source ID being in the retrieval result is not mistaken for evidence that actually supports the text.
+40. As a researcher, I want unsupported content to appear as an explicit evidence gap, so that the report does not fill missing evidence with plausible but uncited prose.
+41. As a researcher, I want conclusion claims to show which verified body Claims they derive from, so that synthesis retains traceability instead of inventing a new evidence path.
+42. As a researcher, I want an uncited abstract that only compresses the verified report, so that the conventional abstract remains readable without becoming a source of new facts.
+43. As a researcher, I want future-outlook content to retrieve and verify its own paper evidence, so that forward-looking factual statements remain inspectable.
+44. As a researcher, I want the generated body Claims to remain unchanged during final assembly, so that automated polishing never silently invalidates verified citations.
+45. As a researcher, I want a references chapter even when some selected papers are not cited in a Claim, so that the report clearly distinguishes papers consulted for this attempt from papers actually cited.
+46. As a researcher, I want malformed model JSON to be repaired once or fail visibly, so that a permissive parser or a template fallback cannot disguise a failed model operation.
+47. As a researcher, I want a failed generation to retain completed chapter work and retry only the failed chapter, so that I do not pay for or wait for successful evidence work again.
+48. As a researcher, I want the browser to show chapter progress, safe errors, and retry actions, so that an external-provider failure is recoverable rather than an opaque failed page.
+49. As a maintainer, I want every Report Operation Attempt to snapshot the outline, Evidence Coverage, model configuration, prompt versions, and chapter evidence bundles, so that retries and later provenance inspection use a stable input boundary.
+50. As a maintainer, I want production generation to fail explicitly when its configured embedding or chat model is unavailable, so that test fakes, templates, or lexical retrieval cannot become a hidden production fallback.
+51. As a portfolio reviewer, I want a manual run against real configured providers in addition to offline controlled tests, so that the product demonstrates an actual RAG workflow rather than only a simulated one.
 
 ## Implementation Decisions
+
+- **Evidence-driven report-generation contract.** Use Alibaba Cloud
+  `text-embedding-v4` for both Chunk and query embeddings, and
+  `deepseek-v4-flash` for outline planning, body generation, support checking,
+  and final synthesis. Keys are read only from local `DASHSCOPE_API_KEY` and
+  `DEEPSEEK_API_KEY` environment variables. A Report Operation Attempt records
+  provider, model, role parameters, and prompt-template version, never a key.
+  Missing configuration, provider failure, malformed output after repair, or a
+  retrieval/index failure is a safe retryable operation failure: it must never
+  fall back silently to lexical retrieval, a fixed outline, or templated prose.
+- **Chunk and index boundary.** Chunk only within parsed title/section
+  boundaries, at roughly 500 tokens with two complete-sentence overlap and
+  Chinese/English sentence detection. Persist the Research Paper, Document
+  Version, Chunk, section, page start/end, character start/end, and clean
+  excerpt. Do not independently embed tables or formulas in the first version.
+  Index only ready current Document Versions in a Research Workspace-isolated
+  FAISS index carrying this metadata.
+- **Planning retrieval and outline schema.** Build a Planning Evidence Bundle
+  from three to five topic-and-question queries. Retrieve vector candidates,
+  deduplicate and MMR-rerank them across papers, and supply roughly 12–20
+  representative Chunks with at most two from each paper to the outline model.
+  The fixed prompt separates system grounding/JSON rules, task context,
+  bounded planning evidence, and JSON Schema. The response contains ordered
+  chapter roles: exactly one first abstract, one or more body chapters, one
+  conclusion-and-outlook chapter, and one final references chapter. Body
+  sections contain a title, objective, expected claims, and at least one query;
+  conclusion-and-outlook may contain outlook queries; abstract and references
+  contain none. The service assigns identities, ordering, revisions, and
+  snapshots. Regeneration takes a user instruction and returns a complete
+  replacement outline.
+- **Body-chapter retrieval and generation.** Each body-section query retrieves
+  eight vector candidates. Deduplicate their union per chapter and MMR-rerank
+  to a Chapter Evidence Bundle of 12–18 Chunks, at most three per paper,
+  retaining section/query attribution and similarity scores. Do not initially
+  use an arbitrary score cutoff as a support decision; calibrate any later
+  threshold from real demonstration results. A section with no candidates
+  becomes an evidence-gap block without an LLM call; a wholly empty chapter is
+  an all-gap result. A fixed body prompt receives grounding/JSON rules,
+  report/chapter/section context, the bounded bundle, and output Schema. It
+  emits ordered section blocks: one independently editable sentence or bullet
+  Claim with proposed Chunk IDs, or an evidence-gap block with a reason.
+- **Generation DAG and final synthesis.** Body chapters are independent and
+  run with deployment-configurable bounded parallelism (default two chapter
+  workers). Within a chapter, retrieval, generation, support checking and its
+  one possible regeneration are serial. Conclusion-and-outlook waits for body
+  chapters; conclusion entries contain `derived_from_claim_ids` and inherit
+  their source evidence, while outlook entries use their own retrieved and
+  validated Chunks. Abstract waits for the completed report, has no retrieval
+  or visible citations, and may only compress existing verified Claims while
+  retaining internal derived-Claim links. Final synthesis does not rewrite,
+  reorder, or polish body Claims. References do not enter a model prompt.
+- **Support and JSON validation.** Validate every output against its declared
+  JSON Schema. On the first parse or schema failure, send the validation error
+  to the same role for one repair; a second failure fails the phase. Validate
+  generated Claim IDs against the Chapter Evidence Bundle, then batch a
+  chapter's support checks while limiting each check to its Claim and proposed
+  Chunks. Only `supported` creates a verified Claim Citation. A
+  `partially_supported` or `unsupported` Claim gets one regeneration using the
+  reason and a second check; remaining failures become explicit evidence gaps.
+  Conclusion inherited sources receive the same support check.
+- **Publication, retry, and references.** An Attempt freezes its approved
+  Outline Revision, Evidence Coverage, model/prompt configuration, and Chapter
+  Evidence Bundles. Persist ChapterRuns, normalized evidence bundles, Claim
+  candidates, validation verdicts, retry counts, and safe errors; never store
+  raw prompts, complete paper content, or credentials in operation history.
+  Completed chapters remain in a failed Attempt. Retry reruns only failed
+  chapters and downstream dependencies; user regeneration creates a new
+  Attempt. Publish a new Report Draft only after every required chapter reaches
+  a valid cited result or applicable evidence gap. Render the references chapter
+  deterministically from ready Evidence Coverage: every paper is marked cited
+  or consulted-but-uncited; only cited papers have body citation markers.
+  Use first-appearance `[n]` numbering, GB/T 7714 field order for Chinese, the
+  corresponding numbered English rendering for English, and omit unavailable
+  bibliographic fields rather than inventing them.
 
 - Introduce `ResearchWorkspace` as the product-level application seam. It owns
   the workspace lifecycle and composes existing ingestion, indexing, outline,
@@ -123,11 +218,12 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 - Keep source-ID validation as a hard guard: generation and refresh may only
   retain citations present in the retrieved source registry for that operation.
 - Treat missing support as a visible evidence gap, not an uncited factual
-  conclusion: generation may complete supported outline sections while marking
-  an unsupported section as needing more evidence. A report displays a Report
-  Trust Summary with Evidence Coverage, citation-state counts, and gap notes;
-  gaps, pending review, and evidence-unavailable citations mark it as needing
-  attention without blocking Markdown export.
+  conclusion: a body chapter may complete with validated cited Claims and/or
+  explicit section evidence gaps, but a new Report Draft is published only
+  after every required chapter and dependency has completed. A report displays
+  a Report Trust Summary with Evidence Coverage, citation-state counts, and gap
+  notes; gaps, pending review, and evidence-unavailable citations mark it as
+  needing attention without blocking Markdown export.
 - Detect substantive changes to a cited claim at the report-edit boundary.
   Presentation-only edits preserve its Citation Review State; any change to
   normalized visible Claim text moves all attached citations to pending review.
@@ -193,6 +289,32 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   copy of the configured data directory.
 
 ## Testing Decisions
+
+- Extend the existing `ResearchWorkspace` application seam rather than adding
+  a parallel report-generation stack. Inject deterministic embedding, vector
+  retrieval, planning, body-generation, support-check, and synthesis
+  collaborators to test observable state, provenance, and retry behavior.
+- Add contract tests for every JSON role: accepted schema, one repair after an
+  invalid result, and a visible failed operation after the second invalid
+  result. Verify that no production path silently substitutes a template or
+  lexical retriever when a real-model collaborator is unavailable.
+- Add retrieval and orchestration tests for section-query attribution, eight
+  candidates per query, chapter-level deduplication/MMR limits, workspace and
+  document-version isolation, all-gap sections/chapters, two-worker scheduling,
+  and dependency ordering from body chapters through conclusion/outlook,
+  abstract, and references.
+- Add report-contract tests for one-to-many Claim Citations, support verdict
+  handling, one regeneration only, derived conclusion citations, uncited but
+  internally derived abstracts, independently grounded outlook Claims,
+  unchanged verified body Claims, and deterministic references that include
+  both cited and consulted-but-uncited papers.
+- Add failure/recovery tests that freeze Attempt inputs, preserve completed
+  ChapterRuns, retry only failed chapters and downstream work, never publish a
+  partial Report Draft, and preserve the previous draft after failure.
+- Offline tests may use controlled collaborators but cannot close a delivery
+  ticket on their own. Each model-backed ticket requires a documented manual
+  acceptance run using the configured `text-embedding-v4` and
+  `deepseek-v4-flash` providers, with no keys or generated artifacts committed.
 
 - The primary test seam is the ResearchWorkspace application seam. Tests should
   observe externally meaningful transitions—paper selection, readiness, outline

@@ -76,9 +76,19 @@ ready for the local delivery tickets in `.scratch/research-paper-workspace/issue
   is complete and is the stabilization checkpoint for the browser workspace.
 - [05 Generate and Edit a Cited Literature Report](../../.scratch/research-paper-workspace/issues/05-generate-edit-cited-literature-report.md)
   is complete. Tickets 06–08 use a minimal functional
-  interface while final workspace UX is deliberately deferred.
+  interface while final workspace UX is deliberately deferred. This historical
+  completion is only the cited-report structural shell; tickets 05A through 05D below define
+  the real vector-RAG workflow now required before ticket 06.
+- [05A Index Ready Selected Paper Evidence](../../.scratch/research-paper-workspace/issues/05a-index-ready-selected-paper-evidence.md)
+  is the current delivery frontier and has no open blocker.
+- [05B Generate an Evidence-Driven Report Outline](../../.scratch/research-paper-workspace/issues/05b-generate-evidence-driven-report-outline.md)
+  is blocked by 05A.
+- [05C Generate Verified Body Chapters](../../.scratch/research-paper-workspace/issues/05c-generate-verified-body-chapters.md)
+  is blocked by 05B.
+- [05D Publish a Complete Evidence-Driven Literature Report](../../.scratch/research-paper-workspace/issues/05d-publish-complete-evidence-driven-literature-report.md)
+  is blocked by 05C.
 - [06 Inspect Claim Evidence and Multiple Sources](../../.scratch/research-paper-workspace/issues/06-inspect-claim-evidence-and-multiple-sources.md)
-  is blocked by 05.
+  is blocked by 05D.
 - [07 Review and Refresh Edited Claim Citations](../../.scratch/research-paper-workspace/issues/07-review-refresh-edited-claim-citations.md)
   is blocked by 06.
 - [08 Export Markdown and Demonstrate the Product Workflow](../../.scratch/research-paper-workspace/issues/08-export-and-acceptance-demo.md)

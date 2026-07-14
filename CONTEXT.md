@@ -97,6 +97,11 @@ The processing status of a Selected Paper's active Document Version:
 awaiting-authorised-file, importing, parsing, indexing, ready, failed, or
 unavailable. Only ready evidence may be used for new retrieval, generation, or
 Claim Citations; failures retain a phase and retry action.
+Indexing includes creating embeddings for that version's Chunks and adding them
+to a Research Workspace-isolated vector index with the paper, document-version,
+Chunk, and SourceAnchor metadata needed for retrieval and provenance. A
+chapter-generation retrieval searches only the current, ready Selected Papers
+in that workspace.
 _Avoid_: treating paper selection or a partially processed file as evidence
 
 **Evidence Coverage**:
@@ -107,6 +112,17 @@ mixed, the user must deliberately choose to generate from the ready subset;
 later readiness does not silently alter an existing report.
 _Avoid_: presenting a report based on a partial ready subset as if every
 Selected Paper had contributed
+
+**Planning Evidence Bundle**:
+The bounded evidence input used only to propose a Report Outline. It is built
+from three to five queries derived from the topic and research question,
+vector-retrieved from the ready Selected Papers in the Research Workspace, and
+re-ranked with paper-level deduplication and maximal marginal relevance. It
+contains roughly twelve to twenty representative Chunks, with no paper
+contributing more than two, and retains each Chunk's title, concise excerpt,
+and SourceAnchor. It guides outline structure but never becomes a body Claim
+Citation.
+_Avoid_: treating planning retrieval as report-body evidence
 
 **Paper Discovery**:
 Topic-based retrieval of Candidate Paper metadata and links from open academic
@@ -141,6 +157,11 @@ Generation may produce supported parts while marking a requested part with an
 explicit evidence-gap note when the selected ready papers contain insufficient
 support; it must not invent an uncited factual conclusion. No Literature Report
 body can be generated when the workspace has no ready evidence.
+For each approved outline section, generation returns structured Claims, each
+with one or more Source Chunk IDs drawn only from that section's retrieval
+result, or an explicit evidence-gap result. The service validates those IDs
+before creating Claim Citations and rejects or retries a factual Claim that has
+no valid cited evidence.
 _Avoid_: Answer when the intended output is a multi-source research artifact
 
 **Report Language**:
@@ -156,6 +177,56 @@ default covers the research question, methods and findings, comparison,
 limitations or research gaps, conclusion, and references. Changing the current
 outline does not invalidate a report generated from an earlier Outline Revision;
 that report remains traceable but is out of sync with the current outline.
+Outline generation is a real model operation: a planning retrieval first
+builds a Planning Evidence Bundle across the ready Selected Papers, then the
+model receives that evidence with the topic and research question to propose
+the editable outline. Planning evidence informs structure only; it is not a
+Claim Citation for the generated report body.
+The model returns schema-validated JSON with ordered chapters and their ordered
+sections. Each chapter declares a role: body, conclusion-and-outlook, abstract,
+or references. A body chapter has a title and sections; every such section has
+a title, an objective, expected_claims, and one or more retrieval queries.
+Conclusion-and-outlook may specify additional outlook queries; abstract and
+references specify none. The service, rather than the model, assigns persistent
+identifiers, revision/status data, order, and the model and planning-evidence
+snapshots. Ordinary title or ordering edits retain section identity; deletion,
+splitting, or merging creates a new one.
+The schema requires exactly one abstract first, one or more body chapters, one
+conclusion-and-outlook after all body chapters, and exactly one references
+chapter last. A response with a different role set or order is invalid and uses
+the ordinary one-repair JSON rule.
+Its prompt has four fixed parts: system rules limiting it to evidence-based
+planning and JSON-only output; the topic, research question, language and
+scope; the bounded Planning Evidence Bundle; and the JSON Schema/output rules.
+The first generation receives no old outline. Regeneration additionally
+receives the current outline and an explicit user instruction, then returns a
+complete replacement outline.
+Each body section supplies one or more retrieval queries. Their results form
+the evidence available to its body chapter; the body chapter, not the section,
+is the smallest generation and scheduling unit. A body chapter generates and
+validates its Claims from its bounded evidence before the chapters are composed
+into a Literature Report. It can therefore be retried without silently reusing
+another chapter's evidence.
+Each section query vector-retrieves eight candidates. The chapter deduplicates
+their union and applies maximal marginal relevance, retaining twelve to eighteen
+Chunks with no paper contributing more than three. Every retained Chunk records
+the section and query that retrieved it, as well as its provenance metadata.
+The first version records normalized similarity scores but applies no fixed
+score cutoff as a proxy for support: it always uses the bounded top candidates,
+then relies on Claim support validation to decide whether evidence is adequate.
+Any cutoff must be calibrated later from real ten-paper demonstration outcomes,
+not guessed during initial implementation.
+When every query for a body section has no candidate, the service creates that
+section's evidence-gap block without calling the body model. If that applies to
+every section of a body chapter, the chapter completes as an all-gap result;
+otherwise the model receives only sections with evidence and the existing gaps.
+The body-generation prompt has fixed system rules, report/chapter/section
+context, the chapter Evidence Bundle, and a JSON output contract. It returns
+each section as ordered blocks. A factual block is one independently editable
+sentence or bullet Claim with its proposed Source Chunk IDs; an unsupported
+part is an evidence-gap block with a reason. It may not fill a gap with an
+uncited factual statement. Rendering those blocks into Markdown or paragraphs
+does not change their Claim identities or citations.
 _Avoid_: treating a one-shot long-form generation as the reporting workflow
 
 **Outline Status**:
@@ -192,6 +263,73 @@ snapshot, including the Outline Revision and Evidence Coverage where relevant.
 A failed attempt reports its phase and permits retry with the same inputs, but
 does not overwrite current content or evidence; incomplete streamed output is
 not a Report Draft or a Claim Citation.
+An attempt freezes the approved outline, Evidence Coverage, model configuration,
+and each chapter's Evidence Bundle. If a chapter fails, completed chapter
+results remain available inside that attempt but no new draft is published. A
+retry reruns only failed chapters and then their dependent chapters and final
+integration; a user-requested regeneration creates a new attempt rather than
+reusing prior generated content.
+It persists a ChapterRun for each chapter (role, phase, state, retry count,
+timestamps, and safe error category), its ChapterEvidenceBundle (section
+queries, candidate/final Chunk IDs, scores, MMR order, and query attribution),
+and ClaimCandidates (blocks, proposed Chunk IDs, validation verdict/reason, and
+regeneration count). These are normalized IDs and JSON snapshots, never raw
+prompts, complete paper content, or credentials; the browser exposes only safe
+progress and errors.
+Report generation records its chapter progress, but it publishes a new editable
+Report Draft only once every body chapter has reached either a validated
+cited-Claim result or an explicit evidence-gap result and all dependent
+chapters have completed. A retrieval or model failure publishes no partial
+draft and leaves the prior draft unchanged.
+Eligible body chapters process in bounded parallelism with a deployment-
+configurable default of two chapter workers. Within a chapter, query retrieval,
+generation, support checking, and any one regeneration run serially. The
+conclusion-and-outlook chapter waits for the body chapters and may retrieve
+evidence only for its outlook portion; the abstract waits for the completed
+report and uses no retrieval or new citations. References always exist and are
+rendered deterministically from the attempt's Evidence Coverage, with no
+retrieval or model call. Every ready paper in that coverage appears, marked
+either cited when a verified Claim Citation uses it or consulted-but-uncited
+otherwise. Only cited papers have clickable body citations. The final synthesis
+model does not rewrite, reorder,
+or otherwise polish verified body Claims; any factual change returns that Claim
+to its chapter's retrieval, generation, and validation flow.
+The final synthesis model receives immutable verified body Claim blocks, their
+citation bindings, and evidence gaps. Its conclusion derives only from existing Claim IDs
+and inherits their citations; its outlook uses separately retrieved and
+validated Claims. Its uncited abstract may only compress existing verified
+Claims and may not add facts. References never enter its output.
+It returns schema-validated JSON: conclusion and abstract entries contain text
+and one or more derived_from_claim_ids; outlook entries are cited Claims or
+evidence gaps. The service expands a conclusion's inherited Source Chunks and
+checks support again. Abstract derivation is retained internally to prevent new
+facts, but its citations are never rendered or exported.
+Verified body citations use `[n]` in first-appearance order. The references
+chapter uses the same numbering, then appends consulted-but-uncited papers with
+their status. Chinese reports use GB/T 7714 field ordering and English reports
+the corresponding numbered English rendering; missing bibliographic metadata
+is omitted rather than invented.
+Production outline, embedding, and report-generation operations use configured
+external model providers: Alibaba Cloud `text-embedding-v4` for embeddings and
+`deepseek-v4-flash` for outline, generation, support checking, and integration.
+Their keys are read only from the local `DASHSCOPE_API_KEY` and
+`DEEPSEEK_API_KEY` environment variables; model configuration snapshots retain
+provider, model, parameters, and prompt version but never a key. Missing
+configuration, provider failure, or invalid model output fails the operation
+with a safe retryable error; it must not silently substitute a template,
+lexical retrieval, or fabricated content.
+Deterministic model collaborators are test-only, and real-provider manual
+acceptance is required before a model-backed delivery ticket is complete.
+Every JSON-producing model phase validates its output against the applicable
+schema. On its first parse or validation failure, the service supplies the
+validation error to that role and requests one repair; a second failure fails
+the phase and preserves the Report Operation Attempt for retry. The service
+never guesses a JSON structure through permissive extraction or substitutes a
+template.
+The deployment defaults are temperature 0.3 for outline planning, 0.2 for body
+generation, 0 for support validation, and 0.2 for final integration. Each role
+has its own output-token limit. Parameters and prompt-template versions are
+snapshotted in the attempt; first-version users do not tune them in the browser.
 _Avoid_: treating a failed or partially streamed operation as saved report
 content
 
@@ -212,6 +350,16 @@ when refreshed. A refresh searches only ready, active Selected Papers in the
 same Research Workspace and records its resulting Evidence Coverage; it may
 therefore use newly selected or newly ready papers, but never another
 workspace's evidence.
+Before a generated Claim Citation is marked verified, a separate support check
+receives only the Claim and its proposed Source Chunks and classifies the
+support as supported, partially supported, or unsupported. An unsupported
+Claim is regenerated once; if it still lacks support, the report records an
+explicit evidence gap rather than a verified citation.
+The support check is batched per body chapter for efficiency, while each input
+item remains limited to one Claim and its proposed Chunks. It returns the Claim
+identifier, verdict, and reason. Both partially_supported and unsupported
+Claims are regenerated once using that reason and then checked again; only
+supported creates a verified Claim Citation.
 _Avoid_: one citation for an entire report paragraph by default
 
 **Citation Revision**:
@@ -245,7 +393,13 @@ _Avoid_: showing an unchanged citation as verified after its claim changes
 
 **Chunk**:
 A contiguous unit of document content produced by parsing and chunking, used as
-the primary retrieval payload.
+the primary retrieval payload. It never crosses a parsed title/section boundary,
+is limited to roughly 500 tokens with a two-complete-sentence overlap, and
+recognises both Chinese and English sentence boundaries. It retains the
+Research Paper, Document Version, section title, page start/end, character
+start/end, and clean excerpt needed to form a SourceAnchor. Tables and formulas
+are not independently embedded in the first version, though their parsed
+adjacent explanatory text may be part of a Chunk.
 _Avoid_: Passage, snippet
 
 **Source**:

@@ -5,7 +5,7 @@ Report and inspect all of its evidence in a persistent browser side panel,
 including every cited Research Paper, version, source excerpt, page or section
 location, and Citation Review State.
 
-**Blocked by:** 05 — Generate and Edit a Cited Literature Report.
+**Blocked by:** 05D — Publish a Complete Evidence-Driven Literature Report.
 
 **Status:** ready-for-agent
 
@@ -18,8 +18,8 @@ API, persistence, and domain state so a later accepted prototype can change
 presentation safely; browser acceptance must use semantic selectors rather than
 CSS structure.
 
-- [ ] A report Claim visibly references one or multiple Source Chunks, including
-  support from more than one Research Paper.
+- [ ] A report Claim visibly references one or multiple real retrieved Source
+  Chunks, including support from more than one Research Paper.
 - [ ] Selecting a Claim Citation reveals paper identity, version provenance,
   excerpt, and page and/or section information when available.
 - [ ] The side panel clearly distinguishes verified, pending-review, removed,
