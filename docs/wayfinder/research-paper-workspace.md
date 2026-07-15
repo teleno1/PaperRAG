@@ -54,12 +54,17 @@ cited claim to its source evidence in the desktop interface.
 - [Prototype gates workspace browser delivery](../adr/0006-prototype-gates-workspace-browser-delivery.md)
   - Compare and accept a high-fidelity desktop Interaction Prototype and its
     Interaction Contract before unfinished browser-bearing delivery work.
+- [Outline-query controlled retrieval](../adr/0007-outline-query-controlled-retrieval.md)
+  - The accepted workspace has four stages. The Owner versions retrieval
+    queries with the outline; Chapter Evidence Bundles are automatic and frozen
+    per Report Operation Attempt rather than manually curated in a separate UI.
 
 ## Frontier
 
-[06 Compare Desktop Workspace Candidates](../../.scratch/research-paper-workspace/issues/06-compare-desktop-workspace-candidates.md)
-is the only current delivery frontier. It must complete before real outline,
-evidence-curation, report-generation, or browser integration work resumes.
+[08 Connect Preparation and Reading to the Accepted Workspace](../../.scratch/research-paper-workspace/issues/08-connect-preparation-and-reading-to-accepted-workspace.md)
+is the current delivery frontier. Ticket 07 accepted the flow-driven desktop
+architecture and its Interaction Contract; real browser delivery may now begin
+from the import and paper-reading stages.
 
 ## Delivery status
 
@@ -80,11 +85,12 @@ evidence-curation, report-generation, or browser integration work resumes.
   is complete with provenance-aware Chunks, real provider embeddings,
   workspace-isolated FAISS indexes, and retryable indexing state.
 - [06 Compare Desktop Workspace Candidates](../../.scratch/research-paper-workspace/issues/06-compare-desktop-workspace-candidates.md)
-  is the current frontier.
+  is complete; the Workspace Owner selected an iterated flow-driven direction.
 - [07 Accept the Complete Workspace Interaction Prototype](../../.scratch/research-paper-workspace/issues/07-accept-complete-workspace-interaction-prototype.md)
-  is blocked by 06.
+  is complete; its accepted Interaction Contract is the browser-acceptance
+  source.
 - [08 Connect Preparation and Reading to the Accepted Workspace](../../.scratch/research-paper-workspace/issues/08-connect-preparation-and-reading-to-accepted-workspace.md)
-  is blocked by 07.
+  is the current frontier.
 - [09 Generate, Edit, and Approve an Evidence-Driven Outline](../../.scratch/research-paper-workspace/issues/09-generate-edit-approve-evidence-driven-outline.md)
   is blocked by 08.
 - [10 Curate and Confirm Chapter Evidence](../../.scratch/research-paper-workspace/issues/10-curate-and-confirm-chapter-evidence.md)

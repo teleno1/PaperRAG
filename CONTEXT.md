@@ -46,9 +46,11 @@ _Avoid_: chunk reader, reconstructed paper viewer
 
 **Workflow Stage**:
 One primary, user-selectable stage in the desktop Research Workspace journey.
-The first user-proposed Interaction Architecture Candidate places these stages
-in left-side navigation: literature import, paper reading, Report Outline
-generation and editing, evidence retrieval and curation, and report writing.
+The accepted desktop Workspace Interaction Architecture places four stages in
+left-side navigation: literature import, paper reading, Report Outline
+generation and editing, and report writing. Retrieval is controlled through
+the editable section queries in the Report Outline; it has no separate
+user-facing evidence-curation stage.
 Selecting a stage changes the central task surface and its right-side
 contextual detail surface; it is not the historical fixed three-panel layout or
 a requirement to use drawer components.
@@ -61,11 +63,9 @@ _Avoid_: a permanently visible generic panel
 The right-side contextual surface paired with the active Workflow Stage. It
 shows the stage-specific supporting information and actions--for example import
 progress and ready papers, available papers while reading, saved outline
-versions, manual Chunk search during evidence curation, or Claim evidence and
-the writing assistant. In report preview it shows evidence, trust summary, and
-evidence gaps; only report editing mode exposes the writing-assistant switch,
-which requires a focused Claim or passage. It does not define the product's
-information architecture independently of the active stage.
+versions, operation status, ready papers, or Claim evidence and trust details.
+It does not define the product's information architecture independently of the
+active stage.
 _Avoid_: a universal drawer
 
 **Focused Claim**:
@@ -154,11 +154,11 @@ citation-refresh operation, together with the selected papers excluded because
 they were not ready and the reason for each exclusion. When the selected set is
 mixed, only ready papers may supply body evidence; later readiness does not
 silently alter an existing report.
-For body generation, Evidence Coverage is established by the confirmed Evidence
-Curation Version, not by Report Outline generation: it contains the ready
-papers represented by that version's retained or manually added Chunks. The
-evidence-retrieval stage, rather than the outline stage, makes that selection
-visible and confirmable.
+For body generation, Evidence Coverage is established when a Report Operation
+Attempt freezes the automatic retrieval results for the approved Outline
+Revision. It contains the ready papers represented by that attempt's Chapter
+Evidence Bundles. The Workspace Owner edits and versions the outline's section
+queries, but does not manually curate individual Chunks in a separate stage.
 _Avoid_: presenting a report based on a partial ready subset as if every
 Selected Paper had contributed
 
@@ -173,21 +173,16 @@ and SourceAnchor. It guides outline structure but never becomes a body Claim
 Citation.
 _Avoid_: treating planning retrieval as report-body evidence
 
-**Evidence Curation Version**:
-The saved, user-controlled chapter evidence plan derived from one saved Report
-Outline. For each chapter it records the outline queries, automatically
-retrieved candidate Chunks from every ready Selected Paper, the Chunks retained
-or removed by the Workspace Owner, and any manually searched and added Chunk
-from that same workspace-wide ready set. The owner explicitly confirms a
-version before body generation; its actually represented papers establish
-Evidence Coverage, and a Report Operation Attempt freezes that version and uses
-no other body evidence. Changing the outline or curation creates a new version,
-leaving previous report provenance inspectable.
-The owner may curate chapters independently, but one explicit global confirm
-action is required before body generation begins. It freezes the complete
-version and starts eligible body chapters in parallel; every body chapter is
-either curated or explicitly recorded as an evidence gap before that action.
-_Avoid_: an unrecorded retrieval override
+**Chapter Evidence Bundle**:
+The immutable, automatic retrieval result used for one body chapter in a
+Report Operation Attempt. It records the approved Outline Revision's section
+queries, eligible ready Selected Papers, retrieved Source Chunks, scores,
+query attribution, and any evidence-gap result. It establishes the attempt's
+Evidence Coverage and is frozen with that attempt; later paper readiness or
+outline edits never rewrite it. The Workspace Owner controls retrieval by
+editing and versioning the Report Outline's section queries, not by manually
+adding or removing individual Chunks.
+_Avoid_: Evidence Curation Version, an unrecorded retrieval override
 
 **Paper Discovery**:
 Topic-based retrieval of Candidate Paper metadata and links from open academic
@@ -605,11 +600,12 @@ _Avoid_: visual preference poll
 **Prototype Journey Boundary**:
 The nine-part user journey that the accepted Interaction Prototype must make
 operable: workspace setup; paper upload or discovery and selection; evidence
-preparation and recovery; Evidence Coverage and Report Outline generation,
-editing, regeneration, and approval; report generation and recovery; Report
-Draft editing and saving; Claim Citation inspection; Citation Review; and
-Report Trust Summary followed by Markdown export. Workspace archival and
-historical-version browsing are outside this prototype boundary.
+preparation and recovery; Report Outline generation, editing, query versioning,
+regeneration, and approval; automatic retrieval and Evidence Coverage;
+report generation and recovery; Report Draft editing and saving; Claim Citation
+inspection; Citation Review; and Report Trust Summary followed by Markdown
+export. Workspace archival and historical-version browsing are outside this
+prototype boundary.
 _Avoid_: treating background operations or citation recovery as secondary
 screens
 

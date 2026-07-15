@@ -103,9 +103,8 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 52. As a researcher, I want every workspace stage to remain visible and explain its missing prerequisite with a direct next action, so that a necessary workflow control never disappears because I am early in the journey.
 53. As a researcher, I want to read a Selected Paper in its authorised original PDF and open a cited page from a report Claim, so that paper reading is not replaced by reconstructed Chunk text.
 54. As a researcher, I want unavailable historical PDF evidence to say so truthfully while retaining its historical citation metadata and recovery action, so that a broken source is not presented as a readable paper.
-55. As a researcher, I want to inspect every chapter's outline queries and automatically retrieved candidates before writing, so that I can judge the evidence rather than accepting a hidden retrieval result.
-56. As a researcher, I want to remove unsuitable candidate Chunks and manually search all ready Selected Papers to add useful Chunks, so that my body evidence reflects my research judgment.
-57. As a researcher, I want to explicitly confirm a complete Evidence Curation Version before body generation, so that the report freezes the exact Chapter Evidence Bundles and Evidence Coverage I chose.
+55. As a researcher, I want to edit and version every section's retrieval query with its outline content, so that I control what the report will retrieve without managing individual Chunks.
+56. As a researcher, I want automatic retrieval to freeze the Chapter Evidence Bundles and Evidence Coverage used by a report attempt, so that later readiness or query changes cannot silently change its provenance.
 58. As a researcher, I want a cited report sentence to reveal an affordance on hover and remain highlighted when selected, so that I can inspect its sources without guessing which small marker is interactive.
 59. As a researcher, I want the writing area to default to report preview and enter editing only through an explicit control, so that ordinary reading does not accidentally alter my Report Draft.
 60. As a researcher, I want an AI Rewrite Proposal to be support-checked against my current sources before I apply it, so that assistant-written changes do not silently weaken citation trust.
@@ -155,14 +154,12 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   report/chapter/section context, the bounded bundle, and output Schema. It
   emits ordered section blocks: one independently editable sentence or bullet
   Claim with proposed Chunk IDs, or an evidence-gap block with a reason.
-- **Evidence curation before body generation.** Chapter queries retrieve from
-  every ready Selected Paper in the workspace. In the evidence-retrieval stage,
-  the owner can inspect the candidates, remove a Chunk, search any ready
-  workspace paper, and add an eligible Chunk. The saved Evidence Curation
-  Version records those choices per chapter. A single explicit confirmation
-  requires every body chapter to be curated or marked as an evidence gap,
-  establishes Evidence Coverage from the papers actually represented, and
-  freezes the version before eligible body chapters run in parallel.
+- **Outline-query controlled retrieval.** Chapter queries retrieve from every
+  ready Selected Paper in the workspace when a Report Operation Attempt starts.
+  The Workspace Owner edits and versions those queries alongside the Report
+  Outline; there is no separate evidence-curation stage or manual Chunk
+  selection. Automatic Chapter Evidence Bundles establish Evidence Coverage
+  and are frozen with the Attempt before eligible body chapters run in parallel.
 - **Generation DAG and final synthesis.** Body chapters are independent and
   run with deployment-configurable bounded parallelism (default two chapter
   workers). Within a chapter, retrieval, generation, support checking and its
@@ -183,7 +180,7 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   reason and a second check; remaining failures become explicit evidence gaps.
   Conclusion inherited sources receive the same support check.
 - **Publication, retry, and references.** An Attempt freezes its approved
-  Outline Revision, confirmed Evidence Curation Version and derived Evidence
+  Outline Revision, automatic Chapter Evidence Bundles and derived Evidence
   Coverage, model/prompt configuration, and Chapter Evidence Bundles. Persist
   ChapterRuns, normalized evidence bundles, Claim
   candidates, validation verdicts, retry counts, and safe errors; never store
@@ -230,10 +227,10 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 - Generate the Report Outline separately from the Literature Report. The report
   generator consumes the approved current outline, workspace topic, Report
   Language, and only workspace-scoped retrieved sources. A draft outline needs
-  explicit user approval before evidence curation and body generation. Outline
-  planning may use ready Selected Papers, but the final body evidence is chosen
-  only in the evidence-retrieval stage; its confirmed Evidence Curation Version
-  derives Evidence Coverage. No report body is generated without ready evidence.
+  explicit user approval before body generation. Outline planning may use ready
+  Selected Papers; body retrieval runs automatically from the approved,
+  versioned section queries and freezes Evidence Coverage for the Attempt. No
+  report body is generated without ready evidence.
 - Represent the report as structured content containing stable claim identity
   and one-to-many Claim Citations, then render it into the browser editor and
   Markdown. Do not use a flat generated string as the authoritative report
@@ -300,8 +297,8 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   logic. Compare at least three complete normal-journey architectures with one
   shared visual baseline, then iterate a selected or hybrid direction until the
   Workspace Owner accepts the complete Interaction Contract. The first
-  candidate is a five-stage workspace (import, paper reading, outline,
-  evidence curation, writing) with left stage navigation, central task surface,
+  candidate is a four-stage workspace (import, paper reading, outline,
+  writing) with left stage navigation, central task surface,
   and a stage-specific right Task Detail Pane. Every stage remains visible and
   explains unavailable prerequisites with a direct next action. Only desktop
   browsers are in scope.
@@ -353,10 +350,9 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   internally derived abstracts, independently grounded outlook Claims,
   unchanged verified body Claims, and deterministic references that include
   both cited and consulted-but-uncited papers.
-- Add Evidence Curation Version tests for chapter-query candidates from all
-  ready Selected Papers, Chunk removal and manual addition, explicit global
-  confirmation, evidence-gap chapters, derived Evidence Coverage, frozen
-  attempt inputs, and isolation from later curation changes.
+- Add Chapter Evidence Bundle tests for query retrieval from all ready Selected
+  Papers, evidence-gap chapters, derived Evidence Coverage, frozen attempt
+  inputs, and isolation from later outline-query or readiness changes.
 - Add failure/recovery tests that freeze Attempt inputs, preserve completed
   ChapterRuns, retry only failed chapters and downstream work, never publish a
   partial Report Draft, and preserve the previous draft after failure.
@@ -381,8 +377,8 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   from substantive direct edits and verified AI Rewrite Proposals, and verify
   their Citation Review States, validation reasons, and available resolution
   actions.
-- Add lifecycle tests for Evidence Curation-derived Evidence Coverage, outline
-  approval/out-of-sync reports, non-destructive regeneration,
+- Add lifecycle tests for automatic Chapter Evidence Bundle-derived Evidence
+  Coverage, outline approval/out-of-sync reports, non-destructive regeneration,
   no-support evidence gaps, failed-operation retry, source/version removal,
   report trust summaries, and Markdown export of unresolved citation states.
 - Add API-level tests for the workspace's user-visible state and error contract,
@@ -398,8 +394,8 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   selected architecture covers the full Prototype Journey Boundary, every
   operation/recovery state, its control inventory, and comparison feedback.
   Then apply the accepted Interaction Contract to production browser acceptance
-  tests. Cover the five-stage workspace, original-PDF reading from a Claim,
-  evidence curation, a multi-source Claim, a pending-review direct edit, and a
+  tests. Cover the four-stage workspace, original-PDF reading from a Claim,
+  outline-query controlled retrieval, a multi-source Claim, a pending-review direct edit, and a
   validated AI rewrite.
 - Preserve existing parser, retrieval, report, citation-validation, health, and
   state tests as regression coverage. The legacy generic-evaluation fixtures

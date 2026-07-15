@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:prototype": "vite --config vite.prototype.config.ts",
     "build": "tsc --noEmit && vite build",
+    "build:prototype": "tsc --noEmit && vite build --config vite.prototype.config.ts",
     "preview": "vite preview",
     "test:e2e": "playwright test"
   },

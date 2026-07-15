@@ -17,9 +17,8 @@ accepted outline stage, with its saved versions available for review.
   claims, and at least one retrieval query.
 - [ ] The outline stage preserves role/order constraints, IDs, revisions,
   planning-evidence and model/prompt snapshots, visible operation failure and
-  retry, and an explicit approval action. It does not decide final body
-  evidence; that begins in ticket 10.
+  retry, and an explicit approval action. It versions every section retrieval
+  query with the outline; automatic body retrieval begins in ticket 10.
 - [ ] Controlled tests and a documented real-provider manual acceptance run
   demonstrate actual planning retrieval and outline generation in the accepted
   workspace interface, with no fixed-outline fallback.
-

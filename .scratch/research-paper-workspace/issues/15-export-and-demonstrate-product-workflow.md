@@ -13,7 +13,7 @@ the complete real RAG workflow with an isolated ten-paper open-access scenario.
   the deterministic cited/consulted reference list without marking unresolved
   citations as verified.
 - [ ] A reproducible isolated ten-paper workspace exercises import/readiness,
-  outline approval, evidence curation, cited report generation, original-PDF
+  outline approval, automatic outline-query retrieval, cited report generation, original-PDF
   citation inspection, direct-edit and AI-rewrite review, and export. Its
   preflight fails rather than silently using fewer papers.
 - [ ] Browser acceptance follows the accepted Interaction Contract, while
