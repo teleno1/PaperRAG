@@ -13,6 +13,10 @@ establish Selected Papers and their processing lifecycle.
 
 **Resolved:** 2026-07-14
 
+**Historical UI note:** Superseded on 2026-07-15 by ADR 0006 and delivery
+tickets 06 through 15. The deferred-layout constraint below describes the
+historical indexing slice only; it is not a constraint on active work.
+
 **Supersedes as a delivery prerequisite:** The indexed-evidence portion of the
 historical 05 report shell. Historical 05 remains complete; it is not a real
 vector-RAG completion claim.

@@ -46,6 +46,13 @@ a partial generation to masquerade as a completed report.
   Each query retrieves eight vector candidates; their union is deduplicated and
   MMR-re-ranked to twelve to eighteen Chunks, with at most three from any paper.
   Retained Chunks record the section and query that retrieved them.
+- Before body generation, the Workspace Owner may inspect every chapter's
+  queries and candidates, remove a candidate, search every ready Selected
+  Paper's workspace Chunks, and add a relevant Chunk. This produces a saved,
+  explicitly confirmed Evidence Curation Version associated with the saved
+  outline. Its represented papers establish Evidence Coverage; the generation
+  attempt freezes that version. Later curation or outline edits create a new
+  version and never rewrite the provenance of an earlier report.
   Similarity scores are recorded but no initial fixed threshold represents
   support; the support check decides adequacy. Any future cutoff requires
   calibration against the real ten-paper demonstration rather than a guessed
@@ -93,6 +100,12 @@ a partial generation to masquerade as a completed report.
   returns a verdict and reason per Claim. Partially-supported and unsupported
   Claims are regenerated once with that reason and rechecked; only supported
   Claims become verified, and all remaining failures become explicit gaps.
+- A user-requested AI rewrite is a non-destructive proposal for selected Claim
+  or passage text. Before the user can apply it, every changed factual Claim is
+  support-checked against its current Source Chunks. Supported proposals may be
+  applied as verified; partial or unsupported proposals retain their validation
+  reason and require rejection, pending-review acceptance, or citation refresh
+  rather than silently replacing verified report text.
 - Chapter progress is durable, but a new Report Draft is published only when
   every required chapter has completed with validated cited Claims or explicit
   evidence gaps as applicable. Failure leaves the previous draft unchanged.

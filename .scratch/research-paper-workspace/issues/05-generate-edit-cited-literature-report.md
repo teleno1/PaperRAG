@@ -13,6 +13,10 @@ Claim Citations rather than flattening evidence into untraceable text.
 
 **Claimed by:** Codex
 
+**Historical UI note:** Superseded on 2026-07-15 by ADR 0006 and delivery
+tickets 06 through 15. The deferred-layout constraint below describes the
+historical structural shell only; it is not a constraint on active work.
+
 **Deferred UX constraint:** This ticket delivers only the smallest usable
 browser interface needed to complete its user task. Except for accessibility or
 legibility fixes, it must not redesign the workspace information architecture,

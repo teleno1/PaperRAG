@@ -31,10 +31,13 @@ create workspace with topic and report language
   -> upload papers or search open academic indexes
   -> select the papers that may serve as evidence
   -> process selected papers and show readiness
+  -> read a ready paper in its authorised original PDF
   -> generate, edit, and approve an outline
-  -> generate an editable cited Literature Report
-  -> inspect claim-level evidence in a side panel
-  -> edit claims and review, remove, or refresh affected citations
+  -> retrieve and curate chapter evidence from ready workspace papers
+  -> generate an editable cited Literature Report from confirmed evidence
+  -> inspect claim-level evidence and open its original PDF location
+  -> edit claims, use validated AI rewrite proposals, and review, remove, or
+     refresh affected citations
   -> export Markdown
 ```
 
@@ -65,7 +68,7 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 17. As a researcher, I want to edit the generated Literature Report in the browser, so that the final writing remains mine.
 18. As a researcher, I want a supported report sentence or bullet to display a citation marker, so that I can distinguish sourced content from unsourced notes or edits.
 19. As a researcher, I want one report claim to cite multiple Source Chunks when necessary, so that synthesis across papers is transparent rather than reduced to a single token citation.
-20. As a researcher, I want to select a citation marker and see paper title, source location, and source excerpt in a side panel, so that I can verify the claim without manually searching every PDF.
+20. As a researcher, I want to select a cited Claim and see paper title, source location, and source excerpt in the task detail pane, so that I can verify the claim without manually searching every PDF.
 21. As a researcher, I want page and/or section information to be shown whenever parsing provides it, so that I can locate evidence in the original paper.
 22. As a researcher, I want citations to retain a verified state only while they support the displayed claim, so that the interface does not overstate trust after editing.
 23. As a researcher, I want a substantive edit to mark affected citations pending review, so that I can deliberately decide whether their evidence still applies.
@@ -97,6 +100,18 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 49. As a maintainer, I want every Report Operation Attempt to snapshot the outline, Evidence Coverage, model configuration, prompt versions, and chapter evidence bundles, so that retries and later provenance inspection use a stable input boundary.
 50. As a maintainer, I want production generation to fail explicitly when its configured embedding or chat model is unavailable, so that test fakes, templates, or lexical retrieval cannot become a hidden production fallback.
 51. As a portfolio reviewer, I want a manual run against real configured providers in addition to offline controlled tests, so that the product demonstrates an actual RAG workflow rather than only a simulated one.
+52. As a researcher, I want every workspace stage to remain visible and explain its missing prerequisite with a direct next action, so that a necessary workflow control never disappears because I am early in the journey.
+53. As a researcher, I want to read a Selected Paper in its authorised original PDF and open a cited page from a report Claim, so that paper reading is not replaced by reconstructed Chunk text.
+54. As a researcher, I want unavailable historical PDF evidence to say so truthfully while retaining its historical citation metadata and recovery action, so that a broken source is not presented as a readable paper.
+55. As a researcher, I want to inspect every chapter's outline queries and automatically retrieved candidates before writing, so that I can judge the evidence rather than accepting a hidden retrieval result.
+56. As a researcher, I want to remove unsuitable candidate Chunks and manually search all ready Selected Papers to add useful Chunks, so that my body evidence reflects my research judgment.
+57. As a researcher, I want to explicitly confirm a complete Evidence Curation Version before body generation, so that the report freezes the exact Chapter Evidence Bundles and Evidence Coverage I chose.
+58. As a researcher, I want a cited report sentence to reveal an affordance on hover and remain highlighted when selected, so that I can inspect its sources without guessing which small marker is interactive.
+59. As a researcher, I want the writing area to default to report preview and enter editing only through an explicit control, so that ordinary reading does not accidentally alter my Report Draft.
+60. As a researcher, I want an AI Rewrite Proposal to be support-checked against my current sources before I apply it, so that assistant-written changes do not silently weaken citation trust.
+61. As a Workspace Owner, I want to compare at least three complete desktop interaction architectures using the same scenario, so that I can choose or iterate toward an experience I actually find usable.
+62. As a Workspace Owner, I want the selected prototype to expose every normal, failure, and recovery state together with a control inventory, so that later delivery cannot omit necessary buttons or states.
+63. As a maintainer, I want the prototype and production browser to use the same Workspace View State contract, so that prototype acceptance tests map to real user-visible product behaviour rather than a separate mock-only design.
 
 ## Implementation Decisions
 
@@ -140,6 +155,14 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   report/chapter/section context, the bounded bundle, and output Schema. It
   emits ordered section blocks: one independently editable sentence or bullet
   Claim with proposed Chunk IDs, or an evidence-gap block with a reason.
+- **Evidence curation before body generation.** Chapter queries retrieve from
+  every ready Selected Paper in the workspace. In the evidence-retrieval stage,
+  the owner can inspect the candidates, remove a Chunk, search any ready
+  workspace paper, and add an eligible Chunk. The saved Evidence Curation
+  Version records those choices per chapter. A single explicit confirmation
+  requires every body chapter to be curated or marked as an evidence gap,
+  establishes Evidence Coverage from the papers actually represented, and
+  freezes the version before eligible body chapters run in parallel.
 - **Generation DAG and final synthesis.** Body chapters are independent and
   run with deployment-configurable bounded parallelism (default two chapter
   workers). Within a chapter, retrieval, generation, support checking and its
@@ -160,8 +183,9 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   reason and a second check; remaining failures become explicit evidence gaps.
   Conclusion inherited sources receive the same support check.
 - **Publication, retry, and references.** An Attempt freezes its approved
-  Outline Revision, Evidence Coverage, model/prompt configuration, and Chapter
-  Evidence Bundles. Persist ChapterRuns, normalized evidence bundles, Claim
+  Outline Revision, confirmed Evidence Curation Version and derived Evidence
+  Coverage, model/prompt configuration, and Chapter Evidence Bundles. Persist
+  ChapterRuns, normalized evidence bundles, Claim
   candidates, validation verdicts, retry counts, and safe errors; never store
   raw prompts, complete paper content, or credentials in operation history.
   Completed chapters remain in a failed Attempt. Retry reruns only failed
@@ -199,15 +223,17 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 - Propagate a versioned `SourceAnchor` through parsing, chunks, retrieval, and
   persisted Claim Citations. It captures document version, source reference,
   optional inclusive page range, nearest section, clean excerpt, and parser and
-  chunking versions. Full PDF viewer highlighting is not required for the first
-  version.
+  chunking versions. A Paper Reading View renders the authorised original PDF,
+  and a Claim Citation opens it at the anchored page with a location cue. It
+  must never reconstruct paper reading from Chunks; annotation, note-taking,
+  PDF editing, and pixel-level text highlighting remain out of scope.
 - Generate the Report Outline separately from the Literature Report. The report
   generator consumes the approved current outline, workspace topic, Report
   Language, and only workspace-scoped retrieved sources. A draft outline needs
-  explicit user approval before body generation. If Selected Papers have mixed
-  readiness, generation requires the user's explicit choice to use the ready
-  subset and records the included and excluded papers as Evidence Coverage;
-  no report body is generated without ready evidence.
+  explicit user approval before evidence curation and body generation. Outline
+  planning may use ready Selected Papers, but the final body evidence is chosen
+  only in the evidence-retrieval stage; its confirmed Evidence Curation Version
+  derives Evidence Coverage. No report body is generated without ready evidence.
 - Represent the report as structured content containing stable claim identity
   and one-to-many Claim Citations, then render it into the browser editor and
   Markdown. Do not use a flat generated string as the authoritative report
@@ -226,14 +252,18 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   needing attention without blocking Markdown export.
 - Detect substantive changes to a cited claim at the report-edit boundary.
   Presentation-only edits preserve its Citation Review State; any change to
-  normalized visible Claim text moves all attached citations to pending review.
-  The user can confirm (which becomes user-confirmed), remove, or refresh the
-  citation, but only successful workspace-scoped refresh restores verified. A
-  refresh records its Evidence Coverage, creates a successor Citation Revision
-  only on valid support, and otherwise leaves the citation pending review with
-  a no-support result. A citation whose paper was removed or whose Document
-  Version was replaced is evidence-unavailable and cannot be verified, even
-  when its old revision contains other active sources.
+  normalized visible Claim text moves all attached citations to pending review,
+  except an AI Rewrite Proposal that passes the same source-bounded support
+  check before the user applies it. The user can confirm (which becomes
+  user-confirmed), remove, or refresh the citation, but only successful
+  workspace-scoped validation or refresh restores verified. A rewrite proposal
+  that is partially supported or unsupported displays its reason and cannot
+  automatically overwrite the draft. A refresh records its Evidence Coverage,
+  creates a successor Citation Revision only on valid support, and otherwise
+  leaves the citation pending review with a no-support result. A citation whose
+  paper was removed or whose Document Version was replaced is
+  evidence-unavailable and cannot be verified, even when its old revision
+  contains other active sources.
 - A Selected Paper is eligible for new evidence only while it is active and its
   current Document Version is ready. Track readiness as
   awaiting-authorised-file, importing, parsing, indexing, ready, failed, or
@@ -262,13 +292,28 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   provenance, or citation-validation business rules. It is a React + TypeScript
   single-page application, separately runnable for development and served as
   compiled static assets by FastAPI in production.
-- Default to a guided workspace composition: show topic and paper selection at
-  left, the approved outline and editable Literature Report at centre, and a
-  persistent evidence panel at right. Citation markers attach to individual
-  Claims and open all their cited Source Chunks, including paper title,
-  page/section where available, clean excerpt, Citation Revision, and visible
-  evidence-readiness state. A content edit exposes pending-review resolution
-  actions in place; the browser does not make a support decision itself.
+- **Prototype gate and Workspace View State.** Before unfinished
+  browser-bearing delivery work starts, build an isolated high-fidelity desktop
+  Interaction Prototype over a single Workspace View State contract. Its
+  fixture adapter and scenario switcher simulate the same visible states that
+  the production API adapter will later provide; neither reproduces domain
+  logic. Compare at least three complete normal-journey architectures with one
+  shared visual baseline, then iterate a selected or hybrid direction until the
+  Workspace Owner accepts the complete Interaction Contract. The first
+  candidate is a five-stage workspace (import, paper reading, outline,
+  evidence curation, writing) with left stage navigation, central task surface,
+  and a stage-specific right Task Detail Pane. Every stage remains visible and
+  explains unavailable prerequisites with a direct next action. Only desktop
+  browsers are in scope.
+- **Report and evidence interaction.** A cited Claim gives its sentence area a
+  hover affordance and remains highlighted when selected. The Task Detail Pane
+  then shows all source excerpts, provenance, location, and trust state; a
+  source opens the original-PDF Paper Reading View at its anchor. The writing
+  stage defaults to report preview and enters editing through an explicit
+  control. Preview shows evidence and trust summary; editing additionally
+  exposes a source-bounded AI Rewrite Proposal assistant for a selected Claim
+  or passage. Draft changes auto-save with visible status; an explicit save
+  creates an immutable Report Revision.
 - Use SQLite, through infrastructure repository adapters built on `sqlite3`, as
   the authoritative store for workspace metadata, provenance, revisions,
   citation state, and Workspace Operations. Keep PDFs, parsed artifacts, and
@@ -308,6 +353,10 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   internally derived abstracts, independently grounded outlook Claims,
   unchanged verified body Claims, and deterministic references that include
   both cited and consulted-but-uncited papers.
+- Add Evidence Curation Version tests for chapter-query candidates from all
+  ready Selected Papers, Chunk removal and manual addition, explicit global
+  confirmation, evidence-gap chapters, derived Evidence Coverage, frozen
+  attempt inputs, and isolation from later curation changes.
 - Add failure/recovery tests that freeze Attempt inputs, preserve completed
   ChapterRuns, retry only failed chapters and downstream work, never publish a
   partial Report Draft, and preserve the previous draft after failure.
@@ -329,10 +378,11 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   to a Source Chunk within the same workspace; and a removed or unavailable
   source cannot remain verified.
 - Add report-editing tests that distinguish non-substantive presentation edits
-  from substantive claim edits, and verify the resulting Citation Review State
-  and available resolution actions.
-- Add lifecycle tests for explicit ready-subset generation and Evidence
-  Coverage, outline approval/out-of-sync reports, non-destructive regeneration,
+  from substantive direct edits and verified AI Rewrite Proposals, and verify
+  their Citation Review States, validation reasons, and available resolution
+  actions.
+- Add lifecycle tests for Evidence Curation-derived Evidence Coverage, outline
+  approval/out-of-sync reports, non-destructive regeneration,
   no-support evidence gaps, failed-operation retry, source/version removal,
   report trust summaries, and Markdown export of unresolved citation states.
 - Add API-level tests for the workspace's user-visible state and error contract,
@@ -343,9 +393,14 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   polling status contracts, and same-origin static-frontend/API delivery. Use
   a single-worker test configuration; do not require a queue, database server,
   Docker, or network service.
-- Add browser-level acceptance tests once the prototype decides the interaction.
-  Cover the full workflow and the evidence side panel, including a claim with
-  multiple citations and a pending-review claim after editing.
+- First test the isolated Interaction Prototype through the Workspace View
+  State fixture seam: every candidate completes the normal journey, and the
+  selected architecture covers the full Prototype Journey Boundary, every
+  operation/recovery state, its control inventory, and comparison feedback.
+  Then apply the accepted Interaction Contract to production browser acceptance
+  tests. Cover the five-stage workspace, original-PDF reading from a Claim,
+  evidence curation, a multi-source Claim, a pending-review direct edit, and a
+  validated AI rewrite.
 - Preserve existing parser, retrieval, report, citation-validation, health, and
   state tests as regression coverage. The legacy generic-evaluation fixtures
   may continue as low-level regression assets but do not serve as the product's
@@ -354,9 +409,10 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   generation, multi-source evidence inspection, Claim-edit review/refresh, and
   partial-readiness or removed-evidence handling with transparent Markdown
   export. All visible citations must resolve to same-workspace, same-version
-  SourceAnchors; ineligible evidence may not remain verified; substantive edits
-  must enter pending review; and persisted workspace/report/citation/operation
-  state must survive browser reload and service restart.
+  SourceAnchors; ineligible evidence may not remain verified; substantive
+  direct edits must enter pending review; and persisted
+  workspace/report/citation/operation state must survive browser reload and
+  service restart.
 - Keep automated acceptance offline with controlled parser, discovery,
   retrieval, and LLM collaborators. The separate manual portfolio demonstration
   uses a frozen 10-paper open-access RAG-attribution manifest and an isolated
@@ -373,7 +429,10 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 - multi-user accounts, authentication, collaboration, or shared workspaces
 - scraping paywalled papers or automatically importing restricted full text
 - PDF or Word report export; Markdown is the first-version export
-- a complete PDF reader or pixel-level source highlighting
+- PDF annotation, personal notes, PDF editing, or pixel-level source
+  highlighting; the original-PDF Paper Reading View and page-level citation
+  jump are in scope
+- mobile or narrow-screen workspace layouts
 - runtime behavior driven by offline gold labels or the legacy evaluation set
 - claims that the legacy 14-document evaluation corpus represents enterprise
   scale or validates the new product workflow
@@ -386,7 +445,9 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   is intentionally explicit about unresolved implementation choices so that
   they are decided through the active local Wayfinder tickets rather than hidden
   in implementation.
-- Wayfinder planning is complete. The local delivery tickets are the source of
-  truth for implementation order and verification.
+- The Interaction Prototype is the active delivery frontier. Its accepted
+  Interaction Contract is the source of truth for subsequent browser behaviour;
+  local delivery tickets declare the resulting implementation order and
+  verification.
 - The local Wayfinder map replaces GitHub Issues for this effort because the
   repository's GitHub integration lacks permission to create issues.

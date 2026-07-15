@@ -110,10 +110,10 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   workspace operation history. It never exposes filesystem paths, vector-store
   internals, or provider details. Existing generic routes remain compatibility
   endpoints until product tickets replace or adapt them.
-- **Web application** is a React + TypeScript single-page application. It
-  presents the preparation workspace, editable Report Outline, and the minimal
-  Literature Report editor; the evidence side panel and citation-review state
-  remain later-ticket work. It
+- **Web application** is a React + TypeScript single-page application. Its
+  unfinished browser work is gated by the accepted desktop Interaction
+  Prototype and Workspace View State contract; the final stage-specific Task
+  Detail Pane replaces the historical fixed evidence-side-panel assumption. It
   polls active operations and must not reproduce business logic already owned by
   use cases. In production FastAPI serves its compiled static assets; Vite's
   development server proxies `/api` to FastAPI.

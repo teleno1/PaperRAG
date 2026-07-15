@@ -4,6 +4,7 @@ status: closed
 claimed_by: Codex
 blocked_by: []
 resolved: 2026-07-12
+superseded_by: docs/adr/0006-prototype-gates-workspace-browser-delivery.md
 ---
 
 # Prototype the Report Editor and Evidence-Trace Interaction
@@ -30,6 +31,10 @@ a Claim Citation with two sources, and a content edit that exposes pending
 review with keep, remove, and workspace-scoped refresh actions.
 
 ## Resolution
+
+> Superseded on 2026-07-15. This record remains historical prototype evidence;
+> its fixed guided three-panel layout is no longer a product constraint. The
+> active prototype route and acceptance gate are recorded in ADR 0006.
 
 The first-version default is **A: guided workspace**. It makes the reporting
 workflow visible rather than treating the report editor as an isolated writing

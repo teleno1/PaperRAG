@@ -56,7 +56,7 @@ user-facing anchors from nice-to-have PDF viewer highlights.
   paper bibliographic metadata.  `CitationRegistry` reduces this further to
   paper-level references.  They do not retain the source path, page/section
   anchor, or an evidence snapshot for a cited source.  Existing review export
-  renders paper-number citations only; it cannot power a claim side panel.
+  renders paper-number citations only; it cannot power a claim Task Detail Pane.
 - Current ordinal chunk IDs (for example `paper__chunk_0002`) are suitable as
   an index-build identity, but are not immutable across a changed parser,
   chunking configuration, reordered input, or re-upload.  A report must keep
@@ -130,7 +130,7 @@ Implement this as a compatible extension, not a rewrite:
    reprocess/version test proving an old citation still resolves to its saved
    evidence snapshot.
 
-The evidence side panel should show `p. N`, `pp. N-M`, section, and excerpt
+The claim Task Detail Pane should show `p. N`, `pp. N-M`, section, and excerpt
 when each is present; it should otherwise show the original source reference
 and an explicit "page unavailable from this parse" state.  Defer viewer
 deep-links, bounding boxes, and in-document highlighting to a later ticket

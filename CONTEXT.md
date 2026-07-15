@@ -32,6 +32,50 @@ An academic paper supplied by the user or discovered for a research topic. It
 is the primary source type in the first product version.
 _Avoid_: generic Document when the scholarly role matters
 
+**Paper Reading View**:
+The desktop reading surface for a Selected Paper's active, authorised original
+PDF. It displays the source PDF itself rather than reconstructed Chunk text,
+summaries, or a chunk-assembled substitute. A Claim Citation can open this
+view at its SourceAnchor's page, with a location cue when available. Annotation,
+personal notes, and PDF editing are outside the first version.
+If the original PDF is unavailable for a historical Citation Revision, the view
+truthfully reports that condition and retains only its historical paper
+metadata, location, and cited excerpt with recovery or refresh actions; it
+never substitutes a reconstructed reader.
+_Avoid_: chunk reader, reconstructed paper viewer
+
+**Workflow Stage**:
+One primary, user-selectable stage in the desktop Research Workspace journey.
+The first user-proposed Interaction Architecture Candidate places these stages
+in left-side navigation: literature import, paper reading, Report Outline
+generation and editing, evidence retrieval and curation, and report writing.
+Selecting a stage changes the central task surface and its right-side
+contextual detail surface; it is not the historical fixed three-panel layout or
+a requirement to use drawer components.
+All stages remain visible and selectable. When a prerequisite is absent, the
+central surface explains it and offers the next permitted action rather than
+hiding the stage or leaving an unexplained disabled control.
+_Avoid_: a permanently visible generic panel
+
+**Task Detail Pane**:
+The right-side contextual surface paired with the active Workflow Stage. It
+shows the stage-specific supporting information and actions--for example import
+progress and ready papers, available papers while reading, saved outline
+versions, manual Chunk search during evidence curation, or Claim evidence and
+the writing assistant. In report preview it shows evidence, trust summary, and
+evidence gaps; only report editing mode exposes the writing-assistant switch,
+which requires a focused Claim or passage. It does not define the product's
+information architecture independently of the active stage.
+_Avoid_: a universal drawer
+
+**Focused Claim**:
+The Claim selected from the Literature Report for citation inspection. Hovering
+over a cited Claim gives its sentence area a light-grey, bottom-emphasised
+background affordance; selecting it retains a clear highlight and opens its
+Claim Citations in the Task Detail Pane. The user can then open a
+chosen source in the Paper Reading View.
+_Avoid_: a citation marker as the only interactive target
+
 **Research Workspace**:
 The bounded working set for one reporting task: its topic, selected Research
 Papers, ingestion/index state, generated reports, and provenance records.
@@ -108,8 +152,13 @@ _Avoid_: treating paper selection or a partially processed file as evidence
 The explicit set of ready Selected Papers used for one report-generation or
 citation-refresh operation, together with the selected papers excluded because
 they were not ready and the reason for each exclusion. When the selected set is
-mixed, the user must deliberately choose to generate from the ready subset;
-later readiness does not silently alter an existing report.
+mixed, only ready papers may supply body evidence; later readiness does not
+silently alter an existing report.
+For body generation, Evidence Coverage is established by the confirmed Evidence
+Curation Version, not by Report Outline generation: it contains the ready
+papers represented by that version's retained or manually added Chunks. The
+evidence-retrieval stage, rather than the outline stage, makes that selection
+visible and confirmable.
 _Avoid_: presenting a report based on a partial ready subset as if every
 Selected Paper had contributed
 
@@ -123,6 +172,22 @@ contributing more than two, and retains each Chunk's title, concise excerpt,
 and SourceAnchor. It guides outline structure but never becomes a body Claim
 Citation.
 _Avoid_: treating planning retrieval as report-body evidence
+
+**Evidence Curation Version**:
+The saved, user-controlled chapter evidence plan derived from one saved Report
+Outline. For each chapter it records the outline queries, automatically
+retrieved candidate Chunks from every ready Selected Paper, the Chunks retained
+or removed by the Workspace Owner, and any manually searched and added Chunk
+from that same workspace-wide ready set. The owner explicitly confirms a
+version before body generation; its actually represented papers establish
+Evidence Coverage, and a Report Operation Attempt freezes that version and uses
+no other body evidence. Changing the outline or curation creates a new version,
+leaving previous report provenance inspectable.
+The owner may curate chapters independently, but one explicit global confirm
+action is required before body generation begins. It freezes the complete
+version and starts eligible body chapters in parallel; every body chapter is
+either curated or explicitly recorded as an evidence gap before that action.
+_Avoid_: an unrecorded retrieval override
 
 **Paper Discovery**:
 Topic-based retrieval of Candidate Paper metadata and links from open academic
@@ -254,6 +319,9 @@ Report. Browser refresh must retain it, but it becomes an immutable Report
 Revision only when the user explicitly saves a version. Generation,
 regeneration, and export operate from persisted report content, never from an
 unsaved browser-only state.
+The Desktop Workspace Experience presents it in a non-editing report preview by
+default; an explicit edit control enters editing mode, and exiting it returns
+to preview without discarding the automatically persisted draft.
 _Avoid_: losing ordinary editing work or treating every keystroke as a version
 
 **Report Operation Attempt**:
@@ -341,10 +409,21 @@ needing attention; otherwise it is ready to export. This product-facing
 summary does not use the legacy offline-evaluation labels.
 _Avoid_: presenting a partial or unresolved report as unqualifiedly complete
 
+**AI Rewrite Proposal**:
+A user-requested, non-destructive proposed revision to a selected Claim or
+explicitly selected report passage. Before it can replace report text, the
+service checks each changed factual Claim against its current Source Chunks.
+The user may apply a supported proposal as verified content; a partially
+supported or unsupported proposal is shown with its validation reason but never
+automatically replaces the draft, and the user may reject it, retain it as
+pending review, or refresh its citations. Original Claim text and Citation
+history remain inspectable in every outcome.
+_Avoid_: silent AI overwrite, unverified rewrite
+
 **Claim Citation**:
 A user-visible, one-to-many provenance link from a supported sentence or report
 bullet to the Source Chunks that support it. Selecting it reveals the paper
-title, page or section location, and source excerpt in a side panel. Its
+title, page or section location, and source excerpt in the Task Detail Pane. Its
 evidence is retained as immutable Citation Revisions rather than overwritten
 when refreshed. A refresh searches only ready, active Selected Papers in the
 same Research Workspace and records its resulting Evidence Coverage; it may
@@ -381,14 +460,17 @@ claim without an explicit identity decision
 **Citation Review State**:
 The trust status of a Claim Citation. A generated citation is verified against
 its retrieved evidence. A presentation-only edit preserves that state; a
-substantive claim edit makes it pending review. A substantive edit is any
-change to the Claim's visible text after whitespace normalization; formatting,
-layout, and citation-marker-only changes are presentation-only. A user may
-confirm it after reviewing the evidence, which makes it user-confirmed rather
-than verified, remove it, or refresh it; only successful refresh can restore
-verified. If any Source Chunk in a current Citation Revision leaves the active
-workspace boundary, the entire Claim Citation is evidence-unavailable and
-cannot be verified, even when it also contains other still-active chunks.
+substantive direct claim edit makes it pending review. An applied AI Rewrite
+Proposal may remain verified only after its changed factual Claims pass the
+same support check against their current Source Chunks; otherwise it follows the
+ordinary pending-review path. A substantive edit is any change to the Claim's
+visible text after whitespace normalization; formatting, layout, and
+citation-marker-only changes are presentation-only. A user may confirm it after
+reviewing the evidence, which makes it user-confirmed rather than verified,
+remove it, or refresh it; only successful refresh can restore verified. If any
+Source Chunk in a current Citation Revision leaves the active workspace
+boundary, the entire Claim Citation is evidence-unavailable and cannot be
+verified, even when it also contains other still-active chunks.
 _Avoid_: showing an unchanged citation as verified after its claim changes
 
 **Chunk**:
@@ -406,6 +488,130 @@ _Avoid_: Passage, snippet
 A traceable retrieval reference exposed to users and evaluators, usually tied to
 one chunk and identified by `source_id`.
 _Avoid_: Citation entry, reference row
+
+**Interaction Prototype**:
+A disposable, controlled-fixture representation of the complete Research
+Workspace journey used to accept its information architecture, controls, and
+recovery interactions before production browser implementation. Its ordinary
+path is operated step by step from workspace setup through export. Its
+prototype-only scenario switcher reaches failure, partial-readiness,
+evidence-gap, multi-source, and citation-review states efficiently; every such
+state remains operable rather than a static screen. It may simulate providers
+and persistence, but it never establishes production evidence or substitutes
+for real-provider product acceptance.
+It runs independently from the production browser application and production
+APIs; only its accepted interaction decisions, state model, and control
+inventory are implementation inputs.
+It is a high-fidelity desktop experience: realistic information density,
+hierarchy, typography, controls, feedback, and disabled states are required to
+assess usability, though providers, files, and persistence may be controlled
+fixtures.
+_Avoid_: mock demo, static screen set
+
+**Desktop Workspace Experience**:
+The first-version interaction target for the Research Workspace and its
+Interaction Prototype. It is designed and accepted for desktop browsers where
+paper reading, long-form report editing, and evidence comparison can coexist.
+Mobile and narrow-screen responsive layouts are outside the current product and
+prototype scope; they must not silently consume delivery capacity or become an
+acceptance requirement.
+_Avoid_: responsive-first workspace
+
+**Workspace Interaction Architecture**:
+The accepted desktop information architecture through which the Workspace Owner
+prepares papers, plans, generates, edits, traces, reviews, and exports a
+Literature Report. It must make every permitted action and recovery path
+discoverable at the state where it is needed while preserving the evidence
+boundaries defined elsewhere in this glossary. The former fixed three-panel
+layout is a retired historical candidate, not a product constraint; the
+Interaction Prototype must establish its replacement before delivery work
+implements it. It first presents at least three materially different,
+operable architecture candidates for comparison, each with the complete normal
+journey. A selected candidate is then expanded into the complete prototype,
+including every exceptional and recovery state.
+_Avoid_: treating a panel arrangement as a domain rule
+
+**Interaction Contract**:
+The accepted, prototype-derived inventory that maps every visible Workspace
+state to its available controls, their location and enablement conditions,
+their resulting and recovery states, editing/confirmation rules, and the
+corresponding domain objects. It is the browser-acceptance source for delivery
+work after an Interaction Prototype is accepted, preventing an implementation
+from silently omitting a necessary action or state.
+_Avoid_: an informal list of screens or a visual-only mockup
+
+**Interaction Architecture Candidate**:
+One materially distinct, operable desktop arrangement of the Research Workspace
+that obeys the same domain rules and complete normal journey as other
+candidates. The first comparison contains a flow-driven workspace, a
+report-driven writing desk, and an evidence-driven research desk; visual
+restyling of one arrangement is not a separate candidate. All first-round
+candidates share one high-fidelity, restrained research-writing visual baseline
+so their information architecture and interaction organisation, rather than
+themes or component skins, are compared.
+_Avoid_: theme variant
+
+**Accepted Interaction Architecture**:
+The one desktop interaction architecture that the Workspace Owner explicitly
+accepts after comparing Interaction Architecture Candidates and iterating on a
+selected or hybrid direction. Candidates are diagnostic starting points, not a
+closed menu: the owner may combine their successful elements and request
+further changes until satisfied. Delivery work begins only after this resulting
+architecture and its Interaction Contract are accepted.
+_Avoid_: treating an unmodified candidate as automatically final
+
+**Prototype Acceptance Gate**:
+The explicit Workspace Owner decision that an Accepted Interaction Architecture
+and its Interaction Contract are sufficient to guide production browser work.
+It follows two checkpoints: first, the owner completes the normal journey in
+every Interaction Architecture Candidate and selects, combines, or redirects a
+direction; second, the owner completes the Prototype Journey Boundary and all
+its recovery states in the resulting single architecture and accepts its
+contract. The gate may involve any number of iterations, each with recorded
+changes and an updated contract. No unfinished vertical delivery ticket that
+contains browser behaviour begins before this gate; completed delivery work is
+not retroactively reopened solely by the gate.
+_Avoid_: beginning a minimal UI while the interaction architecture is undecided
+
+**Prototype Fixture**:
+A deterministic, local research scenario used only by an Interaction Prototype.
+It supplies realistic Chinese research-workspace content: a topic, ten paper
+records with varied readiness, representative source excerpts, report content,
+citations, and recovery states. It never reads a real PDF, makes a network
+request, or calls a model, so repeated interaction review reaches the same
+state without being mistaken for provider or ingestion acceptance evidence.
+_Avoid_: live demo data, production fixture
+
+**Prototype Operation State**:
+The Interaction Prototype's faithful, operable representation of a Workspace
+Operation lifecycle: queued, running, succeeded, failed, interrupted, or
+cancelled. Only queued operations may be cancelled; failed and interrupted
+operations expose retry. Report-generation fixtures also represent per-chapter
+progress and a retry that retains completed chapter results. These controls
+model the real lifecycle and must not imply a force-cancel capability that the
+product does not have.
+_Avoid_: decorative progress indicator
+
+**Prototype Comparison Mode**:
+An Interaction Prototype mode that places the same scenario behind every
+Interaction Architecture Candidate and lets the Workspace Owner switch among
+them while recording structured feedback. It prompts for task clarity,
+next-action discoverability, information load, control discoverability, and
+evidence-checking ease, alongside free notes and a link or screenshot for the
+observed state. It informs iteration but never chooses an architecture on the
+owner's behalf.
+_Avoid_: visual preference poll
+
+**Prototype Journey Boundary**:
+The nine-part user journey that the accepted Interaction Prototype must make
+operable: workspace setup; paper upload or discovery and selection; evidence
+preparation and recovery; Evidence Coverage and Report Outline generation,
+editing, regeneration, and approval; report generation and recovery; Report
+Draft editing and saving; Claim Citation inspection; Citation Review; and
+Report Trust Summary followed by Markdown export. Workspace archival and
+historical-version browsing are outside this prototype boundary.
+_Avoid_: treating background operations or citation recovery as secondary
+screens
 
 ## Legacy Generic-Evaluation Vocabulary
 
