@@ -8,8 +8,9 @@
 ## Destination
 
 Define and deliver a single-user research-paper workspace: users set a topic,
-upload or discover and select papers, read authorised original PDFs, curate
-retrieved evidence, generate an editable literature report, and trace every
+upload or discover and select papers, read authorised original PDFs, retrieve
+evidence automatically from versioned outline queries, generate an editable
+literature report, and trace every
 cited claim to its source evidence in the desktop interface.
 
 ## Notes
@@ -93,7 +94,7 @@ from the import and paper-reading stages.
   is the current frontier.
 - [09 Generate, Edit, and Approve an Evidence-Driven Outline](../../.scratch/research-paper-workspace/issues/09-generate-edit-approve-evidence-driven-outline.md)
   is blocked by 08.
-- [10 Curate and Confirm Chapter Evidence](../../.scratch/research-paper-workspace/issues/10-curate-and-confirm-chapter-evidence.md)
+- [10 Retrieve and Freeze Chapter Evidence](../../.scratch/research-paper-workspace/issues/10-retrieve-and-freeze-chapter-evidence.md)
   is blocked by 09.
 - [11 Generate Verified Body Chapters](../../.scratch/research-paper-workspace/issues/11-generate-verified-body-chapters.md)
   is blocked by 10.
@@ -101,7 +102,7 @@ from the import and paper-reading stages.
   is blocked by 11.
 - [13 Inspect Claim Evidence and Open the Original PDF](../../.scratch/research-paper-workspace/issues/13-inspect-claim-evidence-and-original-pdf.md)
   is blocked by 12.
-- [14 Review Direct Edits and AI Rewrites](../../.scratch/research-paper-workspace/issues/14-review-direct-edits-and-ai-rewrites.md)
+- [14 Review Direct Claim Edits and Validated Rewrite Outcomes](../../.scratch/research-paper-workspace/issues/14-review-direct-claim-edits-and-validated-rewrite-outcomes.md)
   is blocked by 13.
 - [15 Export Markdown and Demonstrate the Product Workflow](../../.scratch/research-paper-workspace/issues/15-export-and-demonstrate-product-workflow.md)
   is blocked by 14.

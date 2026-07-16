@@ -314,9 +314,13 @@ Report. Browser refresh must retain it, but it becomes an immutable Report
 Revision only when the user explicitly saves a version. Generation,
 regeneration, and export operate from persisted report content, never from an
 unsaved browser-only state.
-The Desktop Workspace Experience presents it in a non-editing report preview by
-default; an explicit edit control enters editing mode, and exiting it returns
-to preview without discarding the automatically persisted draft.
+The accepted Desktop Workspace Experience presents it as continuous report
+text, not separate preview and editing modes. A cited sentence remains an
+interactive Claim target; chapter-level regeneration accepts a written
+instruction beside that chapter. Any direct editing surface still preserves the
+automatic persistence and explicit-version rules above, but it must not invent
+a mode toggle or a permanent writing assistant that the Interaction Contract
+did not accept.
 _Avoid_: losing ordinary editing work or treating every keystroke as a version
 
 **Report Operation Attempt**:
@@ -518,12 +522,15 @@ prepares papers, plans, generates, edits, traces, reviews, and exports a
 Literature Report. It must make every permitted action and recovery path
 discoverable at the state where it is needed while preserving the evidence
 boundaries defined elsewhere in this glossary. The former fixed three-panel
-layout is a retired historical candidate, not a product constraint; the
-Interaction Prototype must establish its replacement before delivery work
-implements it. It first presents at least three materially different,
-operable architecture candidates for comparison, each with the complete normal
-journey. A selected candidate is then expanded into the complete prototype,
-including every exceptional and recovery state.
+layout is a retired historical candidate, not a product constraint. The
+accepted architecture is an iterated flow-driven desktop workspace with four
+left-navigation stages: literature import, paper reading, Report Outline, and
+report writing. Its central task surface and right Task Detail Pane scroll
+independently. Retrieval is controlled by versioned outline queries rather
+than a fifth evidence-curation stage; report writing uses continuous text and
+chapter-level regeneration rather than a preview/edit mode split. The completed
+prototype compared three candidates and then covered exceptional and recovery
+states.
 _Avoid_: treating a panel arrangement as a domain rule
 
 **Interaction Contract**:

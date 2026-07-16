@@ -4,7 +4,7 @@
 truthful Markdown from the accepted workspace, and the project can demonstrate
 the complete real RAG workflow with an isolated ten-paper open-access scenario.
 
-**Blocked by:** 14 - Review Direct Edits and AI Rewrites.
+**Blocked by:** 14 - Review Direct Claim Edits and Validated Rewrite Outcomes.
 
 **Status:** ready-for-agent
 

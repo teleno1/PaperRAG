@@ -1,4 +1,4 @@
-# Workspace Interaction Contract (draft)
+# Workspace Interaction Contract
 
 **Status:** accepted by Workspace Owner (2026-07-15)
 **Prototype source:** `frontend/prototype.html` / `frontend/src/prototype/`
@@ -43,6 +43,11 @@ or provider behaviour is implied.
 | Focused claim | Click cited sentence, centre | Replaces the right pane with title, chunk excerpt, source anchor, and verification status for the claim's Claim Citations. Multiple sources must remain independently selectable. | Focused Claim, Claim Citation, Source Chunk, SourceAnchor |
 | Citation status | Source detail, right pane | Show verified, pending review, or evidence-unavailable truthfully. Direct substantive editing moves the citation to pending review; a successful refresh alone restores verified. | Citation Review State, Claim Citation |
 | Chapter regeneration | Instruction field and `重新生成`, below chapter | The instruction is scoped to the chapter. Production creates a separate regenerated draft/attempt, preserves the current draft until selection, and displays failed/retryable chapter results without publishing partial output. | Workspace Operation, Report Draft, Report Revision |
+
+The accepted writing surface has no preview/edit mode switch and no dedicated
+AI-rewrite assistant control. The controlled review fixture retains an
+AI-rewrite outcome only to verify the associated citation state; it does not
+authorize an additional production control outside this contract.
 
 ## Controlled recovery scenarios
 

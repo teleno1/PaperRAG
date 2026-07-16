@@ -1,9 +1,10 @@
 # 12 - Publish an Editable Evidence-Driven Literature Report
 
 **What to build:** A researcher can receive a single, complete Literature
-Report from completed body chapters and use its accepted writing stage to
-preview, enter editing mode, auto-save a Report Draft, save an immutable
-version, and export only truthful complete content later.
+Report from completed body chapters and use its accepted continuous writing
+stage to trace cited sentences, regenerate a chapter with an instruction,
+auto-save direct changes, save an immutable version, and later export truthful
+complete content.
 
 **Blocked by:** 11 - Generate Verified Body Chapters.
 
@@ -17,10 +18,10 @@ version, and export only truthful complete content later.
   Claims. Invalid JSON gets one repair; any final failure preserves the Attempt
   and prior draft rather than publishing partial content.
 - [ ] A new editable Report Draft is atomically published only after every
-  required chapter reaches cited or evidence-gap terminal state. Writing
-  defaults to preview, enters edit mode explicitly, displays auto-save state,
-  and creates a Report Revision only on explicit save.
+  required chapter reaches cited or evidence-gap terminal state. Writing uses
+  the accepted continuous-text surface, exposes chapter-level regeneration,
+  displays auto-save state for direct changes, and creates a Report Revision
+  only on explicit save; it does not add a preview/edit mode switch.
 - [ ] Persistence, API, accepted writing UI, controlled tests, and a documented
   real-provider manual acceptance run cover atomic publication, provenance,
   editing persistence, and truthful deterministic references.
-

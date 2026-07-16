@@ -13,7 +13,8 @@ topic
   -> user selects papers for a Research Workspace
   -> durable Workspace Operations parse PDFs while retaining source locations
   -> chunks + embeddings + workspace index
-  -> editable report outline
+  -> editable report outline with versioned retrieval queries
+  -> automatic frozen chapter evidence bundles
   -> cited Literature Report
   -> claim citation opens source paper excerpt(s)
   -> user edit marks affected citation pending review
@@ -62,8 +63,10 @@ adds workspace-scoped Report Outline revisions, ready-evidence gating, draft
 editing, explicit approval, and immutable approved-history persistence. Cited
 report generation and claim-level provenance now build on this boundary through
 workspace-scoped Literature Report drafts, Claim Citations, Source Chunks, and
-ready-evidence coverage snapshots. The report editor remains a small functional
-surface until the later accepted workspace prototype.
+ready-evidence coverage snapshots. The accepted prototype defines the remaining
+browser boundary: a four-stage, flow-driven workspace; versioned outline-query
+retrieval; continuous report writing; chapter-level regeneration; and a
+stage-specific Task Detail Pane.
 
 05A completes the real evidence boundary: every processed version writes
 provenance-aware `chunks.json`, and only ready Selected Papers contribute to a

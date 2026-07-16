@@ -33,11 +33,10 @@ create workspace with topic and report language
   -> process selected papers and show readiness
   -> read a ready paper in its authorised original PDF
   -> generate, edit, and approve an outline
-  -> retrieve and curate chapter evidence from ready workspace papers
-  -> generate an editable cited Literature Report from confirmed evidence
+  -> version outline retrieval queries and automatically retrieve chapter evidence
+  -> generate an editable cited Literature Report from frozen attempt evidence
   -> inspect claim-level evidence and open its original PDF location
-  -> edit claims, use validated AI rewrite proposals, and review, remove, or
-     refresh affected citations
+  -> directly revise claims and review, remove, or refresh affected citations
   -> export Markdown
 ```
 
@@ -106,8 +105,8 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
 55. As a researcher, I want to edit and version every section's retrieval query with its outline content, so that I control what the report will retrieve without managing individual Chunks.
 56. As a researcher, I want automatic retrieval to freeze the Chapter Evidence Bundles and Evidence Coverage used by a report attempt, so that later readiness or query changes cannot silently change its provenance.
 58. As a researcher, I want a cited report sentence to reveal an affordance on hover and remain highlighted when selected, so that I can inspect its sources without guessing which small marker is interactive.
-59. As a researcher, I want the writing area to default to report preview and enter editing only through an explicit control, so that ordinary reading does not accidentally alter my Report Draft.
-60. As a researcher, I want an AI Rewrite Proposal to be support-checked against my current sources before I apply it, so that assistant-written changes do not silently weaken citation trust.
+59. As a researcher, I want continuous report text with cited sentences I can select and chapter-level regeneration instructions, so that reading, tracing, and improving a chapter do not require switching between separate preview and editing modes.
+60. As a researcher, I want any AI Rewrite Proposal that reaches citation review to be support-checked against my current sources before it is applied, so that an assistant-originated change cannot silently weaken citation trust.
 61. As a Workspace Owner, I want to compare at least three complete desktop interaction architectures using the same scenario, so that I can choose or iterate toward an experience I actually find usable.
 62. As a Workspace Owner, I want the selected prototype to expose every normal, failure, and recovery state together with a control inventory, so that later delivery cannot omit necessary buttons or states.
 63. As a maintainer, I want the prototype and production browser to use the same Workspace View State contract, so that prototype acceptance tests map to real user-visible product behaviour rather than a separate mock-only design.
@@ -306,11 +305,13 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   hover affordance and remains highlighted when selected. The Task Detail Pane
   then shows all source excerpts, provenance, location, and trust state; a
   source opens the original-PDF Paper Reading View at its anchor. The writing
-  stage defaults to report preview and enters editing through an explicit
-  control. Preview shows evidence and trust summary; editing additionally
-  exposes a source-bounded AI Rewrite Proposal assistant for a selected Claim
-  or passage. Draft changes auto-save with visible status; an explicit save
-  creates an immutable Report Revision.
+  stage is continuous report text rather than separate preview and editing
+  modes. It offers a written chapter-level regeneration instruction and action.
+  Direct draft changes auto-save with visible status; an explicit save creates
+  an immutable Report Revision. The accepted contract does not include a
+  dedicated AI-rewrite assistant control; if a validated proposal enters the
+  review model, its citation rules still apply without adding an unaccepted
+  interface.
 - Use SQLite, through infrastructure repository adapters built on `sqlite3`, as
   the authoritative store for workspace metadata, provenance, revisions,
   citation state, and Workspace Operations. Keep PDFs, parsed artifacts, and
@@ -441,8 +442,8 @@ explicit citation-review state, and repeatable end-to-end acceptance scenarios.
   is intentionally explicit about unresolved implementation choices so that
   they are decided through the active local Wayfinder tickets rather than hidden
   in implementation.
-- The Interaction Prototype is the active delivery frontier. Its accepted
-  Interaction Contract is the source of truth for subsequent browser behaviour;
+- The accepted Interaction Contract is the source of truth for subsequent
+  browser behaviour. Ticket 08 is the current production delivery frontier;
   local delivery tickets declare the resulting implementation order and
   verification.
 - The local Wayfinder map replaces GitHub Issues for this effort because the

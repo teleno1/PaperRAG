@@ -23,13 +23,14 @@ into runtime behavior.
 
 Generation uses only active, ready Selected Papers in the same Research
 Workspace. This historical decision's ready-subset selection rule is superseded:
-all ready papers are eligible for planning and retrieval, and the confirmed
-Evidence Curation Version determines the body evidence and derived Evidence
-Coverage. Papers that are not ready remain excluded with their reason, and a
-paper that becomes ready later never silently changes a report. No report body
-may be generated when no ready evidence exists. A requested section with
-insufficient support receives an explicit evidence-gap note rather than an
-uncited factual conclusion.
+all ready papers are eligible for planning and retrieval, and automatic Chapter
+Evidence Bundles from the approved outline's versioned queries determine the
+body evidence and derived Evidence Coverage. ADR 0007 also supersedes the
+former Evidence Curation Version. Papers that are not ready remain excluded
+with their reason, and a paper that becomes ready later never silently changes
+a report. No report body may be generated when no ready evidence exists. A
+requested section with insufficient support receives an explicit evidence-gap
+note rather than an uncited factual conclusion.
 
 An Outline Revision is `draft` until the user explicitly approves it. Only an
 approved outline can generate a report. Editing it returns the new current
@@ -75,7 +76,7 @@ not the legacy evaluation labels.
 | Scenario | Required visible result |
 | --- | --- |
 | All selected papers are ready and retrieved sources support the generated claims | The attempt records full selected Evidence Coverage; citations are verified and the report is ready to export. |
-| One selected paper is parsing or failed | It is unavailable for body evidence and named with its reason. Later readiness does not alter an already confirmed Evidence Curation Version automatically. |
+| One selected paper is parsing or failed | It is unavailable for body evidence and named with its reason. Later readiness does not alter an already frozen Chapter Evidence Bundle automatically. |
 | Ready papers do not support one outline section | Supported sections may generate; the unsupported section shows an evidence-gap note and the report needs attention. |
 | User changes Claim text | Its citations become pending review. User confirmation produces user-confirmed; only a successful refresh produces verified. |
 | Refresh finds no valid support, or a cited paper/version leaves the active boundary | The old source anchor remains visible; the citation is respectively pending review with no-support, or evidence-unavailable. |

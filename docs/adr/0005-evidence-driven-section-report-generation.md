@@ -46,17 +46,15 @@ a partial generation to masquerade as a completed report.
   Each query retrieves eight vector candidates; their union is deduplicated and
   MMR-re-ranked to twelve to eighteen Chunks, with at most three from any paper.
   Retained Chunks record the section and query that retrieved them.
-- Before body generation, the Workspace Owner may inspect every chapter's
-  queries and candidates, remove a candidate, search every ready Selected
-  Paper's workspace Chunks, and add a relevant Chunk. This produces a saved,
-  explicitly confirmed Evidence Curation Version associated with the saved
-  outline. Its represented papers establish Evidence Coverage; the generation
-  attempt freezes that version. Later curation or outline edits create a new
-  version and never rewrite the provenance of an earlier report.
-  Similarity scores are recorded but no initial fixed threshold represents
-  support; the support check decides adequacy. Any future cutoff requires
-  calibration against the real ten-paper demonstration rather than a guessed
-  value.
+- ADR 0007 supersedes the earlier manual evidence-curation presentation. The
+  Workspace Owner edits and versions retrieval queries with the Report Outline;
+  when a Report Operation Attempt starts, the service automatically retrieves
+  and freezes each Chapter Evidence Bundle. The represented ready papers
+  establish Evidence Coverage. Later readiness or outline-query changes create
+  new inputs and never rewrite the provenance of an earlier attempt. Similarity
+  scores are recorded but no initial fixed threshold represents support; the
+  support check decides adequacy. Any future cutoff requires calibration
+  against the real ten-paper demonstration rather than a guessed value.
 - A section with no candidates becomes an evidence gap without a body-model
   call. A body chapter with no evidence for every section completes as an
   all-gap result; otherwise the model receives only the sections with evidence
