@@ -149,12 +149,168 @@ class ResearchWorkspaceService:
         return workspace
 
     @staticmethod
+    def _paper_from_workspace(workspace: ResearchWorkspace, paper_id: str) -> ResearchPaper | None:
+        return next((paper for paper in workspace.papers if paper.id == paper_id), None)
+
+    def get_paper(self, workspace_id: str, paper_id: str) -> ResearchPaper:
+        workspace = self.get_workspace(workspace_id)
+        paper = self._paper_from_workspace(workspace, paper_id)
+        if paper is None:
+            raise PaperNotFoundError(workspace_id, paper_id)
+        return paper
+
+    @staticmethod
     def _candidate_filename(title: str, provider_id: str) -> str:
         slug = re.sub(r"[^a-zA-Z0-9._-]+", "-", title).strip("-.")[:80] or provider_id
         return f"{slug}.pdf"
 
     def _version_source_path(self, workspace_id: str, paper_id: str, document_version_id: str, filename: str) -> Path:
         return self._storage_root / workspace_id / "papers" / paper_id / "versions" / document_version_id / filename
+
+    def _resolve_workspace_storage_path(self, storage_path: str | None) -> Path | None:
+        if not storage_path:
+            return None
+        try:
+            resolved = Path(storage_path).resolve()
+            resolved.relative_to(self._storage_root.resolve())
+        except (OSError, ValueError):
+            return None
+        return resolved
+
+    def get_authorised_pdf_path(self, workspace_id: str, paper_id: str) -> Path | None:
+        paper = self.get_paper(workspace_id, paper_id)
+        if not paper.selected:
+            return None
+        resolved = self._resolve_workspace_storage_path(
+            self._repository.get_paper_storage_path(workspace_id=workspace_id, paper_id=paper_id)
+        )
+        if resolved is None or resolved.suffix.lower() != ".pdf" or not resolved.is_file():
+            return None
+        return resolved
+
+    def get_workspace_view_state(
+        self,
+        workspace_id: str,
+        *,
+        reading_paper_id: str | None = None,
+    ) -> dict:
+        workspace = self.get_workspace(workspace_id)
+        operations = self.list_operations(workspace_id)
+        outline = self.get_outline(workspace_id)
+        report = self.get_report_draft(workspace_id)
+
+        selected_papers = [paper for paper in workspace.papers if paper.selected]
+        ready_papers = [paper for paper in selected_papers if paper.evidence_eligible]
+        candidate_papers = [
+            paper for paper in workspace.papers if paper.source_kind == "discovery" and not paper.selected and not paper.dismissed
+        ]
+        dismissed_papers = [
+            paper for paper in workspace.papers if paper.source_kind == "discovery" and not paper.selected and paper.dismissed
+        ]
+
+        active_reading_paper = None
+        if reading_paper_id:
+            active_reading_paper = self._paper_from_workspace(workspace, reading_paper_id)
+        if active_reading_paper is None:
+            active_reading_paper = ready_papers[0] if ready_papers else (selected_papers[0] if selected_papers else None)
+        pdf_path = (
+            self.get_authorised_pdf_path(workspace_id, active_reading_paper.id)
+            if active_reading_paper is not None
+            else None
+        )
+        reading_unavailable_reason: str | None = None
+        if active_reading_paper is not None:
+            if not active_reading_paper.evidence_eligible:
+                reading_unavailable_reason = (
+                    "This Selected Paper is not evidence-ready yet. Finish import, parsing, and indexing first."
+                )
+            elif pdf_path is None:
+                reading_unavailable_reason = (
+                    "The authorised original PDF for this paper is unavailable. Historical metadata remains visible, "
+                    "but the workspace will not reconstruct a reader from chunks."
+                )
+
+        approved_outline = outline is not None and outline.status == "approved"
+        stages = [
+            {
+                "key": "import",
+                "title": "Literature Import",
+                "available": True,
+                "detail": (
+                    "Discover Candidate Papers, upload authorised PDFs, and move Selected Papers to evidence-ready status."
+                ),
+                "next_action_stage": None,
+                "next_action_label": None,
+            },
+            {
+                "key": "reading",
+                "title": "Paper Reading",
+                "available": bool(ready_papers),
+                "detail": (
+                    "Read any evidence-ready Selected Paper in its authorised original PDF."
+                    if ready_papers
+                    else "No Selected Paper is evidence-ready yet. Prepare at least one paper in Literature Import first."
+                ),
+                "next_action_stage": None if ready_papers else "import",
+                "next_action_label": None if ready_papers else "Go to Literature Import",
+            },
+            {
+                "key": "outline",
+                "title": "Report Outline",
+                "available": bool(ready_papers),
+                "detail": (
+                    "Generate and edit the report outline from evidence-ready Selected Papers."
+                    if ready_papers
+                    else "A Report Outline needs at least one evidence-ready Selected Paper."
+                ),
+                "next_action_stage": None if ready_papers else "import",
+                "next_action_label": None if ready_papers else "Prepare Papers",
+            },
+            {
+                "key": "writing",
+                "title": "Report Writing",
+                "available": approved_outline and bool(ready_papers),
+                "detail": (
+                    "Generate and edit a cited Literature Report from the approved outline."
+                    if approved_outline and ready_papers
+                    else "Report writing becomes available after at least one paper is ready and the current outline is approved."
+                ),
+                "next_action_stage": (
+                    None
+                    if approved_outline and ready_papers
+                    else ("outline" if ready_papers else "import")
+                ),
+                "next_action_label": (
+                    None
+                    if approved_outline and ready_papers
+                    else ("Approve the Outline" if ready_papers else "Prepare Papers")
+                ),
+            },
+        ]
+
+        return {
+            "workspace": workspace,
+            "operations": operations,
+            "selected_papers": selected_papers,
+            "candidate_papers": candidate_papers,
+            "dismissed_papers": dismissed_papers,
+            "ready_papers": ready_papers,
+            "stages": stages,
+            "reading_state": {
+                "active_paper": active_reading_paper,
+                "active_paper_id": active_reading_paper.id if active_reading_paper is not None else None,
+                "ready_papers": ready_papers,
+                "pdf_available": pdf_path is not None and active_reading_paper is not None and active_reading_paper.evidence_eligible,
+                "pdf_url": (
+                    f"/api/workspaces/{workspace_id}/papers/{active_reading_paper.id}/pdf"
+                    if pdf_path is not None and active_reading_paper is not None and active_reading_paper.evidence_eligible
+                    else None
+                ),
+                "unavailable_reason": reading_unavailable_reason,
+            },
+            "outline": outline,
+            "report": report,
+        }
 
     def discover_papers(
         self,

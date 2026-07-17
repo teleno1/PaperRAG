@@ -68,6 +68,14 @@ browser boundary: a four-stage, flow-driven workspace; versioned outline-query
 retrieval; continuous report writing; chapter-level regeneration; and a
 stage-specific Task Detail Pane.
 
+Ticket 08 replaces the historical preparation browser shell with the accepted
+production import and reading stages. The backend now publishes a
+workspace-scoped `Workspace View State` contract and an authorised-original PDF
+route; the frontend keeps all four stages visible, gates unavailable stages
+through server-owned next-action metadata, and renders the active ready paper
+only from its managed original PDF rather than reconstructing reading from
+chunks.
+
 05A completes the real evidence boundary: every processed version writes
 provenance-aware `chunks.json`, and only ready Selected Papers contribute to a
 workspace-specific `evidence.faiss` plus metadata pair. The validated pair is
@@ -112,14 +120,20 @@ The canonical terms are defined in [CONTEXT.md](../CONTEXT.md). Key concepts:
   `/api/workspaces/...` plus operation state at `/api/operations/{id}` and
   workspace operation history. It never exposes filesystem paths, vector-store
   internals, or provider details. Existing generic routes remain compatibility
-  endpoints until product tickets replace or adapt them.
+  endpoints until product tickets replace or adapt them. The active browser
+  boundary now depends on `GET /api/workspaces/{workspace_id}/view` for the
+  accepted stage shell and `GET /api/workspaces/{workspace_id}/papers/{paper_id}/pdf`
+  for authorised original-PDF delivery; the PDF route must fail truthfully when
+  the managed file is unavailable.
 - **Web application** is a React + TypeScript single-page application. Its
   unfinished browser work is gated by the accepted desktop Interaction
   Prototype and Workspace View State contract; the final stage-specific Task
   Detail Pane replaces the historical fixed evidence-side-panel assumption. It
   polls active operations and must not reproduce business logic already owned by
-  use cases. In production FastAPI serves its compiled static assets; Vite's
-  development server proxies `/api` to FastAPI.
+  use cases. Ticket 08 now delivers the accepted import/detail separation,
+  ready-paper reading library, dismissed-candidate recovery list, and real PDF
+  reading iframe through this boundary. In production FastAPI serves its
+  compiled static assets; Vite's development server proxies `/api` to FastAPI.
 - **Operation executor** is an in-process durable runner. It serializes
   state-changing work per workspace, has a small global concurrency cap, and
   persists phase, progress, safe errors, and retry actions. A restart marks

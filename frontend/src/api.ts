@@ -1,11 +1,12 @@
 import type {
   DiscoveryResponse,
-  ResearchWorkspace,
-  ReportOutline,
   LiteratureReport,
   ReportLanguage,
+  ReportOutline,
+  ResearchWorkspace,
   UploadResponse,
   WorkspaceOperation,
+  WorkspaceViewState,
 } from "./types";
 
 interface ApiErrorPayload {
@@ -31,7 +32,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   if (!response.ok) {
     const payload = (await response.json().catch(() => ({}))) as ApiErrorPayload;
     throw new ApiRequestError(
-      payload.detail || payload.error || `请求失败（${response.status}）`,
+      payload.detail || payload.error || `Request failed (${response.status})`,
       payload.error || null,
       payload.next_action || null,
     );
@@ -43,8 +44,11 @@ export function listWorkspaces(): Promise<ResearchWorkspace[]> {
   return request<ResearchWorkspace[]>("/api/workspaces");
 }
 
-export function getWorkspace(workspaceId: string): Promise<ResearchWorkspace> {
-  return request<ResearchWorkspace>(`/api/workspaces/${workspaceId}`);
+export function getWorkspaceView(workspaceId: string, readingPaperId?: string | null): Promise<WorkspaceViewState> {
+  const params = new URLSearchParams();
+  if (readingPaperId) params.set("reading_paper_id", readingPaperId);
+  const suffix = params.toString() ? `?${params.toString()}` : "";
+  return request<WorkspaceViewState>(`/api/workspaces/${workspaceId}/view${suffix}`);
 }
 
 export function createWorkspace(topic: string, reportLanguage: ReportLanguage): Promise<ResearchWorkspace> {
@@ -81,11 +85,11 @@ export function removePaper(workspaceId: string, paperId: string): Promise<void>
   return request(`/api/workspaces/${workspaceId}/papers/${paperId}`, { method: "DELETE" });
 }
 
-export function dismissPaper(workspaceId: string, paperId: string): Promise<ResearchWorkspace["papers"][number]> {
+export function dismissPaper(workspaceId: string, paperId: string): Promise<void> {
   return request(`/api/workspaces/${workspaceId}/papers/${paperId}/dismiss`, { method: "POST" });
 }
 
-export function restorePaper(workspaceId: string, paperId: string): Promise<ResearchWorkspace["papers"][number]> {
+export function restorePaper(workspaceId: string, paperId: string): Promise<void> {
   return request(`/api/workspaces/${workspaceId}/papers/${paperId}/restore`, { method: "POST" });
 }
 
@@ -107,10 +111,6 @@ export async function uploadPaper(
     method: "POST",
     body: form,
   });
-}
-
-export function getOperation(operationId: string): Promise<WorkspaceOperation> {
-  return request<WorkspaceOperation>(`/api/operations/${operationId}`);
 }
 
 export function generateOutline(workspaceId: string): Promise<WorkspaceOperation> {

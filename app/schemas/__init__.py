@@ -41,6 +41,7 @@ from app.schemas.api_models import (
     ReportGenerateRequest,
     SourceChunkResponse,
     ReportOutlineResponse,
+    ResearchWorkspaceSummaryResponse,
     StateResponse,
     ResearchPaperResponse,
     ResearchWorkspaceResponse,
@@ -49,6 +50,10 @@ from app.schemas.api_models import (
     WorkspaceDiscoveryResponse,
     WorkspaceOperationResponse,
     WorkspaceUploadResponse,
+    WorkspaceImportStateResponse,
+    WorkspaceReadingStateResponse,
+    WorkspaceStageResponse,
+    WorkspaceViewStateResponse,
 )
 
 __all__ = [
@@ -88,6 +93,7 @@ __all__ = [
     "ReportGenerateRequest",
     "SourceChunkResponse",
     "ReportOutlineResponse",
+    "ResearchWorkspaceSummaryResponse",
     "RetrievedSourceResponse",
     "ReviewRunFromOutlineRequest",
     "ReviewRunRequest",
@@ -98,6 +104,10 @@ __all__ = [
     "WorkspaceCreateRequest",
     "WorkspaceDiscoveryRequest",
     "WorkspaceDiscoveryResponse",
+    "WorkspaceImportStateResponse",
     "WorkspaceOperationResponse",
+    "WorkspaceReadingStateResponse",
+    "WorkspaceStageResponse",
     "WorkspaceUploadResponse",
+    "WorkspaceViewStateResponse",
 ]

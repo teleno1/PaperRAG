@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/test";
 
 const workspaceId = "workspace-1";
 const candidateId = "candidate-1";
-const operationId = "operation-1";
 
 function paper(overrides: Record<string, unknown> = {}) {
   return {
@@ -39,27 +38,105 @@ function paper(overrides: Record<string, unknown> = {}) {
   };
 }
 
-function workspace(papers: ReturnType<typeof paper>[], operations: unknown[] = [], outline: unknown = null) {
+function workspaceRecord() {
   return {
     id: workspaceId,
     topic: "Traceable research evidence",
     report_language: "zh",
-    state: papers.some((item) => item.selected) ? "active" : "setup",
+    state: "active",
     created_at: "2026-07-13T00:00:00Z",
     updated_at: "2026-07-13T00:00:00Z",
-    papers,
-    operations,
-    outline,
+    papers: [],
+    operations: [],
+    outline: null,
+    report: null,
   };
 }
 
-test("researcher can discover, authorise, process, and remove a paper in the browser", async ({ page }) => {
+test("researcher can prepare papers, recover import gaps, and read the authorised original PDF", async ({ page }) => {
   let created = false;
   let discovered = false;
-  let uploaded = false;
+  let pdfAvailable = true;
   let currentPaper = paper();
-  let currentOperation = null as Record<string, unknown> | null;
-  let currentOutline = null as Record<string, unknown> | null;
+  let operations: Array<Record<string, unknown>> = [];
+
+  const viewState = () => {
+    const selectedPapers = currentPaper.selected ? [currentPaper] : [];
+    const readyPapers = currentPaper.evidence_eligible ? [currentPaper] : [];
+    const candidatePapers = discovered && !currentPaper.selected && !currentPaper.dismissed ? [currentPaper] : [];
+    const dismissedPapers = currentPaper.dismissed ? [currentPaper] : [];
+    const outlineApproved = false;
+
+    return {
+      workspace: {
+        id: workspaceId,
+        topic: "Traceable research evidence",
+        report_language: "zh",
+        state: selectedPapers.length ? "active" : "setup",
+        created_at: "2026-07-13T00:00:00Z",
+        updated_at: "2026-07-13T00:00:00Z",
+      },
+      stages: [
+        {
+          key: "import",
+          title: "Literature Import",
+          available: true,
+          detail: "Discover Candidate Papers, upload authorised PDFs, and move Selected Papers to evidence-ready status.",
+          next_action_stage: null,
+          next_action_label: null,
+        },
+        {
+          key: "reading",
+          title: "Paper Reading",
+          available: readyPapers.length > 0,
+          detail: readyPapers.length
+            ? "Read any evidence-ready Selected Paper in its authorised original PDF."
+            : "No Selected Paper is evidence-ready yet. Prepare at least one paper in Literature Import first.",
+          next_action_stage: readyPapers.length ? null : "import",
+          next_action_label: readyPapers.length ? null : "Go to Literature Import",
+        },
+        {
+          key: "outline",
+          title: "Report Outline",
+          available: readyPapers.length > 0,
+          detail: readyPapers.length
+            ? "Generate and edit the report outline from evidence-ready Selected Papers."
+            : "A Report Outline needs at least one evidence-ready Selected Paper.",
+          next_action_stage: readyPapers.length ? null : "import",
+          next_action_label: readyPapers.length ? null : "Prepare Papers",
+        },
+        {
+          key: "writing",
+          title: "Report Writing",
+          available: outlineApproved && readyPapers.length > 0,
+          detail: "Report writing becomes available after at least one paper is ready and the current outline is approved.",
+          next_action_stage: readyPapers.length ? "outline" : "import",
+          next_action_label: readyPapers.length ? "Approve the Outline" : "Prepare Papers",
+        },
+      ],
+      import_state: {
+        selected_papers: selectedPapers,
+        ready_papers: readyPapers,
+        candidate_papers: candidatePapers,
+        dismissed_papers: dismissedPapers,
+        operations,
+      },
+      reading_state: {
+        active_paper_id: readyPapers[0]?.id ?? selectedPapers[0]?.id ?? null,
+        active_paper: readyPapers[0] ?? selectedPapers[0] ?? null,
+        ready_papers: readyPapers,
+        pdf_available: readyPapers.length > 0 && pdfAvailable,
+        pdf_url: readyPapers.length > 0 && pdfAvailable ? `/api/workspaces/${workspaceId}/papers/${candidateId}/pdf` : null,
+        unavailable_reason: readyPapers.length > 0 && !pdfAvailable
+          ? "The authorised original PDF for this paper is unavailable. Historical metadata remains visible, but the workspace will not reconstruct a reader from chunks."
+          : selectedPapers.length > 0 && !readyPapers.length
+            ? "This Selected Paper is not evidence-ready yet. Finish import, parsing, and indexing first."
+            : null,
+      },
+      outline: null,
+      report: null,
+    };
+  };
 
   await page.route("**/api/**", async (route) => {
     const request = route.request();
@@ -67,16 +144,16 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
     const path = url.pathname;
 
     if (request.method() === "GET" && path === "/api/workspaces") {
-      await route.fulfill({ json: created ? [workspace([currentPaper], currentOperation ? [currentOperation] : [], currentOutline)] : [] });
+      await route.fulfill({ json: created ? [workspaceRecord()] : [] });
       return;
     }
     if (request.method() === "POST" && path === "/api/workspaces") {
       created = true;
-      await route.fulfill({ status: 201, json: workspace([]) });
+      await route.fulfill({ status: 201, json: workspaceRecord() });
       return;
     }
-    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}`) {
-      await route.fulfill({ json: workspace(discovered ? [currentPaper] : [], currentOperation ? [currentOperation] : [], currentOutline) });
+    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}/view`) {
+      await route.fulfill({ json: viewState() });
       return;
     }
     if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/papers/discover`) {
@@ -101,88 +178,39 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
     }
     if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}/import`) {
       currentPaper = paper({ selected: true, evidence_readiness: "awaiting_authorised_file", next_action: "upload_authorised_pdf" });
-      await route.fulfill({ json: { paper: currentPaper, operation: null } });
+      await route.fulfill({ status: 202, json: { paper: currentPaper, operation: null } });
       return;
     }
     if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/papers/upload`) {
-      uploaded = true;
-      currentPaper = paper({ selected: true, evidence_readiness: "ready", evidence_eligible: true, active_document_version_id: "version-1", next_action: null });
-      currentOperation = {
-        id: operationId,
-        workspace_id: workspaceId,
-        paper_id: candidateId,
-        operation_type: "import_authorised_paper",
-        status: "succeeded",
-        phase: "ready",
-        error_category: null,
-        error_message: null,
-        retry_action: null,
-        completed_work: 1,
-        total_work: 1,
-        started_at: "2026-07-13T00:00:00Z",
-        finished_at: "2026-07-13T00:00:01Z",
-      };
-      await route.fulfill({ status: 202, json: { paper: currentPaper, operation: currentOperation } });
-      return;
-    }
-    if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/outline/generate`) {
-      currentOutline = {
-        id: "outline-1",
-        workspace_id: workspaceId,
-        revision_number: 1,
-        status: "draft",
-        title: "Traceable research evidence review",
-        research_question: "How can research evidence remain traceable?",
-        sections: [
-          { id: "research-question", title: "Research question and scope", description: "Scope" },
-          { id: "methods-findings", title: "Methods and findings", description: "Findings" },
-        ],
-        evidence_paper_ids: [candidateId],
-        created_at: "2026-07-13T00:00:00Z",
-        updated_at: "2026-07-13T00:00:00Z",
-        approved_at: null,
-      };
-      currentOperation = {
-        id: "outline-operation-1",
-        workspace_id: workspaceId,
-        paper_id: null,
-        operation_type: "generate_outline",
-        status: "succeeded",
-        phase: "draft_ready",
-        error_category: null,
-        error_message: null,
-        retry_action: null,
-        completed_work: 1,
-        total_work: 1,
-        started_at: "2026-07-13T00:00:00Z",
-        finished_at: "2026-07-13T00:00:01Z",
-      };
-      await route.fulfill({ status: 202, json: currentOperation });
-      return;
-    }
-    if (request.method() === "PUT" && path === `/api/workspaces/${workspaceId}/outline`) {
-      const body = JSON.parse(request.postData() || "{}");
-      const approvedEdit = currentOutline?.status === "approved";
-      currentOutline = { ...currentOutline, ...body, id: approvedEdit ? "outline-2" : "outline-1", status: "draft", revision_number: approvedEdit ? 2 : 1, updated_at: "2026-07-13T00:00:01Z" };
-      await route.fulfill({ json: currentOutline });
-      return;
-    }
-    if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/outline/approve`) {
-      currentOutline = { ...currentOutline, status: "approved", approved_at: "2026-07-13T00:00:02Z" };
-      await route.fulfill({ json: currentOutline });
-      return;
-    }
-    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}/outline/revisions`) {
-      await route.fulfill({ json: [currentOutline, { ...currentOutline, id: "outline-history-1", revision_number: 1, status: "approved", title: "Earlier approved outline" }] });
-      return;
-    }
-    if (request.method() === "POST" && path.startsWith(`/api/workspaces/${workspaceId}/outline/revisions/`) && path.endsWith("/restore")) {
-      currentOutline = { ...currentOutline, id: "outline-restored", revision_number: 3, status: "draft", title: "Earlier approved outline" };
-      await route.fulfill({ json: currentOutline });
+      currentPaper = paper({
+        selected: true,
+        evidence_readiness: "ready",
+        evidence_eligible: true,
+        active_document_version_id: "version-1",
+        next_action: null,
+      });
+      operations = [
+        {
+          id: "operation-1",
+          workspace_id: workspaceId,
+          paper_id: candidateId,
+          operation_type: "import_authorised_paper",
+          status: "succeeded",
+          phase: "ready",
+          error_category: null,
+          error_message: null,
+          retry_action: null,
+          completed_work: 1,
+          total_work: 1,
+          started_at: "2026-07-13T00:00:00Z",
+          finished_at: "2026-07-13T00:00:01Z",
+        },
+      ];
+      await route.fulfill({ status: 202, json: { paper: currentPaper, operation: operations[0] } });
       return;
     }
     if (request.method() === "DELETE" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}`) {
-      currentPaper = paper({ selected: false, evidence_readiness: uploaded ? "ready" : "unavailable", evidence_eligible: false });
+      currentPaper = paper({ selected: false, evidence_readiness: "ready", evidence_eligible: false, active_document_version_id: null });
       await route.fulfill({ json: currentPaper });
       return;
     }
@@ -196,8 +224,16 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
       await route.fulfill({ json: currentPaper });
       return;
     }
-    if (request.method() === "GET" && path === `/api/operations/${operationId}`) {
-      await route.fulfill({ json: currentOperation });
+    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}/papers/${candidateId}/pdf`) {
+      if (!pdfAvailable) {
+        await route.fulfill({ status: 404, json: { error: "paper_pdf_unavailable" } });
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: Buffer.from("%PDF-1.4 mocked"),
+      });
       return;
     }
     await route.fulfill({ status: 404, json: { detail: "not mocked" } });
@@ -208,70 +244,51 @@ test("researcher can discover, authorise, process, and remove a paper in the bro
   await page.getByTestId("workspace-create").click();
   await expect(page.getByTestId("workspace-select")).toHaveValue(workspaceId);
 
-  const desktopPanelStyles = await page.locator(".panel").evaluateAll((panels) => panels.map((panel) => {
-    const style = getComputedStyle(panel);
-    return { overflowY: style.overflowY, scrollbarGutter: style.scrollbarGutter, maxHeight: style.maxHeight };
-  }));
-  expect(desktopPanelStyles).toHaveLength(3);
-  expect(desktopPanelStyles).toEqual(expect.arrayContaining([
-    expect.objectContaining({ overflowY: "auto", scrollbarGutter: "stable" }),
-  ]));
-  await expect(page.locator(".panel-heading").first()).toHaveCSS("position", "sticky");
+  await expect(page.getByTestId("stage-import")).toBeVisible();
+  await expect(page.getByTestId("stage-reading")).toBeVisible();
+  await expect(page.getByTestId("stage-outline")).toBeVisible();
+  await expect(page.getByTestId("stage-writing")).toBeVisible();
 
+  await page.getByTestId("stage-reading").click();
+  await expect(page.getByText("This stage is not ready yet.")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Go to Literature Import" }).first()).toBeVisible();
+
+  await page.getByTestId("stage-import").click();
   await page.getByTestId("discovery-query").fill("traceable evidence");
   await page.getByTestId("discovery-submit").click();
   await expect(page.getByTestId("paper-candidate")).toBeVisible();
 
   await page.getByTestId(`import-paper-${candidateId}`).click();
-  await expect(page.getByTestId(`authorised-upload-${candidateId}`)).toBeAttached();
   await page.getByTestId(`authorised-upload-${candidateId}`).setInputFiles({
     name: "authorised-paper.pdf",
     mimeType: "application/pdf",
     buffer: Buffer.from("%PDF-authorised"),
   });
-  await page.getByRole("button", { name: "上传授权文件" }).click();
-  await expect(page.getByTestId("paper-evidence-eligible")).toBeVisible();
-  await page.getByTestId("outline-generate").click();
-  await expect(page.getByTestId("outline-research-question")).toHaveValue("How can research evidence remain traceable?");
-  await page.getByTestId("outline-research-question").fill("How can selected evidence remain traceable?");
-  await page.getByTestId("outline-add-section").click();
-  await page.getByTestId("outline-save").click();
-  await page.getByTestId("outline-approve").click();
-  await expect(page.getByTestId("outline-status")).toContainText("已审批");
-  await page.getByTestId("outline-research-question").fill("An edited approved question");
-  await page.getByTestId("outline-save").click();
-  await expect(page.getByTestId("outline-status")).toContainText("草稿");
-  await page.getByTestId("outline-history").click();
-  await expect(page.getByTestId("outline-history-panel")).toBeVisible();
-  await page.getByRole("button", { name: "恢复为新草稿" }).click();
-  await expect(page.getByTestId("outline-status")).toContainText("草稿");
-  await page.reload();
-  await expect(page.getByTestId("outline-status")).toContainText("草稿");
-  await expect(page.getByTestId("operation-status")).toContainText("已完成");
+  await page.getByRole("button", { name: "Upload authorised PDF" }).click();
 
+  await expect(page.getByTestId(`ready-paper-row-${candidateId}`)).toBeVisible();
+  await page.getByTestId(`ready-paper-row-${candidateId}`).click();
+  await expect(page.getByTestId("paper-reading-frame")).toHaveAttribute("src", `/api/workspaces/${workspaceId}/papers/${candidateId}/pdf`);
+
+  await page.getByTestId("stage-writing").click();
+  await expect(
+    page.getByText("Report writing becomes available after at least one paper is ready and the current outline is approved.").first(),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Approve the Outline" }).first()).toBeVisible();
+
+  pdfAvailable = false;
+  await page.reload();
+  await page.getByTestId("stage-reading").click();
+  await expect(page.getByText("Original PDF unavailable")).toBeVisible();
+  await expect(page.getByText("will not reconstruct a reader from chunks")).toBeVisible();
+
+  await page.getByTestId("stage-import").click();
   await page.getByTestId(`remove-paper-${candidateId}`).click();
   await expect(page.getByTestId("paper-candidate")).toBeVisible();
   await page.getByTestId(`dismiss-paper-${candidateId}`).click();
   await expect(page.getByTestId("paper-candidate")).toHaveCount(0);
-  await page.getByTestId(`restore-paper-${candidateId}`).click();
+  const restoreButton = page.getByTestId(`restore-paper-${candidateId}`);
+  await restoreButton.scrollIntoViewIfNeeded();
+  await restoreButton.click();
   await expect(page.getByTestId("paper-candidate")).toBeVisible();
-
-  currentPaper = paper({
-    selected: true,
-    evidence_readiness: "failed",
-    retryable: true,
-    failure_message: "All public PDF sources failed: The selected public URL did not return a PDF.",
-  });
-  await page.reload();
-  await expect(page.getByTestId("paper-selected")).toContainText("所有公开 PDF 来源均失败");
-  await expect(page.getByTestId(`authorised-upload-${candidateId}`)).toBeAttached();
-
-  await page.setViewportSize({ width: 640, height: 800 });
-  const mobilePanelStyles = await page.locator(".panel").evaluateAll((panels) => panels.map((panel) => {
-    const style = getComputedStyle(panel);
-    return { overflowY: style.overflowY, maxHeight: style.maxHeight };
-  }));
-  expect(mobilePanelStyles).toEqual(expect.arrayContaining([
-    expect.objectContaining({ overflowY: "visible", maxHeight: "none" }),
-  ]));
 });

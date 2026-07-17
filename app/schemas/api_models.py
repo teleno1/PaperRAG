@@ -431,6 +431,50 @@ class ResearchWorkspaceResponse(BaseModel):
     report: Optional[LiteratureReportResponse] = None
 
 
+class ResearchWorkspaceSummaryResponse(BaseModel):
+    id: str
+    topic: str
+    report_language: Literal["zh", "en"]
+    state: Literal["setup", "active", "archived"]
+    created_at: str
+    updated_at: str
+
+
+class WorkspaceStageResponse(BaseModel):
+    key: Literal["import", "reading", "outline", "writing"]
+    title: str
+    available: bool
+    detail: str
+    next_action_stage: Optional[Literal["import", "reading", "outline", "writing"]] = None
+    next_action_label: Optional[str] = None
+
+
+class WorkspaceImportStateResponse(BaseModel):
+    selected_papers: list[ResearchPaperResponse] = Field(default_factory=list)
+    ready_papers: list[ResearchPaperResponse] = Field(default_factory=list)
+    candidate_papers: list[ResearchPaperResponse] = Field(default_factory=list)
+    dismissed_papers: list[ResearchPaperResponse] = Field(default_factory=list)
+    operations: list[WorkspaceOperationResponse] = Field(default_factory=list)
+
+
+class WorkspaceReadingStateResponse(BaseModel):
+    active_paper_id: Optional[str] = None
+    active_paper: Optional[ResearchPaperResponse] = None
+    ready_papers: list[ResearchPaperResponse] = Field(default_factory=list)
+    pdf_available: bool = False
+    pdf_url: Optional[str] = None
+    unavailable_reason: Optional[str] = None
+
+
+class WorkspaceViewStateResponse(BaseModel):
+    workspace: ResearchWorkspaceSummaryResponse
+    stages: list[WorkspaceStageResponse] = Field(default_factory=list)
+    import_state: WorkspaceImportStateResponse
+    reading_state: WorkspaceReadingStateResponse
+    outline: Optional[ReportOutlineResponse] = None
+    report: Optional[LiteratureReportResponse] = None
+
+
 class WorkspaceUploadResponse(BaseModel):
     paper: ResearchPaperResponse
     operation: Optional[WorkspaceOperationResponse] = None

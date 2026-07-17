@@ -1,4 +1,5 @@
 export type ReportLanguage = "zh" | "en";
+export type WorkspaceStageKey = "import" | "reading" | "outline" | "writing";
 export type EvidenceReadiness =
   | "awaiting_authorised_file"
   | "importing"
@@ -61,19 +62,6 @@ export interface ResearchPaper {
   discovery_query: string | null;
   discovered_at: string | null;
   dismissed: boolean;
-}
-
-export interface ResearchWorkspace {
-  id: string;
-  topic: string;
-  report_language: ReportLanguage;
-  state: "setup" | "active" | "archived";
-  created_at: string;
-  updated_at: string;
-  papers: ResearchPaper[];
-  operations: WorkspaceOperation[];
-  outline: ReportOutline | null;
-  report: LiteratureReport | null;
 }
 
 export interface OutlineSection {
@@ -157,6 +145,19 @@ export interface LiteratureReport {
   updated_at: string;
 }
 
+export interface ResearchWorkspace {
+  id: string;
+  topic: string;
+  report_language: ReportLanguage;
+  state: "setup" | "active" | "archived";
+  created_at: string;
+  updated_at: string;
+  papers: ResearchPaper[];
+  operations: WorkspaceOperation[];
+  outline: ReportOutline | null;
+  report: LiteratureReport | null;
+}
+
 export interface DiscoveryResponse {
   provider: "openalex" | "arxiv";
   query: string;
@@ -175,4 +176,48 @@ export interface DiscoveryResponse {
 export interface UploadResponse {
   paper: ResearchPaper;
   operation: WorkspaceOperation | null;
+}
+
+export interface WorkspaceStageState {
+  key: WorkspaceStageKey;
+  title: string;
+  available: boolean;
+  detail: string;
+  next_action_stage: WorkspaceStageKey | null;
+  next_action_label: string | null;
+}
+
+export interface WorkspaceImportState {
+  selected_papers: ResearchPaper[];
+  ready_papers: ResearchPaper[];
+  candidate_papers: ResearchPaper[];
+  dismissed_papers: ResearchPaper[];
+  operations: WorkspaceOperation[];
+}
+
+export interface WorkspaceReadingState {
+  active_paper_id: string | null;
+  active_paper: ResearchPaper | null;
+  ready_papers: ResearchPaper[];
+  pdf_available: boolean;
+  pdf_url: string | null;
+  unavailable_reason: string | null;
+}
+
+export interface WorkspaceSummary {
+  id: string;
+  topic: string;
+  report_language: ReportLanguage;
+  state: "setup" | "active" | "archived";
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WorkspaceViewState {
+  workspace: WorkspaceSummary;
+  stages: WorkspaceStageState[];
+  import_state: WorkspaceImportState;
+  reading_state: WorkspaceReadingState;
+  outline: ReportOutline | null;
+  report: LiteratureReport | null;
 }

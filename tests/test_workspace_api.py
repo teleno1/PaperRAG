@@ -91,3 +91,93 @@ def test_workspace_api_rejects_non_pdf_upload(tmp_path: Path, monkeypatch) -> No
 
     assert response.status_code == 400
     assert response.json()["error"] == "invalid_upload"
+
+
+def test_workspace_view_state_exposes_stage_gating_and_original_pdf_route(tmp_path: Path, monkeypatch) -> None:
+    from app.api.routes import workspaces as workspace_route
+
+    service = ResearchWorkspaceService(
+        repository=WorkspaceRepository(tmp_path / "workspace.sqlite3"),
+        parser_registry=ParserRegistry([FakePdfParser()]),
+        storage_root=tmp_path / "workspace-files",
+    )
+    monkeypatch.setattr(workspace_route, "get_workspace_service", lambda: service)
+    client = TestClient(app)
+
+    workspace_id = client.post(
+        "/api/workspaces",
+        json={"topic": "Evidence attribution", "report_language": "en"},
+    ).json()["id"]
+
+    uploaded = client.post(
+        f"/api/workspaces/{workspace_id}/papers/upload",
+        files={"file": ("paper.pdf", b"%PDF-authorised", "application/pdf")},
+    ).json()
+    operation_id = uploaded["operation"]["id"]
+
+    for _ in range(50):
+        operation = client.get(f"/api/operations/{operation_id}").json()
+        if operation["status"] == "succeeded":
+            break
+        time.sleep(0.01)
+
+    view = client.get(f"/api/workspaces/{workspace_id}/view")
+    assert view.status_code == 200
+    payload = view.json()
+    assert payload["workspace"]["id"] == workspace_id
+    assert payload["import_state"]["ready_papers"][0]["title"] == "paper"
+    assert payload["reading_state"]["pdf_available"] is True
+    assert payload["reading_state"]["pdf_url"] == f"/api/workspaces/{workspace_id}/papers/{uploaded['paper']['id']}/pdf"
+    assert {stage["key"]: stage["available"] for stage in payload["stages"]} == {
+        "import": True,
+        "reading": True,
+        "outline": True,
+        "writing": False,
+    }
+
+
+def test_workspace_pdf_route_and_view_state_report_unavailable_original_pdf_truthfully(tmp_path: Path, monkeypatch) -> None:
+    from app.api.routes import workspaces as workspace_route
+
+    service = ResearchWorkspaceService(
+        repository=WorkspaceRepository(tmp_path / "workspace.sqlite3"),
+        parser_registry=ParserRegistry([FakePdfParser()]),
+        storage_root=tmp_path / "workspace-files",
+    )
+    monkeypatch.setattr(workspace_route, "get_workspace_service", lambda: service)
+    client = TestClient(app)
+
+    workspace_id = client.post(
+        "/api/workspaces",
+        json={"topic": "Evidence attribution", "report_language": "en"},
+    ).json()["id"]
+
+    uploaded = client.post(
+        f"/api/workspaces/{workspace_id}/papers/upload",
+        files={"file": ("paper.pdf", b"%PDF-authorised", "application/pdf")},
+    ).json()
+    paper_id = uploaded["paper"]["id"]
+    operation_id = uploaded["operation"]["id"]
+
+    for _ in range(50):
+        operation = client.get(f"/api/operations/{operation_id}").json()
+        if operation["status"] == "succeeded":
+            break
+        time.sleep(0.01)
+
+    pdf = client.get(f"/api/workspaces/{workspace_id}/papers/{paper_id}/pdf")
+    assert pdf.status_code == 200
+    assert pdf.headers["content-type"].startswith("application/pdf")
+    assert pdf.content.startswith(b"%PDF-authorised")
+
+    pdf_path = tmp_path / "workspace-files" / workspace_id / "papers" / paper_id
+    stored_pdf = next(pdf_path.rglob("*.pdf"))
+    stored_pdf.unlink()
+
+    view = client.get(f"/api/workspaces/{workspace_id}/view").json()
+    assert view["reading_state"]["pdf_available"] is False
+    assert "will not reconstruct" in view["reading_state"]["unavailable_reason"]
+
+    missing_pdf = client.get(f"/api/workspaces/{workspace_id}/papers/{paper_id}/pdf")
+    assert missing_pdf.status_code == 404
+    assert missing_pdf.json()["error"] == "paper_pdf_unavailable"

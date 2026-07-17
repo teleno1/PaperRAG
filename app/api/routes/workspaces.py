@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, File, Form, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from app.core.exceptions import (
     InvalidOutlineError,
@@ -46,12 +46,17 @@ from app.schemas import (
     EvidenceCoverageResponse,
     EvidenceExclusionResponse,
     ResearchPaperResponse,
+    ResearchWorkspaceSummaryResponse,
     ResearchWorkspaceResponse,
     WorkspaceCreateRequest,
     WorkspaceDiscoveryRequest,
     WorkspaceDiscoveryResponse,
+    WorkspaceImportStateResponse,
     WorkspaceOperationResponse,
+    WorkspaceReadingStateResponse,
+    WorkspaceStageResponse,
     WorkspaceUploadResponse,
+    WorkspaceViewStateResponse,
 )
 from app.use_cases.workspace import ResearchWorkspaceService
 
@@ -117,6 +122,17 @@ def _workspace_response(
         operations=[_operation_response(operation) for operation in (operations or [])],
         outline=_outline_response(outline) if outline else None,
         report=_report_response(report) if report else None,
+    )
+
+
+def _workspace_summary_response(workspace: ResearchWorkspace) -> ResearchWorkspaceSummaryResponse:
+    return ResearchWorkspaceSummaryResponse(
+        id=workspace.id,
+        topic=workspace.topic,
+        report_language=workspace.report_language,
+        state=workspace.state,
+        created_at=workspace.created_at,
+        updated_at=workspace.updated_at,
     )
 
 
@@ -226,6 +242,35 @@ def _source_chunk_response(source: SourceChunk) -> SourceChunkResponse:
             if key in anchor
         }
     return SourceChunkResponse(**payload)
+
+
+def _workspace_view_response(view_state: dict) -> WorkspaceViewStateResponse:
+    workspace = view_state["workspace"]
+    return WorkspaceViewStateResponse(
+        workspace=_workspace_summary_response(workspace),
+        stages=[WorkspaceStageResponse(**stage) for stage in view_state["stages"]],
+        import_state=WorkspaceImportStateResponse(
+            selected_papers=[_paper_response(paper) for paper in view_state["selected_papers"]],
+            ready_papers=[_paper_response(paper) for paper in view_state["ready_papers"]],
+            candidate_papers=[_paper_response(paper) for paper in view_state["candidate_papers"]],
+            dismissed_papers=[_paper_response(paper) for paper in view_state["dismissed_papers"]],
+            operations=[_operation_response(operation) for operation in view_state["operations"]],
+        ),
+        reading_state=WorkspaceReadingStateResponse(
+            active_paper_id=view_state["reading_state"]["active_paper_id"],
+            active_paper=(
+                _paper_response(view_state["reading_state"]["active_paper"])
+                if view_state["reading_state"]["active_paper"] is not None
+                else None
+            ),
+            ready_papers=[_paper_response(paper) for paper in view_state["reading_state"]["ready_papers"]],
+            pdf_available=view_state["reading_state"]["pdf_available"],
+            pdf_url=view_state["reading_state"]["pdf_url"],
+            unavailable_reason=view_state["reading_state"]["unavailable_reason"],
+        ),
+        outline=_outline_response(view_state["outline"]) if view_state["outline"] else None,
+        report=_report_response(view_state["report"]) if view_state["report"] else None,
+    )
 
 
 def _report_from_request(request: LiteratureReportSaveRequest) -> LiteratureReport:
@@ -366,6 +411,27 @@ def get_workspace(workspace_id: str) -> ResearchWorkspaceResponse:
             service.list_operations(workspace_id),
             service.get_outline(workspace_id),
             service.get_report_draft(workspace_id),
+        )
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.get(
+    "/workspaces/{workspace_id}/view",
+    response_model=WorkspaceViewStateResponse,
+    responses={"404": {"model": ErrorResponse}},
+)
+def get_workspace_view_state(
+    workspace_id: str,
+    reading_paper_id: str | None = None,
+) -> WorkspaceViewStateResponse:
+    try:
+        return _workspace_view_response(
+            get_workspace_service().get_workspace_view_state(
+                workspace_id,
+                reading_paper_id=reading_paper_id,
+            )
         )
     except PaperRAGError as exc:
         return _error_response(exc)
@@ -641,6 +707,38 @@ def retry_paper(
         return WorkspaceUploadResponse(
             paper=_paper_response(result.paper),
             operation=_operation_response(result.operation),
+        )
+    except PaperRAGError as exc:
+        return _error_response(exc)
+    raise AssertionError("unreachable")
+
+
+@router.get(
+    "/workspaces/{workspace_id}/papers/{paper_id}/pdf",
+    responses={"404": {"model": ErrorResponse}},
+)
+def get_workspace_paper_pdf(workspace_id: str, paper_id: str):
+    try:
+        service = get_workspace_service()
+        paper = service.get_paper(workspace_id, paper_id)
+        pdf_path = service.get_authorised_pdf_path(workspace_id, paper_id)
+        if pdf_path is None:
+            return JSONResponse(
+                status_code=404,
+                content={
+                    "error": "paper_pdf_unavailable",
+                    "detail": (
+                        "The authorised original PDF for this Selected Paper is unavailable. "
+                        "Use the workspace recovery actions instead of a reconstructed reader."
+                    ),
+                    "next_action": "retry_or_upload_authorised_pdf",
+                },
+            )
+        return FileResponse(
+            pdf_path,
+            media_type="application/pdf",
+            filename=paper.original_filename,
+            headers={"Content-Disposition": f'inline; filename="{paper.original_filename}"'},
         )
     except PaperRAGError as exc:
         return _error_response(exc)

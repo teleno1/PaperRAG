@@ -103,7 +103,7 @@ function report(claimText = "Generated grounded Claim") {
   };
 }
 
-test("researcher can generate and auto-save an editable cited report", async ({ page }) => {
+test("researcher can generate and auto-save an editable cited report inside the writing stage", async ({ page }) => {
   let generated = false;
   let currentReport = null as ReturnType<typeof report> | null;
   const currentOperation = {
@@ -121,15 +121,65 @@ test("researcher can generate and auto-save an editable cited report", async ({ 
     started_at: "2026-07-14T00:00:00Z",
     finished_at: "2026-07-14T00:00:01Z",
   };
-  const workspace = () => ({
-    id: workspaceId,
-    topic: "Traceable research evidence",
-    report_language: "en",
-    state: "active",
-    created_at: "2026-07-14T00:00:00Z",
-    updated_at: "2026-07-14T00:00:00Z",
-    papers: [paper()],
-    operations: generated ? [currentOperation] : [],
+
+  const viewState = () => ({
+    workspace: {
+      id: workspaceId,
+      topic: "Traceable research evidence",
+      report_language: "en",
+      state: "active",
+      created_at: "2026-07-14T00:00:00Z",
+      updated_at: "2026-07-14T00:00:00Z",
+    },
+    stages: [
+      {
+        key: "import",
+        title: "Literature Import",
+        available: true,
+        detail: "Discover Candidate Papers, upload authorised PDFs, and move Selected Papers to evidence-ready status.",
+        next_action_stage: null,
+        next_action_label: null,
+      },
+      {
+        key: "reading",
+        title: "Paper Reading",
+        available: true,
+        detail: "Read any evidence-ready Selected Paper in its authorised original PDF.",
+        next_action_stage: null,
+        next_action_label: null,
+      },
+      {
+        key: "outline",
+        title: "Report Outline",
+        available: true,
+        detail: "Generate and edit the report outline from evidence-ready Selected Papers.",
+        next_action_stage: null,
+        next_action_label: null,
+      },
+      {
+        key: "writing",
+        title: "Report Writing",
+        available: true,
+        detail: "Generate and edit a cited Literature Report from the approved outline.",
+        next_action_stage: null,
+        next_action_label: null,
+      },
+    ],
+    import_state: {
+      selected_papers: [paper()],
+      ready_papers: [paper()],
+      candidate_papers: [],
+      dismissed_papers: [],
+      operations: generated ? [currentOperation] : [],
+    },
+    reading_state: {
+      active_paper_id: paperId,
+      active_paper: paper(),
+      ready_papers: [paper()],
+      pdf_available: true,
+      pdf_url: `/api/workspaces/${workspaceId}/papers/${paperId}/pdf`,
+      unavailable_reason: null,
+    },
     outline: outline(),
     report: currentReport,
   });
@@ -138,12 +188,26 @@ test("researcher can generate and auto-save an editable cited report", async ({ 
     const request = route.request();
     const url = new URL(request.url());
     const path = url.pathname;
+
     if (request.method() === "GET" && path === "/api/workspaces") {
-      await route.fulfill({ json: [workspace()] });
+      await route.fulfill({
+        json: [{
+          id: workspaceId,
+          topic: "Traceable research evidence",
+          report_language: "en",
+          state: "active",
+          created_at: "2026-07-14T00:00:00Z",
+          updated_at: "2026-07-14T00:00:00Z",
+          papers: [paper()],
+          operations: generated ? [currentOperation] : [],
+          outline: outline(),
+          report: currentReport,
+        }],
+      });
       return;
     }
-    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}`) {
-      await route.fulfill({ json: workspace() });
+    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}/view`) {
+      await route.fulfill({ json: viewState() });
       return;
     }
     if (request.method() === "POST" && path === `/api/workspaces/${workspaceId}/report/generate`) {
@@ -157,18 +221,28 @@ test("researcher can generate and auto-save an editable cited report", async ({ 
       await route.fulfill({ json: currentReport });
       return;
     }
+    if (request.method() === "GET" && path === `/api/workspaces/${workspaceId}/papers/${paperId}/pdf`) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: Buffer.from("%PDF-1.4 mocked"),
+      });
+      return;
+    }
     await route.fulfill({ status: 404, json: { detail: "not mocked" } });
   });
 
   await page.goto("/");
+  await page.getByTestId("stage-writing").click();
   await page.getByTestId("report-generate").click();
-  await expect(page.getByTestId("report-status")).toContainText("证据已关联");
+  await expect(page.getByTestId("report-status")).toContainText("Evidence linked");
   await expect(page.getByTestId(`claim-citations-${claimId}`)).toContainText("1");
 
   const claim = page.getByTestId(`report-claim-${claimId}`);
   await claim.fill("Researcher edited Claim");
   await expect.poll(() => currentReport?.sections[0].claims[0].text).toBe("Researcher edited Claim");
   await page.reload();
+  await page.getByTestId("stage-writing").click();
   await expect(page.getByTestId(`report-claim-${claimId}`)).toHaveValue("Researcher edited Claim");
   await expect(page.getByTestId(`claim-citations-${claimId}`)).toContainText("1");
 });

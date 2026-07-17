@@ -62,10 +62,10 @@ cited claim to its source evidence in the desktop interface.
 
 ## Frontier
 
-[08 Connect Preparation and Reading to the Accepted Workspace](../../.scratch/research-paper-workspace/issues/08-connect-preparation-and-reading-to-accepted-workspace.md)
-is the current delivery frontier. Ticket 07 accepted the flow-driven desktop
-architecture and its Interaction Contract; real browser delivery may now begin
-from the import and paper-reading stages.
+[09 Generate, Edit, and Approve an Evidence-Driven Outline](../../.scratch/research-paper-workspace/issues/09-generate-edit-approve-evidence-driven-outline.md)
+is the current delivery frontier. Ticket 08 completed the production import and
+paper-reading stages on the accepted Workspace View State contract, so outline
+delivery can now start on the real four-stage workspace.
 
 ## Delivery status
 
@@ -91,9 +91,9 @@ from the import and paper-reading stages.
   is complete; its accepted Interaction Contract is the browser-acceptance
   source.
 - [08 Connect Preparation and Reading to the Accepted Workspace](../../.scratch/research-paper-workspace/issues/08-connect-preparation-and-reading-to-accepted-workspace.md)
-  is the current frontier.
+  is complete.
 - [09 Generate, Edit, and Approve an Evidence-Driven Outline](../../.scratch/research-paper-workspace/issues/09-generate-edit-approve-evidence-driven-outline.md)
-  is blocked by 08.
+  is the current frontier.
 - [10 Retrieve and Freeze Chapter Evidence](../../.scratch/research-paper-workspace/issues/10-retrieve-and-freeze-chapter-evidence.md)
   is blocked by 09.
 - [11 Generate Verified Body Chapters](../../.scratch/research-paper-workspace/issues/11-generate-verified-body-chapters.md)
