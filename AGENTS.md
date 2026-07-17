@@ -66,3 +66,17 @@ deletion, or a technology change not yet decided in the map.
 
 This repository uses a single root [CONTEXT.md](CONTEXT.md) and `docs/adr/`
 for durable architectural decisions. See [docs/agents/domain.md](docs/agents/domain.md).
+
+## Agent skills
+
+### Issue tracker
+
+Local markdown under `.scratch/` (GitHub Issues write access unavailable). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five canonical labels retained for future GitHub Issues migration. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — root `CONTEXT.md` + `docs/adr/`. See `docs/agents/domain.md`.
